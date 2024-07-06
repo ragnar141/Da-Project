@@ -10,7 +10,7 @@ const TreeReferenceGraph = () => {
 
  useEffect(() => {
   const margin = { top: 20, right: 50, bottom: 70, left: 50 };
-  const width = 1850 - margin.left - margin.right;
+  const width = 1500 - margin.left - margin.right;
   const height = 1800 - margin.top - margin.bottom;
  
   const languages = [
@@ -71,6 +71,7 @@ const TreeReferenceGraph = () => {
     const getXPosition = (language, author) => {
       const index = languages.indexOf(language);
       const segmentWidth = width / languages.length;
+      const padding = 0.1; 
       
       // Normalize first letter of the author's name to a value between 0 and 1
       let positionFactor = 0.5; // Default value for unknown authors
@@ -79,10 +80,12 @@ const TreeReferenceGraph = () => {
         const normalizedValue = (firstLetter.charCodeAt(0) - 65) / 25; // 'A' -> 0, 'Z' -> 1
         positionFactor = Math.min(Math.max(normalizedValue, 0), 1);
       }
-  
+
+      // Adjust positionFactor to include padding
+      positionFactor = padding + positionFactor * (1 - 2 * padding);
+
       return xScale(index) + positionFactor * segmentWidth;
     };
-
     const data = textsData.map(d => ({
       language: d["dataviz friendly original language"],
       year: d["dataviz friendly date"],
