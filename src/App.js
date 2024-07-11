@@ -1,4 +1,3 @@
-import './App.css';
 import TreeReferenceGraph from './components logic/TreeReferenceGraph';
 
 function App() {
