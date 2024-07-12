@@ -8,6 +8,8 @@ import referencesData from './datasets/references 7.11.24.json';
 const TreeReferenceGraph = () => {
   const chartRef = useRef(null);
   const [hoveredText, setHoveredText] = useState(null); // State to manage hovered text information
+  const [referencingTitles, setReferencingTitles] = useState([]); // Titles of texts referencing the hovered text
+  const [referencedTitles, setReferencedTitles] = useState([]); // Titles of texts referenced by the hovered text
 
   // Define the functions outside the useEffect hook
   const getXPosition = (xScale, year) => xScale(year);
@@ -137,36 +139,73 @@ const TreeReferenceGraph = () => {
         d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.9);
         // Set hovered text information
         setHoveredText(d);
+
+        // Collect titles and years of texts that reference the hovered text
+        const refs = referencesData
+          .filter(ref => ref.primary_text === d.id)
+          .map(ref => dataMap.get(ref.secondary_text))
+          .filter(Boolean)
+          .map(text => ({ title: text.title, year: text.year }))
+          .sort((a, b) => b.year - a.year); // Sort by year, newest first
+        setReferencingTitles(refs);
+
+        // Collect titles and years of texts that the hovered text references
+        const refsBy = referencesData
+          .filter(ref => ref.secondary_text === d.id)
+          .map(ref => dataMap.get(ref.primary_text))
+          .filter(Boolean)
+          .map(text => ({ title: text.title, year: text.year }))
+          .sort((a, b) => b.year - a.year); // Sort by year, newest first
+        setReferencedTitles(refsBy);
+
+        // Change fill color of circle to black
+        d3.select(event.target).style('fill', 'black');
       })
       .on('mouseout', (event, d) => {
         // Reset opacity of related lines
         d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.1);
         // Clear hovered text information
         setHoveredText(null);
+        setReferencingTitles([]);
+        setReferencedTitles([]);
+        // Reset fill color of circle to white
+        d3.select(event.target).style('fill', 'white');
       });
 
   }, []);
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative', pointerEvents: 'auto' }}>
       <svg ref={chartRef}></svg>
       {hoveredText && (
-        <div
-          className="hover-card"
-          style={{
-            left: `${getXPosition(d3.scaleLinear().domain([-3000, 2024]).range([0, 1400 - 30 - 50]), hoveredText.year) + 10}px`, // Adjust for positioning
-            top: `${getYPosition(d3.scaleBand().domain([
-              'Hebrew', 'Aramaic', 'Avestan', 'Sanskrit', 'Chinese', 'Greek',
-              'Pali', 'Latin', 'Arabic', 'Japanese', 'Italian',
-              'French', 'English', 'German', 'Russian'
-            ]).range([0, 700 - 30 - 40]).padding(0), hoveredText.language, hoveredText.author) + 20}px`, // Adjust for positioning below the dot
-          }}
-        >
-          <p><strong>{hoveredText.title}</strong></p>
-          <p><span>by:</span> <span><strong>{hoveredText.author}</strong></span></p>
-          <p><span><strong>{hoveredText.dateForCard}</strong></span></p>
-          <p><span>Language:</span> <span><strong>{hoveredText.oLanguage}</strong></span></p>
-          <p><span>Location:</span> <span><strong>{hoveredText.location}</strong></span></p>
+        <div className="hover-card" style={{ pointerEvents: 'auto' }}>
+          {referencingTitles.length > 0 && (
+            <div className="hover-card-section">
+              <p><strong>Informs:</strong></p>
+              <ul>
+                {referencingTitles.map((item, index) => (
+                  <li key={index}>{item.title} ({item.year})</li>
+                ))}
+              </ul>
+            </div>
+          )}
+          <div className="hover-card-main">
+            <p><span className="hover-card-title">{hoveredText.title}</span></p>
+            <p><span>by:</span> <span>{hoveredText.author}</span></p>
+            <p><span>{hoveredText.dateForCard}</span></p>
+             <p><span>{hoveredText.oLanguage}</span></p>
+             <p><span>{hoveredText.location}</span></p>
+          </div>
+          {referencedTitles.length > 0 && (
+            <div className="hover-card-section">
+              <p><strong>Informed by:</strong></p>
+              <ul>
+                {referencedTitles.map((item, index) => (
+                  <li key={index}>{item.title} ({item.year})</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       )}
     </div>

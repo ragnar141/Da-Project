@@ -1,15 +1,22 @@
 .hover-card {
   position: absolute;
+  top: 0;
+  right: 0;
+  height: 98%; /* Make the card the same height as the graph */
+  width: 120px; /* Adjust width to fit the right segment */
   background-color: white;
   border: 1px solid black;
   border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 5px; /* Reduced padding */
-  pointer-events: none; /* Ensure the card does not block mouse events */
-  width: auto; /* Adjust width based on content */
-  display: inline-block; /* Make the card adjust its width based on content */
+  padding: 10px; /* Add padding inside the card */
+  pointer-events: auto; /* Ensure the card can capture mouse events */
   font-size: 10px; /* Reduced font size */
   transition: opacity 0.2s;
+  overflow-y: auto !important;  /* Allow vertical scrolling if content overflows */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Space sections evenly */
 }
 
 .hover-card p {
@@ -26,4 +33,41 @@
   display: block;
   margin-bottom: 3px; /* Reduced margin */
   font-size: 12px; /* Slightly larger font for strong elements */
+}
+
+.hover-card ul {
+  list-style: none; /* Remove bullet points */
+  padding-left: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+  font-size: 10px; /* Match font size */
+}
+
+.hover-card ul li {
+  padding: 2px 0; /* Add padding between list items */
+}
+
+.hover-card-section {
+  text-align: left;
+  flex-grow: 1; /* Allow the section to grow */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+}
+
+.hover-card-main {
+  text-align: center;
+  flex-grow: 1; /* Allow the section to grow */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+}
+
+.hover-card-main p {
+  text-align: center; /* Center text within each paragraph */
+}
+
+.hover-card-title {
+  font-size: 16px; /* Set font size of title component */
+  font-weight: bold;
 }
