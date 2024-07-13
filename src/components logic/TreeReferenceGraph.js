@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import '../components css/TreeReferenceGraph.css'; // Import the CSS file
 
-import textsData from './datasets/texts 7.11.24.json';
+import textsData from './datasets/texts 7.13.24.json';
 import referencesData from './datasets/references 7.11.24.json';
 
 const TreeReferenceGraph = () => {
@@ -33,9 +33,9 @@ const TreeReferenceGraph = () => {
   };
 
   useEffect(() => {
-    const margin = { top: 30, right: 50, bottom: 40, left: 50 };
+    const margin = { top: 0, right: 50, bottom: 0, left: 50 };
     const width = 1400 - margin.left - margin.right;
-    const height = 700 - margin.top - margin.bottom;
+    const height = 680 - margin.top - margin.bottom;
 
     const languages = [
       'Hebrew', 'Aramaic', 'Avestan', 'Sanskrit', 'Chinese', 'Japanese', 
@@ -101,7 +101,8 @@ const TreeReferenceGraph = () => {
       oLanguage: d["original language"],
       author: d.author,
       title: d.title,
-      location: d["original location"]
+      location: d["original location"],
+      link: d.link // Make sure this matches the actual column name in your JSON
     }));
 
     const dataMap = new Map(data.map(d => [d.id, d]));
@@ -144,21 +145,35 @@ const TreeReferenceGraph = () => {
         // Collect titles and years of texts that reference the hovered text
         const refs = referencesData
           .filter(ref => ref.primary_text === d.id)
-          .map(ref => dataMap.get(ref.secondary_text))
+          .map(ref => ({
+            ...dataMap.get(ref.secondary_text),
+            referenceType: ref.type_of_reference
+          }))
           .filter(Boolean)
-          .map(text => ({ title: text.title, year: text.year }))
+          .map(text => ({
+            title: text.title,
+            year: text.year,
+            referenceType: text.referenceType
+          }))
           .sort((a, b) => b.year - a.year); // Sort by year, newest first
         setReferencingTitles(refs);
-
+        
         // Collect titles and years of texts that the hovered text references
         const refsBy = referencesData
           .filter(ref => ref.secondary_text === d.id)
-          .map(ref => dataMap.get(ref.primary_text))
+          .map(ref => ({
+            ...dataMap.get(ref.primary_text),
+            referenceType: ref.type_of_reference
+          }))
           .filter(Boolean)
-          .map(text => ({ title: text.title, year: text.year }))
+          .map(text => ({
+            title: text.title,
+            year: text.year,
+            referenceType: text.referenceType
+          }))
           .sort((a, b) => b.year - a.year); // Sort by year, newest first
         setReferencedTitles(refsBy);
-
+        
         // Change fill color of circle to black
         d3.select(event.target).style('fill', 'black');
       })
@@ -171,6 +186,12 @@ const TreeReferenceGraph = () => {
         setReferencedTitles([]);
         // Reset fill color of circle to white
         d3.select(event.target).style('fill', 'white');
+      })
+      .on('click', (event, d) => {
+        // Redirect to the link on click
+        if (d.link) {
+          window.open(d.link, '_blank');
+        }
       });
 
   }, []);
@@ -185,7 +206,9 @@ const TreeReferenceGraph = () => {
               <p><strong>Informs:</strong></p>
               <ul>
                 {referencingTitles.map((item, index) => (
-                  <li key={index}>{item.title} ({item.year})</li>
+                  <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'similar-themes'}>
+                    {item.title} ({item.year})
+                  </li>
                 ))}
               </ul>
             </div>
@@ -194,21 +217,31 @@ const TreeReferenceGraph = () => {
             <p><span className="hover-card-title">{hoveredText.title}</span></p>
             <p><span>by:</span> <span>{hoveredText.author}</span></p>
             <p><span>{hoveredText.dateForCard}</span></p>
-             <p><span>{hoveredText.oLanguage}</span></p>
-         <p><span>{hoveredText.location}</span></p>
-</div>
+            <p><span>{hoveredText.oLanguage}</span></p>
+            <p><span>{hoveredText.location}</span></p>
+          </div>
           {referencedTitles.length > 0 && (
             <div className="hover-card-section">
               <p><strong>Informed by:</strong></p>
               <ul>
                 {referencedTitles.map((item, index) => (
-                  <li key={index}>{item.title} ({item.year})</li>
+                  <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'similar-themes'}>
+                    {item.title} ({item.year})
+                  </li>
                 ))}
               </ul>
             </div>
           )}
         </div>
       )}
+      <div className="legend-container">
+        <div className="legend-item">
+          <span className="bullet direct-reference"></span> direct reference
+        </div>
+        <div className="legend-item">
+          <span className="bullet similar-themes"></span> similar themes
+        </div>
+      </div>
     </div>
   );
 };

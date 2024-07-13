@@ -2,8 +2,8 @@
   position: absolute;
   top: 0;
   right: 0;
-  height: 98%; /* Make the card the same height as the graph */
-  width: 120px; /* Adjust width to fit the right segment */
+  height: 95%; /* Make the card the same height as the graph */
+  width: 130px; /* Adjust width to fit the right segment */
   background-color: white;
   border: 1px solid black;
   border-radius: 4px;
@@ -36,14 +36,33 @@
 }
 
 .hover-card ul {
-  list-style: disc; /* Add bullet points */
-  padding-left: 20px; /* Default padding to show bullets */
+  list-style: none; /* Remove default bullet points */
+  padding-left: 0; /* Remove default padding */
   margin: 0; /* Remove default margin */
   font-size: 13px; /* Match font size */
 }
 
 .hover-card ul li {
   padding: 2px 0; /* Add padding between list items */
+  position: relative; /* Ensure the bullet is positioned correctly */
+}
+
+.hover-card ul li::before {
+  content: '•'; /* Add bullet point */
+  position: absolute; /* Position it absolutely */
+  left: -7px; /* Adjust left position */
+  top: 0; /* Adjust top position */
+  font-size: 16px; /* Adjust font size */
+  line-height: 1; /* Adjust line height */
+  color: black; /* Default color */
+}
+
+.hover-card ul li.direct-reference::before {
+  color: red; /* Red color for direct reference */
+}
+
+.hover-card ul li.similar-themes::before {
+  color: black; /* Black color for similar themes */
 }
 
 .hover-card-section {
@@ -70,4 +89,41 @@
 .hover-card-title {
   font-size: 16px; /* Set font size of title component */
   font-weight: bold;
+}
+
+.legend {
+  margin-top: 20px; /* Space above the legend */
+  text-align: center; /* Align text to the left */
+  padding-left: 20 px;
+}
+
+.legend-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align items to the start of the container */
+  width: 50%; /* Spread items across the left half of the screen */
+  padding-left: 60px;
+  padding-top: 5px;
+}
+
+.legend-item {
+  display: flex; /* Use flexbox to align items horizontally */
+  align-items: center; /* Center items vertically */
+  margin-right: 20px; /* Space between legend items */
+}
+
+.legend-item .bullet {
+  display: inline-block;
+  width: 10px; /* Width of the bullet point */
+  height: 10px; /* Height of the bullet point */
+  border-radius: 50%; /* Make it a circle */
+  margin-right: 5px; /* Space between bullet and text */
+}
+
+.legend-item .bullet.direct-reference {
+  background-color: red; /* Red color for direct reference */
+}
+
+.legend-item .bullet.similar-themes {
+  background-color: black; /* Black color for similar themes */
 }
