@@ -10,6 +10,7 @@ const TreeReferenceGraph = () => {
   const [hoveredText, setHoveredText] = useState(null); // State to manage hovered text information
   const [referencingTitles, setReferencingTitles] = useState([]); // Titles of texts referencing the hovered text
   const [referencedTitles, setReferencedTitles] = useState([]); // Titles of texts referenced by the hovered text
+  
 
   // Define the functions outside the useEffect hook
   const getXPosition = (xScale, year) => xScale(year);
@@ -37,8 +38,8 @@ const TreeReferenceGraph = () => {
     const height = 700 - margin.top - margin.bottom;
 
     const languages = [
-      'Hebrew', 'Aramaic', 'Avestan', 'Sanskrit', 'Chinese', 'Greek',
-      'Pali', 'Latin', 'Arabic', 'Japanese', 'Italian',
+      'Hebrew', 'Aramaic', 'Avestan', 'Sanskrit', 'Chinese', 'Japanese', 
+      'Pali', 'Latin', 'Arabic',  'Italian', 'Greek',
       'French', 'English', 'German', 'Russian'
     ];
 
@@ -119,8 +120,8 @@ const TreeReferenceGraph = () => {
           .attr('x2', getXPosition(xScale, target.year))
           .attr('y2', getYPosition(yScale, target.language, target.author))
           .attr('stroke', color)
-          .attr('stroke-width', 1.5)
-          .attr('stroke-opacity', 0.1)
+          .attr('stroke-width', 1.4)
+          .attr('stroke-opacity', 0.05)
           .attr('class', `reference-line reference-${source.id} reference-${target.id}`);
       }
     });
@@ -194,8 +195,8 @@ const TreeReferenceGraph = () => {
             <p><span>by:</span> <span>{hoveredText.author}</span></p>
             <p><span>{hoveredText.dateForCard}</span></p>
              <p><span>{hoveredText.oLanguage}</span></p>
-             <p><span>{hoveredText.location}</span></p>
-          </div>
+         <p><span>{hoveredText.location}</span></p>
+</div>
           {referencedTitles.length > 0 && (
             <div className="hover-card-section">
               <p><strong>Informed by:</strong></p>

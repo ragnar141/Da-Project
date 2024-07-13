@@ -10,9 +10,9 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 10px; /* Add padding inside the card */
   pointer-events: auto; /* Ensure the card can capture mouse events */
-  font-size: 10px; /* Reduced font size */
+  font-size: 13px; /* Reduced font size */
   transition: opacity 0.2s;
-  overflow-y: auto !important;  /* Allow vertical scrolling if content overflows */
+  overflow-y: auto !important; /* Allow vertical scrolling if content overflows */
   overflow-x: hidden; /* Prevent horizontal scrolling */
   display: flex;
   flex-direction: column;
@@ -32,14 +32,14 @@
 .hover-card strong {
   display: block;
   margin-bottom: 3px; /* Reduced margin */
-  font-size: 12px; /* Slightly larger font for strong elements */
+  font-size: 13px; /* Slightly larger font for strong elements */
 }
 
 .hover-card ul {
-  list-style: none; /* Remove bullet points */
-  padding-left: 0; /* Remove default padding */
+  list-style: disc; /* Add bullet points */
+  padding-left: 20px; /* Default padding to show bullets */
   margin: 0; /* Remove default margin */
-  font-size: 10px; /* Match font size */
+  font-size: 13px; /* Match font size */
 }
 
 .hover-card ul li {
