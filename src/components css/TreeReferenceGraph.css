@@ -2,7 +2,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  height: 95%; /* Make the card the same height as the graph */
+  height: 97%; /* Make the card the same height as the graph */
   width: 130px; /* Adjust width to fit the right segment */
   background-color: white;
   border: 1px solid black;
@@ -103,8 +103,7 @@
   justify-content: flex-start; /* Align items to the start of the container */
   width: 50%; /* Spread items across the left half of the screen */
   padding-left: 60px;
-  padding-top: 5px;
-}
+  }
 
 .legend-item {
   display: flex; /* Use flexbox to align items horizontally */

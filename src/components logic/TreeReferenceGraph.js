@@ -33,9 +33,9 @@ const TreeReferenceGraph = () => {
   };
 
   useEffect(() => {
-    const margin = { top: 0, right: 50, bottom: 0, left: 50 };
+    const margin = { top: 0, right: 50, bottom: 20, left: 50 };
     const width = 1400 - margin.left - margin.right;
-    const height = 680 - margin.top - margin.bottom;
+    const height = 690 - margin.top - margin.bottom;
 
     const languages = [
       'Hebrew', 'Aramaic', 'Avestan', 'Sanskrit', 'Chinese', 'Japanese', 
