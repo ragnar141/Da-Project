@@ -1,9 +1,16 @@
+/* TreeReferenceGraph.css */
+
+svg {
+  background-color: white;
+}
+
+
 .hover-card {
   position: absolute;
   top: 0;
-  right: 0;
+  right: 0; 
   height: 97%; /* Make the card the same height as the graph */
-  width: 130px; /* Adjust width to fit the right segment */
+  width: 170px; /* Adjust width to fit the right segment */
   background-color: white;
   border: 1px solid black;
   border-radius: 4px;
@@ -17,6 +24,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* Space sections evenly */
+  z-index: 10; /* Ensure the hover card is on top of other elements */
 }
 
 .hover-card p {
@@ -103,7 +111,7 @@
   justify-content: flex-start; /* Align items to the start of the container */
   width: 50%; /* Spread items across the left half of the screen */
   padding-left: 60px;
-  }
+}
 
 .legend-item {
   display: flex; /* Use flexbox to align items horizontally */
@@ -125,4 +133,36 @@
 
 .legend-item .bullet.similar-themes {
   background-color: black; /* Black color for similar themes */
+}
+
+.tags-container {
+  position: absolute;
+  top: 0;
+  right: 0; /* Position the container all the way to the right */
+  width: 170px; /* Adjust width to fit the right segment */
+  height: 95%; /* Make the container the full height */
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px; /* Add padding inside the container */
+  pointer-events: auto; /* Ensure the container can capture mouse events */
+  font-size: 13px; /* Reduced font size */
+  overflow-y: auto; /* Allow vertical scrolling if content overflows */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Space items evenly */
+  z-index: 1; /* Ensure the tags container is below the hover card */
+}
+
+.tag-item {
+  margin-bottom: 10px; /* Space between tag items */
+  display: flex;
+  align-items: center;
+}
+
+.tag-item input {
+  margin-right: 5px; /* Space between checkbox and label */
+  accent-color: black; /* Change the color of the checkmark to black when checked */
 }
