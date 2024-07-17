@@ -4,11 +4,10 @@ svg {
   background-color: white;
 }
 
-
 .hover-card {
   position: absolute;
   top: 0;
-  right: 0; 
+  right: 0;
   height: 97%; /* Make the card the same height as the graph */
   width: 170px; /* Adjust width to fit the right segment */
   background-color: white;
@@ -156,10 +155,25 @@ svg {
   z-index: 1; /* Ensure the tags container is below the hover card */
 }
 
+.tag-group-1 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Create two columns */
+  gap: 7px; /* Space between tag items */
+  margin-bottom: 20px; /* Space between groups */
+}
+
+.tag-group-2 {
+  display: flex;
+  flex-direction: column; /* Display tags in a single column */
+}
+
 .tag-item {
-  margin-bottom: 10px; /* Space between tag items */
   display: flex;
   align-items: center;
+}
+
+.tag-group-2 .tag-item {
+  margin-bottom: 7px; /* Add more space between tag items in the second group */
 }
 
 .tag-item input {

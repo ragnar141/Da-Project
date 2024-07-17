@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useReducer } from 'react';
+import React, { useEffect, useRef, useReducer, useMemo } from 'react';
 import * as d3 from 'd3';
 import '../components css/TreeReferenceGraph.css'; // Import the CSS file
 
@@ -6,9 +6,14 @@ import textsData from './datasets/tags2.json';
 import referencesData from './datasets/references 7.11.24.json';
 
 // Define the list of tags
-const tags = [
-  "poetry", "allegory", "narrative", "dialogue", "essay", "novel", "critique", "psychology", "theology", "sociology", "history", "philosophy", "natural sciences", "mathematics", 
-  "physics", "biology", "political science", "public relations", "linguistics", "medicine", "logic", "ethics", "education", "law", "warfare", "economics", "epic", "strategy"
+const group1Tags = [
+  "poetry", "narrative", "dialogue", "essay", "novel", "critique"
+];
+
+const group2Tags = [
+  "theology", "philosophy", "logic", "rhetoric", "ethics", "metaphysics", "history", "natural sciences", "mathematics", 
+  "physics", "biology", "political science", "sociology", "psychology", 
+  "linguistics", "medicine", "economics", "education", "public relations", "law", "warfare", "strategy"
 ];
 
 // Initial state for the reducer
@@ -16,7 +21,7 @@ const initialState = {
   hoveredText: null,            // Holds information about the currently hovered text
   referencingTitles: [],        // Titles of texts referencing the hovered text
   referencedTitles: [],         // Titles of texts referenced by the hovered text
-  selectedTags: tags,           // Initialize with all tags selected
+  selectedTags: [...group1Tags, ...group2Tags],           // Initialize with all tags selected
 };
 
 // Reducer function to handle state updates
@@ -54,6 +59,27 @@ const TreeReferenceGraph = () => {
   const updateChartRef = useRef(null);   // Reference to the updateChart function
   const [state, dispatch] = useReducer(reducer, initialState); // Use useReducer for state management
 
+  const margin = useMemo(() => ({ top: 0, right: 130, bottom: 20, left: 70 }), []); // Margin for the SVG
+  const width = 1440 - margin.left - margin.right; // Calculate width
+  const height = 690 - margin.top - margin.bottom; // Calculate height
+
+  // List of languages
+  const languages = useMemo(() => [
+    'Hebrew', 'Aramaic', 'Avestan', 'Sanskrit', 'Chinese', 'Japanese', 
+    'Pali', 'Latin', 'Arabic',  'Italian', 'Greek',
+    'French', 'English', 'German', 'Russian'
+  ], []);
+
+  // Create x-scale and y-scale
+  const xScale = useMemo(() => d3.scaleLinear()
+    .domain([-3000, 2024]) // Set the domain based on the year range
+    .range([0, width]), [width]); // Set the range based on the width
+
+  const yScale = useMemo(() => d3.scaleBand()
+    .domain(languages) // Set the domain based on the languages
+    .range([0, height]) // Set the range based on the height
+    .padding(0), [languages, height]);
+
   // Function to get the x-position of a data point based on the year
   const getXPosition = (xScale, year) => xScale(year);
 
@@ -76,18 +102,8 @@ const TreeReferenceGraph = () => {
     return yPos + positionFactor * bandWidth; // Return the calculated y-position
   };
 
+  // First useEffect to render static elements
   useEffect(() => {
-    const margin = { top: 0, right: 130, bottom: 20, left: 70 }; // Margin for the SVG
-    const width = 1440 - margin.left - margin.right; // Calculate width
-    const height = 690 - margin.top - margin.bottom; // Calculate height
-
-    // List of languages
-    const languages = [
-      'Hebrew', 'Aramaic', 'Avestan', 'Sanskrit', 'Chinese', 'Japanese', 
-      'Pali', 'Latin', 'Arabic',  'Italian', 'Greek',
-      'French', 'English', 'German', 'Russian'
-    ];
-
     // Create SVG element and set its dimensions
     const svg = d3.select(chartRef.current)
       .attr('width', width + margin.left + margin.right)
@@ -95,22 +111,13 @@ const TreeReferenceGraph = () => {
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
-    // Create x-scale and x-axis
-    const xScale = d3.scaleLinear()
-      .domain([-3000, 2024]) // Set the domain based on the year range
-      .range([0, width]); // Set the range based on the width
-
+    // Create x-axis
     const xAxis = d3.axisBottom(xScale); // Create the x-axis
     svg.append('g')
       .attr('transform', `translate(0,${height})`)
       .call(xAxis); // Add the x-axis to the SVG
 
-    // Create y-scale and y-axis
-    const yScale = d3.scaleBand()
-      .domain(languages) // Set the domain based on the languages
-      .range([0, height]) // Set the range based on the height
-      .padding(0);
-
+    // Create y-axis
     const yAxis = d3.axisLeft(yScale); // Create the y-axis
     svg.append('g')
       .call(yAxis); // Add the y-axis to the SVG
@@ -128,6 +135,11 @@ const TreeReferenceGraph = () => {
       .attr('stroke', 'grey')
       .attr('stroke-dasharray', '20 10')
       .attr('stroke-opacity', 0.5);
+  }, [height, languages, margin.bottom, margin.left, margin.right, margin.top, width, xScale, yScale]);
+
+  // Second useEffect to handle dynamic updates
+  useEffect(() => {
+    const svg = d3.select(chartRef.current).select('g');
 
     // Process the data
     const data = textsData.map(d => ({
@@ -148,34 +160,46 @@ const TreeReferenceGraph = () => {
     // Create a map for easy access to data points by ID
     const dataMap = new Map(data.map(d => [d.id, d]));
 
+    // Add reference lines between data points
+    referencesData.forEach((ref, index) => {
+      const source = dataMap.get(ref.primary_text);
+      const target = dataMap.get(ref.secondary_text);
+
+      if (source && target) {
+        const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
+        console.log(`Reference #${index}: Type=${ref.type_of_reference}, Color=${color}`); // Log reference type and color
+
+        svg.append('line')
+          .attr('x1', getXPosition(xScale, source.year))
+          .attr('y1', getYPosition(yScale, source.language, source.author))
+          .attr('x2', getXPosition(xScale, target.year))
+          .attr('y2', getYPosition(yScale, target.language, target.author))
+          .attr('stroke', color)
+          .attr('stroke-width', 1.4)
+          .attr('stroke-opacity', 0.05)
+          .attr('class', `reference-line reference-${source.id} reference-${target.id}`);
+      }
+    });
+
     // Function to update the chart based on selected tags
     const updateChart = () => {
-      console.log('Selected Tags:', state.selectedTags);
-
+      
       // Filter data based on selected tags
       const filteredData = state.selectedTags.length === 0 ? [] : data.filter(d => {
         // Ensure d.tags is an array and normalize tags
         const tagsArray = Array.isArray(d.tags) ? d.tags.map(tag => tag.trim().toLowerCase()) : d.tags.split(',').map(tag => tag.trim().toLowerCase());
 
-        console.log(`Data point "${d.title}" with tags: ${tagsArray}`);
-
-        const hasMatchingTag = state.selectedTags.some(tag => {
+          const hasMatchingTag = state.selectedTags.some(tag => {
           const normalizedTag = tag.trim().toLowerCase();
           const result = tagsArray.includes(normalizedTag);
           console.log(`Checking if "${normalizedTag}" is in ${tagsArray}: ${result}`);
           return result;
         });
 
-        if (!hasMatchingTag) {
-          console.log(`Data point "${d.title}" filtered out. Tags: ${tagsArray}`);
-        }
         return hasMatchingTag;
       });
 
-      console.log('Filtered Data:', filteredData);
-      console.log('Selected tags:', state.selectedTags);
-
-      // Clear existing circles and lines
+            // Clear existing circles and lines
       svg.selectAll('circle').remove();
       svg.selectAll('.reference-line').remove();
 
@@ -194,8 +218,7 @@ const TreeReferenceGraph = () => {
           d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.9);
           // Set hovered text information
           const refs = referencesData
-            .filter(ref => ref.primary)
-            // .filter(ref => ref.primary_text === d.id)
+            .filter(ref => ref.primary_text === d.id)
             .map(ref => ({
               ...dataMap.get(ref.secondary_text),
               referenceType: ref.type_of_reference
@@ -206,7 +229,7 @@ const TreeReferenceGraph = () => {
               year: text.year,
               referenceType: text.referenceType
             }))
-            .sort((a, b) => b.year - a.year) // Sort by year, newest first
+            .sort((a, b) => b.year - a.year); // Sort by year, newest first
           const refsBy = referencesData
             .filter(ref => ref.secondary_text === d.id)
             .map(ref => ({
@@ -226,7 +249,7 @@ const TreeReferenceGraph = () => {
         })
         .on('mouseout', (event, d) => {
           // Reset opacity of related lines
-          d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.05);
+          d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.1);
           // Clear hovered text information
           dispatch({ type: 'CLEAR_HOVERED_TEXT' });
           // Reset fill color of circle to white
@@ -280,13 +303,13 @@ const TreeReferenceGraph = () => {
 
     updateChartRef.current = updateChart;
     updateChart();
-  }, [state.selectedTags]); // Depend on selectedTags to re-run effect
+  }, [state.selectedTags, xScale, yScale]); // Depend on selectedTags, xScale, and yScale to re-run effect
 
   useEffect(() => {
     if (updateChartRef.current) {
       updateChartRef.current();
     }
-  }, [state.selectedTags]);
+  }, [state.selectedTags, xScale, yScale]);
 
   return (
     <div style={{ position: 'relative', pointerEvents: 'auto' }}>
@@ -335,22 +358,37 @@ const TreeReferenceGraph = () => {
         </div>
       </div>
       <div className="tags-container">
-        {tags.map((tag, index) => (
-          <div key={index} className="tag-item">
-            <input
-              type="checkbox"
-              id={`tag-${tag}`}
-              value={tag}
-              checked={state.selectedTags.includes(tag)} // Ensure checkbox is checked based on state
-              onChange={() => dispatch({ type: 'TOGGLE_TAG', payload: tag })}
-            />
-            <label htmlFor={`tag-${tag}`}>{tag}</label>
-          </div>
-        ))}
+        <div className="tag-group tag-group-1">
+          {group1Tags.map((tag, index) => (
+            <div key={index} className="tag-item">
+              <input
+                type="checkbox"
+                id={`tag-${tag}`}
+                value={tag}
+                checked={state.selectedTags.includes(tag)} // Ensure checkbox is checked based on state
+                onChange={() => dispatch({ type: 'TOGGLE_TAG', payload: tag })}
+              />
+              <label htmlFor={`tag-${tag}`}>{tag}</label>
+            </div>
+          ))}
+        </div>
+        <div className="tag-group tag-group-2">
+          {group2Tags.map((tag, index) => (
+            <div key={index} className="tag-item">
+              <input
+                type="checkbox"
+                id={`tag-${tag}`}
+                value={tag}
+                checked={state.selectedTags.includes(tag)} // Ensure checkbox is checked based on state
+                onChange={() => dispatch({ type: 'TOGGLE_TAG', payload: tag })}
+              />
+              <label htmlFor={`tag-${tag}`}>{tag}</label>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
 export default TreeReferenceGraph;
-
