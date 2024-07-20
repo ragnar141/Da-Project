@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useReducer, useMemo } from 'react';
 import * as d3 from 'd3';
 import '../components css/TreeReferenceGraph.css'; // Import the CSS file
 
-import textsData from './datasets/tags2.json';
+import textsData from './datasets/texts 7.17.24.json';
 import referencesData from './datasets/references 7.11.24.json';
 
 // Define the list of tags
@@ -13,7 +13,7 @@ const group1Tags = [
 const group2Tags = [
   "theology", "philosophy", "logic", "rhetoric", "ethics", "metaphysics", "history", "natural sciences", "mathematics", 
   "physics", "biology", "political science", "sociology", "psychology", 
-  "linguistics", "medicine", "economics", "education", "public relations", "law", "warfare", "strategy"
+  "epistemology", "medicine", "economics", "education", "public relations", "law", "warfare", "strategy"
 ];
 
 // Initial state for the reducer
@@ -65,9 +65,9 @@ const TreeReferenceGraph = () => {
 
   // List of languages
   const languages = useMemo(() => [
-    'Hebrew', 'Aramaic', 'Avestan', 'Sanskrit', 'Chinese', 'Japanese', 
-    'Pali', 'Latin', 'Arabic',  'Italian', 'Greek',
-    'French', 'English', 'German', 'Russian'
+    'Avestan', 'Hebrew', 'Aramaic',  'Latin', 'Arabic',  'Italian', 'Greek',
+    'French', 'English', 'German', 'Russian', 'Sanskrit', 'Chinese', 'Japanese', 
+    'Pali'
   ], []);
 
   // Create x-scale and y-scale
@@ -199,9 +199,47 @@ const TreeReferenceGraph = () => {
         return hasMatchingTag;
       });
 
-            // Clear existing circles and lines
+      // Clear existing circles and lines
       svg.selectAll('circle').remove();
       svg.selectAll('.reference-line').remove();
+
+      // Draw reference lines for the filtered data points
+      filteredData.forEach(d => {
+        const sourceReferences = referencesData.filter(ref => ref.primary_text === d.id);
+        const targetReferences = referencesData.filter(ref => ref.secondary_text === d.id);
+
+        sourceReferences.forEach(ref => {
+          const target = dataMap.get(ref.secondary_text);
+          if (target && filteredData.includes(target)) {
+            const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
+            svg.append('line')
+              .attr('x1', getXPosition(xScale, d.year))
+              .attr('y1', getYPosition(yScale, d.language, d.author))
+              .attr('x2', getXPosition(xScale, target.year))
+              .attr('y2', getYPosition(yScale, target.language, target.author))
+              .attr('stroke', color)
+              .attr('stroke-width', 1.4)
+              .attr('stroke-opacity', 0.05)
+              .attr('class', `reference-line reference-${d.id} reference-${target.id}`);
+          }
+        });
+
+        targetReferences.forEach(ref => {
+          const source = dataMap.get(ref.primary_text);
+          if (source && filteredData.includes(source)) {
+            const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
+            svg.append('line')
+              .attr('x1', getXPosition(xScale, source.year))
+              .attr('y1', getYPosition(yScale, source.language, source.author))
+              .attr('x2', getXPosition(xScale, d.year))
+              .attr('y2', getYPosition(yScale, d.language, d.author))
+              .attr('stroke', color)
+              .attr('stroke-width', 1.4)
+              .attr('stroke-opacity', 0.05)
+              .attr('class', `reference-line reference-${source.id} reference-${d.id}`);
+          }
+        });
+      });
 
       // Draw circles for the filtered data points
       svg.selectAll('circle')
@@ -210,7 +248,7 @@ const TreeReferenceGraph = () => {
         .append('circle')
         .attr('cx', d => getXPosition(xScale, d.year))
         .attr('cy', d => getYPosition(yScale, d.language, d.author))
-        .attr('r', 3)
+        .attr('r', 3.4)
         .style('fill', 'white')
         .style('stroke', 'black')
         .on('mouseover', (event, d) => {
@@ -261,44 +299,6 @@ const TreeReferenceGraph = () => {
             window.open(d.link, '_blank');
           }
         });
-
-      // Draw reference lines for the filtered data points
-      filteredData.forEach(d => {
-        const sourceReferences = referencesData.filter(ref => ref.primary_text === d.id);
-        const targetReferences = referencesData.filter(ref => ref.secondary_text === d.id);
-
-        sourceReferences.forEach(ref => {
-          const target = dataMap.get(ref.secondary_text);
-          if (target && filteredData.includes(target)) {
-            const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
-            svg.append('line')
-              .attr('x1', getXPosition(xScale, d.year))
-              .attr('y1', getYPosition(yScale, d.language, d.author))
-              .attr('x2', getXPosition(xScale, target.year))
-              .attr('y2', getYPosition(yScale, target.language, target.author))
-              .attr('stroke', color)
-              .attr('stroke-width', 1.4)
-              .attr('stroke-opacity', 0.1)
-              .attr('class', `reference-line reference-${d.id} reference-${target.id}`);
-          }
-        });
-
-        targetReferences.forEach(ref => {
-          const source = dataMap.get(ref.primary_text);
-          if (source && filteredData.includes(source)) {
-            const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
-            svg.append('line')
-              .attr('x1', getXPosition(xScale, source.year))
-              .attr('y1', getYPosition(yScale, source.language, source.author))
-              .attr('x2', getXPosition(xScale, d.year))
-              .attr('y2', getYPosition(yScale, d.language, d.author))
-              .attr('stroke', color)
-              .attr('stroke-width', 1.4)
-              .attr('stroke-opacity', 0.1)
-              .attr('class', `reference-line reference-${source.id} reference-${d.id}`);
-          }
-        });
-      });
     };
 
     updateChartRef.current = updateChart;
@@ -330,7 +330,7 @@ const TreeReferenceGraph = () => {
           )}
           <div className="hover-card-main">
             <p><span className="hover-card-title">{state.hoveredText.title}</span></p>
-            <p><span>by:</span> <span>{state.hoveredText.author}</span></p>
+            <p><span>{state.hoveredText.author}</span></p>
             <p><span>{state.hoveredText.dateForCard}</span></p>
             <p><span>{state.hoveredText.oLanguage}</span></p>
             <p><span>{state.hoveredText.location}</span></p>
