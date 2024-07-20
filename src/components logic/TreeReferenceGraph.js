@@ -189,7 +189,7 @@ const TreeReferenceGraph = () => {
         // Ensure d.tags is an array and normalize tags
         const tagsArray = Array.isArray(d.tags) ? d.tags.map(tag => tag.trim().toLowerCase()) : d.tags.split(',').map(tag => tag.trim().toLowerCase());
 
-          const hasMatchingTag = state.selectedTags.some(tag => {
+        const hasMatchingTag = state.selectedTags.some(tag => {
           const normalizedTag = tag.trim().toLowerCase();
           const result = tagsArray.includes(normalizedTag);
           console.log(`Checking if "${normalizedTag}" is in ${tagsArray}: ${result}`);
@@ -198,6 +198,8 @@ const TreeReferenceGraph = () => {
 
         return hasMatchingTag;
       });
+
+      
 
       // Clear existing circles and lines
       svg.selectAll('circle').remove();
@@ -262,6 +264,7 @@ const TreeReferenceGraph = () => {
               referenceType: ref.type_of_reference
             }))
             .filter(Boolean)
+            .filter(text => filteredData.some(dataItem => dataItem.id === text.id)) // Filter by unfilteredData
             .map(text => ({
               title: text.title,
               year: text.year,
@@ -275,6 +278,7 @@ const TreeReferenceGraph = () => {
               referenceType: ref.type_of_reference
             }))
             .filter(Boolean)
+            .filter(text => filteredData.some(dataItem => dataItem.id === text.id)) // Filter by unfilteredData
             .map(text => ({
               title: text.title,
               year: text.year,
@@ -330,7 +334,7 @@ const TreeReferenceGraph = () => {
           )}
           <div className="hover-card-main">
             <p><span className="hover-card-title">{state.hoveredText.title}</span></p>
-            <p><span>{state.hoveredText.author}</span></p>
+            <p><span>by:</span> <span>{state.hoveredText.author}</span></p>
             <p><span>{state.hoveredText.dateForCard}</span></p>
             <p><span>{state.hoveredText.oLanguage}</span></p>
             <p><span>{state.hoveredText.location}</span></p>
