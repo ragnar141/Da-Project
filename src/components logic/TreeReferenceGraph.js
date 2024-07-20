@@ -287,7 +287,7 @@ const TreeReferenceGraph = () => {
         })
         .on('mouseout', (event, d) => {
           // Reset opacity of related lines
-          d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.1);
+          d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.05);
           // Clear hovered text information
           dispatch({ type: 'CLEAR_HOVERED_TEXT' });
           // Reset fill color of circle to white
