@@ -268,6 +268,7 @@ const TreeReferenceGraph = () => {
             .map(text => ({
               title: text.title,
               year: text.year,
+              date: text.dateForCard,
               referenceType: text.referenceType
             }))
             .sort((a, b) => b.year - a.year); // Sort by year, newest first
@@ -282,6 +283,7 @@ const TreeReferenceGraph = () => {
             .map(text => ({
               title: text.title,
               year: text.year,
+              date: text.dateForCard,
               referenceType: text.referenceType
             }))
             .sort((a, b) => b.year - a.year); // Sort by year, newest first
@@ -326,7 +328,7 @@ const TreeReferenceGraph = () => {
               <ul>
                 {state.referencingTitles.map((item, index) => (
                   <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'similar-themes'}>
-                    {item.title} ({item.year})
+                    {item.title} ({item.date})
                   </li>
                 ))}
               </ul>
@@ -347,7 +349,7 @@ const TreeReferenceGraph = () => {
               <ul>
                 {state.referencedTitles.map((item, index) => (
                   <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'similar-themes'}>
-                    {item.title} ({item.year})
+                    {item.title} ({item.date})
                   </li>
                 ))}
               </ul>
