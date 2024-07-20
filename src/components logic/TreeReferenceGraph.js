@@ -333,11 +333,13 @@ const TreeReferenceGraph = () => {
             </div>
           )}
           <div className="hover-card-main">
+           
             <p><span className="hover-card-title">{state.hoveredText.title}</span></p>
-            <p><span>by:</span> <span>{state.hoveredText.author}</span></p>
+            <p><span>{state.hoveredText.author}</span></p>
             <p><span>{state.hoveredText.dateForCard}</span></p>
             <p><span>{state.hoveredText.oLanguage}</span></p>
             <p><span>{state.hoveredText.location}</span></p>
+           
           </div>
           {state.referencedTitles.length > 0 && (
             <div className="hover-card-section">

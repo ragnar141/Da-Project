@@ -16,7 +16,7 @@ svg {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 10px; /* Add padding inside the card */
   pointer-events: auto; /* Ensure the card can capture mouse events */
-  font-size: 13px; /* Reduced font size */
+  font-size: 14px; /* Reduced font size */
   transition: opacity 0.2s;
   overflow-y: auto !important; /* Allow vertical scrolling if content overflows */
   overflow-x: hidden; /* Prevent horizontal scrolling */
@@ -39,14 +39,14 @@ svg {
 .hover-card strong {
   display: block;
   margin-bottom: 3px; /* Reduced margin */
-  font-size: 13px; /* Slightly larger font for strong elements */
+  font-size: 14px; /* Slightly larger font for strong elements */
 }
 
 .hover-card ul {
   list-style: none; /* Remove default bullet points */
   padding-left: 0; /* Remove default padding */
   margin: 0; /* Remove default margin */
-  font-size: 13px; /* Match font size */
+  font-size: 14px; /* Match font size */
 }
 
 .hover-card ul li {
@@ -57,9 +57,9 @@ svg {
 .hover-card ul li::before {
   content: '•'; /* Add bullet point */
   position: absolute; /* Position it absolutely */
-  left: -7px; /* Adjust left position */
-  top: 0; /* Adjust top position */
-  font-size: 16px; /* Adjust font size */
+  left: -14px; /* Adjust left position */
+  top: -2px; /* Adjust top position */
+  font-size: 23px; /* Adjust font size */
   line-height: 1; /* Adjust line height */
   color: black; /* Default color */
 }
@@ -78,15 +78,21 @@ svg {
   display: flex;
   flex-direction: column;
   justify-content: center; /* Center content vertically */
+  font-size: 14px;
+  padding-left: 14px;
 }
 
 .hover-card-main {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-left: 10px;
   text-align: center;
   flex-grow: 1; /* Allow the section to grow */
   display: flex;
   flex-direction: column;
   justify-content: center; /* Center content vertically */
   align-items: center; /* Center content horizontally */
+  font-size: 15px;
 }
 
 .hover-card-main p {
@@ -94,7 +100,7 @@ svg {
 }
 
 .hover-card-title {
-  font-size: 16px; /* Set font size of title component */
+  font-size: 18px; /* Set font size of title component */
   font-weight: bold;
 }
 
