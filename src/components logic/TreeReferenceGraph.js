@@ -56,6 +56,7 @@ const reducer = (state, action) => {
 
 const TreeReferenceGraph = () => {
   const chartRef = useRef(null);         // Reference to the SVG element
+  const hoverCardRef = useRef(null);     // Reference to the hover card element
   const updateChartRef = useRef(null);   // Reference to the updateChart function
   const [state, dispatch] = useReducer(reducer, initialState); // Use useReducer for state management
 
@@ -136,6 +137,35 @@ const TreeReferenceGraph = () => {
       .attr('stroke-dasharray', '20 10')
       .attr('stroke-opacity', 0.5);
   }, [height, languages, margin.bottom, margin.left, margin.right, margin.top, width, xScale, yScale]);
+
+  // Handle wheel events
+  useEffect(() => {
+    const handleWheel = (e) => {
+      console.log('Wheel event on hover card'); // Log the wheel event
+      e.preventDefault(); // Prevent default scrolling behavior
+      e.stopPropagation(); // Prevent the event from propagating to parent elements
+      console.log('Wheel event stopped');
+    };
+
+    const attachWheelListener = () => {
+      const hoverCardElement = hoverCardRef.current;
+      console.log("hoverCardElement:", hoverCardElement);
+
+      if (hoverCardElement) {
+        hoverCardElement.addEventListener('wheel', handleWheel, { passive: false });
+        console.log('eventlistener added');
+
+        return () => {
+          hoverCardElement.removeEventListener('wheel', handleWheel);
+          console.log('eventlistener removed');
+        };
+      }
+    };
+
+    const timeoutId = setTimeout(attachWheelListener, 0);
+
+    return () => clearTimeout(timeoutId);
+  }, [state.hoveredText]); // Add state.hoveredText to dependency array to ensure the effect runs when the hover card is updated
 
   // Second useEffect to handle dynamic updates
   useEffect(() => {
@@ -254,6 +284,7 @@ const TreeReferenceGraph = () => {
         .style('fill', 'white')
         .style('stroke', 'black')
         .on('mouseover', (event, d) => {
+          console.log('Hovered over data point:', d); // Log hover event
           // Change opacity of related lines
           d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.9);
           // Set hovered text information
@@ -290,8 +321,28 @@ const TreeReferenceGraph = () => {
           dispatch({ type: 'SET_HOVERED_TEXT', payload: { text: d, referencingTitles: refs, referencedTitles: refsBy } });
           // Change fill color of circle to black
           d3.select(event.target).style('fill', 'black');
+          // Log hoverCardRef.current
+          console.log('hoverCardRef.current:', hoverCardRef.current);
+
+          // Use a timeout to ensure the hover card is rendered before calculating dimensions
+          setTimeout(() => {
+            if (hoverCardRef.current) {
+              const hoverCardMain = hoverCardRef.current.querySelector('.hover-card-main');
+              const hoverCardHeight = hoverCardRef.current.clientHeight;
+              const hoverCardMainHeight = hoverCardMain.clientHeight;
+              const scrollTop = hoverCardMain.offsetTop - (hoverCardHeight / 2 - hoverCardMainHeight / 2);
+              console.log('Hover Card Height:', hoverCardHeight);
+              console.log('Hover Card Main Height:', hoverCardMainHeight);
+              console.log('Hover Card Main Offset Top:', hoverCardMain.offsetTop);
+              console.log('Calculated Scroll Top:', scrollTop);
+              hoverCardRef.current.scrollTo({ top: scrollTop, behavior: 'smooth' });
+            } else {
+              console.log('hoverCardRef.current is null');
+            }
+          }, 0);
         })
         .on('mouseout', (event, d) => {
+          console.log('Mouse out from data point:', d); // Log mouse out event
           // Reset opacity of related lines
           d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.05);
           // Clear hovered text information
@@ -300,6 +351,7 @@ const TreeReferenceGraph = () => {
           d3.select(event.target).style('fill', 'white');
         })
         .on('click', (event, d) => {
+          console.log('Clicked on data point:', d); // Log click event
           // Redirect to the link on click
           if (d.link) {
             window.open(d.link, '_blank');
@@ -320,43 +372,41 @@ const TreeReferenceGraph = () => {
   return (
     <div style={{ position: 'relative', pointerEvents: 'auto' }}>
       <svg ref={chartRef}></svg>
-      {state.hoveredText && (
-        <div className="hover-card" style={{ pointerEvents: 'auto' }}>
-          {state.referencingTitles.length > 0 && (
-            <div className="hover-card-section">
-              <p><strong>Informs:</strong></p>
-              <ul>
-                {state.referencingTitles.map((item, index) => (
-                  <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'similar-themes'}>
-                    {item.title} ({item.date})
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          <div className="hover-card-main">
-           
-            <p><span className="hover-card-title">{state.hoveredText.title}</span></p>
-            <p><span>{state.hoveredText.author}</span></p>
-            <p><span>{state.hoveredText.dateForCard}</span></p>
-            <p><span>{state.hoveredText.oLanguage}</span></p>
-            <p><span>{state.hoveredText.location}</span></p>
-           
+      <div className="hover-card" ref={hoverCardRef} style={{ pointerEvents: 'auto', display: state.hoveredText ? 'block' : 'none' }}>
+        {state.referencingTitles.length > 0 && (
+          <div className="hover-card-section">
+            <p><strong>Informs:</strong></p>
+            <ul>
+              {state.referencingTitles.map((item, index) => (
+                <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'similar-themes'}>
+                  {item.title} ({item.date})
+                </li>
+              ))}
+            </ul>
           </div>
-          {state.referencedTitles.length > 0 && (
-            <div className="hover-card-section">
-              <p><strong>Informed by:</strong></p>
-              <ul>
-                {state.referencedTitles.map((item, index) => (
-                  <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'similar-themes'}>
-                    {item.title} ({item.date})
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+        )}
+        <div className="hover-card-main">
+         
+          <p><span className="hover-card-title">{state.hoveredText?.title}</span></p>
+          <p><span>{state.hoveredText?.author}</span></p>
+          <p><span>{state.hoveredText?.dateForCard}</span></p>
+          <p><span>{state.hoveredText?.oLanguage}</span></p>
+          <p><span>{state.hoveredText?.location}</span></p>
+         
         </div>
-      )}
+        {state.referencedTitles.length > 0 && (
+          <div className="hover-card-section">
+            <p><strong>Informed by:</strong></p>
+            <ul>
+              {state.referencedTitles.map((item, index) => (
+                <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'similar-themes'}>
+                  {item.title} ({item.date})
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
       <div className="legend-container">
         <div className="legend-item">
           <span className="bullet direct-reference"></span> direct reference

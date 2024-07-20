@@ -24,6 +24,7 @@ svg {
   flex-direction: column;
   justify-content: space-between; /* Space sections evenly */
   z-index: 10; /* Ensure the hover card is on top of other elements */
+  display: none; /* Hide by default */
 }
 
 .hover-card p {
@@ -83,8 +84,8 @@ svg {
 }
 
 .hover-card-main {
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 70px;
+  padding-bottom: 70px;
   padding-left: 10px;
   text-align: center;
   flex-grow: 1; /* Allow the section to grow */
