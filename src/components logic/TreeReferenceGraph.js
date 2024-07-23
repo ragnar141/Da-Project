@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useReducer, useMemo } from 'react';
+import React, { useEffect, useRef, useReducer, useMemo, useState } from 'react';
 import * as d3 from 'd3';
 import '../components css/TreeReferenceGraph.css'; // Import the CSS file
 
@@ -59,6 +59,7 @@ const TreeReferenceGraph = () => {
   const hoverCardRef = useRef(null);     // Reference to the hover card element
   const updateChartRef = useRef(null);   // Reference to the updateChart function
   const [state, dispatch] = useReducer(reducer, initialState); // Use useReducer for state management
+  const [currentZoomState, setCurrentZoomState] = useState(); // Zoom state
 
   const margin = useMemo(() => ({ top: 0, right: 130, bottom: 20, left: 70 }), []); // Margin for the SVG
   const width = 1440 - margin.left - margin.right; // Calculate width
@@ -115,12 +116,14 @@ const TreeReferenceGraph = () => {
     // Create x-axis
     const xAxis = d3.axisBottom(xScale); // Create the x-axis
     svg.append('g')
+      .attr('class', 'x-axis')
       .attr('transform', `translate(0,${height})`)
       .call(xAxis); // Add the x-axis to the SVG
 
     // Create y-axis
     const yAxis = d3.axisLeft(yScale); // Create the y-axis
     svg.append('g')
+      .attr('class', 'y-axis')
       .call(yAxis); // Add the y-axis to the SVG
 
     // Add horizontal grid lines
@@ -136,6 +139,19 @@ const TreeReferenceGraph = () => {
       .attr('stroke', 'grey')
       .attr('stroke-dasharray', '20 10')
       .attr('stroke-opacity', 0.5);
+
+    // Add zoom behavior
+    const zoomBehavior = d3.zoom()
+      .scaleExtent([0.5, 5])
+      .translateExtent([[0, 0], [width, height]])
+      .extent([[0, 0], [width, height]])
+      .on("zoom", (event) => {
+        console.log('Zoom event', event.transform); // Log zoom event
+        const zoomState = event.transform;
+        setCurrentZoomState(zoomState);
+      });
+
+    svg.call(zoomBehavior);
   }, [height, languages, margin.bottom, margin.left, margin.right, margin.top, width, xScale, yScale]);
 
   // Handle wheel events
@@ -213,6 +229,7 @@ const TreeReferenceGraph = () => {
 
     // Function to update the chart based on selected tags
     const updateChart = () => {
+      console.log('Updating chart'); // Log chart update
       
       // Filter data based on selected tags
       const filteredData = state.selectedTags.length === 0 ? [] : data.filter(d => {
@@ -229,7 +246,7 @@ const TreeReferenceGraph = () => {
         return hasMatchingTag;
       });
 
-      
+      console.log('Filtered Data:', filteredData); // Log filtered data
 
       // Clear existing circles and lines
       svg.selectAll('circle').remove();
@@ -359,9 +376,47 @@ const TreeReferenceGraph = () => {
         });
     };
 
+    // Function to apply zoom transform to the chart
+    const applyZoom = () => {
+      if (currentZoomState) {
+        console.log('Applying zoom', currentZoomState); // Log applying zoom
+        const newXScale = currentZoomState.rescaleX(xScale);
+
+        // Update the axes
+        const svg = d3.select(chartRef.current).select('g');
+        svg.select('.x-axis').call(d3.axisBottom(newXScale));
+
+        // Update positions of circles and lines
+        svg.selectAll('circle')
+          .attr('cx', d => newXScale(d.year))
+          .attr('cy', d => getYPosition(yScale, d.language, d.author));
+
+        svg.selectAll('.reference-line').each(function() {
+          const line = d3.select(this);
+          const classList = line.attr('class').split(' ');
+          const sourceId = parseInt(classList[1].split('-')[1]);
+          const targetId = parseInt(classList[2].split('-')[1]);
+          const source = dataMap.get(sourceId);
+          const target = dataMap.get(targetId);
+
+          if (source && target) {
+            console.log('Updating line position for zoom', { source, target }); // Log line position update for zoom
+            line
+              .attr('x1', newXScale(source.year))
+              .attr('y1', getYPosition(yScale, source.language, source.author))
+              .attr('x2', newXScale(target.year))
+              .attr('y2', getYPosition(yScale, target.language, target.author));
+          } else {
+            console.log('Error in line data', { sourceId, targetId, source, target });
+          }
+        });
+      }
+    };
+
     updateChartRef.current = updateChart;
     updateChart();
-  }, [state.selectedTags, xScale, yScale]); // Depend on selectedTags, xScale, and yScale to re-run effect
+    applyZoom();
+  }, [state.selectedTags, xScale, yScale, currentZoomState]); // Depend on selectedTags, xScale, yScale, and currentZoomState to re-run effect
 
   useEffect(() => {
     if (updateChartRef.current) {
