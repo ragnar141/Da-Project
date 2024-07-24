@@ -113,13 +113,6 @@ const TreeReferenceGraph = () => {
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
-    // Create x-axis
-    const xAxis = d3.axisBottom(xScale); // Create the x-axis
-    svg.append('g')
-      .attr('class', 'x-axis')
-      .attr('transform', `translate(0,${height})`)
-      .call(xAxis); // Add the x-axis to the SVG
-
     // Create y-axis
     const yAxis = d3.axisLeft(yScale); // Create the y-axis
     svg.append('g')
@@ -142,7 +135,7 @@ const TreeReferenceGraph = () => {
 
     // Add zoom behavior
     const zoomBehavior = d3.zoom()
-      .scaleExtent([0.5, 5])
+      .scaleExtent([0.5, 20])
       .translateExtent([[0, 0], [width, height]])
       .extent([[0, 0], [width, height]])
       .on("zoom", (event) => {
@@ -152,7 +145,7 @@ const TreeReferenceGraph = () => {
       });
 
     svg.call(zoomBehavior);
-  }, [height, languages, margin.bottom, margin.left, margin.right, margin.top, width, xScale, yScale]);
+  }, [height, languages, margin.bottom, margin.left, margin.right, margin.top, width, yScale]);
 
   // Handle wheel events
   useEffect(() => {
@@ -413,10 +406,18 @@ const TreeReferenceGraph = () => {
       }
     };
 
+    // Create x-axis
+    const xAxis = d3.axisBottom(xScale); // Create the x-axis
+    svg.select('.x-axis').remove();
+    svg.append('g')
+      .attr('class', 'x-axis')
+      .attr('transform', `translate(0,${height})`)
+      .call(xAxis); // Add the x-axis to the SVG
+
     updateChartRef.current = updateChart;
     updateChart();
     applyZoom();
-  }, [state.selectedTags, xScale, yScale, currentZoomState]); // Depend on selectedTags, xScale, yScale, and currentZoomState to re-run effect
+  }, [state.selectedTags, xScale, yScale, currentZoomState, height]); // Added height to the dependency array
 
   useEffect(() => {
     if (updateChartRef.current) {
