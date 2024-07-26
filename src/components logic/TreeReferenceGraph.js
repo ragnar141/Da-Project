@@ -105,6 +105,25 @@ const TreeReferenceGraph = () => {
     return yPos + positionFactor * bandWidth; // Return the calculated y-position
   };
 
+  // Function to group close data points
+  const adjustForOverlap = (data, xScale) => {
+    const radius = 3.4; // Radius of the circles
+    const adjustedData = [...data];
+    adjustedData.forEach((d, i) => {
+      let count = 1;
+      adjustedData.forEach((other, j) => {
+        if (i !== j && Math.abs(xScale(d.year) - xScale(other.year)) < radius * 2) {
+          const offset = radius * count * 2;
+          other.adjustedX = xScale(other.year) + offset;
+          count++;
+        } else {
+          other.adjustedX = xScale(other.year);
+        }
+      });
+    });
+    return adjustedData;
+  };
+
   // First useEffect to render static elements
   useEffect(() => {
     // Create SVG element and set its dimensions
@@ -133,6 +152,14 @@ const TreeReferenceGraph = () => {
       .attr('stroke', 'grey')
       .attr('stroke-dasharray', '20 10')
       .attr('stroke-opacity', 0.5);
+
+    // Create clip path
+    svg.append('defs')
+      .append('clipPath')
+      .attr('id', 'clip')
+      .append('rect')
+      .attr('width', width)
+      .attr('height', height);
   }, [height, languages, margin.bottom, margin.left, margin.right, margin.top, width, yScale]);
 
   // Handle wheel events
@@ -180,6 +207,10 @@ const TreeReferenceGraph = () => {
     const dataMap = new Map(data.map(d => [d.id, d]));
 
     // Add reference lines between data points
+    const referenceLines = svg.append('g')
+      .attr('class', 'reference-lines')
+      .attr('clip-path', 'url(#clip)'); // Apply clip path
+
     referencesData.forEach((ref, index) => {
       const source = dataMap.get(ref.primary_text);
       const target = dataMap.get(ref.secondary_text);
@@ -187,7 +218,7 @@ const TreeReferenceGraph = () => {
       if (source && target) {
         const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
 
-        svg.append('line')
+        referenceLines.append('line')
           .attr('x1', getXPosition(xScale, source.year))
           .attr('y1', getYPosition(yScale, source.language, source.author))
           .attr('x2', getXPosition(xScale, target.year))
@@ -217,19 +248,22 @@ const TreeReferenceGraph = () => {
       svg.selectAll('circle').remove();
       svg.selectAll('.reference-line').remove();
 
+      // Adjust for overlap
+      const adjustedData = adjustForOverlap(filteredData, xScale);
+
       // Draw reference lines for the filtered data points
-      filteredData.forEach(d => {
+      adjustedData.forEach(d => {
         const sourceReferences = referencesData.filter(ref => ref.primary_text === d.id);
         const targetReferences = referencesData.filter(ref => ref.secondary_text === d.id);
 
         sourceReferences.forEach(ref => {
           const target = dataMap.get(ref.secondary_text);
-          if (target && filteredData.includes(target)) {
+          if (target && adjustedData.includes(target)) {
             const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
-            svg.append('line')
-              .attr('x1', getXPosition(xScale, d.year))
+            referenceLines.append('line')
+              .attr('x1', d.adjustedX)
               .attr('y1', getYPosition(yScale, d.language, d.author))
-              .attr('x2', getXPosition(xScale, target.year))
+              .attr('x2', target.adjustedX)
               .attr('y2', getYPosition(yScale, target.language, target.author))
               .attr('stroke', color)
               .attr('stroke-width', 1.4)
@@ -240,12 +274,12 @@ const TreeReferenceGraph = () => {
 
         targetReferences.forEach(ref => {
           const source = dataMap.get(ref.primary_text);
-          if (source && filteredData.includes(source)) {
+          if (source && adjustedData.includes(source)) {
             const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
-            svg.append('line')
-              .attr('x1', getXPosition(xScale, source.year))
+            referenceLines.append('line')
+              .attr('x1', source.adjustedX)
               .attr('y1', getYPosition(yScale, source.language, source.author))
-              .attr('x2', getXPosition(xScale, d.year))
+              .attr('x2', d.adjustedX)
               .attr('y2', getYPosition(yScale, d.language, d.author))
               .attr('stroke', color)
               .attr('stroke-width', 1.4)
@@ -256,11 +290,15 @@ const TreeReferenceGraph = () => {
       });
 
       // Draw circles for the filtered data points
-      svg.selectAll('circle')
-        .data(filteredData)
+      const circlesGroup = svg.append('g')
+        .attr('class', 'circles-group')
+        .attr('clip-path', 'url(#clip)'); // Apply clip path
+
+      circlesGroup.selectAll('circle')
+        .data(adjustedData)
         .enter()
         .append('circle')
-        .attr('cx', d => getXPosition(xScale, d.year))
+        .attr('cx', d => d.adjustedX)
         .attr('cy', d => getYPosition(yScale, d.language, d.author))
         .attr('r', 3.4)
         .style('fill', 'white')
@@ -277,7 +315,7 @@ const TreeReferenceGraph = () => {
               referenceType: ref.type_of_reference
             }))
             .filter(Boolean)
-            .filter(text => filteredData.some(dataItem => dataItem.id === text.id))
+            .filter(text => adjustedData.some(dataItem => dataItem.id === text.id))
             .map(text => ({
               title: text.title,
               year: text.year,
@@ -292,7 +330,7 @@ const TreeReferenceGraph = () => {
               referenceType: ref.type_of_reference
             }))
             .filter(Boolean)
-            .filter(text => filteredData.some(dataItem => dataItem.id === text.id))
+            .filter(text => adjustedData.some(dataItem => dataItem.id === text.id))
             .map(text => ({
               title: text.title,
               year: text.year,
