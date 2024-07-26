@@ -4,6 +4,7 @@ import '../components css/TreeReferenceGraph.css'; // Import the CSS file
 
 import textsData from './datasets/texts 7.17.24.json';
 import referencesData from './datasets/references 7.11.24.json';
+import ZoomableArea from './ZoomableArea';
 
 // Define the list of tags
 const group1Tags = [
@@ -132,41 +133,23 @@ const TreeReferenceGraph = () => {
       .attr('stroke', 'grey')
       .attr('stroke-dasharray', '20 10')
       .attr('stroke-opacity', 0.5);
-
-    // Add zoom behavior
-    const zoomBehavior = d3.zoom()
-      .scaleExtent([0.5, 20])
-      .translateExtent([[0, 0], [width, height]])
-      .extent([[0, 0], [width, height]])
-      .on("zoom", (event) => {
-        console.log('Zoom event', event.transform); // Log zoom event
-        const zoomState = event.transform;
-        setCurrentZoomState(zoomState);
-      });
-
-    svg.call(zoomBehavior);
   }, [height, languages, margin.bottom, margin.left, margin.right, margin.top, width, yScale]);
 
   // Handle wheel events
   useEffect(() => {
     const handleWheel = (e) => {
-      console.log('Wheel event on hover card'); // Log the wheel event
       e.preventDefault(); // Prevent default scrolling behavior
       e.stopPropagation(); // Prevent the event from propagating to parent elements
-      console.log('Wheel event stopped');
     };
 
     const attachWheelListener = () => {
       const hoverCardElement = hoverCardRef.current;
-      console.log("hoverCardElement:", hoverCardElement);
 
       if (hoverCardElement) {
         hoverCardElement.addEventListener('wheel', handleWheel, { passive: false });
-        console.log('eventlistener added');
 
         return () => {
           hoverCardElement.removeEventListener('wheel', handleWheel);
-          console.log('eventlistener removed');
         };
       }
     };
@@ -194,9 +177,6 @@ const TreeReferenceGraph = () => {
       tags: Array.isArray(d.tags) ? d.tags : (d.tags ? d.tags.split(',') : []) 
     }));
 
-    console.log('Data after processing:', data);
-
-    // Create a map for easy access to data points by ID
     const dataMap = new Map(data.map(d => [d.id, d]));
 
     // Add reference lines between data points
@@ -206,7 +186,6 @@ const TreeReferenceGraph = () => {
 
       if (source && target) {
         const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
-        console.log(`Reference #${index}: Type=${ref.type_of_reference}, Color=${color}`); // Log reference type and color
 
         svg.append('line')
           .attr('x1', getXPosition(xScale, source.year))
@@ -222,24 +201,17 @@ const TreeReferenceGraph = () => {
 
     // Function to update the chart based on selected tags
     const updateChart = () => {
-      console.log('Updating chart'); // Log chart update
-      
       // Filter data based on selected tags
       const filteredData = state.selectedTags.length === 0 ? [] : data.filter(d => {
-        // Ensure d.tags is an array and normalize tags
         const tagsArray = Array.isArray(d.tags) ? d.tags.map(tag => tag.trim().toLowerCase()) : d.tags.split(',').map(tag => tag.trim().toLowerCase());
 
         const hasMatchingTag = state.selectedTags.some(tag => {
           const normalizedTag = tag.trim().toLowerCase();
-          const result = tagsArray.includes(normalizedTag);
-          console.log(`Checking if "${normalizedTag}" is in ${tagsArray}: ${result}`);
-          return result;
+          return tagsArray.includes(normalizedTag);
         });
 
         return hasMatchingTag;
       });
-
-      console.log('Filtered Data:', filteredData); // Log filtered data
 
       // Clear existing circles and lines
       svg.selectAll('circle').remove();
@@ -305,14 +277,14 @@ const TreeReferenceGraph = () => {
               referenceType: ref.type_of_reference
             }))
             .filter(Boolean)
-            .filter(text => filteredData.some(dataItem => dataItem.id === text.id)) // Filter by unfilteredData
+            .filter(text => filteredData.some(dataItem => dataItem.id === text.id))
             .map(text => ({
               title: text.title,
               year: text.year,
               date: text.dateForCard,
               referenceType: text.referenceType
             }))
-            .sort((a, b) => b.year - a.year); // Sort by year, newest first
+            .sort((a, b) => b.year - a.year);
           const refsBy = referencesData
             .filter(ref => ref.secondary_text === d.id)
             .map(ref => ({
@@ -320,34 +292,24 @@ const TreeReferenceGraph = () => {
               referenceType: ref.type_of_reference
             }))
             .filter(Boolean)
-            .filter(text => filteredData.some(dataItem => dataItem.id === text.id)) // Filter by unfilteredData
+            .filter(text => filteredData.some(dataItem => dataItem.id === text.id))
             .map(text => ({
               title: text.title,
               year: text.year,
               date: text.dateForCard,
               referenceType: text.referenceType
             }))
-            .sort((a, b) => b.year - a.year); // Sort by year, newest first
+            .sort((a, b) => b.year - a.year);
           dispatch({ type: 'SET_HOVERED_TEXT', payload: { text: d, referencingTitles: refs, referencedTitles: refsBy } });
-          // Change fill color of circle to black
           d3.select(event.target).style('fill', 'black');
-          // Log hoverCardRef.current
-          console.log('hoverCardRef.current:', hoverCardRef.current);
 
-          // Use a timeout to ensure the hover card is rendered before calculating dimensions
           setTimeout(() => {
             if (hoverCardRef.current) {
               const hoverCardMain = hoverCardRef.current.querySelector('.hover-card-main');
               const hoverCardHeight = hoverCardRef.current.clientHeight;
               const hoverCardMainHeight = hoverCardMain.clientHeight;
               const scrollTop = hoverCardMain.offsetTop - (hoverCardHeight / 2 - hoverCardMainHeight / 2);
-              console.log('Hover Card Height:', hoverCardHeight);
-              console.log('Hover Card Main Height:', hoverCardMainHeight);
-              console.log('Hover Card Main Offset Top:', hoverCardMain.offsetTop);
-              console.log('Calculated Scroll Top:', scrollTop);
               hoverCardRef.current.scrollTo({ top: scrollTop, behavior: 'smooth' });
-            } else {
-              console.log('hoverCardRef.current is null');
             }
           }, 0);
         })
@@ -357,12 +319,9 @@ const TreeReferenceGraph = () => {
           d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.05);
           // Clear hovered text information
           dispatch({ type: 'CLEAR_HOVERED_TEXT' });
-          // Reset fill color of circle to white
           d3.select(event.target).style('fill', 'white');
         })
         .on('click', (event, d) => {
-          console.log('Clicked on data point:', d); // Log click event
-          // Redirect to the link on click
           if (d.link) {
             window.open(d.link, '_blank');
           }
@@ -370,16 +329,12 @@ const TreeReferenceGraph = () => {
     };
 
     // Function to apply zoom transform to the chart
-    const applyZoom = () => {
-      if (currentZoomState) {
-        console.log('Applying zoom', currentZoomState); // Log applying zoom
-        const newXScale = currentZoomState.rescaleX(xScale);
+    const applyZoom = (zoomState) => {
+      if (zoomState) {
+        const newXScale = zoomState.rescaleX(xScale);
 
-        // Update the axes
-        const svg = d3.select(chartRef.current).select('g');
         svg.select('.x-axis').call(d3.axisBottom(newXScale));
 
-        // Update positions of circles and lines
         svg.selectAll('circle')
           .attr('cx', d => newXScale(d.year))
           .attr('cy', d => getYPosition(yScale, d.language, d.author));
@@ -393,31 +348,28 @@ const TreeReferenceGraph = () => {
           const target = dataMap.get(targetId);
 
           if (source && target) {
-            console.log('Updating line position for zoom', { source, target }); // Log line position update for zoom
             line
               .attr('x1', newXScale(source.year))
               .attr('y1', getYPosition(yScale, source.language, source.author))
               .attr('x2', newXScale(target.year))
               .attr('y2', getYPosition(yScale, target.language, target.author));
-          } else {
-            console.log('Error in line data', { sourceId, targetId, source, target });
           }
         });
       }
     };
 
     // Create x-axis
-    const xAxis = d3.axisBottom(xScale); // Create the x-axis
+    const xAxis = d3.axisBottom(xScale);
     svg.select('.x-axis').remove();
     svg.append('g')
       .attr('class', 'x-axis')
       .attr('transform', `translate(0,${height})`)
-      .call(xAxis); // Add the x-axis to the SVG
+      .call(xAxis);
 
     updateChartRef.current = updateChart;
     updateChart();
-    applyZoom();
-  }, [state.selectedTags, xScale, yScale, currentZoomState, height]); // Added height to the dependency array
+    applyZoom(currentZoomState);
+  }, [state.selectedTags, xScale, yScale, currentZoomState, height]);
 
   useEffect(() => {
     if (updateChartRef.current) {
@@ -427,7 +379,9 @@ const TreeReferenceGraph = () => {
 
   return (
     <div style={{ position: 'relative', pointerEvents: 'auto' }}>
-      <svg ref={chartRef}></svg>
+      <svg ref={chartRef}>
+        <ZoomableArea width={width} height={height} margin={margin} onZoom={setCurrentZoomState} />
+      </svg>
       <div className="hover-card" ref={hoverCardRef} style={{ pointerEvents: 'auto', display: state.hoveredText ? 'block' : 'none' }}>
         {state.referencingTitles.length > 0 && (
           <div className="hover-card-section">
@@ -442,13 +396,11 @@ const TreeReferenceGraph = () => {
           </div>
         )}
         <div className="hover-card-main">
-         
           <p><span className="hover-card-title">{state.hoveredText?.title}</span></p>
           <p><span>{state.hoveredText?.author}</span></p>
           <p><span>{state.hoveredText?.dateForCard}</span></p>
           <p><span>{state.hoveredText?.oLanguage}</span></p>
           <p><span>{state.hoveredText?.location}</span></p>
-         
         </div>
         {state.referencedTitles.length > 0 && (
           <div className="hover-card-section">
