@@ -33,7 +33,7 @@ const reducer = (state, action) => {
         ...state,
         hoveredText: action.payload.text,
         referencingTitles: action.payload.referencingTitles,
-        referencedTitles: action.payload.referencedTitles,
+        referencedTitles: action.payload.referencingTitles,
       };
     case 'CLEAR_HOVERED_TEXT': // Clear hovered text and related references
       return {
@@ -78,10 +78,10 @@ const TreeReferenceGraph = () => {
     .domain([-3000, 2024]) // Set the domain based on the year range
     .range([0, width]), [width]); // Set the range based on the width
 
-  const yScale = useMemo(() => d3.scaleBand()
+  const yScale = useMemo(() => d3.scalePoint()
     .domain(languages) // Set the domain based on the languages
     .range([0, height]) // Set the range based on the height
-    .padding(0), [languages, height]);
+    .padding(0.5), [languages, height]); // Add padding to ensure points are spaced correctly
 
   // Function to get the x-position of a data point based on the year
   const getXPosition = (xScale, year) => xScale(year);
@@ -89,8 +89,8 @@ const TreeReferenceGraph = () => {
   // Function to get the y-position of a data point based on the language and author
   const getYPosition = (yScale, language, author) => {
     const yPos = yScale(language); // Get the y-position based on the language
-    const bandWidth = yScale.bandwidth(); // Get the bandwidth of the y-scale
-    const padding = 0.1; // Padding to adjust the position within the bandwidth
+    const segmentHeight = yScale.step(); // Get the step size of the y-scale
+    const padding = segmentHeight * 0.1; // Padding to adjust the position within the segment
 
     // Calculate position factor based on the author's first letter
     let positionFactor = 0.5;
@@ -100,27 +100,26 @@ const TreeReferenceGraph = () => {
       positionFactor = Math.min(Math.max(normalizedValue, 0), 1);
     }
 
-    positionFactor = padding + positionFactor * (1 - 2 * padding);
-
-    return yPos + positionFactor * bandWidth; // Return the calculated y-position
+    const finalYPos = yPos - segmentHeight / 2 + padding + positionFactor * (segmentHeight - 2 * padding);
+    return finalYPos;
   };
 
   // Function to group close data points
   const adjustForOverlap = (data, xScale) => {
     const radius = 3.4; // Radius of the circles
     const adjustedData = [...data];
-    adjustedData.forEach((d, i) => {
-      let count = 1;
-      adjustedData.forEach((other, j) => {
-        if (i !== j && Math.abs(xScale(d.year) - xScale(other.year)) < radius * 2) {
-          const offset = radius * count * 2;
-          other.adjustedX = xScale(other.year) + offset;
-          count++;
-        } else {
-          other.adjustedX = xScale(other.year);
-        }
-      });
+    const groupedData = d3.groups(adjustedData, d => `${d.year}-${d.author}`);
+
+    groupedData.forEach(([key, group]) => {
+      if (group.length > 1) {
+        group.forEach((d, i) => {
+          d.adjustedX = xScale(d.year) + i * radius * 2;
+        });
+      } else {
+        group[0].adjustedX = xScale(group[0].year);
+      }
     });
+
     return adjustedData;
   };
 
@@ -133,26 +132,6 @@ const TreeReferenceGraph = () => {
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
-    // Create y-axis
-    const yAxis = d3.axisLeft(yScale); // Create the y-axis
-    svg.append('g')
-      .attr('class', 'y-axis')
-      .call(yAxis); // Add the y-axis to the SVG
-
-    // Add horizontal grid lines
-    svg.selectAll('.horizontal-line')
-      .data(languages)
-      .enter()
-      .append('line')
-      .attr('class', 'horizontal-line')
-      .attr('x1', 0)
-      .attr('x2', width)
-      .attr('y1', d => yScale(d))
-      .attr('y2', d => yScale(d))
-      .attr('stroke', 'grey')
-      .attr('stroke-dasharray', '20 10')
-      .attr('stroke-opacity', 0.5);
-
     // Create clip path
     svg.append('defs')
       .append('clipPath')
@@ -160,7 +139,7 @@ const TreeReferenceGraph = () => {
       .append('rect')
       .attr('width', width)
       .attr('height', height);
-  }, [height, languages, margin.bottom, margin.left, margin.right, margin.top, width, yScale]);
+  }, [height, margin.left, margin.right, margin.top, margin.bottom, width, xScale, yScale]);
 
   // Handle wheel events
   useEffect(() => {
@@ -247,6 +226,8 @@ const TreeReferenceGraph = () => {
       // Clear existing circles and lines
       svg.selectAll('circle').remove();
       svg.selectAll('.reference-line').remove();
+      svg.selectAll('.horizontal-line').remove();
+      
 
       // Adjust for overlap
       const adjustedData = adjustForOverlap(filteredData, xScale);
@@ -304,7 +285,6 @@ const TreeReferenceGraph = () => {
         .style('fill', 'white')
         .style('stroke', 'black')
         .on('mouseover', (event, d) => {
-          console.log('Hovered over data point:', d); // Log hover event
           // Change opacity of related lines
           d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.9);
           // Set hovered text information
@@ -352,7 +332,6 @@ const TreeReferenceGraph = () => {
           }, 0);
         })
         .on('mouseout', (event, d) => {
-          console.log('Mouse out from data point:', d); // Log mouse out event
           // Reset opacity of related lines
           d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.05);
           // Clear hovered text information
@@ -364,19 +343,91 @@ const TreeReferenceGraph = () => {
             window.open(d.link, '_blank');
           }
         });
+
+      // Render horizontal grid lines on the borders between segments
+      svg.selectAll('.horizontal-line')
+      .data([0, ...languages.map(d => yScale(d) - yScale.step() / 2), height]) // Include top and bottom lines
+      .enter()
+      .append('line')
+      .attr('class', 'horizontal-line')
+      .attr('x1', 0)
+      .attr('x2', width)
+      .attr('y1', d => d)
+      .attr('y2', d => d)
+      .attr('stroke', 'grey')
+      .attr('stroke-dasharray', '20 10')
+      .attr('stroke-opacity', 0.5);
+    
+
+      svg.select('.y-axis').remove();
+      const yAxis = d3.axisLeft(yScale)
+        .tickSize(0) // Hide tick lines
+        .tickPadding(10); // Add padding to the labels
+      svg.append('g')
+        .attr('class', 'y-axis')
+        .call(yAxis); // Add the y-axis to the SVG
     };
 
     // Function to apply zoom transform to the chart
     const applyZoom = (zoomState) => {
       if (zoomState) {
+        console.log("Applying zoom state:", zoomState);
         const newXScale = zoomState.rescaleX(xScale);
-
+    
+        // Manually calculate the new range for yScale
+        const newYScaleRange = yScale.range().map(d => zoomState.applyY(d));
+        console.log("Original yScale range:", yScale.range());
+        console.log("New yScale range after zoom:", newYScaleRange);
+        const newYScale = yScale.copy().range(newYScaleRange);
+    
+        console.log("New xScale domain:", newXScale.domain());
+        console.log("New xScale range:", newXScale.range());
+        console.log("New yScale domain:", newYScale.domain());
+        console.log("New yScale range:", newYScale.range());
+    
         svg.select('.x-axis').call(d3.axisBottom(newXScale));
-
+        svg.select('.y-axis').call(d3.axisLeft(newYScale));
+    
+        // Correct horizontal line positioning
+        svg.selectAll('.horizontal-line')
+          .attr('x1', 0)
+          .attr('x2', width)
+          .attr('y1', d => {
+            if (d === 0 || d === height) {
+              return d;
+            } else {
+              const language = languages[Math.round(d / yScale.step())];
+              const newY = newYScale(language);
+              console.log(`Horizontal line y1 position for language=${language} : ${newY}`);
+              return newY;
+            }
+          })
+          .attr('y2', d => {
+            if (d === 0 || d === height) {
+              return d;
+            } else {
+              const language = languages[Math.round(d / yScale.step())];
+              const newY = newYScale(language);
+              console.log(`Horizontal line y2 position for language=${language} : ${newY}`);
+              return newY;
+            }
+          });
+    
+        // Reapply overlap prevention logic during zoom
+        
+    
         svg.selectAll('circle')
-          .attr('cx', d => newXScale(d.year))
-          .attr('cy', d => getYPosition(yScale, d.language, d.author));
-
+          .attr('cx', d => {
+            const newCx = newXScale(d.year);
+            console.log("Circle cx position for year=", d.year, ":", newCx);
+            return newCx;
+          })
+          .attr('cy', d => {
+            const newCy = getYPosition(newYScale, d.language, d.author);
+            console.log("Circle cy position for language=", d.language, "author=", d.author, ":", newCy);
+            return newCy;
+          });
+    
         svg.selectAll('.reference-line').each(function() {
           const line = d3.select(this);
           const classList = line.attr('class').split(' ');
@@ -384,17 +435,25 @@ const TreeReferenceGraph = () => {
           const targetId = parseInt(classList[2].split('-')[1]);
           const source = dataMap.get(sourceId);
           const target = dataMap.get(targetId);
-
+    
           if (source && target) {
+            const x1 = newXScale(source.year);
+            const y1 = getYPosition(newYScale, source.language, source.author);
+            const x2 = newXScale(target.year);
+            const y2 = getYPosition(newYScale, target.language, target.author);
+            console.log("Reference line positions for sourceId=", sourceId, "targetId=", targetId, ":", { x1, y1, x2, y2 });
+    
             line
-              .attr('x1', newXScale(source.year))
-              .attr('y1', getYPosition(yScale, source.language, source.author))
-              .attr('x2', newXScale(target.year))
-              .attr('y2', getYPosition(yScale, target.language, target.author));
+              .attr('x1', x1)
+              .attr('y1', y1)
+              .attr('x2', x2)
+              .attr('y2', y2);
           }
         });
       }
     };
+    
+    
 
     // Create x-axis
     const xAxis = d3.axisBottom(xScale);
@@ -407,7 +466,7 @@ const TreeReferenceGraph = () => {
     updateChartRef.current = updateChart;
     updateChart();
     applyZoom(currentZoomState);
-  }, [state.selectedTags, xScale, yScale, currentZoomState, height]);
+  }, [state.selectedTags, xScale, yScale, languages, currentZoomState, height, width]);
 
   useEffect(() => {
     if (updateChartRef.current) {
