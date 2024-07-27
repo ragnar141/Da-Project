@@ -33,7 +33,7 @@ const reducer = (state, action) => {
         ...state,
         hoveredText: action.payload.text,
         referencingTitles: action.payload.referencingTitles,
-        referencedTitles: action.payload.referencingTitles,
+        referencedTitles: action.payload.referencedTitles,
       };
     case 'CLEAR_HOVERED_TEXT': // Clear hovered text and related references
       return {
@@ -104,23 +104,25 @@ const TreeReferenceGraph = () => {
     return finalYPos;
   };
 
-  // Function to group close data points
+  // Function to group close data points and adjust for overlap
   const adjustForOverlap = (data, xScale) => {
     const radius = 3.4; // Radius of the circles
-    const adjustedData = [...data];
-    const groupedData = d3.groups(adjustedData, d => `${d.year}-${d.author}`);
+    const adjustedData = [...data]; // Create a copy of the data array to avoid mutating the original data
+    const groupedData = d3.groups(adjustedData, d => `${d.year}-${d.author}`); // Group data points by year and author
 
-    groupedData.forEach(([key, group]) => {
-      if (group.length > 1) {
-        group.forEach((d, i) => {
+    groupedData.forEach(([key, group]) => { // Iterate through each group of data points
+      if (group.length > 1) { // If there are multiple data points in the same group (i.e., they overlap)
+        group.forEach((d, i) => { // Adjust the x position to prevent overlap by shifting each point
           d.adjustedX = xScale(d.year) + i * radius * 2;
+          d.adjustedYear = xScale.invert(d.adjustedX); // Calculate the adjusted year
         });
-      } else {
-        group[0].adjustedX = xScale(group[0].year);
+      } else { // If there is only one data point in the group, no adjustment is needed
+        group[0].adjustedX = xScale(group[0].year); // Set the adjusted x position to the original x position
+        group[0].adjustedYear = group[0].year; // Set the adjusted year to the original year
       }
     });
 
-    return adjustedData;
+    return adjustedData; // Return the array with adjusted data points
   };
 
   // First useEffect to render static elements
@@ -226,9 +228,7 @@ const TreeReferenceGraph = () => {
       // Clear existing circles and lines
       svg.selectAll('circle').remove();
       svg.selectAll('.reference-line').remove();
-      svg.selectAll('.horizontal-line').remove();
       
-
       // Adjust for overlap
       const adjustedData = adjustForOverlap(filteredData, xScale);
 
@@ -237,6 +237,7 @@ const TreeReferenceGraph = () => {
         const sourceReferences = referencesData.filter(ref => ref.primary_text === d.id);
         const targetReferences = referencesData.filter(ref => ref.secondary_text === d.id);
 
+        // Draw reference lines where the current text is the source
         sourceReferences.forEach(ref => {
           const target = dataMap.get(ref.secondary_text);
           if (target && adjustedData.includes(target)) {
@@ -253,6 +254,7 @@ const TreeReferenceGraph = () => {
           }
         });
 
+        // Draw reference lines where the current text is the target
         targetReferences.forEach(ref => {
           const source = dataMap.get(ref.primary_text);
           if (source && adjustedData.includes(source)) {
@@ -346,7 +348,7 @@ const TreeReferenceGraph = () => {
 
       // Render horizontal grid lines on the borders between segments
       svg.selectAll('.horizontal-line')
-      .data([0, ...languages.map(d => yScale(d) - yScale.step() / 2), height]) // Include top and bottom lines
+      .data([...languages.map(d => yScale(d) - yScale.step() / 2), height]) // Include top and bottom lines
       .enter()
       .append('line')
       .attr('class', 'horizontal-line')
@@ -375,51 +377,63 @@ const TreeReferenceGraph = () => {
         const newXScale = zoomState.rescaleX(xScale);
     
         // Manually calculate the new range for yScale
-        const newYScaleRange = yScale.range().map(d => zoomState.applyY(d));
         console.log("Original yScale range:", yScale.range());
+        const newYScaleRange = yScale.range().map(d => zoomState.applyY(d));
         console.log("New yScale range after zoom:", newYScaleRange);
         const newYScale = yScale.copy().range(newYScaleRange);
     
+        // Log the new domains and ranges of the scales
         console.log("New xScale domain:", newXScale.domain());
         console.log("New xScale range:", newXScale.range());
         console.log("New yScale domain:", newYScale.domain());
         console.log("New yScale range:", newYScale.range());
     
+        // Update the x-axis and y-axis with the new scales
         svg.select('.x-axis').call(d3.axisBottom(newXScale));
         svg.select('.y-axis').call(d3.axisLeft(newYScale));
-    
-        // Correct horizontal line positioning
+
         svg.selectAll('.horizontal-line')
-          .attr('x1', 0)
-          .attr('x2', width)
-          .attr('y1', d => {
-            if (d === 0 || d === height) {
-              return d;
-            } else {
-              const language = languages[Math.round(d / yScale.step())];
-              const newY = newYScale(language);
-              console.log(`Horizontal line y1 position for language=${language} : ${newY}`);
-              return newY;
-            }
-          })
-          .attr('y2', d => {
-            if (d === 0 || d === height) {
-              return d;
-            } else {
-              const language = languages[Math.round(d / yScale.step())];
-              const newY = newYScale(language);
-              console.log(`Horizontal line y2 position for language=${language} : ${newY}`);
-              return newY;
-            }
-          });
-    
+        .attr('x1', 0)
+        .attr('x2', width)
+        .attr('y1', (d, i) => {
+          if (i === 0) {
+            // Top border line of the first segment
+            return newYScale(languages[0]) - newYScale.step() / 2;
+          } else if (i === languages.length) {
+            // Bottom border line of the last segment
+            return newYScale(languages[languages.length - 1]) + newYScale.step() / 2;
+          } else {
+            // Borders of each segment
+            const newY = newYScale(languages[i - 1]) + newYScale.step() / 2;
+            console.log(`Horizontal line y1 position for language=${languages[i - 1]} : ${newY}`);
+            return newY;
+          }
+        })
+        .attr('y2', (d, i) => {
+          if (i === 0) {
+            // Top border line of the first segment
+            return newYScale(languages[0]) - newYScale.step() / 2;
+          } else if (i === languages.length) {
+            // Bottom border line of the last segment
+            return newYScale(languages[languages.length - 1]) + newYScale.step() / 2;
+          } else {
+            // Borders of each segment
+            const newY = newYScale(languages[i - 1]) + newYScale.step() / 2;
+            console.log(`Horizontal line y2 position for language=${languages[i - 1]} : ${newY}`);
+            return newY;
+          }
+        });
+
         // Reapply overlap prevention logic during zoom
-        
+        const adjustedData = adjustForOverlap(data, newXScale);
     
+        // Update circle positions based on new scales and adjusted data
         svg.selectAll('circle')
+          .data(adjustedData) // Bind adjustedData to circles
           .attr('cx', d => {
-            const newCx = newXScale(d.year);
-            console.log("Circle cx position for year=", d.year, ":", newCx);
+            // Use adjusted year values for x positions
+            const newCx = newXScale(d.adjustedYear || d.year);
+            console.log("Circle cx position for year=", d.adjustedYear || d.year, ":", newCx);
             return newCx;
           })
           .attr('cy', d => {
@@ -428,6 +442,7 @@ const TreeReferenceGraph = () => {
             return newCy;
           });
     
+        // Update reference line positions based on new scales
         svg.selectAll('.reference-line').each(function() {
           const line = d3.select(this);
           const classList = line.attr('class').split(' ');
@@ -437,9 +452,9 @@ const TreeReferenceGraph = () => {
           const target = dataMap.get(targetId);
     
           if (source && target) {
-            const x1 = newXScale(source.year);
+            const x1 = newXScale(source.adjustedYear || source.year);
             const y1 = getYPosition(newYScale, source.language, source.author);
-            const x2 = newXScale(target.year);
+            const x2 = newXScale(target.adjustedYear || target.year);
             const y2 = getYPosition(newYScale, target.language, target.author);
             console.log("Reference line positions for sourceId=", sourceId, "targetId=", targetId, ":", { x1, y1, x2, y2 });
     
@@ -452,8 +467,6 @@ const TreeReferenceGraph = () => {
         });
       }
     };
-    
-    
 
     // Create x-axis
     const xAxis = d3.axisBottom(xScale);

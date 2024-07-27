@@ -10,7 +10,7 @@ const ZoomableArea = ({ width, height, margin, onZoom }) => {
 
     // Add zoom behavior
     const zoomBehavior = d3.zoom()
-      .scaleExtent([0.5, 20])
+      .scaleExtent([0.5, 27])
       .translateExtent([[margin.left, 0], [width + margin.left, height]])
       .extent([[margin.left, 0], [width + margin.left, height]])
       .on("zoom", (event) => {
