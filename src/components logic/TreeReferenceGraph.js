@@ -390,40 +390,43 @@ const TreeReferenceGraph = () => {
     
         // Update the x-axis and y-axis with the new scales
         svg.select('.x-axis').call(d3.axisBottom(newXScale));
-        svg.select('.y-axis').call(d3.axisLeft(newYScale));
-
+        svg.select('.y-axis').call(d3.axisLeft(newYScale).tickSize(0));
+    
         svg.selectAll('.horizontal-line')
-        .attr('x1', 0)
-        .attr('x2', width)
-        .attr('y1', (d, i) => {
-          if (i === 0) {
-            // Top border line of the first segment
-            return newYScale(languages[0]) - newYScale.step() / 2;
-          } else if (i === languages.length) {
-            // Bottom border line of the last segment
-            return newYScale(languages[languages.length - 1]) + newYScale.step() / 2;
-          } else {
-            // Borders of each segment
-            const newY = newYScale(languages[i - 1]) + newYScale.step() / 2;
-            console.log(`Horizontal line y1 position for language=${languages[i - 1]} : ${newY}`);
-            return newY;
-          }
-        })
-        .attr('y2', (d, i) => {
-          if (i === 0) {
-            // Top border line of the first segment
-            return newYScale(languages[0]) - newYScale.step() / 2;
-          } else if (i === languages.length) {
-            // Bottom border line of the last segment
-            return newYScale(languages[languages.length - 1]) + newYScale.step() / 2;
-          } else {
-            // Borders of each segment
-            const newY = newYScale(languages[i - 1]) + newYScale.step() / 2;
-            console.log(`Horizontal line y2 position for language=${languages[i - 1]} : ${newY}`);
-            return newY;
-          }
-        });
-
+          .attr('x1', 0)
+          .attr('x2', width)
+          .attr('y1', (d, i) => {
+            if (i === 0) {
+              // Top border line of the first segment
+              return newYScale(languages[0]) - newYScale.step() / 2;
+            } else if (i === languages.length) {
+              // Bottom border line of the last segment
+              return newYScale(languages[languages.length - 1]) + newYScale.step() / 2;
+            } else {
+              // Borders of each segment
+              const newY = newYScale(languages[i - 1]) + newYScale.step() / 2;
+              console.log(`Horizontal line y1 position for language=${languages[i - 1]} : ${newY}`);
+              return newY;
+            }
+          })
+          .attr('y2', (d, i) => {
+            if (i === 0) {
+              // Top border line of the first segment
+              return newYScale(languages[0]) - newYScale.step() / 2;
+            } else if (i === languages.length) {
+              // Bottom border line of the last segment
+              return newYScale(languages[languages.length - 1]) + newYScale.step() / 2;
+            } else {
+              // Borders of each segment
+              const newY = newYScale(languages[i - 1]) + newYScale.step() / 2;
+              console.log(`Horizontal line y2 position for language=${languages[i - 1]} : ${newY}`);
+              return newY;
+            }
+          });
+    
+        // Get the current zoom scale
+        const zoomScale = zoomState.k;
+    
         // Reapply overlap prevention logic during zoom
         const adjustedData = adjustForOverlap(data, newXScale);
     
@@ -440,7 +443,8 @@ const TreeReferenceGraph = () => {
             const newCy = getYPosition(newYScale, d.language, d.author);
             console.log("Circle cy position for language=", d.language, "author=", d.author, ":", newCy);
             return newCy;
-          });
+          })
+          .attr('r', 3.4 * zoomScale); // Adjust the radius based on zoom scale
     
         // Update reference line positions based on new scales
         svg.selectAll('.reference-line').each(function() {
@@ -467,7 +471,8 @@ const TreeReferenceGraph = () => {
         });
       }
     };
-
+    
+    
     // Create x-axis
     const xAxis = d3.axisBottom(xScale);
     svg.select('.x-axis').remove();
