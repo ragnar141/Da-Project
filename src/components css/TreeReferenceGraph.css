@@ -81,6 +81,7 @@ svg {
   justify-content: center; /* Center content vertically */
   font-size: 14px;
   padding-left: 14px;
+  
 }
 
 .hover-card-main {
@@ -94,6 +95,7 @@ svg {
   justify-content: center; /* Center content vertically */
   align-items: center; /* Center content horizontally */
   font-size: 15px;
+  
 }
 
 .hover-card-main p {

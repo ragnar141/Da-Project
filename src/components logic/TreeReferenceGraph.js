@@ -141,31 +141,17 @@ const TreeReferenceGraph = () => {
       .append('rect')
       .attr('width', width)
       .attr('height', height);
+
+    // Create another clip path for the x-axis
+    svg.append('defs')
+      .append('clipPath')
+      .attr('id', 'xAxisClip')
+      .append('rect')
+      .attr('x', -margin.left)
+      .attr('width', width + margin.left)
+      .attr('height', height);
+
   }, [height, margin.left, margin.right, margin.top, margin.bottom, width, xScale, yScale]);
-
-  // Handle wheel events
-  useEffect(() => {
-    const handleWheel = (e) => {
-      e.preventDefault(); // Prevent default scrolling behavior
-      e.stopPropagation(); // Prevent the event from propagating to parent elements
-    };
-
-    const attachWheelListener = () => {
-      const hoverCardElement = hoverCardRef.current;
-
-      if (hoverCardElement) {
-        hoverCardElement.addEventListener('wheel', handleWheel, { passive: false });
-
-        return () => {
-          hoverCardElement.removeEventListener('wheel', handleWheel);
-        };
-      }
-    };
-
-    const timeoutId = setTimeout(attachWheelListener, 0);
-
-    return () => clearTimeout(timeoutId);
-  }, [state.hoveredText]); // Add state.hoveredText to dependency array to ensure the effect runs when the hover card is updated
 
   // Second useEffect to handle dynamic updates
   useEffect(() => {
@@ -330,6 +316,9 @@ const TreeReferenceGraph = () => {
               const hoverCardMainHeight = hoverCardMain.clientHeight;
               const scrollTop = hoverCardMain.offsetTop - (hoverCardHeight / 2 - hoverCardMainHeight / 2);
               hoverCardRef.current.scrollTo({ top: scrollTop, behavior: 'smooth' });
+              console.log('Event listener added to hoverCardRef');
+            } else {
+              console.log('hoverCardRef.current is null in setTimeout');
             }
           }, 0);
         })
@@ -358,8 +347,8 @@ const TreeReferenceGraph = () => {
       .attr('y2', d => d)
       .attr('stroke', 'grey')
       .attr('stroke-dasharray', '20 10')
-      .attr('stroke-opacity', 0.5);
-    
+      .attr('stroke-opacity', 0.5)
+      .attr('clip-path', 'url(#xAxisClip)'); // Apply x-axis clip path
 
       svg.select('.y-axis').remove();
       const yAxis = d3.axisLeft(yScale)
@@ -367,6 +356,7 @@ const TreeReferenceGraph = () => {
         .tickPadding(10); // Add padding to the labels
       svg.append('g')
         .attr('class', 'y-axis')
+        .attr('clip-path', 'url(#xAxisClip)') // Apply x-axis clip path
         .call(yAxis); // Add the y-axis to the SVG
     };
 
@@ -377,20 +367,14 @@ const TreeReferenceGraph = () => {
         const newXScale = zoomState.rescaleX(xScale);
     
         // Manually calculate the new range for yScale
-        console.log("Original yScale range:", yScale.range());
+        
         const newYScaleRange = yScale.range().map(d => zoomState.applyY(d));
-        console.log("New yScale range after zoom:", newYScaleRange);
+        
         const newYScale = yScale.copy().range(newYScaleRange);
-    
-        // Log the new domains and ranges of the scales
-        console.log("New xScale domain:", newXScale.domain());
-        console.log("New xScale range:", newXScale.range());
-        console.log("New yScale domain:", newYScale.domain());
-        console.log("New yScale range:", newYScale.range());
     
         // Update the x-axis and y-axis with the new scales
         svg.select('.x-axis').call(d3.axisBottom(newXScale));
-        svg.select('.y-axis').call(d3.axisLeft(newYScale).tickSize(0));
+        svg.select('.y-axis').call(d3.axisLeft(newYScale).tickSize(0).tickPadding(10));
     
         svg.selectAll('.horizontal-line')
           .attr('x1', 0)
@@ -405,7 +389,7 @@ const TreeReferenceGraph = () => {
             } else {
               // Borders of each segment
               const newY = newYScale(languages[i - 1]) + newYScale.step() / 2;
-              console.log(`Horizontal line y1 position for language=${languages[i - 1]} : ${newY}`);
+              
               return newY;
             }
           })
@@ -419,7 +403,7 @@ const TreeReferenceGraph = () => {
             } else {
               // Borders of each segment
               const newY = newYScale(languages[i - 1]) + newYScale.step() / 2;
-              console.log(`Horizontal line y2 position for language=${languages[i - 1]} : ${newY}`);
+             
               return newY;
             }
           });
@@ -441,7 +425,7 @@ const TreeReferenceGraph = () => {
           })
           .attr('cy', d => {
             const newCy = getYPosition(newYScale, d.language, d.author);
-            console.log("Circle cy position for language=", d.language, "author=", d.author, ":", newCy);
+            
             return newCy;
           })
           .attr('r', 3.4 * zoomScale); // Adjust the radius based on zoom scale
@@ -460,7 +444,7 @@ const TreeReferenceGraph = () => {
             const y1 = getYPosition(newYScale, source.language, source.author);
             const x2 = newXScale(target.adjustedYear || target.year);
             const y2 = getYPosition(newYScale, target.language, target.author);
-            console.log("Reference line positions for sourceId=", sourceId, "targetId=", targetId, ":", { x1, y1, x2, y2 });
+            
     
             line
               .attr('x1', x1)
@@ -492,12 +476,40 @@ const TreeReferenceGraph = () => {
     }
   }, [state.selectedTags, xScale, yScale]);
 
+  
+  const handleHoverCardWheel = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log("HOVCARD WHEEL HANDLD");
+
+    const scrollAmount = e.deltaY;
+    const hoverCard = hoverCardRef.current;
+    const currentScroll = hoverCard.scrollTop;
+    const targetScroll = currentScroll + scrollAmount;
+
+    const animateScroll = (start, end, duration) => {
+      const startTime = performance.now();
+      const step = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        hoverCard.scrollTop = start + (end - start) * progress;
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        }
+      };
+      requestAnimationFrame(step);
+    };
+
+    animateScroll(currentScroll, targetScroll, 100);
+  };
+
   return (
     <div style={{ position: 'relative', pointerEvents: 'auto' }}>
-      <svg ref={chartRef}>
+      <svg ref={chartRef} onWheel={handleHoverCardWheel}>
         <ZoomableArea width={width} height={height} margin={margin} onZoom={setCurrentZoomState} />
       </svg>
       <div className="hover-card" ref={hoverCardRef} style={{ pointerEvents: 'auto', display: state.hoveredText ? 'block' : 'none' }}>
+        {state.hoveredText ? console.log('Hover card displayed') : console.log('Hover card hidden')}
         {state.referencingTitles.length > 0 && (
           <div className="hover-card-section">
             <p><strong>Informs:</strong></p>
@@ -522,7 +534,7 @@ const TreeReferenceGraph = () => {
             <p><strong>Informed by:</strong></p>
             <ul>
               {state.referencedTitles.map((item, index) => (
-                <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'similar-themes'}>
+                <li key={index} className={item.referenceType === 'direct reference' ? 'direct reference' : 'similar-themes'}>
                   {item.title} ({item.date})
                 </li>
               ))}

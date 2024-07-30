@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
@@ -10,7 +9,7 @@ const ZoomableArea = ({ width, height, margin, onZoom }) => {
 
     // Add zoom behavior
     const zoomBehavior = d3.zoom()
-      .scaleExtent([0.5, 27])
+      .scaleExtent([1, 27])
       .translateExtent([[margin.left, 0], [width + margin.left, height]])
       .extent([[margin.left, 0], [width + margin.left, height]])
       .on("zoom", (event) => {
