@@ -378,12 +378,14 @@ const TreeReferenceGraph = () => {
     
         // Update the x-axis and y-axis with the new scales
         svg.select('.x-axis').call(d3.axisBottom(newXScale).tickFormat(d => d < 0 ? `${Math.abs(d)} BC` : d))
-          .selectAll("text")
-          .style("font-family", "Verdana, sans-serif");
+        .style('font-size', '14px')
+        .selectAll("text")
+        .style("font-family", "Times New Roman, sans-serif");
         
         svg.select('.y-axis').call(d3.axisLeft(newYScale).tickSize(0).tickPadding(10))
           .selectAll("text")
-          .style("font-family", "Verdana, sans-serif");
+          .style("font-family", "Garamond, sans-serif")
+          .style('font-size', '18px');
     
         svg.selectAll('.horizontal-line')
           .attr('x1', 0)
