@@ -6,10 +6,10 @@ svg {
 
 .hover-card {
   position: absolute;
-  top: 0;
-  right: 0;
-  height: 97%; /* Make the card the same height as the graph */
-  width: 170px; /* Adjust width to fit the right segment */
+  top: 3px;
+  right: -31px;
+  height: 95%; /* Make the card the same height as the graph */
+  width: 180px; /* Adjust width to fit the right segment */
   background-color: white;
   border: 1px solid black;
   border-radius: 4px;
@@ -17,6 +17,7 @@ svg {
   padding: 10px; /* Add padding inside the card */
   pointer-events: auto; /* Ensure the card can capture mouse events */
   font-size: 14px; /* Reduced font size */
+  font-family: "Helvetica", "Arial", sans-serif;
   transition: opacity 0.2s;
   overflow-y: auto !important; /* Allow vertical scrolling if content overflows */
   overflow-x: hidden; /* Prevent horizontal scrolling */
@@ -109,8 +110,6 @@ svg {
 
 .legend {
   margin-top: 20px; /* Space above the legend */
-  text-align: center; /* Align text to the left */
-  padding-left: 20 px;
 }
 
 .legend-container {
@@ -119,6 +118,9 @@ svg {
   justify-content: flex-start; /* Align items to the start of the container */
   width: 50%; /* Spread items across the left half of the screen */
   padding-left: 60px;
+  font-size: 19px;
+  font-family: "Garamond", "Times New Roman", Times, serif;
+  padding-left: 970px;
 }
 
 .legend-item {
@@ -145,17 +147,18 @@ svg {
 
 .tags-container {
   position: absolute;
-  top: 0;
-  right: 0; /* Position the container all the way to the right */
-  width: 170px; /* Adjust width to fit the right segment */
+  top: 3px;
+  right: -31px; /* Position the container all the way to the right */
+  width: 180px; /* Adjust width to fit the right segment */
   height: 95%; /* Make the container the full height */
   background-color: white;
   border: 1px solid black;
   border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px; /* Add padding inside the container */
+  padding: 7px; /* Add padding inside the container */
   pointer-events: auto; /* Ensure the container can capture mouse events */
   font-size: 13px; /* Reduced font size */
+  font-family: "Helvetica", "Arial", sans-serif;
   overflow-y: auto; /* Allow vertical scrolling if content overflows */
   overflow-x: hidden; /* Prevent horizontal scrolling */
   display: flex;

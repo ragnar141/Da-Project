@@ -62,7 +62,7 @@ const TreeReferenceGraph = () => {
   const [state, dispatch] = useReducer(reducer, initialState); // Use useReducer for state management
   const [currentZoomState, setCurrentZoomState] = useState(); // Zoom state
 
-  const margin = useMemo(() => ({ top: 0, right: 130, bottom: 20, left: 70 }), []); // Margin for the SVG
+  const margin = useMemo(() => ({ top: 0, right: 185, bottom: 20, left: 70 }), []); // Margin for the SVG
   const width = 1440 - margin.left - margin.right; // Calculate width
   const height = 690 - margin.top - margin.bottom; // Calculate height
 
@@ -357,7 +357,11 @@ const TreeReferenceGraph = () => {
       svg.append('g')
         .attr('class', 'y-axis')
         .attr('clip-path', 'url(#xAxisClip)') // Apply x-axis clip path
-        .call(yAxis); // Add the y-axis to the SVG
+        .call(yAxis) // Add the y-axis to the SVG
+        .style('font-size', '18px')
+        .selectAll("text")
+        .style("font-family", "Garamond, sans-serif");
+
     };
 
     // Function to apply zoom transform to the chart
@@ -373,8 +377,13 @@ const TreeReferenceGraph = () => {
         const newYScale = yScale.copy().range(newYScaleRange);
     
         // Update the x-axis and y-axis with the new scales
-        svg.select('.x-axis').call(d3.axisBottom(newXScale));
-        svg.select('.y-axis').call(d3.axisLeft(newYScale).tickSize(0).tickPadding(10));
+        svg.select('.x-axis').call(d3.axisBottom(newXScale).tickFormat(d => d < 0 ? `${Math.abs(d)} BC` : d))
+          .selectAll("text")
+          .style("font-family", "Verdana, sans-serif");
+        
+        svg.select('.y-axis').call(d3.axisLeft(newYScale).tickSize(0).tickPadding(10))
+          .selectAll("text")
+          .style("font-family", "Verdana, sans-serif");
     
         svg.selectAll('.horizontal-line')
           .attr('x1', 0)
@@ -458,12 +467,17 @@ const TreeReferenceGraph = () => {
     
     
     // Create x-axis
-    const xAxis = d3.axisBottom(xScale);
+    const xAxis = d3.axisBottom(xScale).tickFormat(d => d < 0 ? `${Math.abs(d)} BC` : d);
+
     svg.select('.x-axis').remove();
     svg.append('g')
       .attr('class', 'x-axis')
       .attr('transform', `translate(0,${height})`)
-      .call(xAxis);
+      .call(xAxis)
+      .style('font-size', '14px')
+      .selectAll("text")
+      .style("font-family", "Times New Roman, sans-serif");
+      
 
     updateChartRef.current = updateChart;
     updateChart();
@@ -505,6 +519,14 @@ const TreeReferenceGraph = () => {
 
   return (
     <div style={{ position: 'relative', pointerEvents: 'auto' }}>
+       <div className="legend-container">
+        <div className="legend-item">
+          <span className="bullet direct-reference"></span> direct reference
+        </div>
+        <div className="legend-item">
+          <span className="bullet similar-themes"></span> similar themes
+        </div>
+      </div>
       <svg ref={chartRef} onWheel={handleHoverCardWheel}>
         <ZoomableArea width={width} height={height} margin={margin} onZoom={setCurrentZoomState} />
       </svg>
@@ -541,14 +563,6 @@ const TreeReferenceGraph = () => {
             </ul>
           </div>
         )}
-      </div>
-      <div className="legend-container">
-        <div className="legend-item">
-          <span className="bullet direct-reference"></span> direct reference
-        </div>
-        <div className="legend-item">
-          <span className="bullet similar-themes"></span> similar themes
-        </div>
       </div>
       <div className="tags-container">
         <div className="tag-group tag-group-1">
