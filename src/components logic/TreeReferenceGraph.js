@@ -493,6 +493,30 @@ const TreeReferenceGraph = () => {
   }, [state.selectedTags, xScale, yScale]);
 
   
+  useEffect(() => {
+    const svgElement = chartRef.current;
+  
+    const handleMouseEnter = () => {
+      document.body.classList.add('no-scroll');
+    };
+  
+    const handleMouseLeave = () => {
+      document.body.classList.remove('no-scroll');
+    };
+  
+    if (svgElement) {
+      svgElement.addEventListener('mouseenter', handleMouseEnter);
+      svgElement.addEventListener('mouseleave', handleMouseLeave);
+    }
+  
+    return () => {
+      if (svgElement) {
+        svgElement.removeEventListener('mouseenter', handleMouseEnter);
+        svgElement.removeEventListener('mouseleave', handleMouseLeave);
+      }
+    };
+  }, []);
+  
   const handleHoverCardWheel = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -518,10 +542,9 @@ const TreeReferenceGraph = () => {
 
     animateScroll(currentScroll, targetScroll, 100);
   };
-
   return (
     <div style={{ position: 'relative', pointerEvents: 'auto' }}>
-       <div className="legend-container">
+      <div className="legend-container">
         <div className="legend-item">
           <span className="bullet direct-reference"></span> direct reference
         </div>
@@ -539,7 +562,7 @@ const TreeReferenceGraph = () => {
             <p><strong>Informs:</strong></p>
             <ul>
               {state.referencingTitles.map((item, index) => (
-                <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'similar-themes'}>
+                <li key={index} className={item.referenceType === 'direct-reference' ? 'direct-reference' : 'similar-themes'}>
                   {item.title} ({item.date})
                 </li>
               ))}
@@ -558,7 +581,7 @@ const TreeReferenceGraph = () => {
             <p><strong>Informed by:</strong></p>
             <ul>
               {state.referencedTitles.map((item, index) => (
-                <li key={index} className={item.referenceType === 'direct reference' ? 'direct reference' : 'similar-themes'}>
+                <li key={index} className={item.referenceType === 'direct-reference' ? 'direct-reference' : 'similar-themes'}>
                   {item.title} ({item.date})
                 </li>
               ))}
@@ -598,6 +621,6 @@ const TreeReferenceGraph = () => {
       </div>
     </div>
   );
-};
-
-export default TreeReferenceGraph;
+  };
+  
+  export default TreeReferenceGraph;

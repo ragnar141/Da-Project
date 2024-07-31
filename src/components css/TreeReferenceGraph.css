@@ -192,3 +192,12 @@ svg {
   margin-right: 5px; /* Space between checkbox and label */
   accent-color: black; /* Change the color of the checkmark to black when checked */
 }
+
+.no-scroll {
+  overflow: hidden;
+}
+
+svg {
+  background-color: white;
+  transition: transform 0.3s ease; /* Add transition for transform property */
+}
