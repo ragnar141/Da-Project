@@ -1,0 +1,39 @@
+.search-bar-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 300px;
+  }
+  
+  .search-bar-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .search-results-container {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .search-results-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .search-result-item {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .search-result-item:hover {
+    background-color: #f0f0f0;
+  }
+  

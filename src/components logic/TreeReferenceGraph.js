@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useReducer, useMemo, useState } from 'react';
 import * as d3 from 'd3';
 import '../components css/TreeReferenceGraph.css'; // Import the CSS file
-
 import textsData from './datasets/texts 7.17.24.json';
 import referencesData from './datasets/references 7.11.24.json';
 import ZoomableArea from './ZoomableArea';
+import SearchBar from './SearchBar'; // Import the SearchBar component
 
 // Define the list of tags
 const group1Tags = [
@@ -61,6 +61,9 @@ const TreeReferenceGraph = () => {
   const updateChartRef = useRef(null);   // Reference to the updateChart function
   const [state, dispatch] = useReducer(reducer, initialState); // Use useReducer for state management
   const [currentZoomState, setCurrentZoomState] = useState(); // Zoom state
+  const [searchQuery, setSearchQuery] = useState(''); // Search query state
+  const [searchResults, setSearchResults] = useState([]); // Search results state
+  const [adjustedData, setAdjustedData] = useState([]); // Adjusted data state
 
   const margin = useMemo(() => ({ top: 0, right: 185, bottom: 20, left: 70 }), []); // Margin for the SVG
   const width = 1440 - margin.left - margin.right; // Calculate width
@@ -217,6 +220,7 @@ const TreeReferenceGraph = () => {
       
       // Adjust for overlap
       const adjustedData = adjustForOverlap(filteredData, xScale);
+      setAdjustedData(adjustedData); // Update the adjustedData state
 
       // Draw reference lines for the filtered data points
       adjustedData.forEach(d => {
@@ -362,16 +366,16 @@ const TreeReferenceGraph = () => {
         .selectAll("text")
         .style("font-family", "Garamond, sans-serif");
 
+      return adjustedData;
     };
 
     // Function to apply zoom transform to the chart
-    const applyZoom = (zoomState) => {
-      if (zoomState) {
+    const applyZoom = (zoomState, adjustedData) => {
+      if (zoomState && adjustedData) {
         console.log("Applying zoom state:", zoomState);
         const newXScale = zoomState.rescaleX(xScale);
     
         // Manually calculate the new range for yScale
-        
         const newYScaleRange = yScale.range().map(d => zoomState.applyY(d));
         
         const newYScale = yScale.copy().range(newYScaleRange);
@@ -422,8 +426,8 @@ const TreeReferenceGraph = () => {
         // Get the current zoom scale
         const zoomScale = zoomState.k;
     
-        // Reapply overlap prevention logic during zoom
-        const adjustedData = adjustForOverlap(data, newXScale);
+        // Reapply overlap prevention logic during zoom using filtered data from updateChart
+       
     
         // Update circle positions based on new scales and adjusted data
         svg.selectAll('circle')
@@ -482,13 +486,15 @@ const TreeReferenceGraph = () => {
       
 
     updateChartRef.current = updateChart;
-    updateChart();
-    applyZoom(currentZoomState);
+    const newAdjustedData = updateChart();
+    setAdjustedData(newAdjustedData);
+    applyZoom(currentZoomState, newAdjustedData);
   }, [state.selectedTags, xScale, yScale, languages, currentZoomState, height, width]);
 
   useEffect(() => {
     if (updateChartRef.current) {
-      updateChartRef.current();
+      const newAdjustedData = updateChartRef.current();
+      setAdjustedData(newAdjustedData);
     }
   }, [state.selectedTags, xScale, yScale]);
 
@@ -542,8 +548,63 @@ const TreeReferenceGraph = () => {
 
     animateScroll(currentScroll, targetScroll, 100);
   };
+
+  const handleSearchQueryChange = (event) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+    if (query.length > 0) {
+      const results = adjustedData.filter(text =>
+        text.author.toLowerCase().includes(query.toLowerCase()) ||
+        text.title.toLowerCase().includes(query.toLowerCase())
+      );
+      setSearchResults(results);
+    } else {
+      setSearchResults([]);
+    }
+  };
+
+  const handleSearchResultClick = (result) => {
+    const zoomLevel = 10; // Define a suitable zoom level
+    const zoomX = xScale(result.year);
+    const zoomY = yScale(result.language);
+
+    const transform = d3.zoomIdentity.translate(width / 2 - zoomX * zoomLevel, height / 2 - zoomY * zoomLevel).scale(zoomLevel);
+
+    setCurrentZoomState(transform);
+
+    // Simulate hover
+    dispatch({ type: 'SET_HOVERED_TEXT', payload: { text: result, referencingTitles: [], referencedTitles: [] } });
+
+    // Ensure the hover card is visible
+    setTimeout(() => {
+      if (hoverCardRef.current) {
+        const hoverCardMain = hoverCardRef.current.querySelector('.hover-card-main');
+        const hoverCardHeight = hoverCardRef.current.clientHeight;
+        const hoverCardMainHeight = hoverCardMain.clientHeight;
+        const scrollTop = hoverCardMain.offsetTop - (hoverCardHeight / 2 - hoverCardMainHeight / 2);
+        hoverCardRef.current.scrollTo({ top: scrollTop, behavior: 'smooth' });
+      }
+    }, 0);
+  };
+
+  // Reset zoom state and zoom out when a tag is toggled
+  useEffect(() => {
+    if (updateChartRef.current) {
+      const newAdjustedData = updateChartRef.current();
+      setAdjustedData(newAdjustedData);
+    }
+    // Set zoom state to default (no zoom)
+    setCurrentZoomState(d3.zoomIdentity);
+  }, [state.selectedTags]);
+
   return (
     <div style={{ position: 'relative', pointerEvents: 'auto' }}>
+      <SearchBar
+        query={searchQuery}
+        results={searchResults}
+        onQueryChange={handleSearchQueryChange}
+        onResultClick={handleSearchResultClick}
+      />
       <div className="legend-container">
         <div className="legend-item">
           <span className="bullet direct-reference"></span> direct reference
@@ -562,7 +623,7 @@ const TreeReferenceGraph = () => {
             <p><strong>Informs:</strong></p>
             <ul>
               {state.referencingTitles.map((item, index) => (
-                <li key={index} className={item.referenceType === 'direct-reference' ? 'direct-reference' : 'similar-themes'}>
+                <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'similar-themes'}>
                   {item.title} ({item.date})
                 </li>
               ))}
@@ -581,7 +642,7 @@ const TreeReferenceGraph = () => {
             <p><strong>Informed by:</strong></p>
             <ul>
               {state.referencedTitles.map((item, index) => (
-                <li key={index} className={item.referenceType === 'direct-reference' ? 'direct-reference' : 'similar-themes'}>
+                <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'similar-themes'}>
                   {item.title} ({item.date})
                 </li>
               ))}
@@ -621,6 +682,7 @@ const TreeReferenceGraph = () => {
       </div>
     </div>
   );
-  };
-  
-  export default TreeReferenceGraph;
+};
+
+export default TreeReferenceGraph;
+

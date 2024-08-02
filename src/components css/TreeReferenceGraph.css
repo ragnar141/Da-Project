@@ -6,10 +6,10 @@ svg {
 
 .hover-card {
   position: absolute;
-  top: 3px;
+  top: 16px;
   right: -31px;
-  height: 95%; /* Make the card the same height as the graph */
-  width: 180px; /* Adjust width to fit the right segment */
+  height: 94%; /* Make the card the same height as the graph */
+  width: 178px; /* Adjust width to fit the right segment */
   background-color: white;
   border: 1px solid black;
   border-radius: 4px;
@@ -147,7 +147,7 @@ svg {
 
 .tags-container {
   position: absolute;
-  top: 3px;
+  top: 16px;
   right: -31px; /* Position the container all the way to the right */
   width: 180px; /* Adjust width to fit the right segment */
   height: 95%; /* Make the container the full height */
