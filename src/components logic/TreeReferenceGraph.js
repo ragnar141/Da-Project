@@ -67,7 +67,7 @@ const TreeReferenceGraph = () => {
 
   const margin = useMemo(() => ({ top: 0, right: 185, bottom: 20, left: 70 }), []); // Margin for the SVG
   const width = 1440 - margin.left - margin.right; // Calculate width
-  const height = 680 - margin.top - margin.bottom; // Calculate height
+  const height = 690 - margin.top - margin.bottom; // Calculate height
 
   // List of languages
   const languages = useMemo(() => [
@@ -156,7 +156,7 @@ const TreeReferenceGraph = () => {
 
   }, [height, margin.left, margin.right, margin.top, margin.bottom, width, xScale, yScale]);
 
-  // Second useEffect to handle dynamic updates + applyZoom
+  // Second useEffect to handle dynamic updates
   useEffect(() => {
     const svg = d3.select(chartRef.current).select('g');
 
@@ -491,7 +491,6 @@ const TreeReferenceGraph = () => {
     applyZoom(currentZoomState, newAdjustedData);
   }, [state.selectedTags, xScale, yScale, languages, currentZoomState, height, width]);
 
-  // Third useEffect to handle updates
   useEffect(() => {
     if (updateChartRef.current) {
       const newAdjustedData = updateChartRef.current();
@@ -499,7 +498,7 @@ const TreeReferenceGraph = () => {
     }
   }, [state.selectedTags, xScale, yScale]);
 
-  // UseEffect that makes sure scroller is reserved for the graph
+  
   useEffect(() => {
     const svgElement = chartRef.current;
   
@@ -586,9 +585,6 @@ const TreeReferenceGraph = () => {
         hoverCardRef.current.scrollTo({ top: scrollTop, behavior: 'smooth' });
       }
     }, 0);
-    
-    // Update the search query with the selected result's title
-    setSearchQuery(result.title);
   };
 
   // Reset zoom state and zoom out when a tag is toggled
@@ -608,7 +604,6 @@ const TreeReferenceGraph = () => {
         results={searchResults}
         onQueryChange={handleSearchQueryChange}
         onResultClick={handleSearchResultClick}
-        setQuery={setSearchQuery} // Pass setSearchQuery to SearchBar
       />
       <div className="legend-container">
         <div className="legend-item">
@@ -619,7 +614,7 @@ const TreeReferenceGraph = () => {
         </div>
       </div>
       <svg ref={chartRef} onWheel={handleHoverCardWheel}>
-        <ZoomableArea width={width} height={height} margin={margin} onZoom={setCurrentZoomState} />
+        <ZoomableArea width={width} height={height} margin={margin} onZoom={setCurrentZoomState} zoomState={currentZoomState}/>
       </svg>
       <div className="hover-card" ref={hoverCardRef} style={{ pointerEvents: 'auto', display: state.hoveredText ? 'block' : 'none' }}>
         {state.hoveredText ? console.log('Hover card displayed') : console.log('Hover card hidden')}

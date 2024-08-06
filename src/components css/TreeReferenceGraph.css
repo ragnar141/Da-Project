@@ -2,7 +2,7 @@
 
 svg {
   background-color: white;
-  margin-top: 30px; /* Adjust this value as needed to move the graph lower */
+  margin-top: 40px; /* Adjust this value as needed to move the graph lower */
 }
 
 .hover-card {
@@ -111,12 +111,12 @@ svg {
 }
 
 .legend {
-  margin-top: 20px; /* Space above the legend */
+  margin-top: 0px; /* Space above the legend */
 }
 
 .legend-container {
   position: absolute;
-  top: 5px;
+  top: 15px;
   right: -250px;
   display: flex;
   align-items: center;
