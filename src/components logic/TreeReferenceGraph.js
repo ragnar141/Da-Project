@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useReducer, useMemo, useState } from 'react';
+import React, { useEffect, useRef, useReducer, useMemo, useCallback, useState } from 'react';
 import * as d3 from 'd3';
 import '../components css/TreeReferenceGraph.css'; // Import the CSS file
 import textsData from './datasets/texts 7.17.24.json';
 import referencesData from './datasets/references 7.11.24.json';
 import ZoomableArea from './ZoomableArea';
-import SearchBar from './SearchBar'; // Import the SearchBar component
 
 // Define the list of tags
 const group1Tags = [
@@ -12,8 +11,8 @@ const group1Tags = [
 ];
 
 const group2Tags = [
-  "theology", "philosophy", "logic", "rhetoric", "ethics", "metaphysics", "history", "natural sciences", "mathematics", 
-  "physics", "biology", "political science", "sociology", "psychology", 
+  "theology", "philosophy", "logic", "rhetoric", "ethics", "metaphysics", "history", "natural sciences", "mathematics",
+  "physics", "biology", "political science", "sociology", "psychology",
   "epistemology", "medicine", "economics", "education", "public relations", "law", "warfare", "strategy"
 ];
 
@@ -56,13 +55,12 @@ const reducer = (state, action) => {
 };
 
 const TreeReferenceGraph = () => {
+  console.log('TreeReferenceGraph component rendered');
+  const updateChartRef = useRef(null); 
   const chartRef = useRef(null);         // Reference to the SVG element
   const hoverCardRef = useRef(null);     // Reference to the hover card element
-  const updateChartRef = useRef(null);   // Reference to the updateChart function
   const [state, dispatch] = useReducer(reducer, initialState); // Use useReducer for state management
-  const [currentZoomState, setCurrentZoomState] = useState(); // Zoom state
-  const [searchQuery, setSearchQuery] = useState(''); // Search query state
-  const [searchResults, setSearchResults] = useState([]); // Search results state
+  const [currentZoomState, setCurrentZoomState] = useState(d3.zoomIdentity); // Zoom state
   const [adjustedData, setAdjustedData] = useState([]); // Adjusted data state
 
   const margin = useMemo(() => ({ top: 0, right: 185, bottom: 20, left: 70 }), []); // Margin for the SVG
@@ -71,8 +69,8 @@ const TreeReferenceGraph = () => {
 
   // List of languages
   const languages = useMemo(() => [
-    'Avestan', 'Hebrew', 'Aramaic',  'Latin', 'Arabic',  'Italian', 'Greek',
-    'French', 'English', 'German', 'Russian', 'Sanskrit', 'Chinese', 'Japanese', 
+    'Avestan', 'Hebrew', 'Aramaic', 'Latin', 'Arabic', 'Italian', 'Greek',
+    'French', 'English', 'German', 'Russian', 'Sanskrit', 'Chinese', 'Japanese',
     'Pali'
   ], []);
 
@@ -107,8 +105,32 @@ const TreeReferenceGraph = () => {
     return finalYPos;
   };
 
+  // Process the data
+  const data = useMemo(() => {
+    console.log('Processing data');
+    return textsData.map(d => ({
+      id: d.index,
+      language: d["dataviz friendly original language"],
+      year: d["dataviz friendly date"],
+      dateForCard: d["date"],
+      oLanguage: d["original language"],
+      author: d.author,
+      title: d.title,
+      location: d["original location"],
+      link: d.link, // Ensure this matches the actual column name in your JSON
+      tags: Array.isArray(d.tags) ? d.tags : (d.tags ? d.tags.split(',') : [])
+    }));
+  }, []);
+
+  // Memoize dataMap to avoid recreating it on every render
+  const dataMap = useMemo(() => {
+    console.log('Creating dataMap');
+    return new Map(data.map(d => [d.id, d]));
+  }, [data]);
+
   // Function to group close data points and adjust for overlap
-  const adjustForOverlap = (data, xScale) => {
+  const adjustForOverlap = useCallback((data, xScale) => {
+    console.log('Adjusting for overlap');
     const radius = 3.4; // Radius of the circles
     const adjustedData = [...data]; // Create a copy of the data array to avoid mutating the original data
     const groupedData = d3.groups(adjustedData, d => `${d.year}-${d.author}`); // Group data points by year and author
@@ -126,10 +148,115 @@ const TreeReferenceGraph = () => {
     });
 
     return adjustedData; // Return the array with adjusted data points
-  };
+  }, []);
+
+  // Function to apply zoom transform to the chart
+  const applyZoom = useCallback((zoomState, adjustedData) => {
+    console.log('Applying zoom');
+    if (zoomState && adjustedData) {
+      const svg = d3.select(chartRef.current).select('g');
+      console.log("Applying zoom state:", zoomState);
+      const newXScale = zoomState.rescaleX(xScale);
+
+      // Manually calculate the new range for yScale
+      const newYScaleRange = yScale.range().map(d => zoomState.applyY(d));
+      const newYScale = yScale.copy().range(newYScaleRange);
+
+      // Update the x-axis and y-axis with the new scales
+      svg.select('.x-axis').remove();
+      svg.append('g')
+        .attr('class', 'x-axis')
+        .attr('transform', `translate(0,${height})`)
+        .call(d3.axisBottom(newXScale).tickFormat(d => d < 0 ? `${Math.abs(d)} BC` : d))
+        .style('font-size', '14px')
+        .selectAll("text")
+        .style("font-family", "Times New Roman, sans-serif");
+
+      svg.select('.y-axis').remove();
+      svg.append('g')
+        .attr('class', 'y-axis')
+        .attr('clip-path', 'url(#xAxisClip)') // Apply x-axis clip path
+        .call(d3.axisLeft(newYScale).tickSize(0).tickPadding(10))
+        .selectAll("text")
+        .style("font-family", "Garamond, sans-serif")
+        .style('font-size', '18px');
+
+      svg.selectAll('.horizontal-line')
+        .attr('x1', 0)
+        .attr('x2', width)
+        .attr('y1', (d, i) => {
+          if (i === 0) {
+            // Top border line of the first segment
+            return newYScale(languages[0]) - newYScale.step() / 2;
+          } else if (i === languages.length) {
+            // Bottom border line of the last segment
+            return newYScale(languages[languages.length - 1]) + newYScale.step() / 2;
+          } else {
+            // Borders of each segment
+            const newY = newYScale(languages[i - 1]) + newYScale.step() / 2;
+            return newY;
+          }
+        })
+        .attr('y2', (d, i) => {
+          if (i === 0) {
+            // Top border line of the first segment
+            return newYScale(languages[0]) - newYScale.step() / 2;
+          } else if (i === languages.length) {
+            // Bottom border line of the last segment
+            return newYScale(languages[languages.length - 1]) + newYScale.step() / 2;
+          } else {
+            // Borders of each segment
+            const newY = newYScale(languages[i - 1]) + newYScale.step() / 2;
+            return newY;
+          }
+        });
+
+      // Get the current zoom scale
+      const zoomScale = zoomState.k;
+
+      // Update circle positions based on new scales and adjusted data
+      svg.selectAll('circle')
+        .data(adjustedData) // Bind adjustedData to circles
+        .attr('cx', d => {
+          // Use adjusted year values for x positions
+          const newCx = newXScale(d.adjustedYear || d.year);
+          
+          return newCx;
+        })
+        .attr('cy', d => {
+          const newCy = getYPosition(newYScale, d.language, d.author);
+          return newCy;
+        })
+        .attr('r', 3.4 * zoomScale); // Adjust the radius based on zoom scale
+
+      // Update reference line positions based on new scales
+      svg.selectAll('.reference-line').each(function () {
+        const line = d3.select(this);
+        const classList = line.attr('class').split(' ');
+        const sourceId = parseInt(classList[1].split('-')[1]);
+        const targetId = parseInt(classList[2].split('-')[1]);
+        const source = dataMap.get(sourceId);
+        const target = dataMap.get(targetId);
+
+        if (source && target) {
+          const x1 = newXScale(source.adjustedYear || source.year);
+          const y1 = getYPosition(newYScale, source.language, source.author);
+          const x2 = newXScale(target.adjustedYear || target.year);
+          const y2 = getYPosition(newYScale, target.language, target.author);
+
+          line
+            .attr('x1', x1)
+            .attr('y1', y1)
+            .attr('x2', x2)
+            .attr('y2', y2);
+        }
+      });
+    }
+  }, [xScale, yScale, width, height, languages, dataMap]);
 
   // First useEffect to render static elements
   useEffect(() => {
+    console.log('Rendering static elements');
     // Create SVG element and set its dimensions
     const svg = d3.select(chartRef.current)
       .attr('width', width + margin.left + margin.right)
@@ -154,54 +281,35 @@ const TreeReferenceGraph = () => {
       .attr('width', width + margin.left)
       .attr('height', height);
 
-  }, [height, margin.left, margin.right, margin.top, margin.bottom, width, xScale, yScale]);
-
-  // Second useEffect to handle dynamic updates
-  useEffect(() => {
-    const svg = d3.select(chartRef.current).select('g');
-
-    // Process the data
-    const data = textsData.map(d => ({
-      id: d.index,
-      language: d["dataviz friendly original language"],
-      year: d["dataviz friendly date"],
-      dateForCard: d["date"],
-      oLanguage: d["original language"],
-      author: d.author,
-      title: d.title,
-      location: d["original location"],
-      link: d.link, // Ensure this matches the actual column name in your JSON
-      tags: Array.isArray(d.tags) ? d.tags : (d.tags ? d.tags.split(',') : []) 
-    }));
-
-    const dataMap = new Map(data.map(d => [d.id, d]));
-
-    // Add reference lines between data points
-    const referenceLines = svg.append('g')
-      .attr('class', 'reference-lines')
-      .attr('clip-path', 'url(#clip)'); // Apply clip path
-
-    referencesData.forEach((ref, index) => {
-      const source = dataMap.get(ref.primary_text);
-      const target = dataMap.get(ref.secondary_text);
-
-      if (source && target) {
-        const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
-
-        referenceLines.append('line')
-          .attr('x1', getXPosition(xScale, source.year))
-          .attr('y1', getYPosition(yScale, source.language, source.author))
-          .attr('x2', getXPosition(xScale, target.year))
-          .attr('y2', getYPosition(yScale, target.language, target.author))
-          .attr('stroke', color)
-          .attr('stroke-width', 1.4)
-          .attr('stroke-opacity', 0.05)
-          .attr('class', `reference-line reference-${source.id} reference-${target.id}`);
-      }
-    });
-
     // Function to update the chart based on selected tags
     const updateChart = () => {
+      console.log('Updating chart');
+      const svg = d3.select(chartRef.current).select('g');
+
+      // Add reference lines between data points
+      const referenceLines = svg.append('g')
+        .attr('class', 'reference-lines')
+        .attr('clip-path', 'url(#clip)'); // Apply clip path
+
+      referencesData.forEach((ref, index) => {
+        const source = dataMap.get(ref.primary_text);
+        const target = dataMap.get(ref.secondary_text);
+
+        if (source && target) {
+          const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
+
+          referenceLines.append('line')
+            .attr('x1', getXPosition(xScale, source.year))
+            .attr('y1', getYPosition(yScale, source.language, source.author))
+            .attr('x2', getXPosition(xScale, target.year))
+            .attr('y2', getYPosition(yScale, target.language, target.author))
+            .attr('stroke', color)
+            .attr('stroke-width', 1.4)
+            .attr('stroke-opacity', 0.05)
+            .attr('class', `reference-line reference-${source.id} reference-${target.id}`);
+        }
+      });
+
       // Filter data based on selected tags
       const filteredData = state.selectedTags.length === 0 ? [] : data.filter(d => {
         const tagsArray = Array.isArray(d.tags) ? d.tags.map(tag => tag.trim().toLowerCase()) : d.tags.split(',').map(tag => tag.trim().toLowerCase());
@@ -217,7 +325,7 @@ const TreeReferenceGraph = () => {
       // Clear existing circles and lines
       svg.selectAll('circle').remove();
       svg.selectAll('.reference-line').remove();
-      
+
       // Adjust for overlap
       const adjustedData = adjustForOverlap(filteredData, xScale);
       setAdjustedData(adjustedData); // Update the adjustedData state
@@ -341,180 +449,53 @@ const TreeReferenceGraph = () => {
 
       // Render horizontal grid lines on the borders between segments
       svg.selectAll('.horizontal-line')
-      .data([...languages.map(d => yScale(d) - yScale.step() / 2), height]) // Include top and bottom lines
-      .enter()
-      .append('line')
-      .attr('class', 'horizontal-line')
-      .attr('x1', 0)
-      .attr('x2', width)
-      .attr('y1', d => d)
-      .attr('y2', d => d)
-      .attr('stroke', 'grey')
-      .attr('stroke-dasharray', '20 10')
-      .attr('stroke-opacity', 0.5)
-      .attr('clip-path', 'url(#xAxisClip)'); // Apply x-axis clip path
-
-      svg.select('.y-axis').remove();
-      const yAxis = d3.axisLeft(yScale)
-        .tickSize(0) // Hide tick lines
-        .tickPadding(10); // Add padding to the labels
-      svg.append('g')
-        .attr('class', 'y-axis')
-        .attr('clip-path', 'url(#xAxisClip)') // Apply x-axis clip path
-        .call(yAxis) // Add the y-axis to the SVG
-        .style('font-size', '18px')
-        .selectAll("text")
-        .style("font-family", "Garamond, sans-serif");
+        .data([...languages.map(d => yScale(d) - yScale.step() / 2), height]) // Include top and bottom lines
+        .enter()
+        .append('line')
+        .attr('class', 'horizontal-line')
+        .attr('x1', 0)
+        .attr('x2', width)
+        .attr('y1', d => d)
+        .attr('y2', d => d)
+        .attr('stroke', 'grey')
+        .attr('stroke-dasharray', '20 10')
+        .attr('stroke-opacity', 0.5)
+        .attr('clip-path', 'url(#xAxisClip)'); // Apply x-axis clip path
 
       return adjustedData;
     };
 
-    // Function to apply zoom transform to the chart
-    const applyZoom = (zoomState, adjustedData) => {
-      if (zoomState && adjustedData) {
-        console.log("Applying zoom state:", zoomState);
-        const newXScale = zoomState.rescaleX(xScale);
-    
-        // Manually calculate the new range for yScale
-        const newYScaleRange = yScale.range().map(d => zoomState.applyY(d));
-        
-        const newYScale = yScale.copy().range(newYScaleRange);
-    
-        // Update the x-axis and y-axis with the new scales
-        svg.select('.x-axis').call(d3.axisBottom(newXScale).tickFormat(d => d < 0 ? `${Math.abs(d)} BC` : d))
-        .style('font-size', '14px')
-        .selectAll("text")
-        .style("font-family", "Times New Roman, sans-serif");
-        
-        svg.select('.y-axis').call(d3.axisLeft(newYScale).tickSize(0).tickPadding(10))
-          .selectAll("text")
-          .style("font-family", "Garamond, sans-serif")
-          .style('font-size', '18px');
-    
-        svg.selectAll('.horizontal-line')
-          .attr('x1', 0)
-          .attr('x2', width)
-          .attr('y1', (d, i) => {
-            if (i === 0) {
-              // Top border line of the first segment
-              return newYScale(languages[0]) - newYScale.step() / 2;
-            } else if (i === languages.length) {
-              // Bottom border line of the last segment
-              return newYScale(languages[languages.length - 1]) + newYScale.step() / 2;
-            } else {
-              // Borders of each segment
-              const newY = newYScale(languages[i - 1]) + newYScale.step() / 2;
-              
-              return newY;
-            }
-          })
-          .attr('y2', (d, i) => {
-            if (i === 0) {
-              // Top border line of the first segment
-              return newYScale(languages[0]) - newYScale.step() / 2;
-            } else if (i === languages.length) {
-              // Bottom border line of the last segment
-              return newYScale(languages[languages.length - 1]) + newYScale.step() / 2;
-            } else {
-              // Borders of each segment
-              const newY = newYScale(languages[i - 1]) + newYScale.step() / 2;
-             
-              return newY;
-            }
-          });
-    
-        // Get the current zoom scale
-        const zoomScale = zoomState.k;
-    
-        // Reapply overlap prevention logic during zoom using filtered data from updateChart
-       
-    
-        // Update circle positions based on new scales and adjusted data
-        svg.selectAll('circle')
-          .data(adjustedData) // Bind adjustedData to circles
-          .attr('cx', d => {
-            // Use adjusted year values for x positions
-            const newCx = newXScale(d.adjustedYear || d.year);
-            console.log("Circle cx position for year=", d.adjustedYear || d.year, ":", newCx);
-            return newCx;
-          })
-          .attr('cy', d => {
-            const newCy = getYPosition(newYScale, d.language, d.author);
-            
-            return newCy;
-          })
-          .attr('r', 3.4 * zoomScale); // Adjust the radius based on zoom scale
-    
-        // Update reference line positions based on new scales
-        svg.selectAll('.reference-line').each(function() {
-          const line = d3.select(this);
-          const classList = line.attr('class').split(' ');
-          const sourceId = parseInt(classList[1].split('-')[1]);
-          const targetId = parseInt(classList[2].split('-')[1]);
-          const source = dataMap.get(sourceId);
-          const target = dataMap.get(targetId);
-    
-          if (source && target) {
-            const x1 = newXScale(source.adjustedYear || source.year);
-            const y1 = getYPosition(newYScale, source.language, source.author);
-            const x2 = newXScale(target.adjustedYear || target.year);
-            const y2 = getYPosition(newYScale, target.language, target.author);
-            
-    
-            line
-              .attr('x1', x1)
-              .attr('y1', y1)
-              .attr('x2', x2)
-              .attr('y2', y2);
-          }
-        });
-      }
-    };
-    
-    
-    // Create x-axis
-    const xAxis = d3.axisBottom(xScale).tickFormat(d => d < 0 ? `${Math.abs(d)} BC` : d);
-
-    svg.select('.x-axis').remove();
-    svg.append('g')
-      .attr('class', 'x-axis')
-      .attr('transform', `translate(0,${height})`)
-      .call(xAxis)
-      .style('font-size', '14px')
-      .selectAll("text")
-      .style("font-family", "Times New Roman, sans-serif");
-      
-
     updateChartRef.current = updateChart;
     const newAdjustedData = updateChart();
     setAdjustedData(newAdjustedData);
-    applyZoom(currentZoomState, newAdjustedData);
-  }, [state.selectedTags, xScale, yScale, languages, currentZoomState, height, width]);
+
+    // Initial call to applyZoom to render axes with default zoom state
+    applyZoom(d3.zoomIdentity, newAdjustedData);
+  }, [height, margin.left, margin.right, margin.top, margin.bottom, width, xScale, yScale, adjustForOverlap, dataMap, data, state.selectedTags, languages, applyZoom]);
+
+  // Dynamic useEffect to handle zoom updates
+  useEffect(() => {
+    console.log('Handling zoom updates');
+    applyZoom(currentZoomState, adjustedData);
+  }, [currentZoomState, adjustedData, applyZoom]);
 
   useEffect(() => {
-    if (updateChartRef.current) {
-      const newAdjustedData = updateChartRef.current();
-      setAdjustedData(newAdjustedData);
-    }
-  }, [state.selectedTags, xScale, yScale]);
-
-  
-  useEffect(() => {
+    console.log('Setting up event listeners');
     const svgElement = chartRef.current;
-  
+
     const handleMouseEnter = () => {
       document.body.classList.add('no-scroll');
     };
-  
+
     const handleMouseLeave = () => {
       document.body.classList.remove('no-scroll');
     };
-  
+
     if (svgElement) {
       svgElement.addEventListener('mouseenter', handleMouseEnter);
       svgElement.addEventListener('mouseleave', handleMouseLeave);
     }
-  
+
     return () => {
       if (svgElement) {
         svgElement.removeEventListener('mouseenter', handleMouseEnter);
@@ -522,11 +503,11 @@ const TreeReferenceGraph = () => {
       }
     };
   }, []);
-  
+
   const handleHoverCardWheel = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log("HOVCARD WHEEL HANDLD");
+    console.log("Hover card wheel event handled");
 
     const scrollAmount = e.deltaY;
     const hoverCard = hoverCardRef.current;
@@ -538,7 +519,7 @@ const TreeReferenceGraph = () => {
       const step = (currentTime) => {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        hoverCard.scrollTop = start + (end - start) * progress;
+        hoverCard.scrollTop = start + (end - end) * progress;
         if (progress < 1) {
           requestAnimationFrame(step);
         }
@@ -549,62 +530,8 @@ const TreeReferenceGraph = () => {
     animateScroll(currentScroll, targetScroll, 100);
   };
 
-  const handleSearchQueryChange = (event) => {
-    const query = event.target.value;
-    setSearchQuery(query);
-    if (query.length > 0) {
-      const results = adjustedData.filter(text =>
-        text.author.toLowerCase().includes(query.toLowerCase()) ||
-        text.title.toLowerCase().includes(query.toLowerCase())
-      );
-      setSearchResults(results);
-    } else {
-      setSearchResults([]);
-    }
-  };
-
-  const handleSearchResultClick = (result) => {
-    const zoomLevel = 10; // Define a suitable zoom level
-    const zoomX = xScale(result.year);
-    const zoomY = yScale(result.language);
-
-    const transform = d3.zoomIdentity.translate(width / 2 - zoomX * zoomLevel, height / 2 - zoomY * zoomLevel).scale(zoomLevel);
-
-    setCurrentZoomState(transform);
-
-    // Simulate hover
-    dispatch({ type: 'SET_HOVERED_TEXT', payload: { text: result, referencingTitles: [], referencedTitles: [] } });
-
-    // Ensure the hover card is visible
-    setTimeout(() => {
-      if (hoverCardRef.current) {
-        const hoverCardMain = hoverCardRef.current.querySelector('.hover-card-main');
-        const hoverCardHeight = hoverCardRef.current.clientHeight;
-        const hoverCardMainHeight = hoverCardMain.clientHeight;
-        const scrollTop = hoverCardMain.offsetTop - (hoverCardHeight / 2 - hoverCardMainHeight / 2);
-        hoverCardRef.current.scrollTo({ top: scrollTop, behavior: 'smooth' });
-      }
-    }, 0);
-  };
-
-  // Reset zoom state and zoom out when a tag is toggled
-  useEffect(() => {
-    if (updateChartRef.current) {
-      const newAdjustedData = updateChartRef.current();
-      setAdjustedData(newAdjustedData);
-    }
-    // Set zoom state to default (no zoom)
-    setCurrentZoomState(d3.zoomIdentity);
-  }, [state.selectedTags]);
-
   return (
     <div style={{ position: 'relative', pointerEvents: 'auto' }}>
-      <SearchBar
-        query={searchQuery}
-        results={searchResults}
-        onQueryChange={handleSearchQueryChange}
-        onResultClick={handleSearchResultClick}
-      />
       <div className="legend-container">
         <div className="legend-item">
           <span className="bullet direct-reference"></span> direct reference
@@ -614,7 +541,7 @@ const TreeReferenceGraph = () => {
         </div>
       </div>
       <svg ref={chartRef} onWheel={handleHoverCardWheel}>
-        <ZoomableArea width={width} height={height} margin={margin} onZoom={setCurrentZoomState} zoomState={currentZoomState}/>
+        <ZoomableArea width={width} height={height} margin={margin} onZoom={setCurrentZoomState} zoomState={currentZoomState} />
       </svg>
       <div className="hover-card" ref={hoverCardRef} style={{ pointerEvents: 'auto', display: state.hoveredText ? 'block' : 'none' }}>
         {state.hoveredText ? console.log('Hover card displayed') : console.log('Hover card hidden')}
