@@ -4,6 +4,7 @@ import '../components css/TreeReferenceGraph.css'; // Import the CSS file
 import textsData from './datasets/texts 7.17.24.json';
 import referencesData from './datasets/references 7.11.24.json';
 import ZoomableArea from './ZoomableArea';
+import SearchBar from './SearchBar'; // Import the SearchBar component
 
 // Define the list of tags
 const group1Tags = [
@@ -22,6 +23,8 @@ const initialState = {
   referencingTitles: [],        // Titles of texts referencing the hovered text
   referencedTitles: [],         // Titles of texts referenced by the hovered text
   selectedTags: [...group1Tags, ...group2Tags],           // Initialize with all tags selected
+  searchQuery: '',              // Search query state
+  searchResults: []             // Search results state
 };
 
 // Reducer function to handle state updates
@@ -48,6 +51,16 @@ const reducer = (state, action) => {
       return {
         ...state,
         selectedTags: updatedTags,
+      };
+    case 'SET_SEARCH_QUERY':   // Set search query
+      return {
+        ...state,
+        searchQuery: action.payload,
+      };
+    case 'SET_SEARCH_RESULTS': // Set search results
+      return {
+        ...state,
+        searchResults: action.payload,
       };
     default:
       return state;
@@ -151,15 +164,15 @@ const TreeReferenceGraph = () => {
   }, []);
 
   // Function to apply zoom transform to the chart
-  const applyZoom = useCallback((zoomState, adjustedData) => {
+  const applyZoom = useCallback((zoomTransform, adjustedData) => {
     console.log('Applying zoom');
-    if (zoomState && adjustedData) {
+    if (zoomTransform && adjustedData) {
       const svg = d3.select(chartRef.current).select('g');
-      console.log("Applying zoom state:", zoomState);
-      const newXScale = zoomState.rescaleX(xScale);
+      console.log("Applying zoom state:", zoomTransform);
+      const newXScale = zoomTransform.rescaleX(xScale);
 
       // Manually calculate the new range for yScale
-      const newYScaleRange = yScale.range().map(d => zoomState.applyY(d));
+      const newYScaleRange = yScale.range().map(d => zoomTransform.applyY(d));
       const newYScale = yScale.copy().range(newYScaleRange);
 
       // Update the x-axis and y-axis with the new scales
@@ -212,7 +225,7 @@ const TreeReferenceGraph = () => {
         });
 
       // Get the current zoom scale
-      const zoomScale = zoomState.k;
+      const zoomScale = zoomTransform.k;
 
       // Update circle positions based on new scales and adjusted data
       svg.selectAll('circle')
@@ -379,6 +392,7 @@ const TreeReferenceGraph = () => {
         .data(adjustedData)
         .enter()
         .append('circle')
+        .attr('id', d => `circle-${d.id}`) // Add an id attribute to the circle
         .attr('cx', d => d.adjustedX)
         .attr('cy', d => getYPosition(yScale, d.language, d.author))
         .attr('r', 3.4)
@@ -419,7 +433,8 @@ const TreeReferenceGraph = () => {
             }))
             .sort((a, b) => b.year - a.year);
           dispatch({ type: 'SET_HOVERED_TEXT', payload: { text: d, referencingTitles: refs, referencedTitles: refsBy } });
-          d3.select(event.target).style('fill', 'black');
+          d3.select(event.target).style('fill', 'black')
+          .attr('r', 7);
 
           setTimeout(() => {
             if (hoverCardRef.current) {
@@ -439,7 +454,8 @@ const TreeReferenceGraph = () => {
           d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.05);
           // Clear hovered text information
           dispatch({ type: 'CLEAR_HOVERED_TEXT' });
-          d3.select(event.target).style('fill', 'white');
+          d3.select(event.target).style('fill', 'white')
+          .attr('r', 4);
         })
         .on('click', (event, d) => {
           if (d.link) {
@@ -470,6 +486,7 @@ const TreeReferenceGraph = () => {
     setAdjustedData(newAdjustedData);
 
     // Initial call to applyZoom to render axes with default zoom state
+    console.log('Initial call to applyZoom');
     applyZoom(d3.zoomIdentity, newAdjustedData);
   }, [height, margin.left, margin.right, margin.top, margin.bottom, width, xScale, yScale, adjustForOverlap, dataMap, data, state.selectedTags, languages, applyZoom]);
 
@@ -509,27 +526,44 @@ const TreeReferenceGraph = () => {
     e.stopPropagation();
     console.log("Hover card wheel event handled");
 
-    const scrollAmount = e.deltaY;
+    const scrollAmount = 0.5 * e.deltaY;
     const hoverCard = hoverCardRef.current;
-    const currentScroll = hoverCard.scrollTop;
-    const targetScroll = currentScroll + scrollAmount;
 
-    const animateScroll = (start, end, duration) => {
-      const startTime = performance.now();
-      const step = (currentTime) => {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        hoverCard.scrollTop = start + (end - end) * progress;
-        if (progress < 1) {
-          requestAnimationFrame(step);
-        }
-      };
-      requestAnimationFrame(step);
-    };
-
-    animateScroll(currentScroll, targetScroll, 100);
+    // Perform the scroll
+    hoverCard.scrollTop += scrollAmount;
   };
 
+  const handleQueryChange = (event) => {
+    const query = event.target.value;
+    dispatch({ type: 'SET_SEARCH_QUERY', payload: query });
+    if (query) {
+      const searchResults = data.filter(d => 
+        query.split(' ').every(part => 
+          d.author.toLowerCase().includes(part.toLowerCase()) ||
+          d.title.toLowerCase().includes(part.toLowerCase())
+        )
+      );
+      dispatch({ type: 'SET_SEARCH_RESULTS', payload: searchResults });
+    } else {
+      dispatch({ type: 'SET_SEARCH_RESULTS', payload: [] });
+    }
+  };
+
+  const handleResultClick = (result) => {
+    const svg = d3.select(chartRef.current).select('g');
+    const targetCircle = svg.select(`#circle-${result.id}`);
+    
+    if (!targetCircle.empty()) {
+      // Trigger hover behavior
+      const event = new Event('mouseover');
+      targetCircle.node().dispatchEvent(event);
+  
+      
+    } else {
+      console.log("Target circle not found for result:", result);
+    }
+  };
+  
   return (
     <div style={{ position: 'relative', pointerEvents: 'auto' }}>
       <div className="legend-container">
@@ -540,6 +574,12 @@ const TreeReferenceGraph = () => {
           <span className="bullet similar-themes"></span> similar themes
         </div>
       </div>
+      <SearchBar
+        query={state.searchQuery}
+        results={state.searchResults}
+        onQueryChange={handleQueryChange}
+        onResultClick={handleResultClick}
+      />
       <svg ref={chartRef} onWheel={handleHoverCardWheel}>
         <ZoomableArea width={width} height={height} margin={margin} onZoom={setCurrentZoomState} zoomState={currentZoomState} />
       </svg>
