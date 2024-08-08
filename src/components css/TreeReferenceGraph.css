@@ -1,14 +1,13 @@
-/* TreeReferenceGraph.css */
-
 svg {
   background-color: white;
+  right: 50px;
   margin-top: 40px; /* Adjust this value as needed to move the graph lower */
 }
 
 .hover-card {
   position: absolute;
   top: 20px;
-  right: -30px; /* Position the container all the way to the right */
+  right: 25px; /* Position the container all the way to the right */
   width: 180px; /* Adjust width to fit the right segment */
   height: 93%;
   width: 178px; /* Adjust width to fit the right segment */
@@ -117,7 +116,7 @@ svg {
 .legend-container {
   position: absolute;
   top: 15px;
-  right: -250px;
+  right: -220px;
   display: flex;
   align-items: center;
   justify-content: flex-start; /* Align items to the start of the container */
@@ -153,7 +152,7 @@ svg {
 .tags-container {
   position: absolute;
   top: 20px;
-  right: -30px; /* Position the container all the way to the right */
+  right: 25px; /* Position the container all the way to the right */
   width: 180px; /* Adjust width to fit the right segment */
   height: 93%; /* Make the container the full height */
   background-color: white;
@@ -204,6 +203,7 @@ svg {
 
 svg {
   background-color: white;
+  right: 50px;
   transition: transform 0.3s ease; /* Add transition for transform property */
 }
 

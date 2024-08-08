@@ -67,7 +67,7 @@ const reducer = (state, action) => {
   }
 };
 
-const TreeReferenceGraph = () => {
+const TreeReferenceGraph = ({ onExpand }) => {
   console.log('TreeReferenceGraph component rendered');
   const updateChartRef = useRef(null); 
   const chartRef = useRef(null);         // Reference to the SVG element
@@ -75,6 +75,7 @@ const TreeReferenceGraph = () => {
   const [state, dispatch] = useReducer(reducer, initialState); // Use useReducer for state management
   const [currentZoomState, setCurrentZoomState] = useState(d3.zoomIdentity); // Zoom state
   const [adjustedData, setAdjustedData] = useState([]); // Adjusted data state
+  const [isExpanded, setIsExpanded] = useState(false); // Expanded state
 
   const margin = useMemo(() => ({ top: 0, right: 185, bottom: 20, left: 70 }), []); // Margin for the SVG
   const width = 1440 - margin.left - margin.right; // Calculate width
@@ -495,31 +496,7 @@ const TreeReferenceGraph = () => {
     applyZoom(currentZoomState, adjustedData);
   }, [currentZoomState, adjustedData, applyZoom]);
 
-  useEffect(() => {
-    console.log('Setting up event listeners');
-    const svgElement = chartRef.current;
-
-    const handleMouseEnter = () => {
-      document.body.classList.add('no-scroll');
-    };
-
-    const handleMouseLeave = () => {
-      document.body.classList.remove('no-scroll');
-    };
-
-    if (svgElement) {
-      svgElement.addEventListener('mouseenter', handleMouseEnter);
-      svgElement.addEventListener('mouseleave', handleMouseLeave);
-    }
-
-    return () => {
-      if (svgElement) {
-        svgElement.removeEventListener('mouseenter', handleMouseEnter);
-        svgElement.removeEventListener('mouseleave', handleMouseLeave);
-      }
-    };
-  }, []);
-
+   
   const handleHoverCardWheel = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -564,8 +541,55 @@ const TreeReferenceGraph = () => {
     }
   };
 
+  useEffect(() => {
+    console.log('Setting up event listeners');
+    const svgElement = chartRef.current;
+
+    const handleMouseEnter = () => {
+      document.body.classList.add('no-scroll');
+    };
+
+    const handleMouseLeave = () => {
+      document.body.classList.remove('no-scroll');
+    };
+
+    if (svgElement) {
+      svgElement.addEventListener('mouseenter', handleMouseEnter);
+      svgElement.addEventListener('mouseleave', handleMouseLeave);
+    }
+
+    return () => {
+      if (svgElement) {
+        svgElement.removeEventListener('mouseenter', handleMouseEnter);
+        svgElement.removeEventListener('mouseleave', handleMouseLeave);
+      }
+    };
+  }, []);
+  
+  const handleMouseEnter = () => {
+    setIsExpanded(true);
+    setTimeout(() => {
+      onExpand();
+    }, 300); // Adjust this delay if needed
+  };
+
+  const handleMouseLeave = () => {
+    setIsExpanded(false);
+  };
+
   return (
-    <div style={{ position: 'relative', pointerEvents: 'auto' }}>
+    <div 
+      id="tree-reference-graph"
+      style={{ 
+        position: 'relative', 
+        pointerEvents: 'auto', 
+        width: isExpanded ? '100%' : '400px', 
+        height: isExpanded ? '100vh' : '300px',
+        transition: 'width 0.3s ease, height 0.3s ease' 
+      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <div className="legend-container">
         <div className="legend-item">
           <span className="bullet direct-reference"></span> direct reference
