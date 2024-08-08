@@ -1,13 +1,36 @@
+.tree-reference-graph {
+  position: relative;
+  pointer-events: auto;
+  transition: width 2s ease, height 2s ease; /* Slower transition */
+}
+
+.tree-reference-graph.collapsed {
+  position: absolute;
+  left: 700px;
+  transform: scale(0.5); /* Adjust the scale factor as needed */
+  transform-origin: top left; /* Ensures scaling starts from the top-left corner */
+  transition-delay: 2s; /* Add a slight delay for collapsing */
+}
+
+.tree-reference-graph.expanded {
+  width: 100%;
+  height: 100vh;
+  background-color: #ffffff;
+  transition-delay: 2s; /* No delay for expanding */
+}
+
+
 svg {
   background-color: white;
-  right: 50px;
-  margin-top: 40px; /* Adjust this value as needed to move the graph lower */
+  margin-top: 30px; /* Adjust this value as needed to move the graph lower */
+  margin-left: 50px;
+  transition: transform 0.3s ease; /* Add transition for transform property */
 }
 
 .hover-card {
   position: absolute;
   top: 20px;
-  right: 25px; /* Position the container all the way to the right */
+  right: 5px; /* Position the container all the way to the right */
   width: 180px; /* Adjust width to fit the right segment */
   height: 93%;
   width: 178px; /* Adjust width to fit the right segment */
@@ -83,7 +106,6 @@ svg {
   justify-content: center; /* Center content vertically */
   font-size: 14px;
   padding-left: 14px;
-  
 }
 
 .hover-card-main {
@@ -97,7 +119,6 @@ svg {
   justify-content: center; /* Center content vertically */
   align-items: center; /* Center content horizontally */
   font-size: 15px;
-  
 }
 
 .hover-card-main p {
@@ -115,8 +136,8 @@ svg {
 
 .legend-container {
   position: absolute;
-  top: 15px;
-  right: -220px;
+  top: 8px;
+  right: -260px;
   display: flex;
   align-items: center;
   justify-content: flex-start; /* Align items to the start of the container */
@@ -152,7 +173,7 @@ svg {
 .tags-container {
   position: absolute;
   top: 20px;
-  right: 25px; /* Position the container all the way to the right */
+  right: 5px; /* Position the container all the way to the right */
   width: 180px; /* Adjust width to fit the right segment */
   height: 93%; /* Make the container the full height */
   background-color: white;
@@ -199,12 +220,6 @@ svg {
 
 .no-scroll {
   overflow: hidden;
-}
-
-svg {
-  background-color: white;
-  right: 50px;
-  transition: transform 0.3s ease; /* Add transition for transform property */
 }
 
 .search-component {

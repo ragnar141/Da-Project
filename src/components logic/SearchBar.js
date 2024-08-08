@@ -25,23 +25,21 @@ const SearchBar = ({ query, results, onQueryChange, onResultClick }) => {
     }
   }, [results, selectedIndex, onResultClick]);
 
-  const preventScroll = useCallback((event) => {
-    event.preventDefault();
-  }, []);
+  
 
   useEffect(() => {
     const searchBarInput = searchResultsRef.current;
     if (searchBarInput) {
       searchBarInput.addEventListener('keydown', handleKeyDown);
-      searchBarInput.addEventListener('wheel', preventScroll);
+      
     }
     return () => {
       if (searchBarInput) {
         searchBarInput.removeEventListener('keydown', handleKeyDown);
-        searchBarInput.removeEventListener('wheel', preventScroll);
+        
       }
     };
-  }, [handleKeyDown, preventScroll]);
+  }, [handleKeyDown]);
 
   return (
     <div className="search-bar-container">

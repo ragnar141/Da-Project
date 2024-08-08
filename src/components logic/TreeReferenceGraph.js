@@ -72,6 +72,9 @@ const TreeReferenceGraph = ({ onExpand }) => {
   const updateChartRef = useRef(null); 
   const chartRef = useRef(null);         // Reference to the SVG element
   const hoverCardRef = useRef(null);     // Reference to the hover card element
+  const tagsContainerRef = useRef(null);
+  const legendContainerRef = useRef(null); // Reference to the tags container element
+  const searchBarContainerRef = useRef(null); // Reference to the search bar container
   const [state, dispatch] = useReducer(reducer, initialState); // Use useReducer for state management
   const [currentZoomState, setCurrentZoomState] = useState(d3.zoomIdentity); // Zoom state
   const [adjustedData, setAdjustedData] = useState([]); // Adjusted data state
@@ -541,21 +544,48 @@ const TreeReferenceGraph = ({ onExpand }) => {
     }
   };
 
+  const handleMouseEnter = useCallback(() => {
+    document.body.classList.add('no-scroll');
+    setIsExpanded(true);
+    setTimeout(() => {
+      onExpand();
+    }, 300); // Adjust this delay if needed
+  }, [onExpand]);
+
+  const handleMouseLeave = useCallback((event) => {
+    const { clientX } = event;
+    const rect = chartRef.current.getBoundingClientRect();
+    if (clientX < rect.left) {
+      document.body.classList.remove('no-scroll');
+      setIsExpanded(false);
+    }
+  }, []);
+
   useEffect(() => {
     console.log('Setting up event listeners');
     const svgElement = chartRef.current;
-
-    const handleMouseEnter = () => {
-      document.body.classList.add('no-scroll');
-    };
-
-    const handleMouseLeave = () => {
-      document.body.classList.remove('no-scroll');
-    };
+    const legendElement = legendContainerRef.current;
+    const tagsElement = tagsContainerRef.current;
+    const searchBarElement = searchBarContainerRef.current;
 
     if (svgElement) {
       svgElement.addEventListener('mouseenter', handleMouseEnter);
       svgElement.addEventListener('mouseleave', handleMouseLeave);
+    }
+
+    if (legendElement) {
+      legendElement.addEventListener('mouseenter', handleMouseEnter);
+      legendElement.addEventListener('mouseleave', handleMouseLeave);
+    }
+
+    if (tagsElement) {
+      tagsElement.addEventListener('mouseenter', handleMouseEnter);
+      tagsElement.addEventListener('mouseleave', handleMouseLeave);
+    }
+
+    if (searchBarElement) {
+      searchBarElement.addEventListener('mouseenter', handleMouseEnter);
+      searchBarElement.addEventListener('mouseleave', handleMouseLeave);
     }
 
     return () => {
@@ -563,34 +593,32 @@ const TreeReferenceGraph = ({ onExpand }) => {
         svgElement.removeEventListener('mouseenter', handleMouseEnter);
         svgElement.removeEventListener('mouseleave', handleMouseLeave);
       }
-    };
-  }, []);
-  
-  const handleMouseEnter = () => {
-    setIsExpanded(true);
-    setTimeout(() => {
-      onExpand();
-    }, 300); // Adjust this delay if needed
-  };
 
-  const handleMouseLeave = () => {
-    setIsExpanded(false);
-  };
+      if (legendElement) {
+        legendElement.removeEventListener('mouseenter', handleMouseEnter);
+        legendElement.removeEventListener('mouseleave', handleMouseLeave);
+      }
+
+      if (tagsElement) {
+        tagsElement.removeEventListener('mouseenter', handleMouseEnter);
+        tagsElement.removeEventListener('mouseleave', handleMouseLeave);
+      }
+
+      if (searchBarElement) {
+        searchBarElement.removeEventListener('mouseenter', handleMouseEnter);
+        searchBarElement.removeEventListener('mouseleave', handleMouseLeave);
+      }
+    };
+  }, [chartRef, legendContainerRef, tagsContainerRef, searchBarContainerRef, handleMouseEnter, handleMouseLeave]);
 
   return (
     <div 
       id="tree-reference-graph"
-      style={{ 
-        position: 'relative', 
-        pointerEvents: 'auto', 
-        width: isExpanded ? '100%' : '400px', 
-        height: isExpanded ? '100vh' : '300px',
-        transition: 'width 0.3s ease, height 0.3s ease' 
-      }}
+      className={`tree-reference-graph ${isExpanded ? 'expanded' : 'collapsed'}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="legend-container">
+      <div ref={legendContainerRef} className="legend-container">
         <div className="legend-item">
           <span className="bullet direct-reference"></span> direct reference
         </div>
@@ -598,12 +626,14 @@ const TreeReferenceGraph = ({ onExpand }) => {
           <span className="bullet similar-themes"></span> similar themes
         </div>
       </div>
-      <SearchBar
-        query={state.searchQuery}
-        results={state.searchResults}
-        onQueryChange={handleQueryChange}
-        onResultClick={handleResultClick}
-      />
+      <div ref={searchBarContainerRef}>
+        <SearchBar
+          query={state.searchQuery}
+          results={state.searchResults}
+          onQueryChange={handleQueryChange}
+          onResultClick={handleResultClick}
+        />
+      </div>
       <svg ref={chartRef} onWheel={handleHoverCardWheel}>
         <ZoomableArea width={width} height={height} margin={margin} onZoom={setCurrentZoomState} zoomState={currentZoomState} />
       </svg>
@@ -641,7 +671,7 @@ const TreeReferenceGraph = ({ onExpand }) => {
           </div>
         )}
       </div>
-      <div className="tags-container">
+      <div className="tags-container" ref={tagsContainerRef}>
         <div className="tag-group tag-group-1">
           {group1Tags.map((tag, index) => (
             <div key={index} className="tag-item">
