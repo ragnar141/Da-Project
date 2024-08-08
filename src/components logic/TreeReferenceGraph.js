@@ -224,8 +224,7 @@ const TreeReferenceGraph = () => {
           }
         });
 
-      // Get the current zoom scale
-      const zoomScale = zoomTransform.k;
+      
 
       // Update circle positions based on new scales and adjusted data
       svg.selectAll('circle')
@@ -239,8 +238,8 @@ const TreeReferenceGraph = () => {
         .attr('cy', d => {
           const newCy = getYPosition(newYScale, d.language, d.author);
           return newCy;
-        })
-        .attr('r', 3.4 * zoomScale); // Adjust the radius based on zoom scale
+        });
+        
 
       // Update reference line positions based on new scales
       svg.selectAll('.reference-line').each(function () {
@@ -434,7 +433,7 @@ const TreeReferenceGraph = () => {
             .sort((a, b) => b.year - a.year);
           dispatch({ type: 'SET_HOVERED_TEXT', payload: { text: d, referencingTitles: refs, referencedTitles: refsBy } });
           d3.select(event.target).style('fill', 'black')
-          .attr('r', 7);
+          .attr('r', 10);
 
           setTimeout(() => {
             if (hoverCardRef.current) {
@@ -557,13 +556,14 @@ const TreeReferenceGraph = () => {
       // Trigger hover behavior
       const event = new Event('mouseover');
       targetCircle.node().dispatchEvent(event);
-  
-      
+      // Clear search query and results
+      dispatch({ type: 'SET_SEARCH_QUERY', payload: '' });
+      dispatch({ type: 'SET_SEARCH_RESULTS', payload: [] });
     } else {
       console.log("Target circle not found for result:", result);
     }
   };
-  
+
   return (
     <div style={{ position: 'relative', pointerEvents: 'auto' }}>
       <div className="legend-container">
