@@ -36,13 +36,20 @@ function App() {
     }
   };
 
+  const scrollToCenter = () => {
+    const element = document.getElementById('library');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
   return (
     <div className="App" onWheel={handleScroll}>
       <Element name="home" id="home" className="section">
         <Home />
       </Element>
       <Element name="library" id="library" className="section">
-        <TreeReferenceGraph />
+        <TreeReferenceGraph onExpand={scrollToCenter} />
       </Element>
     </div>
   );

@@ -144,7 +144,7 @@ const TreeReferenceGraph = () => {
   // Function to group close data points and adjust for overlap
   const adjustForOverlap = useCallback((data, xScale) => {
     console.log('Adjusting for overlap');
-    const radius = 3.4; // Radius of the circles
+    const radius = 4; // Radius of the circles
     const adjustedData = [...data]; // Create a copy of the data array to avoid mutating the original data
     const groupedData = d3.groups(adjustedData, d => `${d.year}-${d.author}`); // Group data points by year and author
 
@@ -394,7 +394,7 @@ const TreeReferenceGraph = () => {
         .attr('id', d => `circle-${d.id}`) // Add an id attribute to the circle
         .attr('cx', d => d.adjustedX)
         .attr('cy', d => getYPosition(yScale, d.language, d.author))
-        .attr('r', 3.4)
+        .attr('r', 4)
         .style('fill', 'white')
         .style('stroke', 'black')
         .on('mouseover', (event, d) => {
