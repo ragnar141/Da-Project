@@ -8,7 +8,7 @@ import SearchBar from './SearchBar'; // Import the SearchBar component
 
 // Define the list of tags
 const group1Tags = [
-  "poetry", "dialogue", "novel", "play", "essay/treatise", "prophetic/religious", "narrative"
+  "poetry", "dialogue", "novel", "play", "prophetic/religious", "essay/treatise",  "narrative"
 ];
 
 const group2Tags = [
@@ -62,6 +62,11 @@ const reducer = (state, action) => {
         ...state,
         searchResults: action.payload,
       };
+    case 'SET_SELECTED_TAGS':   // Set selected tags directly
+      return {
+        ...state,
+        selectedTags: action.payload,
+      };
     default:
       return state;
   }
@@ -83,6 +88,16 @@ const TreeReferenceGraph = ({ onExpand }) => {
   const margin = useMemo(() => ({ top: 0, right: 185, bottom: 20, left: 70 }), []); // Margin for the SVG
   const width = 1440 - margin.left - margin.right; // Calculate width
   const height = 690 - margin.top - margin.bottom; // Calculate height
+
+  const handleSelectAllGroup2 = () => {
+    dispatch({ type: 'SET_SELECTED_TAGS', payload: [...state.selectedTags, ...group2Tags] });
+};
+
+// Function to handle "Select None" for group 2 tags
+const handleSelectNoneGroup2 = () => {
+    const updatedTags = state.selectedTags.filter(tag => !group2Tags.includes(tag));
+    dispatch({ type: 'SET_SELECTED_TAGS', payload: updatedTags });
+};
 
   // List of languages
   const languages = useMemo(() => [
@@ -560,8 +575,9 @@ useEffect(() => {
   const handleQueryChange = (event) => {
     const query = event.target.value;
     dispatch({ type: 'SET_SEARCH_QUERY', payload: query });
+    
     if (query) {
-      const searchResults = data.filter(d => 
+      const searchResults = adjustedData.filter(d => 
         query.split(' ').every(part => 
           d.author.toLowerCase().includes(part.toLowerCase()) ||
           d.title.toLowerCase().includes(part.toLowerCase())
@@ -571,7 +587,8 @@ useEffect(() => {
     } else {
       dispatch({ type: 'SET_SEARCH_RESULTS', payload: [] });
     }
-  };
+};
+
 
   const handleResultClick = (result) => {
     const svg = d3.select(chartRef.current).select('g');
@@ -717,21 +734,30 @@ useEffect(() => {
         )}
       </div>
       <div className="tags-container" ref={tagsContainerRef}>
-        <div className="tag-group tag-group-1">
-          {group1Tags.map((tag, index) => (
-            <div key={index} className="tag-item">
-              <input
-                type="checkbox"
-                id={`tag-${tag}`}
-                value={tag}
-                checked={state.selectedTags.includes(tag)} // Ensure checkbox is checked based on state
-                onChange={() => dispatch({ type: 'TOGGLE_TAG', payload: tag })}
-              />
-              <label htmlFor={`tag-${tag}`}>{tag}</label>
-            </div>
-          ))}
-        </div>
+      <div className="tag-group tag-group-1">
+  {group1Tags.map((tag, index) => (
+    <div
+      key={index}
+      className={`tag-item ${["prophetic/religious", "essay/treatise", "narrative"].includes(tag) ? "full-width" : ""}`}
+    >
+      <input
+        type="checkbox"
+        id={`tag-${tag}`}
+        value={tag}
+        checked={state.selectedTags.includes(tag)} // Ensure checkbox is checked based on state
+        onChange={() => dispatch({ type: 'TOGGLE_TAG', payload: tag })}
+      />
+      <label htmlFor={`tag-${tag}`}>{tag}</label>
+    </div>
+  ))}
+</div>
+
         <div className="tag-group tag-group-2">
+          <div className="select-buttons" style={{marginBottom: '5px'}}>
+            <span>select disciplines: </span>
+            <button onClick={handleSelectAllGroup2} style={{ fontSize: '12px', padding: '2px 6px', marginRight: '2px' }}>All</button>
+            <button onClick={handleSelectNoneGroup2} style={{ fontSize: '12px', padding: '2px 6px' }}>None</button>
+          </div>
           {group2Tags.map((tag, index) => (
             <div key={index} className="tag-item">
               <input

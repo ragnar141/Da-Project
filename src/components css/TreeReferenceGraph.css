@@ -23,7 +23,7 @@
 svg {
   background-color: white;
   margin-top: 30px; /* Adjust this value as needed to move the graph lower */
-  margin-left: 50px;
+  margin-left: 40px;
   transition: transform 0.3s ease; /* Add transition for transform property */
 }
 
@@ -31,7 +31,7 @@ svg {
   position: absolute;
   top: 20px;
   right: 5px; /* Position the container all the way to the right */
-  width: 180px; /* Adjust width to fit the right segment */
+  width: 183px; /* Adjust width to fit the right segment */
   height: 93%;
   width: 178px; /* Adjust width to fit the right segment */
   background-color: white;
@@ -174,7 +174,7 @@ svg {
   position: absolute;
   top: 20px;
   right: 5px; /* Position the container all the way to the right */
-  width: 180px; /* Adjust width to fit the right segment */
+  width: 183px; /* Adjust width to fit the right segment */
   height: 93%; /* Make the container the full height */
   background-color: white;
   border: 1px solid black;
@@ -184,7 +184,7 @@ svg {
   pointer-events: auto; /* Ensure the container can capture mouse events */
   font-size: 13px; /* Reduced font size */
   font-family: "Helvetica", "Arial", sans-serif;
-  overflow-y: auto; /* Allow vertical scrolling if content overflows */
+  overflow-y: hidden; /* Allow vertical scrolling if content overflows */
   overflow-x: hidden; /* Prevent horizontal scrolling */
   display: flex;
   flex-direction: column;
@@ -195,8 +195,12 @@ svg {
 .tag-group-1 {
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* Create two columns */
-  gap: 7px; /* Space between tag items */
+  gap: 5px; /* Space between tag items */
   margin-bottom: 20px; /* Space between groups */
+}
+
+.tag-group-1 .full-width {
+  grid-column: span 2; /* Make this item span both columns */
 }
 
 .tag-group-2 {
@@ -210,7 +214,7 @@ svg {
 }
 
 .tag-group-2 .tag-item {
-  margin-bottom: 7px; /* Add more space between tag items in the second group */
+  margin-bottom: 5px; /* Add more space between tag items in the second group */
 }
 
 .tag-item input {
