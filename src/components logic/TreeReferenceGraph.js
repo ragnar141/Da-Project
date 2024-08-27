@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useReducer, useMemo, useCallback, useState } 
 import * as d3 from 'd3';
 import '../components css/TreeReferenceGraph.css'; // Import the CSS file
 import textsData from './datasets/updated texts 8.9.24.json';
-import referencesData from './datasets/references 7.11.24.json';
+import referencesData from './datasets/references 8.27.24.json';
 import ZoomableArea from './ZoomableArea';
 import SearchBar from './SearchBar'; // Import the SearchBar component
 
@@ -136,30 +136,6 @@ const handleSelectNoneGroup2 = () => {
     return finalYPos;
   };
 
-  // Process the data
-  const data = useMemo(() => {
-    console.log('Processing data');
-    return textsData.map(d => ({
-      id: d.index,
-      language: d["dataviz friendly original language"],
-      year: d["dataviz friendly date"],
-      dateForCard: d["date"],
-      oLanguage: d["original language"],
-      author: d.author,
-      adjustedAuthor: d["dataviz friendly author"],
-      title: d.title,
-      location: d["original location"],
-      link: d.link, // Ensure this matches the actual column name in your JSON
-      tags: Array.isArray(d.tags) ? d.tags : (d.tags ? d.tags.split(',') : [])
-    }));
-  }, []);
-
-  // Memoize dataMap to avoid recreating it on every render
-  const dataMap = useMemo(() => {
-    console.log('Creating dataMap');
-    return new Map(data.map(d => [d.id, d]));
-  }, [data]);
-
   // Function to group close data points and adjust for overlap
   const adjustForOverlap = useCallback((data, xScale) => {
     console.log('Adjusting for overlap');
@@ -189,7 +165,35 @@ const handleSelectNoneGroup2 = () => {
   
     return adjustedData; // Return the array with adjusted data points
   }, []);
-  
+
+  // Process the data
+  const data = useMemo(() => {
+    console.log('Processing data');
+    return textsData.map(d => ({
+      id: d.index,
+      language: d["dataviz friendly original language"],
+      year: d["dataviz friendly date"],
+      dateForCard: d["date"],
+      oLanguage: d["original language"],
+      author: d.author,
+      adjustedAuthor: d["dataviz friendly author"],
+      title: d.title,
+      location: d["original location"],
+      link: d.link, // Ensure this matches the actual column name in your JSON
+      tags: Array.isArray(d.tags) ? d.tags : (d.tags ? d.tags.split(',') : [])
+    }));
+  }, []);
+
+  // Create adjustedData initially
+  const initialAdjustedData = useMemo(() => {
+    return adjustForOverlap(data, xScale);
+  }, [data, xScale, adjustForOverlap]);
+
+  // Update dataMap to use adjustedData
+  const dataMap = useMemo(() => {
+    console.log('Creating dataMap from adjustedData');
+    return new Map(initialAdjustedData.map(d => [d.id, d]));
+  }, [initialAdjustedData]);
 
   // Function to apply zoom transform to the chart
   const applyZoom = useCallback((zoomTransform, adjustedData) => {
@@ -216,34 +220,32 @@ const handleSelectNoneGroup2 = () => {
         .selectAll("text")
         .style("font-family", "Times New Roman, sans-serif");
   
-        svg.select('.y-axis').remove();
-        svg.append('g')
-          .attr('class', 'y-axis')
-          .attr('clip-path', 'url(#xAxisClip)') // Apply x-axis clip path
-          .call(d3.axisLeft(newYScale).tickSize(0).tickPadding(10))
-          .selectAll("text")
-          .style("font-family", "Garamond, sans-serif")
-          .style('font-size', '15px')
-          .each(function() {
-            const text = d3.select(this);
-            const label = text.text();
-        
-            // Clear the original text
-            text.text('');
-        
-            if (label === 'Different Languages') {
-              text.append('tspan').text('Different').attr('x', -10).attr('dy', '-0.3em'); // Adjust dy for centering
-              text.append('tspan').text('Languages').attr('x', -10).attr('dy', '1.2em');
-            } else if (label === 'Italian/Spanish/Danish') {
-              text.append('tspan').text('Italian').attr('x', -10).attr('dy', '-1.0em'); // Adjust dy for centering
-              text.append('tspan').text('Spanish').attr('x', -10).attr('dy', '1.2em');
-              text.append('tspan').text('Danish').attr('x', -10).attr('dy', '1.2em');
-            } else {
-              text.text(label); // For other labels, just set the text as it is
-            }            
-          });
-        
-        
+      svg.select('.y-axis').remove();
+      svg.append('g')
+        .attr('class', 'y-axis')
+        .attr('clip-path', 'url(#xAxisClip)') // Apply x-axis clip path
+        .call(d3.axisLeft(newYScale).tickSize(0).tickPadding(10))
+        .selectAll("text")
+        .style("font-family", "Garamond, sans-serif")
+        .style('font-size', '15px')
+        .each(function() {
+          const text = d3.select(this);
+          const label = text.text();
+      
+          // Clear the original text
+          text.text('');
+      
+          if (label === 'Different Languages') {
+            text.append('tspan').text('Different').attr('x', -10).attr('dy', '-0.3em'); // Adjust dy for centering
+            text.append('tspan').text('Languages').attr('x', -10).attr('dy', '1.2em');
+          } else if (label === 'Italian/Spanish/Danish') {
+            text.append('tspan').text('Italian').attr('x', -10).attr('dy', '-1.0em'); // Adjust dy for centering
+            text.append('tspan').text('Spanish').attr('x', -10).attr('dy', '1.2em');
+            text.append('tspan').text('Danish').attr('x', -10).attr('dy', '1.2em');
+          } else {
+            text.text(label); // For other labels, just set the text as it is
+          }            
+        });
   
       svg.selectAll('.horizontal-line')
         .attr('x1', 0)
@@ -309,471 +311,482 @@ const handleSelectNoneGroup2 = () => {
       });
     }
   }, [xScale, yScale, width, height, languages, dataMap]);
-  
 
   // First useEffect to render static elements
-useEffect(() => {
-  console.log('Rendering static elements');
-  // Create SVG element and set its dimensions
-  const svg = d3.select(chartRef.current)
-    .attr('width', width + margin.left + margin.right)
-    .attr('height', height + margin.top + margin.bottom)
-    .append('g')
-    .attr('transform', `translate(${margin.left},${margin.top})`);
-
-  // Create clip path
-  svg.append('defs')
-    .append('clipPath')
-    .attr('id', 'clip')
-    .append('rect')
-    .attr('width', width)
-    .attr('height', height);
-
-  // Create another clip path for the x-axis
-  svg.append('defs')
-    .append('clipPath')
-    .attr('id', 'xAxisClip')
-    .append('rect')
-    .attr('x', -margin.left)
-    .attr('width', width + margin.left)
-    .attr('height', height);
-
-  // Function to update the chart based on selected tags
-  const updateChart = () => {
-    console.log('Updating chart');
-    const svg = d3.select(chartRef.current).select('g');
-
-    // Add reference lines between data points
-    const referenceLines = svg.append('g')
-      .attr('class', 'reference-lines')
-      .attr('clip-path', 'url(#clip)'); // Apply clip path
-
-    referencesData.forEach((ref, index) => {
-      const source = dataMap.get(ref.primary_text);
-      const target = dataMap.get(ref.secondary_text);
-
-      if (source && target) {
-        const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
-
-        referenceLines.append('line')
-          .attr('x1', getXPosition(xScale, source.year))
-          .attr('y1', getYPosition(yScale, source.language, source.adjustedAuthor))
-          .attr('x2', getXPosition(xScale, target.year))
-          .attr('y2', getYPosition(yScale, target.language, target.adjustedAuthor))
-          .attr('stroke', color)
-          .attr('stroke-width', 1.4)
-          .attr('stroke-opacity', 0.05)
-          .attr('class', `reference-line reference-${source.id} reference-${target.id}`);
-      }
-    });
-
-    // Filter data based on selected tags
-    const filteredData = state.selectedTags.length === 0 ? [] : data.filter(d => {
-      const tagsArray = Array.isArray(d.tags) ? d.tags.map(tag => tag.trim().toLowerCase()) : d.tags.split(',').map(tag => tag.trim().toLowerCase());
+  useEffect(() => {
+    console.log('Rendering static elements');
+    // Create SVG element and set its dimensions
+    const svg = d3.select(chartRef.current)
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      .append('g')
+      .attr('transform', `translate(${margin.left},${margin.top})`);
+  
+    // Create clip path
+    svg.append('defs')
+      .append('clipPath')
+      .attr('id', 'clip')
+      .append('rect')
+      .attr('width', width)
+      .attr('height', height);
+  
+    // Create another clip path for the x-axis
+    svg.append('defs')
+      .append('clipPath')
+      .attr('id', 'xAxisClip')
+      .append('rect')
+      .attr('x', -margin.left)
+      .attr('width', width + margin.left)
+      .attr('height', height);
+  
+    // Function to update the chart based on selected tags
+    const updateChart = () => {
+      console.log('Updating chart');
+      const svg = d3.select(chartRef.current).select('g');
     
-      // Check if the data point has at least one selected tag from group2Tags
-      const hasMatchingTagGroup2 = state.selectedTags.some(tag => {
-        const normalizedTag = tag.trim().toLowerCase();
-        return group2Tags.includes(tag) && tagsArray.includes(normalizedTag);
-      });
+      // Add reference lines between data points
+      const referenceLines = svg.append('g')
+        .attr('class', 'reference-lines')
+        .attr('clip-path', 'url(#clip)'); // Apply clip path
     
-      // Check if the data point has at least one selected tag from group1Tags
-      const hasMatchingTagGroup1 = state.selectedTags.some(tag => {
-        const normalizedTag = tag.trim().toLowerCase();
-        return group1Tags.includes(tag) && tagsArray.includes(normalizedTag);
-      });
+      referencesData.forEach((ref, index) => {
+        const sourceId = String(ref.primary_text); // Ensure IDs are treated as strings
+        const targetId = String(ref.secondary_text);
+        
     
-      // The data point should be displayed only if it matches at least one tag from group2Tags and one tag from group1Tags
-      return hasMatchingTagGroup2 && hasMatchingTagGroup1;
-    });
-
-    // Clear existing circles and lines
-    svg.selectAll('circle').remove();
-    svg.selectAll('.reference-line').remove();
-
-    // Adjust for overlap
-    const adjustedData = adjustForOverlap(filteredData, xScale);
-    setAdjustedData(adjustedData); // Update the adjustedData state
-
-    // Draw reference lines for the filtered data points
-    adjustedData.forEach(d => {
-      const sourceReferences = referencesData.filter(ref => ref.primary_text === d.id);
-      const targetReferences = referencesData.filter(ref => ref.secondary_text === d.id);
-
-      // Draw reference lines where the current text is the source
-      sourceReferences.forEach(ref => {
-        const target = dataMap.get(ref.secondary_text);
-        if (target && adjustedData.includes(target)) {
+        const source = dataMap.get(sourceId);
+        const target = dataMap.get(targetId);
+    
+        if (source && target) {
           const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
+    
           referenceLines.append('line')
-            .attr('x1', d.adjustedX)
-            .attr('y1', getYPosition(yScale, d.language, d.aadjustedAuthor))
-            .attr('x2', target.adjustedX)
+            .attr('x1', getXPosition(xScale, source.adjustedYear || source.year))
+            .attr('y1', getYPosition(yScale, source.language, source.adjustedAuthor))
+            .attr('x2', getXPosition(xScale, target.adjustedYear || target.year))
             .attr('y2', getYPosition(yScale, target.language, target.adjustedAuthor))
             .attr('stroke', color)
             .attr('stroke-width', 1.4)
             .attr('stroke-opacity', 0.05)
-            .attr('class', `reference-line reference-${d.id} reference-${target.id}`);
-        }
-      });
-
-      // Draw reference lines where the current text is the target
-      targetReferences.forEach(ref => {
-        const source = dataMap.get(ref.primary_text);
-        if (source && adjustedData.includes(source)) {
-          const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
-          referenceLines.append('line')
-            .attr('x1', source.adjustedX)
-            .attr('y1', getYPosition(yScale, source.language, source.adjustedAuthor))
-            .attr('x2', d.adjustedX)
-            .attr('y2', getYPosition(yScale, d.language, d.adjustedAuthor))
-            .attr('stroke', color)
-            .attr('stroke-width', 1.4)
-            .attr('stroke-opacity', 0.05)
-            .attr('class', `reference-line reference-${source.id} reference-${d.id}`);
-        }
-      });
-    });
-
-    // Draw circles for the filtered data points
-    const circlesGroup = svg.append('g')
-      .attr('class', 'circles-group')
-      .attr('clip-path', 'url(#clip)'); // Apply clip path
-
-    circlesGroup.selectAll('circle')
-      .data(adjustedData)
-      .enter()
-      .append('circle')
-      .attr('id', d => `circle-${d.id}`) // Add an id attribute to the circle
-      .attr('cx', d => d.adjustedX)
-      .attr('cy', d => getYPosition(yScale, d.language, d.adjustedAuthor))
-      .attr('r', d => {
-        // Calculate the radius based on the current zoom level
-        const zoomScaleFactor = Math.max(currentZoomState.k, 1);
-        return Math.min(4, 2 * zoomScaleFactor);
-      })
-      .style('fill', 'white')
-      .style('stroke', 'black')
-      .on('mouseover', (event, d) => {
-        // Change opacity of related lines
-        d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.9);
-        // Set hovered text information
-        const refs = referencesData
-          .filter(ref => ref.primary_text === d.id)
-          .map(ref => ({
-            ...dataMap.get(ref.secondary_text),
-            referenceType: ref.type_of_reference
-          }))
-          .filter(Boolean)
-          .filter(text => adjustedData.some(dataItem => dataItem.id === text.id))
-          .map(text => ({
-            title: text.title,
-            year: text.year,
-            date: text.dateForCard,
-            referenceType: text.referenceType
-          }))
-          .sort((a, b) => b.year - a.year);
-        const refsBy = referencesData
-          .filter(ref => ref.secondary_text === d.id)
-          .map(ref => ({
-            ...dataMap.get(ref.primary_text),
-            referenceType: ref.type_of_reference
-          }))
-          .filter(Boolean)
-          .filter(text => adjustedData.some(dataItem => dataItem.id === text.id))
-          .map(text => ({
-            title: text.title,
-            year: text.year,
-            date: text.dateForCard,
-            referenceType: text.referenceType
-          }))
-          .sort((a, b) => b.year - a.year);
-        dispatch({ type: 'SET_HOVERED_TEXT', payload: { text: d, referencingTitles: refs, referencedTitles: refsBy } });
-        d3.select(event.target).style('fill', 'black')
-        .attr('r', 10);
-
-        setTimeout(() => {
-          if (hoverCardRef.current) {
-            const hoverCardMain = hoverCardRef.current.querySelector('.hover-card-main');
-            const hoverCardHeight = hoverCardRef.current.clientHeight;
-            const hoverCardMainHeight = hoverCardMain.clientHeight;
-            const scrollTop = hoverCardMain.offsetTop - (hoverCardHeight / 2 - hoverCardMainHeight / 2);
-            hoverCardRef.current.scrollTo({ top: scrollTop, behavior: 'smooth' });
-            console.log('Event listener added to hoverCardRef');
-          } else {
-            console.log('hoverCardRef.current is null in setTimeout');
+            .attr('class', `reference-line reference-${source.id} reference-${target.id}`);
+        } else {
+          console.log(`Missing source or target for reference #${index}`);
+          console.log(`Source ID: ${sourceId}, Target ID: ${targetId}`);
+          if (!source) {
+            console.log(`Source not found for reference #${index}:`, ref);
           }
-        }, 0);
-      })
-      .on('mouseout', (event, d) => {
-        // Reset opacity of related lines
-        d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.05);
-        // Clear hovered text information
-        dispatch({ type: 'CLEAR_HOVERED_TEXT' });
-
-        // Recalculate the radius based on the current zoom level
-        const zoomScaleFactor = Math.max(currentZoomState.k, 1);
-        const radius = Math.min(4, 2 * zoomScaleFactor);
-
-        d3.select(event.target)
-          .style('fill', 'white')
-          .attr('r', radius); // Use the calculated radius
-      })
-      .on('click', (event, d) => {
-        if (d.link) {
-          window.open(d.link, '_blank');
+          if (!target) {
+            console.log(`Target not found for reference #${index}:`, ref);
+          }
         }
       });
+    
 
-    // Render horizontal grid lines on the borders between segments
-    svg.selectAll('.horizontal-line')
-      .data([...languages.map(d => yScale(d) - yScale.step() / 2), height]) // Include top and bottom lines
-      .enter()
-      .append('line')
-      .attr('class', 'horizontal-line')
-      .attr('x1', 0)
-      .attr('x2', width)
-      .attr('y1', d => d)
-      .attr('y2', d => d)
-      .attr('stroke', 'grey')
-      .attr('stroke-dasharray', '20 10')
-      .attr('stroke-opacity', 0.5)
-      .attr('clip-path', 'url(#xAxisClip)'); // Apply x-axis clip path
+      // Filter data based on selected tags
+      const filteredData = state.selectedTags.length === 0 ? [] : data.filter(d => {
+        const tagsArray = Array.isArray(d.tags) ? d.tags.map(tag => tag.trim().toLowerCase()) : d.tags.split(',' ).map(tag => tag.trim().toLowerCase());
+ // Check if the data point has at least one selected tag from group2Tags
+ const hasMatchingTagGroup2 = state.selectedTags.some(tag => {
+  const normalizedTag = tag.trim().toLowerCase();
+  return group2Tags.includes(tag) && tagsArray.includes(normalizedTag);
+});
 
-    return adjustedData;
-  };
+// Check if the data point has at least one selected tag from group1Tags
+const hasMatchingTagGroup1 = state.selectedTags.some(tag => {
+  const normalizedTag = tag.trim().toLowerCase();
+  return group1Tags.includes(tag) && tagsArray.includes(normalizedTag);
+});
 
-  updateChartRef.current = updateChart;
-  const newAdjustedData = updateChart();
-  setAdjustedData(newAdjustedData);
+// The data point should be displayed only if it matches at least one tag from group2Tags and one tag from group1Tags
+return hasMatchingTagGroup2 && hasMatchingTagGroup1;
+});
 
-  // Initial call to applyZoom to render axes with default zoom state
-  console.log('Initial call to applyZoom');
-  applyZoom(d3.zoomIdentity, newAdjustedData);
+// Clear existing circles and lines
+svg.selectAll('circle').remove();
+svg.selectAll('.reference-line').remove();
+
+// Adjust for overlap
+const adjustedData = adjustForOverlap(filteredData, xScale);
+setAdjustedData(adjustedData); // Update the adjustedData state
+
+// Draw reference lines for the filtered data points
+
+adjustedData.forEach(d => {
+const sourceReferences = referencesData.filter(ref => ref.primary_text === d.id);
+const targetReferences = referencesData.filter(ref => ref.secondary_text === d.id);
+
+// Draw reference lines where the current text is the source
+sourceReferences.forEach(ref => {
+  const target = dataMap.get(ref.secondary_text);
+  if (target && adjustedData.includes(target)) {
+    const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
+    referenceLines.append('line')
+      .attr('x1', d.adjustedX)
+      .attr('y1', getYPosition(yScale, d.language, d.adjustedAuthor))
+      .attr('x2', target.adjustedX)
+      .attr('y2', getYPosition(yScale, target.language, target.adjustedAuthor))
+      .attr('stroke', color)
+      .attr('stroke-width', 1.4)
+      .attr('stroke-opacity', 0.05)
+      .attr('class', `reference-line reference-${d.id} reference-${target.id}`);
+  }
+});
+
+// Draw reference lines where the current text is the target
+targetReferences.forEach(ref => {
+  const source = dataMap.get(ref.primary_text);
+  if (source && adjustedData.includes(source)) {
+    const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
+    referenceLines.append('line')
+      .attr('x1', source.adjustedX)
+      .attr('y1', getYPosition(yScale, source.language, source.adjustedAuthor))
+      .attr('x2', d.adjustedX)
+      .attr('y2', getYPosition(yScale, d.language, d.adjustedAuthor))
+      .attr('stroke', color)
+      .attr('stroke-width', 1.4)
+      .attr('stroke-opacity', 0.05)
+      .attr('class', `reference-line reference-${source.id} reference-${d.id}`);
+  }
+});
+});
+
+// Draw circles for the filtered data points
+const circlesGroup = svg.append('g')
+.attr('class', 'circles-group')
+.attr('clip-path', 'url(#clip)'); // Apply clip path
+
+circlesGroup.selectAll('circle')
+.data(adjustedData)
+.enter()
+.append('circle')
+.attr('id', d => `circle-${d.id}`) // Add an id attribute to the circle
+.attr('cx', d => d.adjustedX)
+.attr('cy', d => getYPosition(yScale, d.language, d.adjustedAuthor))
+.attr('r', d => {
+  // Calculate the radius based on the current zoom level
+  const zoomScaleFactor = Math.max(currentZoomState.k, 1);
+  return Math.min(4, 2 * zoomScaleFactor);
+})
+.style('fill', 'white')
+.style('stroke', 'black')
+.on('mouseover', (event, d) => {
+  // Change opacity of related lines
+  d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.9);
+  // Set hovered text information
+  const refs = referencesData
+    .filter(ref => ref.primary_text === d.id)
+    .map(ref => ({
+      ...dataMap.get(ref.secondary_text),
+      referenceType: ref.type_of_reference
+    }))
+    .filter(Boolean)
+    .filter(text => adjustedData.some(dataItem => dataItem.id === text.id))
+    .map(text => ({
+      title: text.title,
+      year: text.year,
+      date: text.dateForCard,
+      referenceType: text.referenceType
+    }))
+    .sort((a, b) => b.year - a.year);
+  const refsBy = referencesData
+    .filter(ref => ref.secondary_text === d.id)
+    .map(ref => ({
+      ...dataMap.get(ref.primary_text),
+      referenceType: ref.type_of_reference
+    }))
+    .filter(Boolean)
+    .filter(text => adjustedData.some(dataItem => dataItem.id === text.id))
+    .map(text => ({
+      title: text.title,
+      year: text.year,
+      date: text.dateForCard,
+      referenceType: text.referenceType
+    }))
+    .sort((a, b) => b.year - a.year);
+  dispatch({ type: 'SET_HOVERED_TEXT', payload: { text: d, referencingTitles: refs, referencedTitles: refsBy } });
+  d3.select(event.target).style('fill', 'black')
+  .attr('r', 10);
+
+  setTimeout(() => {
+    if (hoverCardRef.current) {
+      const hoverCardMain = hoverCardRef.current.querySelector('.hover-card-main');
+      const hoverCardHeight = hoverCardRef.current.clientHeight;
+      const hoverCardMainHeight = hoverCardMain.clientHeight;
+      const scrollTop = hoverCardMain.offsetTop - (hoverCardHeight / 2 - hoverCardMainHeight / 2);
+      hoverCardRef.current.scrollTo({ top: scrollTop, behavior: 'smooth' });
+      console.log('Event listener added to hoverCardRef');
+    } else {
+      console.log('hoverCardRef.current is null in setTimeout');
+    }
+  }, 0);
+})
+.on('mouseout', (event, d) => {
+  // Reset opacity of related lines
+  d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.05);
+  // Clear hovered text information
+  dispatch({ type: 'CLEAR_HOVERED_TEXT' });
+
+  // Recalculate the radius based on the current zoom level
+  const zoomScaleFactor = Math.max(currentZoomState.k, 1);
+  const radius = Math.min(4, 2 * zoomScaleFactor);
+
+  d3.select(event.target)
+    .style('fill', 'white')
+    .attr('r', radius); // Use the calculated radius
+})
+.on('click', (event, d) => {
+  if (d.link) {
+    window.open(d.link, '_blank');
+  }
+});
+
+// Render horizontal grid lines on the borders between segments
+svg.selectAll('.horizontal-line')
+.data([...languages.map(d => yScale(d) - yScale.step() / 2), height]) // Include top and bottom lines
+.enter()
+.append('line')
+.attr('class', 'horizontal-line')
+.attr('x1', 0)
+.attr('x2', width)
+.attr('y1', d => d)
+.attr('y2', d => d)
+.attr('stroke', 'grey')
+.attr('stroke-dasharray', '20 10')
+.attr('stroke-opacity', 0.5)
+.attr('clip-path', 'url(#xAxisClip)'); // Apply x-axis clip path
+
+return adjustedData;
+};
+
+updateChartRef.current = updateChart;
+const newAdjustedData = updateChart();
+setAdjustedData(newAdjustedData);
+
+// Initial call to applyZoom to render axes with default zoom state
+console.log('Initial call to applyZoom');
+applyZoom(d3.zoomIdentity, newAdjustedData);
 }, [height, margin.left, margin.right, margin.top, margin.bottom, width, xScale, yScale, adjustForOverlap, dataMap, data, state.selectedTags, languages, applyZoom, currentZoomState]);
 
+// Dynamic useEffect to handle zoom updates
+useEffect(() => {
+console.log('Handling zoom updates');
+applyZoom(currentZoomState, adjustedData);
+}, [currentZoomState, adjustedData, applyZoom]);
 
-  // Dynamic useEffect to handle zoom updates
-  useEffect(() => {
-    console.log('Handling zoom updates');
-    applyZoom(currentZoomState, adjustedData);
-  }, [currentZoomState, adjustedData, applyZoom]);
+const handleHoverCardWheel = (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  console.log("Hover card wheel event handled");
 
-   
-  const handleHoverCardWheel = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log("Hover card wheel event handled");
+  const scrollAmount = 0.5 * e.deltaY;
+  const hoverCard = hoverCardRef.current;
 
-    const scrollAmount = 0.5 * e.deltaY;
-    const hoverCard = hoverCardRef.current;
+  // Perform the scroll
+  hoverCard.scrollTop += scrollAmount;
+};
 
-    // Perform the scroll
-    hoverCard.scrollTop += scrollAmount;
-  };
-
-  const handleQueryChange = (event) => {
-    const query = event.target.value;
-    dispatch({ type: 'SET_SEARCH_QUERY', payload: query });
-    
-    if (query) {
-      const searchResults = adjustedData.filter(d => 
-        query.split(' ').every(part => 
-          d.author.toLowerCase().includes(part.toLowerCase()) ||
-          d.title.toLowerCase().includes(part.toLowerCase())
-        )
-      );
-      dispatch({ type: 'SET_SEARCH_RESULTS', payload: searchResults });
-    } else {
-      dispatch({ type: 'SET_SEARCH_RESULTS', payload: [] });
-    }
+const handleQueryChange = (event) => {
+  const query = event.target.value;
+  dispatch({ type: 'SET_SEARCH_QUERY', payload: query });
+  
+  if (query) {
+    const searchResults = adjustedData.filter(d => 
+      query.split(' ').every(part => 
+        d.author.toLowerCase().includes(part.toLowerCase()) ||
+        d.title.toLowerCase().includes(part.toLowerCase())
+      )
+    );
+    dispatch({ type: 'SET_SEARCH_RESULTS', payload: searchResults });
+  } else {
+    dispatch({ type: 'SET_SEARCH_RESULTS', payload: [] });
+  }
 };
 
 
-  const handleResultClick = (result) => {
-    const svg = d3.select(chartRef.current).select('g');
-    const targetCircle = svg.select(`#circle-${result.id}`);
-    
-    if (!targetCircle.empty()) {
-      // Trigger hover behavior
-      const event = new Event('mouseover');
-      targetCircle.node().dispatchEvent(event);
-      // Clear search query and results
-      dispatch({ type: 'SET_SEARCH_QUERY', payload: '' });
-      dispatch({ type: 'SET_SEARCH_RESULTS', payload: [] });
-    } else {
-      console.log("Target circle not found for result:", result);
-    }
-  };
+const handleResultClick = (result) => {
+  const svg = d3.select(chartRef.current).select('g');
+  const targetCircle = svg.select(`#circle-${result.id}`);
+  
+  if (!targetCircle.empty()) {
+    // Trigger hover behavior
+    const event = new Event('mouseover');
+    targetCircle.node().dispatchEvent(event);
+    // Clear search query and results
+    dispatch({ type: 'SET_SEARCH_QUERY', payload: '' });
+    dispatch({ type: 'SET_SEARCH_RESULTS', payload: [] });
+  } else {
+    console.log("Target circle not found for result:", result);
+  }
+};
 
-  const handleMouseEnter = useCallback(() => {
-    document.body.classList.add('no-scroll');
-    setIsExpanded(true);
-    setTimeout(() => {
-      onExpand();
-    }, 300); // Adjust this delay if needed
-  }, [onExpand]);
+const handleMouseEnter = useCallback(() => {
+  document.body.classList.add('no-scroll');
+  setIsExpanded(true);
+  setTimeout(() => {
+    onExpand();
+  }, 300); // Adjust this delay if needed
+}, [onExpand]);
 
-  const handleMouseLeave = useCallback((event) => {
-    const { clientX } = event;
-    const rect = chartRef.current.getBoundingClientRect();
-    if (clientX < rect.left) {
-      document.body.classList.remove('no-scroll');
-      setIsExpanded(false);
-    }
-  }, []);
+const handleMouseLeave = useCallback((event) => {
+  const { clientX } = event;
+  const rect = chartRef.current.getBoundingClientRect();
+  if (clientX < rect.left) {
+    document.body.classList.remove('no-scroll');
+    setIsExpanded(false);
+  }
+}, []);
 
-  useEffect(() => {
-    console.log('Setting up event listeners');
-    const svgElement = chartRef.current;
-    const legendElement = legendContainerRef.current;
-    const tagsElement = tagsContainerRef.current;
-    const searchBarElement = searchBarContainerRef.current;
+useEffect(() => {
+  console.log('Setting up event listeners');
+  const svgElement = chartRef.current;
+  const legendElement = legendContainerRef.current;
+  const tagsElement = tagsContainerRef.current;
+  const searchBarElement = searchBarContainerRef.current;
 
+  if (svgElement) {
+    svgElement.addEventListener('mouseenter', handleMouseEnter);
+    svgElement.addEventListener('mouseleave', handleMouseLeave);
+  }
+
+  if (legendElement) {
+    legendElement.addEventListener('mouseenter', handleMouseEnter);
+    legendElement.addEventListener('mouseleave', handleMouseLeave);
+  }
+
+  if (tagsElement) {
+    tagsElement.addEventListener('mouseenter', handleMouseEnter);
+    tagsElement.addEventListener('mouseleave', handleMouseLeave);
+  }
+
+  if (searchBarElement) {
+    searchBarElement.addEventListener('mouseenter', handleMouseEnter);
+    searchBarElement.addEventListener('mouseleave', handleMouseLeave);
+  }
+
+  return () => {
     if (svgElement) {
-      svgElement.addEventListener('mouseenter', handleMouseEnter);
-      svgElement.addEventListener('mouseleave', handleMouseLeave);
+      svgElement.removeEventListener('mouseenter', handleMouseEnter);
+      svgElement.removeEventListener('mouseleave', handleMouseLeave);
     }
 
     if (legendElement) {
-      legendElement.addEventListener('mouseenter', handleMouseEnter);
-      legendElement.addEventListener('mouseleave', handleMouseLeave);
+      legendElement.removeEventListener('mouseenter', handleMouseEnter);
+      legendElement.removeEventListener('mouseleave', handleMouseLeave);
     }
 
     if (tagsElement) {
-      tagsElement.addEventListener('mouseenter', handleMouseEnter);
-      tagsElement.addEventListener('mouseleave', handleMouseLeave);
+      tagsElement.removeEventListener('mouseenter', handleMouseEnter);
+      tagsElement.removeEventListener('mouseleave', handleMouseLeave);
     }
 
     if (searchBarElement) {
-      searchBarElement.addEventListener('mouseenter', handleMouseEnter);
-      searchBarElement.addEventListener('mouseleave', handleMouseLeave);
+      searchBarElement.removeEventListener('mouseenter', handleMouseEnter);
+      searchBarElement.removeEventListener('mouseleave', handleMouseLeave);
     }
+  };
+}, [chartRef, legendContainerRef, tagsContainerRef, searchBarContainerRef, handleMouseEnter, handleMouseLeave]);
 
-    return () => {
-      if (svgElement) {
-        svgElement.removeEventListener('mouseenter', handleMouseEnter);
-        svgElement.removeEventListener('mouseleave', handleMouseLeave);
-      }
-
-      if (legendElement) {
-        legendElement.removeEventListener('mouseenter', handleMouseEnter);
-        legendElement.removeEventListener('mouseleave', handleMouseLeave);
-      }
-
-      if (tagsElement) {
-        tagsElement.removeEventListener('mouseenter', handleMouseEnter);
-        tagsElement.removeEventListener('mouseleave', handleMouseLeave);
-      }
-
-      if (searchBarElement) {
-        searchBarElement.removeEventListener('mouseenter', handleMouseEnter);
-        searchBarElement.removeEventListener('mouseleave', handleMouseLeave);
-      }
-    };
-  }, [chartRef, legendContainerRef, tagsContainerRef, searchBarContainerRef, handleMouseEnter, handleMouseLeave]);
-
-  return (
-    <div 
-      id="tree-reference-graph"
-      className={`tree-reference-graph ${isExpanded ? 'expanded' : 'collapsed'}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <div ref={legendContainerRef} className="legend-container">
-        <div className="legend-item">
-          <span className="bullet direct-reference"></span> direct reference
-        </div>
-        <div className="legend-item">
-          <span className="bullet similar-themes"></span> similar themes
-        </div>
+return (
+  <div 
+    id="tree-reference-graph"
+    className={`tree-reference-graph ${isExpanded ? 'expanded' : 'collapsed'}`}
+    onMouseEnter={handleMouseEnter}
+    onMouseLeave={handleMouseLeave}
+  >
+    <div ref={legendContainerRef} className="legend-container">
+      <div className="legend-item">
+        <span className="bullet direct-reference"></span> direct reference
       </div>
-      <div ref={searchBarContainerRef}>
-        <SearchBar
-          query={state.searchQuery}
-          results={state.searchResults}
-          onQueryChange={handleQueryChange}
-          onResultClick={handleResultClick}
-        />
+      <div className="legend-item">
+        <span className="bullet similar-themes"></span> similar themes
       </div>
-      <svg ref={chartRef} onWheel={handleHoverCardWheel}>
-        <ZoomableArea width={width} height={height} margin={margin} onZoom={setCurrentZoomState} zoomState={currentZoomState} />
-      </svg>
-      <div className="hover-card" ref={hoverCardRef} style={{ pointerEvents: 'auto', display: state.hoveredText ? 'block' : 'none' }}>
-        {state.hoveredText ? console.log('Hover card displayed') : console.log('Hover card hidden')}
-        {state.referencingTitles.length > 0 && (
-          <div className="hover-card-section">
-            <p><strong>Informs:</strong></p>
-            <ul>
-              {state.referencingTitles.map((item, index) => (
-                <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'similar-themes'}>
-                  {item.title} ({item.date})
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-        <div className="hover-card-main">
-          <p><span className="hover-card-title">{state.hoveredText?.title}</span></p>
-          <p><span>{state.hoveredText?.author}</span></p>
-          <p><span>{state.hoveredText?.dateForCard}</span></p>
-          <p><span>{state.hoveredText?.oLanguage}</span></p>
-          <p><span>{state.hoveredText?.location}</span></p>
-        </div>
-        {state.referencedTitles.length > 0 && (
-          <div className="hover-card-section">
-            <p><strong>Informed by:</strong></p>
-            <ul>
-              {state.referencedTitles.map((item, index) => (
-                <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'similar-themes'}>
-                  {item.title} ({item.date})
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-      <div className="tags-container" ref={tagsContainerRef}>
-      <div className="tag-group tag-group-1">
-  {group1Tags.map((tag, index) => (
-    <div
-      key={index}
-      className={`tag-item ${["prophetic/religious", "essay/treatise", "narrative"].includes(tag) ? "full-width" : ""}`}
-    >
-      <input
-        type="checkbox"
-        id={`tag-${tag}`}
-        value={tag}
-        checked={state.selectedTags.includes(tag)} // Ensure checkbox is checked based on state
-        onChange={() => dispatch({ type: 'TOGGLE_TAG', payload: tag })}
-      />
-      <label htmlFor={`tag-${tag}`}>{tag}</label>
     </div>
-  ))}
+    <div ref={searchBarContainerRef}>
+      <SearchBar
+        query={state.searchQuery}
+        results={state.searchResults}
+        onQueryChange={handleQueryChange}
+        onResultClick={handleResultClick}
+      />
+    </div>
+    <svg ref={chartRef} onWheel={handleHoverCardWheel}>
+      <ZoomableArea width={width} height={height} margin={margin} onZoom={setCurrentZoomState} zoomState={currentZoomState} />
+    </svg>
+    <div className="hover-card" ref={hoverCardRef} style={{ pointerEvents: 'auto', display: state.hoveredText ? 'block' : 'none' }}>
+      {state.hoveredText ? console.log('Hover card displayed') : console.log('Hover card hidden')}
+      {state.referencingTitles.length > 0 && (
+        <div className="hover-card-section">
+          <p><strong>Informs:</strong></p>
+          <ul>
+            {state.referencingTitles.map((item, index) => (
+              <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'similar-themes'}>
+                {item.title} ({item.date})
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <div className="hover-card-main">
+        <p><span className="hover-card-title">{state.hoveredText?.title}</span></p>
+        <p><span>{state.hoveredText?.author}</span></p>
+        <p><span>{state.hoveredText?.dateForCard}</span></p>
+        <p><span>{state.hoveredText?.oLanguage}</span></p>
+        <p><span>{state.hoveredText?.location}</span></p>
+      </div>
+      {state.referencedTitles.length > 0 && (
+        <div className="hover-card-section">
+          <p><strong>Informed by:</strong></p>
+          <ul>
+            {state.referencedTitles.map((item, index) => (
+              <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'similar-themes'}>
+                {item.title} ({item.date})
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+    <div className="tags-container" ref={tagsContainerRef}>
+    <div className="tag-group tag-group-1">
+{group1Tags.map((tag, index) => (
+  <div
+    key={index}
+    className={`tag-item ${["prophetic/religious", "essay/treatise", "narrative"].includes(tag) ? "full-width" : ""}`}
+  >
+    <input
+      type="checkbox"
+      id={`tag-${tag}`}
+      value={tag}
+      checked={state.selectedTags.includes(tag)} // Ensure checkbox is checked based on state
+      onChange={() => dispatch({ type: 'TOGGLE_TAG', payload: tag })}
+    />
+    <label htmlFor={`tag-${tag}`}>{tag}</label>
+  </div>
+))}
 </div>
 
-        <div className="tag-group tag-group-2">
-          <div className="select-buttons" style={{marginBottom: '5px'}}>
-            <span>select disciplines: </span>
-            <button onClick={handleSelectAllGroup2} style={{ fontSize: '12px', padding: '2px 6px', marginRight: '2px' }}>All</button>
-            <button onClick={handleSelectNoneGroup2} style={{ fontSize: '12px', padding: '2px 6px' }}>None</button>
-          </div>
-          {group2Tags.map((tag, index) => (
-            <div key={index} className="tag-item">
-              <input
-                type="checkbox"
-                id={`tag-${tag}`}
-                value={tag}
-                checked={state.selectedTags.includes(tag)} // Ensure checkbox is checked based on state
-                onChange={() => dispatch({ type: 'TOGGLE_TAG', payload: tag })}
-              />
-              <label htmlFor={`tag-${tag}`}>{tag}</label>
-            </div>
-          ))}
+      <div className="tag-group tag-group-2">
+        <div className="select-buttons" style={{marginBottom: '5px'}}>
+          <span>select disciplines: </span>
+          <button onClick={handleSelectAllGroup2} style={{ fontSize: '12px', padding: '2px 6px', marginRight: '2px' }}>All</button>
+          <button onClick={handleSelectNoneGroup2} style={{ fontSize: '12px', padding: '2px 6px' }}>None</button>
         </div>
+        {group2Tags.map((tag, index) => (
+          <div key={index} className="tag-item">
+            <input
+              type="checkbox"
+              id={`tag-${tag}`}
+              value={tag}
+              checked={state.selectedTags.includes(tag)} // Ensure checkbox is checked based on state
+              onChange={() => dispatch({ type: 'TOGGLE_TAG', payload: tag })}
+            />
+            <label htmlFor={`tag-${tag}`}>{tag}</label>
+          </div>
+        ))}
       </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default TreeReferenceGraph;
