@@ -1,18 +1,26 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useRef } from 'react';
 import '../components css/SearchBar.css'; // Import the CSS file for styling
 
 const SearchBar = ({ query, results, onQueryChange, onResultClick }) => {
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const searchResultsRef = useRef(null);
+  const searchBarRef = useRef(null); // Reference to the search bar container
+  const isClickingResult = useRef(false); // Flag to track if a click on a search result is in progress
 
-  const handleKeyDown = useCallback((event) => {
+  // Function to handle key down events
+  const handleKeyDown = (event) => {
     if (results.length > 0) {
+      let newIndex = selectedIndex;
       switch (event.key) {
         case 'ArrowDown':
-          setSelectedIndex((prevIndex) => Math.min(prevIndex + 1, results.length - 1));
+          newIndex = Math.min(selectedIndex + 1, results.length - 1);
+          setSelectedIndex(newIndex);
+          event.preventDefault(); // Prevent default scrolling behavior
           break;
         case 'ArrowUp':
-          setSelectedIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+          newIndex = Math.max(selectedIndex - 1, 0);
+          setSelectedIndex(newIndex);
+          event.preventDefault(); // Prevent default scrolling behavior
           break;
         case 'Enter':
           if (selectedIndex >= 0) {
@@ -22,42 +30,58 @@ const SearchBar = ({ query, results, onQueryChange, onResultClick }) => {
         default:
           break;
       }
-    }
-  }, [results, selectedIndex, onResultClick]);
 
-  
-
-  useEffect(() => {
-    const searchBarInput = searchResultsRef.current;
-    if (searchBarInput) {
-      searchBarInput.addEventListener('keydown', handleKeyDown);
-      
-    }
-    return () => {
-      if (searchBarInput) {
-        searchBarInput.removeEventListener('keydown', handleKeyDown);
-        
+      // Scroll into view if the newIndex changes
+      if (newIndex !== selectedIndex) {
+        const listItem = searchResultsRef.current?.querySelectorAll('li')[newIndex];
+        if (listItem) {
+          listItem.scrollIntoView({
+            block: 'nearest',
+            behavior: 'auto',
+          });
+        }
       }
-    };
-  }, [handleKeyDown]);
+    }
+  };
+
+  // Function to handle blur events
+  const handleBlur = () => {
+    if (!isClickingResult.current) {
+      onQueryChange({ target: { value: '' } }); // Clear the search query
+    }
+  };
+
+  // Function to handle clicks on search results
+  const handleResultMouseDown = () => {
+    isClickingResult.current = true;
+  };
+
+  const handleResultClick = (result) => {
+    onResultClick(result);
+    isClickingResult.current = false;
+  };
 
   return (
-    <div className="search-bar-container">
+    <div className="search-bar-container" ref={searchBarRef}>
       <input
         type="text"
         placeholder="Search library"
         value={query}
         onChange={onQueryChange}
+        onKeyDown={handleKeyDown} // Attach handleKeyDown directly to onKeyDown
+        onBlur={handleBlur} // Attach handleBlur to onBlur
         className="search-bar-input"
         ref={searchResultsRef}
       />
       {results.length > 0 && (
-        <div className="search-results-container">
+        <div className="search-results-container" ref={searchResultsRef}>
           <ul className="search-results-list">
             {results.map((result, index) => (
               <li
                 key={result.id}
-                onClick={() => onResultClick(result)}
+                onMouseDown={handleResultMouseDown} // Set the flag on mouse down
+                onClick={() => handleResultClick(result)} // Call handleResultClick on click
+                onMouseEnter={() => setSelectedIndex(index)} // Update selectedIndex on mouse enter
                 className={`search-result-item ${index === selectedIndex ? 'active' : ''}`}
               >
                 {result.title}{result.author !== "-" && ` by ${result.author}`}

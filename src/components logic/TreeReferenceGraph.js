@@ -568,8 +568,6 @@ const TreeReferenceGraph = ({ onExpand }) => {
     }
   };
 
-  
-
   const handleMouseEnter = useCallback(() => {
     document.body.classList.add('no-scroll');
     setIsExpanded(true);
