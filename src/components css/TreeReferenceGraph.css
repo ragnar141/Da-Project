@@ -137,7 +137,7 @@ svg {
 .legend-container {
   position: absolute;
   top: 8px;
-  right: -230px;
+  right: -180px;
   display: flex;
   align-items: center;
   justify-content: flex-start; /* Align items to the start of the container */
@@ -154,20 +154,40 @@ svg {
   margin-right: 20px; /* Space between legend items */
 }
 
-.legend-item .bullet {
-  display: inline-block;
-  width: 10px; /* Width of the bullet point */
-  height: 10px; /* Height of the bullet point */
-  border-radius: 50%; /* Make it a circle */
-  margin-right: 5px; /* Space between bullet and text */
+.legend-item input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: white;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  vertical-align: middle;
+  position: relative;
+  cursor: pointer;
+  border: 2px solid;
+  margin-right: 10px;  /* Space between checkbox and label */
 }
 
-.legend-item .bullet.direct-reference {
-  background-color: red; /* Red color for direct reference */
+/* Direct Reference checkbox - red */
+.legend-item input[type="checkbox"]#checkbox-direct-reference {
+  border-color: red;
 }
 
-.legend-item .bullet.assumed-influence {
-  background-color: black; /* Black color for similar themes */
+.legend-item input[type="checkbox"]#checkbox-direct-reference:checked {
+  background-color: red;
+}
+
+/* Assumed Influence checkbox - black */
+.legend-item input[type="checkbox"]#checkbox-assumed-influence {
+  border-color: black;
+}
+
+.legend-item input[type="checkbox"]#checkbox-assumed-influence:checked {
+  background-color: black;
+}
+
+.legend-item label {
+  cursor: pointer; /* Changes the cursor to pointer when hovering over the label */
 }
 
 .tags-container {
