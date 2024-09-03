@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-const ZoomableArea = ({ width, height, margin, onZoom, zoomState }) => {
+const ZoomableArea = ({ width, height, margin, onZoom, zoomState, onClick }) => {
   const zoomableRef = useRef(null);
 
   useEffect(() => {
@@ -10,7 +10,7 @@ const ZoomableArea = ({ width, height, margin, onZoom, zoomState }) => {
     // Define the zoom behavior
     const zoom = d3.zoom()
       .scaleExtent([1, 10]) // Set the zoom limits
-      .translateExtent([[0, -margin.top], [width + margin.right + margin.left, height + margin.bottom ]]) // Set the translate limits
+      .translateExtent([[0, -margin.top], [width + margin.right + margin.left, height + margin.bottom]]) // Set the translate limits
       .on('zoom', (event) => {
         onZoom(event.transform);
       });
@@ -37,6 +37,7 @@ const ZoomableArea = ({ width, height, margin, onZoom, zoomState }) => {
       fill="none"
       pointerEvents="all"
       transform={`translate(${-margin.left},${-margin.top})`}
+      onClick={onClick} // Add onClick event handler
     />
   );
 };

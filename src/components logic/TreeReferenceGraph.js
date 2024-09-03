@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useReducer, useMemo, useCallback, useState } 
 import * as d3 from 'd3';
 import '../components css/TreeReferenceGraph.css'; // Import the CSS file
 import textsData from './datasets/converted_data.json';
-import referencesData from './datasets/references 8.30.24.json';
+import directReferencesData from './datasets/direct_references.json';
+import assumedInfluencesData from './datasets/assumed_influences.json';
 import ZoomableArea from './ZoomableArea';
 import SearchBar from './SearchBar'; // Import the SearchBar component
 
@@ -19,12 +20,14 @@ const group2Tags = [
 
 // Initial state for the reducer
 const initialState = {
-  hoveredText: null,            // Holds information about the currently hovered text
-  referencingTitles: [],        // Titles of texts referencing the hovered text
-  referencedTitles: [],         // Titles of texts referenced by the hovered text
-  selectedTags: [...group1Tags, ...group2Tags],           // Initialize with all tags selected
-  searchQuery: '',              // Search query state
-  searchResults: []             // Search results state
+  hoveredText: null,
+  referencingTitles: [],
+  referencedTitles: [],
+  selectedTags: [...group1Tags, ...group2Tags],
+  searchQuery: '',
+  searchResults: [],
+  showDirectReferences: true,  // New state to control direct references visibility
+  showAssumedInfluences: true  // New state to control assumed influences visibility
 };
 
 // Reducer function to handle state updates
@@ -67,6 +70,16 @@ const reducer = (state, action) => {
         ...state,
         selectedTags: action.payload,
       };
+    case 'TOGGLE_DIRECT_REFERENCE':  // Toggle direct reference visibility
+      return {
+        ...state,
+        showDirectReferences: !state.showDirectReferences,
+      };
+    case 'TOGGLE_ASSUMED_INFLUENCE': // Toggle assumed influence visibility
+      return {
+        ...state,
+        showAssumedInfluences: !state.showAssumedInfluences,
+      };
     default:
       return state;
   }
@@ -84,6 +97,7 @@ const TreeReferenceGraph = ({ onExpand }) => {
   const [currentZoomState, setCurrentZoomState] = useState(d3.zoomIdentity); // Zoom state
   const [adjustedData, setAdjustedData] = useState([]); // Adjusted data state
   const [isExpanded, setIsExpanded] = useState(false); // Expanded state
+  const [activeCircleId, setActiveCircleId] = useState(null);
 
   const margin = useMemo(() => ({ top: 0, right: 185, bottom: 20, left: 70 }), []); // Margin for the SVG
   const width = 1440 - margin.left - margin.right; // Calculate width
@@ -113,21 +127,21 @@ const TreeReferenceGraph = ({ onExpand }) => {
 
   const getXPosition = (xScale, year) => xScale(year);
 
-  const getYPosition = (yScale, language, adjustedAuthor) => {
+  const getYPosition = useCallback((yScale, language, adjustedAuthor) => {
     const yPos = yScale(language); // Get the y-position based on the language
     const segmentHeight = yScale.step(); // Get the step size of the y-scale
     const padding = segmentHeight * 0.1; // Padding to adjust the position within the segment
 
     let positionFactor = 0.5;
     if (adjustedAuthor && adjustedAuthor.length > 0) {
-      const firstLetter = adjustedAuthor[0].toUpperCase();
-      const normalizedValue = (firstLetter.charCodeAt(0) - 65) / 25;
-      positionFactor = Math.min(Math.max(normalizedValue, 0), 1);
+        const firstLetter = adjustedAuthor[0].toUpperCase();
+        const normalizedValue = (firstLetter.charCodeAt(0) - 65) / 25;
+        positionFactor = Math.min(Math.max(normalizedValue, 0), 1);
     }
 
     const finalYPos = yPos - segmentHeight / 2 + padding + positionFactor * (segmentHeight - 2 * padding);
     return finalYPos;
-  };
+}, []);  // Assuming `languages` and `height` are the relevant dependencies
 
   const adjustForOverlap = useCallback((data, xScale) => {
     console.log('Adjusting for overlap');
@@ -190,120 +204,334 @@ const TreeReferenceGraph = ({ onExpand }) => {
     return Math.min(1, zoomScaleFactor * 0.5); // Adjust this factor to control opacity change
   };
 
-  const applyZoom = useCallback((zoomTransform, adjustedData) => {
-    console.log('Applying zoom');
-    if (zoomTransform && adjustedData) {
-      const svg = d3.select(chartRef.current).select('g');
-      console.log("Applying zoom state:", zoomTransform);
-      const newXScale = zoomTransform.rescaleX(xScale);
-  
-      const newYScaleRange = yScale.range().map(d => zoomTransform.applyY(d));
-      const newYScale = yScale.copy().range(newYScaleRange);
-  
-      const zoomScaleFactor = Math.max(zoomTransform.k, 1); // Ensure the scale factor is at least 1
-  
-      svg.select('.x-axis').remove();
-      svg.append('g')
-        .attr('class', 'x-axis')
-        .attr('transform', `translate(0,${height})`)
-        .call(d3.axisBottom(newXScale).tickFormat(d => d < 0 ? `${Math.abs(d)} BC` : d))
-        .style('font-size', '14px')
-        .selectAll("text")
-        .style("font-family", "Times New Roman, sans-serif");
-  
-      svg.select('.y-axis').remove();
-      svg.append('g')
-        .attr('class', 'y-axis')
-        .attr('clip-path', 'url(#xAxisClip)')
-        .call(d3.axisLeft(newYScale).tickSize(0).tickPadding(10))
-        .selectAll("text")
-        .style("font-family", "Garamond, sans-serif")
-        .style('font-size', '15px')
-        .each(function() {
-          const text = d3.select(this);
-          const label = text.text();
-      
-          text.text('');
-      
-          if (label === 'Different Languages') {
-            text.append('tspan').text('Different').attr('x', -10).attr('dy', '-0.3em');
-            text.append('tspan').text('Languages').attr('x', -10).attr('dy', '1.2em');
-          } else if (label === 'Italian/Spanish/Danish/Russian') {
-            text.append('tspan').text('Italian').attr('x', -10).attr('dy', '-1.6em');
-            text.append('tspan').text('Spanish').attr('x', -10).attr('dy', '1.2em');
-            text.append('tspan').text('Danish').attr('x', -10).attr('dy', '1.2em');
-            text.append('tspan').text('Russian').attr('x', -10).attr('dy', '1.2em');
-          } else if (label === 'Japanese/Korean') {
-            text.append('tspan').text('Japanese').attr('x', -10).attr('dy', '-0.5em');
-            text.append('tspan').text('Korean').attr('x', -10).attr('dy', '1.2em');
-          } else if (label === 'Chinese/Thai') {
-            text.append('tspan').text('Chinese').attr('x', -10).attr('dy', '-0.5em');
-            text.append('tspan').text('Thai').attr('x', -10).attr('dy', '1.2em');
-          } else if (label === 'Sanskrit/Pali/Tibetan') {
-            text.append('tspan').text('Sanskrit').attr('x', -10).attr('dy', '-1.0em');
-            text.append('tspan').text('Pali').attr('x', -10).attr('dy', '1.2em');
-            text.append('tspan').text('Tibetan').attr('x', -10).attr('dy', '1.2em');
-          }else {
-            text.text(label);
-          }            
-        });
-  
-      svg.selectAll('.horizontal-line')
-        .attr('x1', 0)
-        .attr('x2', width)
-        .attr('y1', (d, i) => {
-          if (i === 0) {
-            return newYScale(languages[0]) - newYScale.step() / 2;
-          } else if (i === languages.length) {
-            return newYScale(languages[languages.length - 1]) + newYScale.step() / 2;
-          } else {
-            const newY = newYScale(languages[i - 1]) + newYScale.step() / 2;
-            return newY;
+  const handleZoomableAreaClick = () => {
+    if (activeCircleId !== null) {
+      setActiveCircleId(null);
+      dispatch({ type: 'CLEAR_HOVERED_TEXT' });
+    }
+  };
+
+  const applyZoom = useCallback(
+    (zoomTransform, adjustedData) => {
+      console.log('Applying zoom');
+      if (zoomTransform && adjustedData) {
+        const svg = d3.select(chartRef.current).select('g');
+        console.log("Applying zoom state:", zoomTransform);
+        const newXScale = zoomTransform.rescaleX(xScale);
+
+        const newYScaleRange = yScale.range().map((d) => zoomTransform.applyY(d));
+        const newYScale = yScale.copy().range(newYScaleRange);
+
+        const zoomScaleFactor = Math.max(zoomTransform.k, 1); // Ensure the scale factor is at least 1
+
+        svg.select('.x-axis').remove();
+        svg
+          .append('g')
+          .attr('class', 'x-axis')
+          .attr('transform', `translate(0,${height})`)
+          .call(d3.axisBottom(newXScale).tickFormat((d) => (d < 0 ? `${Math.abs(d)} BC` : d)))
+          .style('font-size', '14px')
+          .selectAll('text')
+          .style('font-family', 'Times New Roman, sans-serif');
+
+        svg.select('.y-axis').remove();
+        svg
+          .append('g')
+          .attr('class', 'y-axis')
+          .attr('clip-path', 'url(#xAxisClip)')
+          .call(d3.axisLeft(newYScale).tickSize(0).tickPadding(10))
+          .selectAll('text')
+          .style('font-family', 'Garamond, sans-serif')
+          .style('font-size', '15px')
+          .each(function () {
+            const text = d3.select(this);
+            const label = text.text();
+
+            text.text('');
+
+            if (label === 'Different Languages') {
+              text.append('tspan').text('Different').attr('x', -10).attr('dy', '-0.3em');
+              text.append('tspan').text('Languages').attr('x', -10).attr('dy', '1.2em');
+            } else if (label === 'Italian/Spanish/Danish/Russian') {
+              text.append('tspan').text('Italian').attr('x', -10).attr('dy', '-1.6em');
+              text.append('tspan').text('Spanish').attr('x', -10).attr('dy', '1.2em');
+              text.append('tspan').text('Danish').attr('x', -10).attr('dy', '1.2em');
+              text.append('tspan').text('Russian').attr('x', -10).attr('dy', '1.2em');
+            } else if (label === 'Japanese/Korean') {
+              text.append('tspan').text('Japanese').attr('x', -10).attr('dy', '-0.5em');
+              text.append('tspan').text('Korean').attr('x', -10).attr('dy', '1.2em');
+            } else if (label === 'Chinese/Thai') {
+              text.append('tspan').text('Chinese').attr('x', -10).attr('dy', '-0.5em');
+              text.append('tspan').text('Thai').attr('x', -10).attr('dy', '1.2em');
+            } else if (label === 'Sanskrit/Pali/Tibetan') {
+              text.append('tspan').text('Sanskrit').attr('x', -10).attr('dy', '-1.0em');
+              text.append('tspan').text('Pali').attr('x', -10).attr('dy', '1.2em');
+              text.append('tspan').text('Tibetan').attr('x', -10).attr('dy', '1.2em');
+            } else {
+              text.text(label);
+            }
+          });
+
+        svg.selectAll('.horizontal-line')
+          .attr('x1', 0)
+          .attr('x2', width)
+          .attr('y1', (d, i) => {
+            if (i === 0) {
+              return newYScale(languages[0]) - newYScale.step() / 2;
+            } else if (i === languages.length) {
+              return newYScale(languages[languages.length - 1]) + newYScale.step() / 2;
+            } else {
+              const newY = newYScale(languages[i - 1]) + newYScale.step() / 2;
+              return newY;
+            }
+          })
+          .attr('y2', (d, i) => {
+            if (i === 0) {
+              return newYScale(languages[0]) - newYScale.step() / 2;
+            } else if (i === languages.length) {
+              return newYScale(languages[languages.length - 1]) + newYScale.step() / 2;
+            } else {
+              const newY = newYScale(languages[i - 1]) + newYScale.step() / 2;
+              return newY;
+            }
+          });
+
+        svg.selectAll('circle')
+          .data(adjustedData)
+          .attr('cx', (d) => newXScale(d.adjustedYear || d.year))
+          .attr('cy', (d) => getYPosition(newYScale, d.language, d.adjustedAuthor))
+          .attr('r', (d) => {
+            if (d.id === activeCircleId) {
+              return 10; // Larger radius for active circle
+            }
+            return Math.min(5, 2 * zoomScaleFactor); // Cap the radius at 5
+          })
+          .style('fill', (d) => (d.id === activeCircleId ? 'black' : 'white')) // Fill active circle black
+          .style('stroke', 'black')
+          .style('stroke-opacity', (d) => getBorderOpacity(zoomScaleFactor));
+
+        svg.selectAll('.reference-line').each(function () {
+          const line = d3.select(this);
+          const classList = line.attr('class').split(' ');
+          const sourceId = parseInt(classList[1].split('-')[1]);
+          const targetId = parseInt(classList[2].split('-')[1]);
+          const source = dataMap.get(sourceId);
+          const target = dataMap.get(targetId);
+
+          if (source && target) {
+            const x1 = newXScale(source.adjustedYear || source.year);
+            const y1 = getYPosition(newYScale, source.language, source.adjustedAuthor);
+            const x2 = newXScale(target.adjustedYear || target.year);
+            const y2 = getYPosition(newYScale, target.language, target.adjustedAuthor);
+
+            line.attr('x1', x1)
+              .attr('y1', y1)
+              .attr('x2', x2)
+              .attr('y2', y2)
+              .attr('stroke-opacity', activeCircleId && (sourceId === activeCircleId || targetId === activeCircleId) ? 0.9 : 0.05); // Adjust opacity based on active circle
           }
-        })
-        .attr('y2', (d, i) => {
-          if (i === 0) {
-            return newYScale(languages[0]) - newYScale.step() / 2;
-          } else if (i === languages.length) {
-            return newYScale(languages[languages.length - 1]) + newYScale.step() / 2;
-          } else {
-            const newY = newYScale(languages[i - 1]) + newYScale.step() / 2;
-            return newY;
-          }
         });
+      }
+    },
+    [xScale, yScale, getYPosition, width, height, languages, dataMap, activeCircleId]
+  );
+
+  const updateChart = useCallback(() => {
+    console.log('Updating chart');
+    const svg = d3.select(chartRef.current).select('g');
   
-      svg.selectAll('circle')
-        .data(adjustedData)
-        .attr('cx', d => newXScale(d.adjustedYear || d.year))
-        .attr('cy', d => getYPosition(newYScale, d.language, d.adjustedAuthor))
-        .attr('r', d => Math.min(5, 2 * zoomScaleFactor)) // Cap the radius at 5
-        .style('fill', 'white') // Keep fill color constant
-        .style('stroke', 'black')
-        .style('stroke-opacity', d => getBorderOpacity(zoomScaleFactor)); // Adjust border opacity based on zoom
+    // Remove existing reference lines
+    svg.selectAll('.reference-line').remove();
+
+    // Determine which references to show
+    let referencesData = [];
+    if (state.showDirectReferences) {
+      referencesData = referencesData.concat(directReferencesData);
+    }
+    if (state.showAssumedInfluences) {
+      referencesData = referencesData.concat(assumedInfluencesData);
+    }
   
-      svg.selectAll('.reference-line').each(function () {
-        const line = d3.select(this);
-        const classList = line.attr('class').split(' ');
-        const sourceId = parseInt(classList[1].split('-')[1]);
-        const targetId = parseInt(classList[2].split('-')[1]);
-        const source = dataMap.get(sourceId);
-        const target = dataMap.get(targetId);
+    const referenceLines = svg.append('g')
+      .attr('class', 'reference-lines')
+      .attr('clip-path', 'url(#clip)');
   
-        if (source && target) {
-          const x1 = newXScale(source.adjustedYear || source.year);
-          const y1 = getYPosition(newYScale, source.language, source.adjustedAuthor);
-          const x2 = newXScale(target.adjustedYear || target.year);
-          const y2 = getYPosition(newYScale, target.language, target.adjustedAuthor);
+    referencesData.forEach((ref) => {
+      const sourceId = String(ref.primary_text);
+      const targetId = String(ref.secondary_text);
+      
+      const source = dataMap.get(sourceId);
+      const target = dataMap.get(targetId);
   
-          line
-            .attr('x1', x1)
-            .attr('y1', y1)
-            .attr('x2', x2)
-            .attr('y2', y2);
+      if (source && target) {
+        const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
+        referenceLines.append('line')
+          .attr('x1', getXPosition(xScale, source.adjustedYear || source.year))
+          .attr('y1', getYPosition(yScale, source.language, source.adjustedAuthor))
+          .attr('x2', getXPosition(xScale, target.adjustedYear || target.year))
+          .attr('y2', getYPosition(yScale, target.language, target.adjustedAuthor))
+          .attr('stroke', color)
+          .attr('stroke-width', 1.4)
+          .attr('stroke-opacity', 0.05)
+          .attr('class', `reference-line reference-${source.id} reference-${target.id}`);
+      }
+    });
+  
+    // Redraw circles and other elements as needed
+    svg.selectAll('circle').remove();
+
+    const filteredData = state.selectedTags.length === 0 ? [] : data.filter(d => {
+      const tagsArray = Array.isArray(d.tags) ? d.tags.map(tag => tag.trim().toLowerCase()) : d.tags.split(',' ).map(tag => tag.trim().toLowerCase());
+      const hasMatchingTagGroup2 = state.selectedTags.some(tag => {
+        const normalizedTag = tag.trim().toLowerCase();
+        return group2Tags.includes(tag) && tagsArray.includes(normalizedTag);
+      });
+      const hasMatchingTagGroup1 = state.selectedTags.some(tag => {
+        const normalizedTag = tag.trim().toLowerCase();
+        return group1Tags.includes(tag) && tagsArray.includes(normalizedTag);
+      });
+      return hasMatchingTagGroup2 && hasMatchingTagGroup1;
+    });
+
+    const adjustedData = adjustForOverlap(filteredData, xScale);
+    setAdjustedData(adjustedData);
+
+    adjustedData.forEach(d => {
+      const sourceReferences = referencesData.filter(ref => ref.primary_text === d.id);
+      const targetReferences = referencesData.filter(ref => ref.secondary_text === d.id);
+
+      sourceReferences.forEach(ref => {
+        const target = dataMap.get(ref.secondary_text);
+        if (target && adjustedData.includes(target)) {
+          const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
+          referenceLines.append('line')
+            .attr('x1', d.adjustedX)
+            .attr('y1', getYPosition(yScale, d.language, d.adjustedAuthor))
+            .attr('x2', target.adjustedX)
+            .attr('y2', getYPosition(yScale, target.language, target.adjustedAuthor))
+            .attr('stroke', color)
+            .attr('stroke-width', 1.4)
+            .attr('stroke-opacity', 0.05)
+            .attr('class', `reference-line reference-${d.id} reference-${target.id}`);
         }
       });
-    }
-  }, [xScale, yScale, width, height, languages, dataMap]);
+
+      targetReferences.forEach(ref => {
+        const source = dataMap.get(ref.primary_text);
+        if (source && adjustedData.includes(source)) {
+          const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
+          referenceLines.append('line')
+            .attr('x1', source.adjustedX)
+            .attr('y1', getYPosition(yScale, source.language, source.adjustedAuthor))
+            .attr('x2', d.adjustedX)
+            .attr('y2', getYPosition(yScale, d.language, d.adjustedAuthor))
+            .attr('stroke', color)
+            .attr('stroke-width', 1.4)
+            .attr('stroke-opacity', 0.05)
+            .attr('class', `reference-line reference-${source.id} reference-${d.id}`);
+        }
+      });
+    });
+
+    const circlesGroup = svg.append('g')
+      .attr('class', 'circles-group')
+      .attr('clip-path', 'url(#clip)');
+
+    circlesGroup.selectAll('circle')
+      .data(adjustedData)
+      .enter()
+      .append('circle')
+      .attr('id', d => `circle-${d.id}`)
+      .attr('cx', d => d.adjustedX)
+      .attr('cy', d => getYPosition(yScale, d.language, d.adjustedAuthor))
+      .attr('r', d => {
+        const zoomScaleFactor = Math.max(currentZoomState.k, 1);
+        return Math.min(5, 2 * zoomScaleFactor);
+      })
+      .style('fill', 'white') // Keep fill color constant
+      .style('stroke', 'black')
+      .style('stroke-opacity', d => getBorderOpacity(Math.max(currentZoomState.k, 1))) // Adjust border opacity based on zoom
+      .on('mouseover', (event, d) => {
+        d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.9);
+        const refs = referencesData
+          .filter(ref => ref.primary_text === d.id)
+          .map(ref => ({
+            ...dataMap.get(ref.secondary_text),
+            referenceType: ref.type_of_reference
+          }))
+          .filter(Boolean)
+          .filter(text => adjustedData.some(dataItem => dataItem.id === text.id))
+          .map(text => ({
+            title: text.title,
+            year: text.year,
+            date: text.dateForCard,
+            referenceType: text.referenceType
+          }))
+          .sort((a, b) => b.year - a.year);
+        const refsBy = referencesData
+          .filter(ref => ref.secondary_text === d.id)
+          .map(ref => ({
+            ...dataMap.get(ref.primary_text),
+            referenceType: ref.type_of_reference
+          }))
+          .filter(Boolean)
+          .filter(text => adjustedData.some(dataItem => dataItem.id === text.id))
+          .map(text => ({
+            title: text.title,
+            year: text.year,
+            date: text.dateForCard,
+            referenceType: text.referenceType
+          }))
+          .sort((a, b) => b.year - a.year);
+        dispatch({ type: 'SET_HOVERED_TEXT', payload: { text: d, referencingTitles: refs, referencedTitles: refsBy } });
+        d3.select(event.target).style('fill', 'black').attr('r', 10);
+
+        setTimeout(() => {
+          if (hoverCardRef.current) {
+            const hoverCardMain = hoverCardRef.current.querySelector('.hover-card-main');
+            const hoverCardHeight = hoverCardRef.current.clientHeight;
+            const hoverCardMainHeight = hoverCardMain.clientHeight;
+            const scrollTop = hoverCardMain.offsetTop - (hoverCardHeight / 2 - hoverCardMainHeight / 2);
+            hoverCardRef.current.scrollTo({ top: scrollTop, behavior: 'smooth' });
+            console.log('Event listener added to hoverCardRef');
+          } else {
+            console.log('hoverCardRef.current is null in setTimeout');
+          }
+        }, 0);
+      })
+      .on('mouseout', (event, d) => {
+        d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.05);
+        dispatch({ type: 'CLEAR_HOVERED_TEXT' });
+
+        const zoomScaleFactor = Math.max(currentZoomState.k, 1);
+        const radius = Math.min(5, 2 * zoomScaleFactor);
+
+        d3.select(event.target)
+          .style('fill', 'white')
+          .attr('r', radius);
+      })
+      .on('click', (event, d) => {
+        if (d.link) {
+          window.open(d.link, '_blank');
+        }
+      });
+
+    svg.selectAll('.horizontal-line')
+      .data([...languages.map(d => yScale(d) - yScale.step() / 2), height])
+      .enter()
+      .append('line')
+      .attr('class', 'horizontal-line')
+      .attr('x1', 0)
+      .attr('x2', width)
+      .attr('y1', d => d)
+      .attr('y2', d => d)
+      .attr('stroke', 'grey')
+      .attr('stroke-dasharray', '20 10')
+      .attr('stroke-opacity', 0.5)
+      .attr('clip-path', 'url(#xAxisClip)');
+
+    return adjustedData;
+  }, [adjustForOverlap, height, width, languages, currentZoomState, state.showAssumedInfluences, state.showDirectReferences, data, dataMap, getYPosition, state.selectedTags, xScale, yScale]);
 
   useEffect(() => {
     console.log('Rendering static elements');
@@ -327,192 +555,6 @@ const TreeReferenceGraph = ({ onExpand }) => {
       .attr('x', -margin.left)
       .attr('width', width + margin.left)
       .attr('height', height);
-  
-    const updateChart = () => {
-      console.log('Updating chart');
-      const svg = d3.select(chartRef.current).select('g');
-    
-      const referenceLines = svg.append('g')
-        .attr('class', 'reference-lines')
-        .attr('clip-path', 'url(#clip)');
-    
-      referencesData.forEach((ref) => {
-        const sourceId = String(ref.primary_text);
-        const targetId = String(ref.secondary_text);
-        
-        const source = dataMap.get(sourceId);
-        const target = dataMap.get(targetId);
-    
-        if (source && target) {
-          const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
-    
-          referenceLines.append('line')
-            .attr('x1', getXPosition(xScale, source.adjustedYear || source.year))
-            .attr('y1', getYPosition(yScale, source.language, source.adjustedAuthor))
-            .attr('x2', getXPosition(xScale, target.adjustedYear || target.year))
-            .attr('y2', getYPosition(yScale, target.language, target.adjustedAuthor))
-            .attr('stroke', color)
-            .attr('stroke-width', 1.4)
-            .attr('stroke-opacity', 0.05)
-            .attr('class', `reference-line reference-${source.id} reference-${target.id}`);
-        } 
-      });
-    
-      const filteredData = state.selectedTags.length === 0 ? [] : data.filter(d => {
-        const tagsArray = Array.isArray(d.tags) ? d.tags.map(tag => tag.trim().toLowerCase()) : d.tags.split(',' ).map(tag => tag.trim().toLowerCase());
-        const hasMatchingTagGroup2 = state.selectedTags.some(tag => {
-          const normalizedTag = tag.trim().toLowerCase();
-          return group2Tags.includes(tag) && tagsArray.includes(normalizedTag);
-        });
-        const hasMatchingTagGroup1 = state.selectedTags.some(tag => {
-          const normalizedTag = tag.trim().toLowerCase();
-          return group1Tags.includes(tag) && tagsArray.includes(normalizedTag);
-        });
-        return hasMatchingTagGroup2 && hasMatchingTagGroup1;
-      });
-
-      svg.selectAll('circle').remove();
-      svg.selectAll('.reference-line').remove();
-
-      const adjustedData = adjustForOverlap(filteredData, xScale);
-      setAdjustedData(adjustedData);
-
-      adjustedData.forEach(d => {
-        const sourceReferences = referencesData.filter(ref => ref.primary_text === d.id);
-        const targetReferences = referencesData.filter(ref => ref.secondary_text === d.id);
-
-        sourceReferences.forEach(ref => {
-          const target = dataMap.get(ref.secondary_text);
-          if (target && adjustedData.includes(target)) {
-            const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
-            referenceLines.append('line')
-              .attr('x1', d.adjustedX)
-              .attr('y1', getYPosition(yScale, d.language, d.adjustedAuthor))
-              .attr('x2', target.adjustedX)
-              .attr('y2', getYPosition(yScale, target.language, target.adjustedAuthor))
-              .attr('stroke', color)
-              .attr('stroke-width', 1.4)
-              .attr('stroke-opacity', 0.05)
-              .attr('class', `reference-line reference-${d.id} reference-${target.id}`);
-          }
-        });
-
-        targetReferences.forEach(ref => {
-          const source = dataMap.get(ref.primary_text);
-          if (source && adjustedData.includes(source)) {
-            const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
-            referenceLines.append('line')
-              .attr('x1', source.adjustedX)
-              .attr('y1', getYPosition(yScale, source.language, source.adjustedAuthor))
-              .attr('x2', d.adjustedX)
-              .attr('y2', getYPosition(yScale, d.language, d.adjustedAuthor))
-              .attr('stroke', color)
-              .attr('stroke-width', 1.4)
-              .attr('stroke-opacity', 0.05)
-              .attr('class', `reference-line reference-${source.id} reference-${d.id}`);
-          }
-        });
-      });
-
-      const circlesGroup = svg.append('g')
-        .attr('class', 'circles-group')
-        .attr('clip-path', 'url(#clip)');
-
-      circlesGroup.selectAll('circle')
-        .data(adjustedData)
-        .enter()
-        .append('circle')
-        .attr('id', d => `circle-${d.id}`)
-        .attr('cx', d => d.adjustedX)
-        .attr('cy', d => getYPosition(yScale, d.language, d.adjustedAuthor))
-        .attr('r', d => {
-          const zoomScaleFactor = Math.max(currentZoomState.k, 1);
-          return Math.min(5, 2 * zoomScaleFactor);
-        })
-        .style('fill', 'white') // Keep fill color constant
-        .style('stroke', 'black')
-        .style('stroke-opacity', d => getBorderOpacity(Math.max(currentZoomState.k, 1))) // Adjust border opacity based on zoom
-        .on('mouseover', (event, d) => {
-          d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.9);
-          const refs = referencesData
-            .filter(ref => ref.primary_text === d.id)
-            .map(ref => ({
-              ...dataMap.get(ref.secondary_text),
-              referenceType: ref.type_of_reference
-            }))
-            .filter(Boolean)
-            .filter(text => adjustedData.some(dataItem => dataItem.id === text.id))
-            .map(text => ({
-              title: text.title,
-              year: text.year,
-              date: text.dateForCard,
-              referenceType: text.referenceType
-            }))
-            .sort((a, b) => b.year - a.year);
-          const refsBy = referencesData
-            .filter(ref => ref.secondary_text === d.id)
-            .map(ref => ({
-              ...dataMap.get(ref.primary_text),
-              referenceType: ref.type_of_reference
-            }))
-            .filter(Boolean)
-            .filter(text => adjustedData.some(dataItem => dataItem.id === text.id))
-            .map(text => ({
-              title: text.title,
-              year: text.year,
-              date: text.dateForCard,
-              referenceType: text.referenceType
-            }))
-            .sort((a, b) => b.year - a.year);
-          dispatch({ type: 'SET_HOVERED_TEXT', payload: { text: d, referencingTitles: refs, referencedTitles: refsBy } });
-          d3.select(event.target).style('fill', 'black').attr('r', 10);
-
-          setTimeout(() => {
-            if (hoverCardRef.current) {
-              const hoverCardMain = hoverCardRef.current.querySelector('.hover-card-main');
-              const hoverCardHeight = hoverCardRef.current.clientHeight;
-              const hoverCardMainHeight = hoverCardMain.clientHeight;
-              const scrollTop = hoverCardMain.offsetTop - (hoverCardHeight / 2 - hoverCardMainHeight / 2);
-              hoverCardRef.current.scrollTo({ top: scrollTop, behavior: 'smooth' });
-              console.log('Event listener added to hoverCardRef');
-            } else {
-              console.log('hoverCardRef.current is null in setTimeout');
-            }
-          }, 0);
-        })
-        .on('mouseout', (event, d) => {
-          d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.05);
-          dispatch({ type: 'CLEAR_HOVERED_TEXT' });
-
-          const zoomScaleFactor = Math.max(currentZoomState.k, 1);
-          const radius = Math.min(5, 2 * zoomScaleFactor);
-
-          d3.select(event.target)
-            .style('fill', 'white')
-            .attr('r', radius);
-        })
-        .on('click', (event, d) => {
-          if (d.link) {
-            window.open(d.link, '_blank');
-          }
-        });
-
-      svg.selectAll('.horizontal-line')
-        .data([...languages.map(d => yScale(d) - yScale.step() / 2), height])
-        .enter()
-        .append('line')
-        .attr('class', 'horizontal-line')
-        .attr('x1', 0)
-        .attr('x2', width)
-        .attr('y1', d => d)
-        .attr('y2', d => d)
-        .attr('stroke', 'grey')
-        .attr('stroke-dasharray', '20 10')
-        .attr('stroke-opacity', 0.5)
-        .attr('clip-path', 'url(#xAxisClip)');
-
-      return adjustedData;
-    };
 
     updateChartRef.current = updateChart;
     const newAdjustedData = updateChart();
@@ -520,7 +562,16 @@ const TreeReferenceGraph = ({ onExpand }) => {
 
     console.log('Initial call to applyZoom');
     applyZoom(d3.zoomIdentity, newAdjustedData);
-  }, [height, margin.left, margin.right, margin.top, margin.bottom, width, xScale, yScale, adjustForOverlap, dataMap, data, state.selectedTags, languages, applyZoom, currentZoomState]);
+  }, [height, margin.left, margin.right, margin.top, margin.bottom, width, xScale, yScale, applyZoom, updateChart]);
+
+  useEffect(() => {
+    if (updateChartRef.current) {
+      console.log('Calling updateChartRef.current');
+      updateChartRef.current();
+    } else {
+      console.log('updateChartRef.current is not set');
+    }
+  }, [state.showDirectReferences, state.showAssumedInfluences]);
 
   useEffect(() => {
     console.log('Handling zoom updates');
@@ -563,6 +614,7 @@ const TreeReferenceGraph = ({ onExpand }) => {
       targetCircle.node().dispatchEvent(event);
       dispatch({ type: 'SET_SEARCH_QUERY', payload: '' });
       dispatch({ type: 'SET_SEARCH_RESULTS', payload: [] });
+      setActiveCircleId(result.id); // Set the active circle
     } else {
       console.log("Target circle not found for result:", result);
     }
@@ -644,12 +696,25 @@ const TreeReferenceGraph = ({ onExpand }) => {
     >
       <div ref={legendContainerRef} className="legend-container">
         <div className="legend-item">
-          <span className="bullet direct-reference"></span> direct reference
+          <input
+            type="checkbox"
+            id="checkbox-direct-reference"
+            checked={state.showDirectReferences}
+            onChange={() => dispatch({ type: 'TOGGLE_DIRECT_REFERENCE' })}
+          />
+          <label htmlFor="checkbox-direct-reference">direct reference</label>
         </div>
         <div className="legend-item">
-          <span className="bullet similar-themes"></span> similar themes
+          <input
+            type="checkbox"
+            id="checkbox-assumed-influence"
+            checked={state.showAssumedInfluences}
+            onChange={() => dispatch({ type: 'TOGGLE_ASSUMED_INFLUENCE' })}
+          />
+          <label htmlFor="checkbox-assumed-influence">assumed influence</label>
         </div>
       </div>
+
       <div ref={searchBarContainerRef}>
         <SearchBar
           query={state.searchQuery}
@@ -659,7 +724,7 @@ const TreeReferenceGraph = ({ onExpand }) => {
         />
       </div>
       <svg ref={chartRef} onWheel={handleHoverCardWheel}>
-        <ZoomableArea width={width} height={height} margin={margin} onZoom={setCurrentZoomState} zoomState={currentZoomState} />
+        <ZoomableArea width={width} height={height} margin={margin} onZoom={setCurrentZoomState} zoomState={currentZoomState} onClick={handleZoomableAreaClick} />
       </svg>
       <div className="hover-card" ref={hoverCardRef} style={{ pointerEvents: 'auto', display: state.hoveredText ? 'block' : 'none' }}>
         {state.hoveredText ? console.log('Hover card displayed') : console.log('Hover card hidden')}
@@ -668,7 +733,7 @@ const TreeReferenceGraph = ({ onExpand }) => {
             <p><strong>Informs:</strong></p>
             <ul>
               {state.referencingTitles.map((item, index) => (
-                <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'similar-themes'}>
+                <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'assumed-influence'}>
                   {item.title} ({item.date})
                 </li>
               ))}
@@ -687,7 +752,7 @@ const TreeReferenceGraph = ({ onExpand }) => {
             <p><strong>Informed by:</strong></p>
             <ul>
               {state.referencedTitles.map((item, index) => (
-                <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'similar-themes'}>
+                <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'assumed-influence'}>
                   {item.title} ({item.date})
                 </li>
               ))}

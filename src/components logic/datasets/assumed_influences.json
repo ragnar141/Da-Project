@@ -2,3443 +2,2057 @@
     {
         "index":1,
         "primary_text":2,
-        "secondary_text":295,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":2,
-        "primary_text":3,
-        "secondary_text":235,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":3,
-        "primary_text":4,
-        "secondary_text":12,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":4,
-        "primary_text":4,
-        "secondary_text":39,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":5,
-        "primary_text":4,
-        "secondary_text":182,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":6,
-        "primary_text":5,
-        "secondary_text":62,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":7,
-        "primary_text":5,
-        "secondary_text":69,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":8,
-        "primary_text":5,
-        "secondary_text":79,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":9,
-        "primary_text":5,
-        "secondary_text":85,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":10,
-        "primary_text":5,
-        "secondary_text":86,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":11,
-        "primary_text":8,
-        "secondary_text":9,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":12,
-        "primary_text":8,
-        "secondary_text":22,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":13,
-        "primary_text":8,
-        "secondary_text":29,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":14,
-        "primary_text":8,
-        "secondary_text":53,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":15,
-        "primary_text":8,
-        "secondary_text":120,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":16,
-        "primary_text":9,
-        "secondary_text":22,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":17,
-        "primary_text":9,
-        "secondary_text":29,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":18,
-        "primary_text":9,
-        "secondary_text":53,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":19,
-        "primary_text":9,
-        "secondary_text":120,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":20,
-        "primary_text":10,
-        "secondary_text":16,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":21,
-        "primary_text":10,
-        "secondary_text":17,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":22,
-        "primary_text":10,
-        "secondary_text":21,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":23,
-        "primary_text":10,
-        "secondary_text":22,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":24,
-        "primary_text":10,
-        "secondary_text":29,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":25,
-        "primary_text":10,
-        "secondary_text":66,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":26,
-        "primary_text":10,
-        "secondary_text":67,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":27,
-        "primary_text":11,
-        "secondary_text":16,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":28,
-        "primary_text":11,
-        "secondary_text":17,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":29,
-        "primary_text":11,
-        "secondary_text":21,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":30,
-        "primary_text":11,
-        "secondary_text":22,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":31,
-        "primary_text":11,
-        "secondary_text":29,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":32,
-        "primary_text":11,
-        "secondary_text":66,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":33,
-        "primary_text":11,
-        "secondary_text":67,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":34,
-        "primary_text":12,
-        "secondary_text":39,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":35,
-        "primary_text":12,
-        "secondary_text":191,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":36,
-        "primary_text":14,
-        "secondary_text":38,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":37,
-        "primary_text":14,
-        "secondary_text":40,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":38,
-        "primary_text":15,
-        "secondary_text":33,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":39,
-        "primary_text":15,
-        "secondary_text":35,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":40,
-        "primary_text":15,
-        "secondary_text":44,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":41,
-        "primary_text":15,
-        "secondary_text":46,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":42,
-        "primary_text":15,
-        "secondary_text":47,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":43,
-        "primary_text":15,
-        "secondary_text":48,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":44,
-        "primary_text":15,
-        "secondary_text":49,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":45,
-        "primary_text":16,
-        "secondary_text":29,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":46,
-        "primary_text":16,
-        "secondary_text":53,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":47,
-        "primary_text":16,
-        "secondary_text":231,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":48,
-        "primary_text":17,
-        "secondary_text":23,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":49,
-        "primary_text":17,
-        "secondary_text":53,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":50,
-        "primary_text":18,
-        "secondary_text":126,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":51,
-        "primary_text":21,
-        "secondary_text":23,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":52,
-        "primary_text":21,
-        "secondary_text":24,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":53,
-        "primary_text":21,
-        "secondary_text":28,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":54,
-        "primary_text":21,
-        "secondary_text":29,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":55,
-        "primary_text":21,
-        "secondary_text":53,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":56,
-        "primary_text":22,
-        "secondary_text":68,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":57,
-        "primary_text":22,
-        "secondary_text":155,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":58,
-        "primary_text":23,
-        "secondary_text":53,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":59,
-        "primary_text":29,
-        "secondary_text":51,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":60,
-        "primary_text":29,
-        "secondary_text":290,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":61,
-        "primary_text":41,
-        "secondary_text":78,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":62,
-        "primary_text":44,
-        "secondary_text":105,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":63,
-        "primary_text":44,
-        "secondary_text":106,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":64,
-        "primary_text":44,
-        "secondary_text":107,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":65,
-        "primary_text":44,
-        "secondary_text":109,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":66,
-        "primary_text":44,
-        "secondary_text":115,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":67,
-        "primary_text":46,
-        "secondary_text":106,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":68,
-        "primary_text":46,
-        "secondary_text":107,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":69,
-        "primary_text":46,
-        "secondary_text":108,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":70,
-        "primary_text":46,
-        "secondary_text":109,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":71,
-        "primary_text":46,
-        "secondary_text":117,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":72,
-        "primary_text":46,
-        "secondary_text":183,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":73,
-        "primary_text":46,
-        "secondary_text":187,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":74,
-        "primary_text":47,
-        "secondary_text":78,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":75,
-        "primary_text":47,
-        "secondary_text":81,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":76,
-        "primary_text":47,
-        "secondary_text":105,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":77,
-        "primary_text":47,
-        "secondary_text":106,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":78,
-        "primary_text":47,
-        "secondary_text":107,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":79,
-        "primary_text":47,
-        "secondary_text":108,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":80,
-        "primary_text":47,
-        "secondary_text":117,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":81,
-        "primary_text":48,
-        "secondary_text":78,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":82,
-        "primary_text":48,
-        "secondary_text":109,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":83,
-        "primary_text":48,
-        "secondary_text":115,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":84,
-        "primary_text":48,
-        "secondary_text":117,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":85,
-        "primary_text":48,
-        "secondary_text":138,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":86,
-        "primary_text":49,
-        "secondary_text":117,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":87,
-        "primary_text":49,
-        "secondary_text":120,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":88,
-        "primary_text":49,
-        "secondary_text":157,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":89,
-        "primary_text":49,
-        "secondary_text":167,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":90,
-        "primary_text":49,
-        "secondary_text":236,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":91,
-        "primary_text":49,
-        "secondary_text":275,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":92,
-        "primary_text":50,
-        "secondary_text":78,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":93,
-        "primary_text":51,
-        "secondary_text":192,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":94,
-        "primary_text":52,
-        "secondary_text":109,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":95,
-        "primary_text":52,
-        "secondary_text":115,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":96,
-        "primary_text":52,
-        "secondary_text":117,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":97,
-        "primary_text":52,
-        "secondary_text":140,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":98,
-        "primary_text":56,
-        "secondary_text":58,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":99,
-        "primary_text":56,
-        "secondary_text":139,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":100,
-        "primary_text":58,
-        "secondary_text":139,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":101,
-        "primary_text":62,
-        "secondary_text":69,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":102,
-        "primary_text":62,
-        "secondary_text":79,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":103,
-        "primary_text":65,
-        "secondary_text":67,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":104,
-        "primary_text":69,
-        "secondary_text":83,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":105,
-        "primary_text":69,
-        "secondary_text":86,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":106,
-        "primary_text":69,
-        "secondary_text":89,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":107,
-        "primary_text":69,
-        "secondary_text":117,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":108,
-        "primary_text":69,
-        "secondary_text":122,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":109,
-        "primary_text":69,
-        "secondary_text":125,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":110,
-        "primary_text":69,
-        "secondary_text":146,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":111,
-        "primary_text":75,
-        "secondary_text":77,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":112,
-        "primary_text":78,
-        "secondary_text":108,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":113,
-        "primary_text":89,
-        "secondary_text":99,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":114,
-        "primary_text":89,
-        "secondary_text":100,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":115,
-        "primary_text":89,
-        "secondary_text":110,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":116,
-        "primary_text":89,
-        "secondary_text":111,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":117,
-        "primary_text":89,
-        "secondary_text":112,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":118,
-        "primary_text":90,
-        "secondary_text":91,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":119,
-        "primary_text":91,
-        "secondary_text":92,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":120,
-        "primary_text":100,
-        "secondary_text":121,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":121,
-        "primary_text":106,
-        "secondary_text":109,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":122,
-        "primary_text":106,
-        "secondary_text":115,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":123,
-        "primary_text":106,
-        "secondary_text":117,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":124,
-        "primary_text":107,
-        "secondary_text":109,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":125,
-        "primary_text":107,
-        "secondary_text":115,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":126,
-        "primary_text":107,
-        "secondary_text":117,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":127,
-        "primary_text":109,
-        "secondary_text":115,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":128,
-        "primary_text":121,
-        "secondary_text":264,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":129,
-        "primary_text":138,
-        "secondary_text":148,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":130,
-        "primary_text":138,
-        "secondary_text":167,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":131,
-        "primary_text":138,
-        "secondary_text":169,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":132,
-        "primary_text":138,
-        "secondary_text":144,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":133,
-        "primary_text":140,
-        "secondary_text":150,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":134,
-        "primary_text":140,
-        "secondary_text":157,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":135,
-        "primary_text":140,
-        "secondary_text":167,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":136,
-        "primary_text":140,
-        "secondary_text":169,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":137,
-        "primary_text":140,
-        "secondary_text":275,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":138,
-        "primary_text":140,
-        "secondary_text":287,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":139,
-        "primary_text":144,
-        "secondary_text":152,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":140,
-        "primary_text":146,
-        "secondary_text":173,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":141,
-        "primary_text":146,
-        "secondary_text":171,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":142,
-        "primary_text":149,
-        "secondary_text":158,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":143,
-        "primary_text":149,
-        "secondary_text":167,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":144,
-        "primary_text":149,
-        "secondary_text":169,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":145,
-        "primary_text":150,
-        "secondary_text":157,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":146,
-        "primary_text":150,
-        "secondary_text":158,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":147,
-        "primary_text":150,
-        "secondary_text":163,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":148,
-        "primary_text":150,
-        "secondary_text":167,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":149,
-        "primary_text":150,
-        "secondary_text":169,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":150,
-        "primary_text":152,
-        "secondary_text":162,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":151,
-        "primary_text":152,
-        "secondary_text":217,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":152,
-        "primary_text":153,
-        "secondary_text":161,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":153,
-        "primary_text":157,
-        "secondary_text":167,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":154,
-        "primary_text":157,
-        "secondary_text":169,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":155,
-        "primary_text":158,
-        "secondary_text":167,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":156,
-        "primary_text":158,
-        "secondary_text":169,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":157,
-        "primary_text":165,
-        "secondary_text":223,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":158,
-        "primary_text":165,
-        "secondary_text":229,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":159,
-        "primary_text":165,
-        "secondary_text":263,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":160,
-        "primary_text":167,
-        "secondary_text":183,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":161,
-        "primary_text":167,
-        "secondary_text":187,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":162,
-        "primary_text":170,
-        "secondary_text":180,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":163,
-        "primary_text":170,
-        "secondary_text":183,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":164,
-        "primary_text":170,
-        "secondary_text":192,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":165,
-        "primary_text":170,
-        "secondary_text":236,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":166,
-        "primary_text":170,
-        "secondary_text":237,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":167,
-        "primary_text":180,
-        "secondary_text":181,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":168,
-        "primary_text":183,
-        "secondary_text":275,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":169,
-        "primary_text":183,
-        "secondary_text":286,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":170,
-        "primary_text":183,
-        "secondary_text":287,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":171,
-        "primary_text":183,
-        "secondary_text":290,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":172,
-        "primary_text":187,
-        "secondary_text":223,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":173,
-        "primary_text":187,
-        "secondary_text":286,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":174,
-        "primary_text":190,
-        "secondary_text":223,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":175,
-        "primary_text":190,
-        "secondary_text":229,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":176,
-        "primary_text":191,
-        "secondary_text":231,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":177,
-        "primary_text":192,
-        "secondary_text":211,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":178,
-        "primary_text":192,
-        "secondary_text":286,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":179,
-        "primary_text":193,
-        "secondary_text":196,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":180,
-        "primary_text":196,
-        "secondary_text":260,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":181,
-        "primary_text":198,
-        "secondary_text":286,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":182,
-        "primary_text":206,
-        "secondary_text":275,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":183,
-        "primary_text":207,
-        "secondary_text":275,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":184,
-        "primary_text":210,
-        "secondary_text":250,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":185,
-        "primary_text":212,
-        "secondary_text":275,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":186,
-        "primary_text":223,
-        "secondary_text":263,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":187,
-        "primary_text":235,
-        "secondary_text":275,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":188,
-        "primary_text":235,
-        "secondary_text":264,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":189,
-        "primary_text":236,
-        "secondary_text":275,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":190,
-        "primary_text":246,
-        "secondary_text":261,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":191,
-        "primary_text":248,
-        "secondary_text":261,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":192,
-        "primary_text":252,
-        "secondary_text":257,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":193,
-        "primary_text":257,
-        "secondary_text":295,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":194,
-        "primary_text":258,
-        "secondary_text":275,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":195,
-        "primary_text":259,
-        "secondary_text":272,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":196,
-        "primary_text":260,
-        "secondary_text":262,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":197,
-        "primary_text":260,
-        "secondary_text":289,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":198,
-        "primary_text":261,
-        "secondary_text":273,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":199,
-        "primary_text":262,
-        "secondary_text":266,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":200,
-        "primary_text":262,
-        "secondary_text":314,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":201,
-        "primary_text":263,
-        "secondary_text":297,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":202,
-        "primary_text":263,
-        "secondary_text":307,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":203,
-        "primary_text":264,
-        "secondary_text":275,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":204,
-        "primary_text":264,
-        "secondary_text":276,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":205,
-        "primary_text":264,
-        "secondary_text":279,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":206,
-        "primary_text":264,
-        "secondary_text":290,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":207,
-        "primary_text":264,
-        "secondary_text":295,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":208,
-        "primary_text":264,
-        "secondary_text":297,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":209,
-        "primary_text":264,
-        "secondary_text":301,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":210,
-        "primary_text":265,
-        "secondary_text":269,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":211,
-        "primary_text":265,
-        "secondary_text":272,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":212,
-        "primary_text":265,
-        "secondary_text":277,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":213,
-        "primary_text":265,
-        "secondary_text":281,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":214,
-        "primary_text":266,
-        "secondary_text":293,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":215,
-        "primary_text":266,
-        "secondary_text":301,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":216,
-        "primary_text":266,
-        "secondary_text":313,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":217,
-        "primary_text":267,
-        "secondary_text":273,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":218,
-        "primary_text":268,
-        "secondary_text":280,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":219,
-        "primary_text":268,
-        "secondary_text":299,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":220,
-        "primary_text":269,
-        "secondary_text":272,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":221,
-        "primary_text":269,
-        "secondary_text":277,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":222,
-        "primary_text":272,
-        "secondary_text":277,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":223,
-        "primary_text":273,
-        "secondary_text":282,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":224,
-        "primary_text":273,
-        "secondary_text":299,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":225,
-        "primary_text":275,
-        "secondary_text":287,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":226,
-        "primary_text":275,
-        "secondary_text":291,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":227,
-        "primary_text":276,
-        "secondary_text":279,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":228,
-        "primary_text":277,
-        "secondary_text":305,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":229,
-        "primary_text":281,
-        "secondary_text":295,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":230,
-        "primary_text":292,
-        "secondary_text":303,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":231,
-        "primary_text":293,
-        "secondary_text":296,
-        "type_of_reference":"direct reference"
-    },
-    {
-        "index":232,
-        "primary_text":2,
         "secondary_text":5,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":233,
+        "index":2,
         "primary_text":2,
         "secondary_text":8,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":234,
+        "index":3,
         "primary_text":2,
         "secondary_text":11,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":235,
+        "index":4,
         "primary_text":3,
         "secondary_text":5,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":236,
+        "index":5,
         "primary_text":4,
         "secondary_text":59,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":237,
+        "index":6,
         "primary_text":6,
         "secondary_text":14,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":238,
+        "index":7,
         "primary_text":8,
         "secondary_text":10,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":239,
+        "index":8,
         "primary_text":8,
         "secondary_text":57,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":240,
+        "index":9,
         "primary_text":8,
         "secondary_text":64,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":241,
+        "index":10,
         "primary_text":8,
         "secondary_text":66,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":242,
+        "index":11,
         "primary_text":9,
         "secondary_text":10,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":243,
+        "index":12,
         "primary_text":9,
         "secondary_text":57,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":244,
+        "index":13,
         "primary_text":9,
         "secondary_text":64,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":245,
+        "index":14,
         "primary_text":9,
         "secondary_text":66,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":246,
+        "index":15,
         "primary_text":10,
         "secondary_text":15,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":247,
+        "index":16,
         "primary_text":10,
         "secondary_text":34,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":248,
+        "index":17,
         "primary_text":10,
         "secondary_text":64,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":249,
+        "index":18,
         "primary_text":10,
         "secondary_text":120,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":250,
+        "index":19,
         "primary_text":11,
         "secondary_text":15,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":251,
+        "index":20,
         "primary_text":12,
         "secondary_text":197,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":252,
+        "index":21,
         "primary_text":12,
         "secondary_text":201,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":253,
+        "index":22,
         "primary_text":12,
         "secondary_text":281,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":254,
+        "index":23,
         "primary_text":14,
         "secondary_text":18,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":255,
+        "index":24,
         "primary_text":14,
         "secondary_text":93,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":256,
+        "index":25,
         "primary_text":15,
         "secondary_text":16,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":257,
+        "index":26,
         "primary_text":15,
         "secondary_text":17,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":258,
+        "index":27,
         "primary_text":15,
         "secondary_text":22,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":259,
+        "index":28,
         "primary_text":15,
         "secondary_text":24,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":260,
+        "index":29,
         "primary_text":15,
         "secondary_text":29,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":261,
+        "index":30,
         "primary_text":15,
         "secondary_text":34,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":262,
+        "index":31,
         "primary_text":15,
         "secondary_text":53,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":263,
+        "index":32,
         "primary_text":16,
         "secondary_text":17,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":264,
+        "index":33,
         "primary_text":16,
         "secondary_text":21,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":265,
+        "index":34,
         "primary_text":16,
         "secondary_text":23,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":266,
+        "index":35,
         "primary_text":16,
         "secondary_text":64,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":267,
+        "index":36,
         "primary_text":16,
         "secondary_text":120,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":268,
+        "index":37,
         "primary_text":16,
         "secondary_text":131,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":269,
+        "index":38,
         "primary_text":16,
         "secondary_text":134,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":270,
+        "index":39,
         "primary_text":17,
         "secondary_text":21,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":271,
+        "index":40,
         "primary_text":17,
         "secondary_text":64,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":272,
+        "index":41,
         "primary_text":17,
         "secondary_text":120,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":273,
+        "index":42,
         "primary_text":17,
         "secondary_text":134,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":274,
+        "index":43,
         "primary_text":17,
         "secondary_text":135,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":275,
+        "index":44,
         "primary_text":17,
         "secondary_text":231,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":276,
+        "index":45,
         "primary_text":18,
         "secondary_text":196,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":277,
+        "index":46,
         "primary_text":19,
         "secondary_text":55,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":278,
+        "index":47,
         "primary_text":22,
         "secondary_text":54,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":279,
+        "index":48,
         "primary_text":22,
         "secondary_text":70,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":280,
+        "index":49,
         "primary_text":22,
         "secondary_text":73,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":281,
+        "index":50,
         "primary_text":22,
         "secondary_text":166,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":282,
+        "index":51,
         "primary_text":24,
         "secondary_text":45,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":283,
+        "index":52,
         "primary_text":24,
         "secondary_text":49,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":284,
+        "index":53,
         "primary_text":24,
         "secondary_text":87,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":285,
+        "index":54,
         "primary_text":25,
         "secondary_text":49,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":286,
+        "index":55,
         "primary_text":25,
         "secondary_text":162,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":287,
+        "index":56,
         "primary_text":25,
         "secondary_text":217,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":288,
+        "index":57,
         "primary_text":26,
         "secondary_text":49,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":289,
+        "index":58,
         "primary_text":26,
         "secondary_text":212,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":290,
+        "index":59,
         "primary_text":27,
         "secondary_text":45,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":291,
+        "index":60,
         "primary_text":27,
         "secondary_text":49,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":292,
+        "index":61,
         "primary_text":27,
         "secondary_text":87,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":293,
+        "index":62,
         "primary_text":28,
         "secondary_text":49,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":294,
+        "index":63,
         "primary_text":28,
         "secondary_text":120,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":295,
+        "index":64,
         "primary_text":29,
         "secondary_text":44,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":296,
+        "index":65,
         "primary_text":29,
         "secondary_text":46,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":297,
+        "index":66,
         "primary_text":29,
         "secondary_text":49,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":298,
+        "index":67,
         "primary_text":29,
         "secondary_text":86,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":299,
+        "index":68,
         "primary_text":29,
         "secondary_text":162,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":300,
+        "index":69,
         "primary_text":30,
         "secondary_text":49,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":301,
+        "index":70,
         "primary_text":30,
         "secondary_text":51,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":302,
+        "index":71,
         "primary_text":30,
         "secondary_text":87,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":303,
+        "index":72,
         "primary_text":31,
         "secondary_text":45,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":304,
+        "index":73,
         "primary_text":31,
         "secondary_text":81,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":305,
+        "index":74,
         "primary_text":31,
         "secondary_text":83,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":306,
+        "index":75,
         "primary_text":31,
         "secondary_text":87,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":307,
+        "index":76,
         "primary_text":31,
         "secondary_text":120,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":308,
+        "index":77,
         "primary_text":32,
         "secondary_text":44,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":309,
+        "index":78,
         "primary_text":32,
         "secondary_text":48,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":310,
+        "index":79,
         "primary_text":32,
         "secondary_text":56,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":311,
+        "index":80,
         "primary_text":32,
         "secondary_text":181,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":312,
+        "index":81,
         "primary_text":33,
         "secondary_text":44,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":313,
+        "index":82,
         "primary_text":33,
         "secondary_text":46,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":314,
+        "index":83,
         "primary_text":33,
         "secondary_text":52,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":315,
+        "index":84,
         "primary_text":33,
         "secondary_text":81,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":316,
+        "index":85,
         "primary_text":33,
         "secondary_text":167,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":317,
+        "index":86,
         "primary_text":34,
         "secondary_text":44,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":318,
+        "index":87,
         "primary_text":34,
         "secondary_text":81,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":319,
+        "index":88,
         "primary_text":34,
         "secondary_text":83,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":320,
+        "index":89,
         "primary_text":34,
         "secondary_text":86,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":321,
+        "index":90,
         "primary_text":34,
         "secondary_text":87,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":322,
+        "index":91,
         "primary_text":35,
         "secondary_text":52,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":323,
+        "index":92,
         "primary_text":35,
         "secondary_text":183,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":324,
+        "index":93,
         "primary_text":36,
         "secondary_text":264,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":325,
+        "index":94,
         "primary_text":37,
         "secondary_text":46,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":326,
+        "index":95,
         "primary_text":37,
         "secondary_text":47,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":327,
+        "index":96,
         "primary_text":37,
         "secondary_text":48,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":328,
+        "index":97,
         "primary_text":37,
         "secondary_text":56,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":329,
+        "index":98,
         "primary_text":37,
         "secondary_text":81,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":330,
+        "index":99,
         "primary_text":38,
         "secondary_text":40,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":331,
+        "index":100,
         "primary_text":38,
         "secondary_text":93,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":332,
+        "index":101,
         "primary_text":38,
         "secondary_text":128,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":333,
+        "index":102,
         "primary_text":38,
         "secondary_text":315,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":334,
+        "index":103,
         "primary_text":40,
         "secondary_text":93,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":335,
+        "index":104,
         "primary_text":41,
         "secondary_text":108,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":336,
+        "index":105,
         "primary_text":44,
         "secondary_text":81,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":337,
+        "index":106,
         "primary_text":44,
         "secondary_text":87,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":338,
+        "index":107,
         "primary_text":44,
         "secondary_text":108,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":339,
+        "index":108,
         "primary_text":44,
         "secondary_text":117,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":340,
+        "index":109,
         "primary_text":46,
         "secondary_text":81,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":341,
+        "index":110,
         "primary_text":46,
         "secondary_text":87,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":342,
+        "index":111,
         "primary_text":46,
         "secondary_text":140,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":343,
+        "index":112,
         "primary_text":46,
         "secondary_text":167,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":344,
+        "index":113,
         "primary_text":46,
         "secondary_text":275,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":345,
+        "index":114,
         "primary_text":48,
         "secondary_text":108,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":346,
+        "index":115,
         "primary_text":48,
         "secondary_text":149,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":347,
+        "index":116,
         "primary_text":49,
         "secondary_text":87,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":348,
+        "index":117,
         "primary_text":50,
         "secondary_text":219,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":349,
+        "index":118,
         "primary_text":51,
         "secondary_text":65,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":350,
+        "index":119,
         "primary_text":51,
         "secondary_text":86,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":351,
+        "index":120,
         "primary_text":51,
         "secondary_text":162,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":352,
+        "index":121,
         "primary_text":52,
         "secondary_text":87,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":353,
+        "index":122,
         "primary_text":52,
         "secondary_text":167,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":354,
+        "index":123,
         "primary_text":52,
         "secondary_text":187,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":355,
+        "index":124,
         "primary_text":53,
         "secondary_text":120,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":356,
+        "index":125,
         "primary_text":53,
         "secondary_text":64,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":357,
+        "index":126,
         "primary_text":53,
         "secondary_text":66,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":358,
+        "index":127,
         "primary_text":55,
         "secondary_text":71,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":359,
+        "index":128,
         "primary_text":55,
         "secondary_text":82,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":360,
+        "index":129,
         "primary_text":55,
         "secondary_text":84,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":361,
+        "index":130,
         "primary_text":55,
         "secondary_text":93,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":362,
+        "index":131,
         "primary_text":55,
         "secondary_text":270,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":363,
+        "index":132,
         "primary_text":56,
         "secondary_text":76,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":364,
+        "index":133,
         "primary_text":56,
         "secondary_text":149,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":365,
+        "index":134,
         "primary_text":56,
         "secondary_text":167,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":366,
+        "index":135,
         "primary_text":57,
         "secondary_text":64,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":367,
+        "index":136,
         "primary_text":57,
         "secondary_text":66,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":368,
+        "index":137,
         "primary_text":58,
         "secondary_text":76,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":369,
+        "index":138,
         "primary_text":58,
         "secondary_text":149,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":370,
+        "index":139,
         "primary_text":61,
         "secondary_text":91,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":371,
+        "index":140,
         "primary_text":63,
         "secondary_text":67,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":372,
+        "index":141,
         "primary_text":63,
         "secondary_text":130,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":373,
+        "index":142,
         "primary_text":64,
         "secondary_text":65,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":374,
+        "index":143,
         "primary_text":64,
         "secondary_text":66,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":375,
+        "index":144,
         "primary_text":66,
         "secondary_text":120,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":376,
+        "index":145,
         "primary_text":66,
         "secondary_text":184,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":377,
+        "index":146,
         "primary_text":67,
         "secondary_text":73,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":378,
+        "index":147,
         "primary_text":67,
         "secondary_text":74,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":379,
+        "index":148,
         "primary_text":75,
         "secondary_text":87,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":380,
+        "index":149,
         "primary_text":75,
         "secondary_text":122,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":381,
+        "index":150,
         "primary_text":76,
         "secondary_text":120,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":382,
+        "index":151,
         "primary_text":78,
         "secondary_text":105,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":383,
+        "index":152,
         "primary_text":78,
         "secondary_text":106,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":384,
+        "index":153,
         "primary_text":79,
         "secondary_text":119,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":385,
+        "index":154,
         "primary_text":81,
         "secondary_text":83,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":386,
+        "index":155,
         "primary_text":81,
         "secondary_text":86,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":387,
+        "index":156,
         "primary_text":81,
         "secondary_text":87,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":388,
+        "index":157,
         "primary_text":81,
         "secondary_text":116,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":389,
+        "index":158,
         "primary_text":82,
         "secondary_text":93,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":390,
+        "index":159,
         "primary_text":83,
         "secondary_text":120,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":391,
+        "index":160,
         "primary_text":83,
         "secondary_text":122,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":392,
+        "index":161,
         "primary_text":83,
         "secondary_text":127,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":393,
+        "index":162,
         "primary_text":83,
         "secondary_text":148,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":394,
+        "index":163,
         "primary_text":83,
         "secondary_text":168,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":395,
+        "index":164,
         "primary_text":84,
         "secondary_text":93,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":396,
+        "index":165,
         "primary_text":84,
         "secondary_text":94,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":397,
+        "index":166,
         "primary_text":85,
         "secondary_text":119,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":398,
+        "index":167,
         "primary_text":86,
         "secondary_text":117,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":399,
+        "index":168,
         "primary_text":86,
         "secondary_text":120,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":400,
+        "index":169,
         "primary_text":86,
         "secondary_text":125,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":401,
+        "index":170,
         "primary_text":86,
         "secondary_text":127,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":402,
+        "index":171,
         "primary_text":87,
         "secondary_text":117,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":403,
+        "index":172,
         "primary_text":87,
         "secondary_text":120,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":404,
+        "index":173,
         "primary_text":87,
         "secondary_text":148,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":405,
+        "index":174,
         "primary_text":90,
         "secondary_text":92,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":406,
+        "index":175,
         "primary_text":97,
         "secondary_text":123,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":407,
+        "index":176,
         "primary_text":98,
         "secondary_text":109,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":408,
+        "index":177,
         "primary_text":98,
         "secondary_text":115,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":409,
+        "index":178,
         "primary_text":99,
         "secondary_text":306,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":410,
+        "index":179,
         "primary_text":105,
         "secondary_text":109,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":411,
+        "index":180,
         "primary_text":105,
         "secondary_text":115,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":412,
+        "index":181,
         "primary_text":109,
         "secondary_text":110,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":413,
+        "index":182,
         "primary_text":109,
         "secondary_text":111,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":414,
+        "index":183,
         "primary_text":109,
         "secondary_text":112,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":415,
+        "index":184,
         "primary_text":117,
         "secondary_text":120,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":416,
+        "index":185,
         "primary_text":120,
         "secondary_text":146,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":417,
+        "index":186,
         "primary_text":122,
         "secondary_text":148,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":418,
+        "index":187,
         "primary_text":122,
         "secondary_text":234,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":419,
+        "index":188,
         "primary_text":122,
         "secondary_text":242,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":420,
+        "index":189,
         "primary_text":125,
         "secondary_text":127,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":421,
+        "index":190,
         "primary_text":125,
         "secondary_text":146,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":422,
+        "index":191,
         "primary_text":125,
         "secondary_text":251,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":423,
+        "index":192,
         "primary_text":127,
         "secondary_text":144,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":424,
+        "index":193,
         "primary_text":127,
         "secondary_text":251,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":425,
+        "index":194,
         "primary_text":127,
         "secondary_text":205,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":426,
+        "index":195,
         "primary_text":137,
         "secondary_text":167,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":427,
+        "index":196,
         "primary_text":137,
         "secondary_text":169,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":428,
+        "index":197,
         "primary_text":137,
         "secondary_text":170,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":429,
+        "index":198,
         "primary_text":138,
         "secondary_text":149,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":430,
+        "index":199,
         "primary_text":138,
         "secondary_text":150,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":431,
+        "index":200,
         "primary_text":139,
         "secondary_text":145,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":432,
+        "index":201,
         "primary_text":139,
         "secondary_text":149,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":433,
+        "index":202,
         "primary_text":140,
         "secondary_text":145,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":434,
+        "index":203,
         "primary_text":140,
         "secondary_text":148,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":435,
+        "index":204,
         "primary_text":140,
         "secondary_text":152,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":436,
+        "index":205,
         "primary_text":140,
         "secondary_text":172,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":437,
+        "index":206,
         "primary_text":140,
         "secondary_text":203,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":438,
+        "index":207,
         "primary_text":140,
         "secondary_text":204,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":439,
+        "index":208,
         "primary_text":140,
         "secondary_text":206,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":440,
+        "index":209,
         "primary_text":140,
         "secondary_text":212,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":441,
+        "index":210,
         "primary_text":141,
         "secondary_text":157,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":442,
+        "index":211,
         "primary_text":141,
         "secondary_text":158,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":443,
+        "index":212,
         "primary_text":141,
         "secondary_text":192,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":444,
+        "index":213,
         "primary_text":143,
         "secondary_text":148,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":445,
+        "index":214,
         "primary_text":143,
         "secondary_text":150,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":446,
+        "index":215,
         "primary_text":143,
         "secondary_text":157,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":447,
+        "index":216,
         "primary_text":144,
         "secondary_text":150,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":448,
+        "index":217,
         "primary_text":144,
         "secondary_text":162,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":449,
+        "index":218,
         "primary_text":144,
         "secondary_text":165,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":450,
+        "index":219,
         "primary_text":145,
         "secondary_text":150,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":451,
+        "index":220,
         "primary_text":145,
         "secondary_text":158,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":452,
+        "index":221,
         "primary_text":146,
         "secondary_text":184,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":453,
+        "index":222,
         "primary_text":147,
         "secondary_text":152,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":454,
+        "index":223,
         "primary_text":147,
         "secondary_text":157,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":455,
+        "index":224,
         "primary_text":148,
         "secondary_text":167,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":456,
+        "index":225,
         "primary_text":148,
         "secondary_text":237,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":457,
+        "index":226,
         "primary_text":149,
         "secondary_text":150,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":458,
+        "index":227,
         "primary_text":149,
         "secondary_text":219,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":459,
+        "index":228,
         "primary_text":149,
         "secondary_text":230,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":460,
+        "index":229,
         "primary_text":150,
         "secondary_text":161,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":461,
+        "index":230,
         "primary_text":150,
         "secondary_text":162,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":462,
+        "index":231,
         "primary_text":150,
         "secondary_text":165,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":463,
+        "index":232,
         "primary_text":152,
         "secondary_text":161,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":464,
+        "index":233,
         "primary_text":152,
         "secondary_text":165,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":465,
+        "index":234,
         "primary_text":152,
         "secondary_text":177,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":466,
+        "index":235,
         "primary_text":153,
         "secondary_text":162,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":467,
+        "index":236,
         "primary_text":153,
         "secondary_text":163,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":468,
+        "index":237,
         "primary_text":157,
         "secondary_text":165,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":469,
+        "index":238,
         "primary_text":157,
         "secondary_text":172,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":470,
+        "index":239,
         "primary_text":157,
         "secondary_text":256,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":471,
+        "index":240,
         "primary_text":158,
         "secondary_text":165,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":472,
+        "index":241,
         "primary_text":158,
         "secondary_text":166,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":473,
+        "index":242,
         "primary_text":158,
         "secondary_text":172,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":474,
+        "index":243,
         "primary_text":158,
         "secondary_text":217,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":475,
+        "index":244,
         "primary_text":160,
         "secondary_text":170,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":476,
+        "index":245,
         "primary_text":160,
         "secondary_text":177,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":477,
+        "index":246,
         "primary_text":162,
         "secondary_text":170,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":478,
+        "index":247,
         "primary_text":162,
         "secondary_text":177,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":479,
+        "index":248,
         "primary_text":162,
         "secondary_text":187,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":480,
+        "index":249,
         "primary_text":162,
         "secondary_text":217,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":481,
+        "index":250,
         "primary_text":163,
         "secondary_text":170,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":482,
+        "index":251,
         "primary_text":165,
         "secondary_text":217,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":483,
+        "index":252,
         "primary_text":165,
         "secondary_text":251,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":484,
+        "index":253,
         "primary_text":166,
         "secondary_text":264,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":485,
+        "index":254,
         "primary_text":167,
         "secondary_text":191,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":486,
+        "index":255,
         "primary_text":167,
         "secondary_text":236,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":487,
+        "index":256,
         "primary_text":167,
         "secondary_text":256,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":488,
+        "index":257,
         "primary_text":167,
         "secondary_text":275,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":489,
+        "index":258,
         "primary_text":167,
         "secondary_text":300,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":490,
+        "index":259,
         "primary_text":168,
         "secondary_text":186,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":491,
+        "index":260,
         "primary_text":168,
         "secondary_text":205,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":492,
+        "index":261,
         "primary_text":168,
         "secondary_text":206,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":493,
+        "index":262,
         "primary_text":168,
         "secondary_text":287,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":494,
+        "index":263,
         "primary_text":169,
         "secondary_text":177,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":495,
+        "index":264,
         "primary_text":169,
         "secondary_text":179,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":496,
+        "index":265,
         "primary_text":169,
         "secondary_text":180,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":497,
+        "index":266,
         "primary_text":169,
         "secondary_text":181,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":498,
+        "index":267,
         "primary_text":169,
         "secondary_text":183,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":499,
+        "index":268,
         "primary_text":169,
         "secondary_text":187,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":500,
+        "index":269,
         "primary_text":169,
         "secondary_text":191,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":501,
+        "index":270,
         "primary_text":169,
         "secondary_text":192,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":502,
+        "index":271,
         "primary_text":170,
         "secondary_text":177,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":503,
+        "index":272,
         "primary_text":170,
         "secondary_text":181,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":504,
+        "index":273,
         "primary_text":170,
         "secondary_text":187,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":505,
+        "index":274,
         "primary_text":170,
         "secondary_text":191,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":506,
+        "index":275,
         "primary_text":170,
         "secondary_text":235,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":507,
+        "index":276,
         "primary_text":172,
         "secondary_text":183,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":508,
+        "index":277,
         "primary_text":172,
         "secondary_text":191,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":509,
+        "index":278,
         "primary_text":177,
         "secondary_text":181,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":510,
+        "index":279,
         "primary_text":177,
         "secondary_text":192,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":511,
+        "index":280,
         "primary_text":181,
         "secondary_text":183,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":512,
+        "index":281,
         "primary_text":183,
         "secondary_text":203,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":513,
+        "index":282,
         "primary_text":183,
         "secondary_text":205,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":514,
+        "index":283,
         "primary_text":184,
         "secondary_text":191,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":515,
+        "index":284,
         "primary_text":184,
         "secondary_text":231,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":516,
+        "index":285,
         "primary_text":184,
         "secondary_text":235,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":517,
+        "index":286,
         "primary_text":187,
         "secondary_text":191,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":518,
+        "index":287,
         "primary_text":187,
         "secondary_text":205,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":519,
+        "index":288,
         "primary_text":187,
         "secondary_text":206,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":520,
+        "index":289,
         "primary_text":187,
         "secondary_text":211,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":521,
+        "index":290,
         "primary_text":190,
         "secondary_text":217,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":522,
+        "index":291,
         "primary_text":190,
         "secondary_text":211,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":523,
+        "index":292,
         "primary_text":191,
         "secondary_text":235,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":524,
+        "index":293,
         "primary_text":191,
         "secondary_text":236,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":525,
+        "index":294,
         "primary_text":191,
         "secondary_text":237,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":526,
+        "index":295,
         "primary_text":191,
         "secondary_text":234,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":527,
+        "index":296,
         "primary_text":191,
         "secondary_text":222,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":528,
+        "index":297,
         "primary_text":191,
         "secondary_text":254,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":529,
+        "index":298,
         "primary_text":192,
         "secondary_text":196,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":530,
+        "index":299,
         "primary_text":192,
         "secondary_text":223,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":531,
+        "index":300,
         "primary_text":198,
         "secondary_text":211,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":532,
+        "index":301,
         "primary_text":198,
         "secondary_text":223,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":533,
+        "index":302,
         "primary_text":202,
         "secondary_text":210,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":534,
+        "index":303,
         "primary_text":203,
         "secondary_text":284,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":535,
+        "index":304,
         "primary_text":203,
         "secondary_text":287,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":536,
+        "index":305,
         "primary_text":206,
         "secondary_text":284,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":537,
+        "index":306,
         "primary_text":206,
         "secondary_text":287,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":538,
+        "index":307,
         "primary_text":211,
         "secondary_text":263,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":539,
+        "index":308,
         "primary_text":212,
         "secondary_text":284,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":540,
+        "index":309,
         "primary_text":212,
         "secondary_text":287,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":541,
+        "index":310,
         "primary_text":236,
         "secondary_text":257,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":542,
+        "index":311,
         "primary_text":236,
         "secondary_text":287,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":543,
+        "index":312,
         "primary_text":236,
         "secondary_text":291,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":544,
+        "index":313,
         "primary_text":237,
         "secondary_text":257,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":545,
+        "index":314,
         "primary_text":237,
         "secondary_text":275,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":546,
+        "index":315,
         "primary_text":237,
         "secondary_text":287,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":547,
+        "index":316,
         "primary_text":237,
         "secondary_text":291,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":548,
+        "index":317,
         "primary_text":250,
         "secondary_text":280,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":549,
+        "index":318,
         "primary_text":250,
         "secondary_text":282,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":550,
+        "index":319,
         "primary_text":252,
         "secondary_text":262,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":551,
+        "index":320,
         "primary_text":254,
         "secondary_text":291,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":552,
+        "index":321,
         "primary_text":258,
         "secondary_text":262,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":553,
+        "index":322,
         "primary_text":261,
         "secondary_text":268,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":554,
+        "index":323,
         "primary_text":261,
         "secondary_text":279,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":555,
+        "index":324,
         "primary_text":261,
         "secondary_text":282,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":556,
+        "index":325,
         "primary_text":263,
         "secondary_text":286,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":557,
+        "index":326,
         "primary_text":263,
         "secondary_text":294,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":558,
+        "index":327,
         "primary_text":263,
         "secondary_text":306,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":559,
+        "index":328,
         "primary_text":264,
         "secondary_text":293,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":560,
+        "index":329,
         "primary_text":264,
         "secondary_text":296,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":561,
+        "index":330,
         "primary_text":266,
         "secondary_text":296,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":562,
+        "index":331,
         "primary_text":267,
         "secondary_text":280,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":563,
+        "index":332,
         "primary_text":267,
         "secondary_text":282,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":564,
+        "index":333,
         "primary_text":275,
         "secondary_text":283,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":565,
+        "index":334,
         "primary_text":275,
         "secondary_text":288,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":566,
+        "index":335,
         "primary_text":280,
         "secondary_text":282,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":567,
+        "index":336,
         "primary_text":281,
         "secondary_text":310,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":568,
+        "index":337,
         "primary_text":281,
         "secondary_text":314,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":569,
+        "index":338,
         "primary_text":283,
         "secondary_text":292,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":570,
+        "index":339,
         "primary_text":289,
         "secondary_text":310,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":571,
+        "index":340,
         "primary_text":289,
         "secondary_text":314,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":572,
+        "index":341,
         "primary_text":292,
         "secondary_text":302,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":573,
+        "index":342,
         "primary_text":293,
         "secondary_text":297,
         "type_of_reference":"assumed influence"
     },
     {
-        "index":574,
+        "index":343,
         "primary_text":300,
         "secondary_text":309,
         "type_of_reference":"assumed influence"

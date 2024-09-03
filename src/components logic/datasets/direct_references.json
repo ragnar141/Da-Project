@@ -1,0 +1,1388 @@
+[
+    {
+        "index":1,
+        "primary_text":2,
+        "secondary_text":295,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":2,
+        "primary_text":3,
+        "secondary_text":235,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":3,
+        "primary_text":4,
+        "secondary_text":12,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":4,
+        "primary_text":4,
+        "secondary_text":39,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":5,
+        "primary_text":4,
+        "secondary_text":182,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":6,
+        "primary_text":5,
+        "secondary_text":62,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":7,
+        "primary_text":5,
+        "secondary_text":69,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":8,
+        "primary_text":5,
+        "secondary_text":79,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":9,
+        "primary_text":5,
+        "secondary_text":85,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":10,
+        "primary_text":5,
+        "secondary_text":86,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":11,
+        "primary_text":8,
+        "secondary_text":9,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":12,
+        "primary_text":8,
+        "secondary_text":22,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":13,
+        "primary_text":8,
+        "secondary_text":29,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":14,
+        "primary_text":8,
+        "secondary_text":53,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":15,
+        "primary_text":8,
+        "secondary_text":120,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":16,
+        "primary_text":9,
+        "secondary_text":22,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":17,
+        "primary_text":9,
+        "secondary_text":29,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":18,
+        "primary_text":9,
+        "secondary_text":53,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":19,
+        "primary_text":9,
+        "secondary_text":120,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":20,
+        "primary_text":10,
+        "secondary_text":16,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":21,
+        "primary_text":10,
+        "secondary_text":17,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":22,
+        "primary_text":10,
+        "secondary_text":21,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":23,
+        "primary_text":10,
+        "secondary_text":22,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":24,
+        "primary_text":10,
+        "secondary_text":29,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":25,
+        "primary_text":10,
+        "secondary_text":66,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":26,
+        "primary_text":10,
+        "secondary_text":67,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":27,
+        "primary_text":11,
+        "secondary_text":16,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":28,
+        "primary_text":11,
+        "secondary_text":17,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":29,
+        "primary_text":11,
+        "secondary_text":21,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":30,
+        "primary_text":11,
+        "secondary_text":22,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":31,
+        "primary_text":11,
+        "secondary_text":29,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":32,
+        "primary_text":11,
+        "secondary_text":66,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":33,
+        "primary_text":11,
+        "secondary_text":67,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":34,
+        "primary_text":12,
+        "secondary_text":39,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":35,
+        "primary_text":12,
+        "secondary_text":191,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":36,
+        "primary_text":14,
+        "secondary_text":38,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":37,
+        "primary_text":14,
+        "secondary_text":40,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":38,
+        "primary_text":15,
+        "secondary_text":33,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":39,
+        "primary_text":15,
+        "secondary_text":35,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":40,
+        "primary_text":15,
+        "secondary_text":44,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":41,
+        "primary_text":15,
+        "secondary_text":46,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":42,
+        "primary_text":15,
+        "secondary_text":47,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":43,
+        "primary_text":15,
+        "secondary_text":48,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":44,
+        "primary_text":15,
+        "secondary_text":49,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":45,
+        "primary_text":16,
+        "secondary_text":29,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":46,
+        "primary_text":16,
+        "secondary_text":53,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":47,
+        "primary_text":16,
+        "secondary_text":231,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":48,
+        "primary_text":17,
+        "secondary_text":23,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":49,
+        "primary_text":17,
+        "secondary_text":53,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":50,
+        "primary_text":18,
+        "secondary_text":126,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":51,
+        "primary_text":21,
+        "secondary_text":23,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":52,
+        "primary_text":21,
+        "secondary_text":24,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":53,
+        "primary_text":21,
+        "secondary_text":28,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":54,
+        "primary_text":21,
+        "secondary_text":29,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":55,
+        "primary_text":21,
+        "secondary_text":53,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":56,
+        "primary_text":22,
+        "secondary_text":68,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":57,
+        "primary_text":22,
+        "secondary_text":155,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":58,
+        "primary_text":23,
+        "secondary_text":53,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":59,
+        "primary_text":29,
+        "secondary_text":51,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":60,
+        "primary_text":29,
+        "secondary_text":290,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":61,
+        "primary_text":41,
+        "secondary_text":78,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":62,
+        "primary_text":44,
+        "secondary_text":105,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":63,
+        "primary_text":44,
+        "secondary_text":106,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":64,
+        "primary_text":44,
+        "secondary_text":107,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":65,
+        "primary_text":44,
+        "secondary_text":109,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":66,
+        "primary_text":44,
+        "secondary_text":115,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":67,
+        "primary_text":46,
+        "secondary_text":106,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":68,
+        "primary_text":46,
+        "secondary_text":107,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":69,
+        "primary_text":46,
+        "secondary_text":108,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":70,
+        "primary_text":46,
+        "secondary_text":109,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":71,
+        "primary_text":46,
+        "secondary_text":117,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":72,
+        "primary_text":46,
+        "secondary_text":183,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":73,
+        "primary_text":46,
+        "secondary_text":187,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":74,
+        "primary_text":47,
+        "secondary_text":78,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":75,
+        "primary_text":47,
+        "secondary_text":81,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":76,
+        "primary_text":47,
+        "secondary_text":105,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":77,
+        "primary_text":47,
+        "secondary_text":106,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":78,
+        "primary_text":47,
+        "secondary_text":107,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":79,
+        "primary_text":47,
+        "secondary_text":108,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":80,
+        "primary_text":47,
+        "secondary_text":117,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":81,
+        "primary_text":48,
+        "secondary_text":78,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":82,
+        "primary_text":48,
+        "secondary_text":109,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":83,
+        "primary_text":48,
+        "secondary_text":115,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":84,
+        "primary_text":48,
+        "secondary_text":117,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":85,
+        "primary_text":48,
+        "secondary_text":138,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":86,
+        "primary_text":49,
+        "secondary_text":117,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":87,
+        "primary_text":49,
+        "secondary_text":120,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":88,
+        "primary_text":49,
+        "secondary_text":157,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":89,
+        "primary_text":49,
+        "secondary_text":167,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":90,
+        "primary_text":49,
+        "secondary_text":236,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":91,
+        "primary_text":49,
+        "secondary_text":275,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":92,
+        "primary_text":50,
+        "secondary_text":78,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":93,
+        "primary_text":51,
+        "secondary_text":192,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":94,
+        "primary_text":52,
+        "secondary_text":109,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":95,
+        "primary_text":52,
+        "secondary_text":115,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":96,
+        "primary_text":52,
+        "secondary_text":117,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":97,
+        "primary_text":52,
+        "secondary_text":140,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":98,
+        "primary_text":56,
+        "secondary_text":58,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":99,
+        "primary_text":56,
+        "secondary_text":139,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":100,
+        "primary_text":58,
+        "secondary_text":139,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":101,
+        "primary_text":62,
+        "secondary_text":69,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":102,
+        "primary_text":62,
+        "secondary_text":79,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":103,
+        "primary_text":65,
+        "secondary_text":67,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":104,
+        "primary_text":69,
+        "secondary_text":83,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":105,
+        "primary_text":69,
+        "secondary_text":86,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":106,
+        "primary_text":69,
+        "secondary_text":89,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":107,
+        "primary_text":69,
+        "secondary_text":117,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":108,
+        "primary_text":69,
+        "secondary_text":122,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":109,
+        "primary_text":69,
+        "secondary_text":125,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":110,
+        "primary_text":69,
+        "secondary_text":146,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":111,
+        "primary_text":75,
+        "secondary_text":77,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":112,
+        "primary_text":78,
+        "secondary_text":108,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":113,
+        "primary_text":89,
+        "secondary_text":99,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":114,
+        "primary_text":89,
+        "secondary_text":100,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":115,
+        "primary_text":89,
+        "secondary_text":110,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":116,
+        "primary_text":89,
+        "secondary_text":111,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":117,
+        "primary_text":89,
+        "secondary_text":112,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":118,
+        "primary_text":90,
+        "secondary_text":91,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":119,
+        "primary_text":91,
+        "secondary_text":92,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":120,
+        "primary_text":100,
+        "secondary_text":121,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":121,
+        "primary_text":106,
+        "secondary_text":109,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":122,
+        "primary_text":106,
+        "secondary_text":115,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":123,
+        "primary_text":106,
+        "secondary_text":117,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":124,
+        "primary_text":107,
+        "secondary_text":109,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":125,
+        "primary_text":107,
+        "secondary_text":115,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":126,
+        "primary_text":107,
+        "secondary_text":117,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":127,
+        "primary_text":109,
+        "secondary_text":115,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":128,
+        "primary_text":121,
+        "secondary_text":264,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":129,
+        "primary_text":138,
+        "secondary_text":148,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":130,
+        "primary_text":138,
+        "secondary_text":167,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":131,
+        "primary_text":138,
+        "secondary_text":169,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":132,
+        "primary_text":138,
+        "secondary_text":144,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":133,
+        "primary_text":140,
+        "secondary_text":150,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":134,
+        "primary_text":140,
+        "secondary_text":157,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":135,
+        "primary_text":140,
+        "secondary_text":167,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":136,
+        "primary_text":140,
+        "secondary_text":169,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":137,
+        "primary_text":140,
+        "secondary_text":275,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":138,
+        "primary_text":140,
+        "secondary_text":287,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":139,
+        "primary_text":144,
+        "secondary_text":152,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":140,
+        "primary_text":146,
+        "secondary_text":173,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":141,
+        "primary_text":146,
+        "secondary_text":171,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":142,
+        "primary_text":149,
+        "secondary_text":158,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":143,
+        "primary_text":149,
+        "secondary_text":167,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":144,
+        "primary_text":149,
+        "secondary_text":169,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":145,
+        "primary_text":150,
+        "secondary_text":157,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":146,
+        "primary_text":150,
+        "secondary_text":158,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":147,
+        "primary_text":150,
+        "secondary_text":163,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":148,
+        "primary_text":150,
+        "secondary_text":167,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":149,
+        "primary_text":150,
+        "secondary_text":169,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":150,
+        "primary_text":152,
+        "secondary_text":162,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":151,
+        "primary_text":152,
+        "secondary_text":217,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":152,
+        "primary_text":153,
+        "secondary_text":161,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":153,
+        "primary_text":157,
+        "secondary_text":167,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":154,
+        "primary_text":157,
+        "secondary_text":169,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":155,
+        "primary_text":158,
+        "secondary_text":167,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":156,
+        "primary_text":158,
+        "secondary_text":169,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":157,
+        "primary_text":165,
+        "secondary_text":223,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":158,
+        "primary_text":165,
+        "secondary_text":229,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":159,
+        "primary_text":165,
+        "secondary_text":263,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":160,
+        "primary_text":167,
+        "secondary_text":183,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":161,
+        "primary_text":167,
+        "secondary_text":187,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":162,
+        "primary_text":170,
+        "secondary_text":180,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":163,
+        "primary_text":170,
+        "secondary_text":183,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":164,
+        "primary_text":170,
+        "secondary_text":192,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":165,
+        "primary_text":170,
+        "secondary_text":236,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":166,
+        "primary_text":170,
+        "secondary_text":237,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":167,
+        "primary_text":180,
+        "secondary_text":181,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":168,
+        "primary_text":183,
+        "secondary_text":275,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":169,
+        "primary_text":183,
+        "secondary_text":286,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":170,
+        "primary_text":183,
+        "secondary_text":287,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":171,
+        "primary_text":183,
+        "secondary_text":290,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":172,
+        "primary_text":187,
+        "secondary_text":223,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":173,
+        "primary_text":187,
+        "secondary_text":286,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":174,
+        "primary_text":190,
+        "secondary_text":223,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":175,
+        "primary_text":190,
+        "secondary_text":229,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":176,
+        "primary_text":191,
+        "secondary_text":231,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":177,
+        "primary_text":192,
+        "secondary_text":211,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":178,
+        "primary_text":192,
+        "secondary_text":286,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":179,
+        "primary_text":193,
+        "secondary_text":196,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":180,
+        "primary_text":196,
+        "secondary_text":260,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":181,
+        "primary_text":198,
+        "secondary_text":286,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":182,
+        "primary_text":206,
+        "secondary_text":275,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":183,
+        "primary_text":207,
+        "secondary_text":275,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":184,
+        "primary_text":210,
+        "secondary_text":250,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":185,
+        "primary_text":212,
+        "secondary_text":275,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":186,
+        "primary_text":223,
+        "secondary_text":263,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":187,
+        "primary_text":235,
+        "secondary_text":275,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":188,
+        "primary_text":235,
+        "secondary_text":264,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":189,
+        "primary_text":236,
+        "secondary_text":275,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":190,
+        "primary_text":246,
+        "secondary_text":261,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":191,
+        "primary_text":248,
+        "secondary_text":261,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":192,
+        "primary_text":252,
+        "secondary_text":257,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":193,
+        "primary_text":257,
+        "secondary_text":295,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":194,
+        "primary_text":258,
+        "secondary_text":275,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":195,
+        "primary_text":259,
+        "secondary_text":272,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":196,
+        "primary_text":260,
+        "secondary_text":262,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":197,
+        "primary_text":260,
+        "secondary_text":289,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":198,
+        "primary_text":261,
+        "secondary_text":273,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":199,
+        "primary_text":262,
+        "secondary_text":266,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":200,
+        "primary_text":262,
+        "secondary_text":314,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":201,
+        "primary_text":263,
+        "secondary_text":297,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":202,
+        "primary_text":263,
+        "secondary_text":307,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":203,
+        "primary_text":264,
+        "secondary_text":275,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":204,
+        "primary_text":264,
+        "secondary_text":276,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":205,
+        "primary_text":264,
+        "secondary_text":279,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":206,
+        "primary_text":264,
+        "secondary_text":290,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":207,
+        "primary_text":264,
+        "secondary_text":295,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":208,
+        "primary_text":264,
+        "secondary_text":297,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":209,
+        "primary_text":264,
+        "secondary_text":301,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":210,
+        "primary_text":265,
+        "secondary_text":269,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":211,
+        "primary_text":265,
+        "secondary_text":272,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":212,
+        "primary_text":265,
+        "secondary_text":277,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":213,
+        "primary_text":265,
+        "secondary_text":281,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":214,
+        "primary_text":266,
+        "secondary_text":293,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":215,
+        "primary_text":266,
+        "secondary_text":301,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":216,
+        "primary_text":266,
+        "secondary_text":313,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":217,
+        "primary_text":267,
+        "secondary_text":273,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":218,
+        "primary_text":268,
+        "secondary_text":280,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":219,
+        "primary_text":268,
+        "secondary_text":299,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":220,
+        "primary_text":269,
+        "secondary_text":272,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":221,
+        "primary_text":269,
+        "secondary_text":277,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":222,
+        "primary_text":272,
+        "secondary_text":277,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":223,
+        "primary_text":273,
+        "secondary_text":282,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":224,
+        "primary_text":273,
+        "secondary_text":299,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":225,
+        "primary_text":275,
+        "secondary_text":287,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":226,
+        "primary_text":275,
+        "secondary_text":291,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":227,
+        "primary_text":276,
+        "secondary_text":279,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":228,
+        "primary_text":277,
+        "secondary_text":305,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":229,
+        "primary_text":281,
+        "secondary_text":295,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":230,
+        "primary_text":292,
+        "secondary_text":303,
+        "type_of_reference":"direct reference"
+    },
+    {
+        "index":231,
+        "primary_text":293,
+        "secondary_text":296,
+        "type_of_reference":"direct reference"
+    }
+]
