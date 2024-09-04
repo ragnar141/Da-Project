@@ -136,59 +136,91 @@ svg {
 
 .legend-container {
   position: absolute;
-  top: 8px;
-  right: -180px;
+  top: 4px;
+  right: 210px; /* Adjusted for better visibility */
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* Align items to the start of the container */
-  width: 50%; /* Spread items across the left half of the screen */
-  padding-left: 60px;
-  font-size: 19px;
+  font-size: 18px;
   font-family: "Garamond", "Times New Roman", Times, serif;
-  padding-left: 970px;
 }
 
 .legend-item {
-  display: flex; /* Use flexbox to align items horizontally */
-  align-items: center; /* Center items vertically */
-  margin-right: 20px; /* Space between legend items */
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
 }
 
+/* Custom toggle switch styling */
 .legend-item input[type="checkbox"] {
   -webkit-appearance: none;
   appearance: none;
-  background-color: white;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  vertical-align: middle;
+  width: 34px;
+  height: 20px;
+  border-radius: 20px;
   position: relative;
   cursor: pointer;
-  border: 2px solid;
-  margin-right: 10px;  /* Space between checkbox and label */
+  outline: none;
+  transition: background-color 0.1s ease;
+  margin-right: 0px;
 }
 
-/* Direct Reference checkbox - red */
-.legend-item input[type="checkbox"]#checkbox-direct-reference {
-  border-color: red;
+/* Circle inside the switch */
+/* Circle inside the switch for 'direct reference' */
+#checkbox-direct-reference::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 1px;
+  width: 16px;
+  height: 16px;
+  background-color: rgb(255, 0, 0); /* Red circle always for direct reference */
+  border-radius: 50%;
+  transition: transform 0.2s ease;
 }
 
-.legend-item input[type="checkbox"]#checkbox-direct-reference:checked {
-  background-color: red;
+/* Circle inside the switch for 'assumed influence' */
+#checkbox-assumed-influence::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 1px;
+  width: 16px;
+  height: 16px;
+  background-color: black; /* Black circle always for assumed influence */
+  border-radius: 50%;
+  transition: transform 0.2s ease;
 }
 
-/* Assumed Influence checkbox - black */
-.legend-item input[type="checkbox"]#checkbox-assumed-influence {
-  border-color: black;
+
+.legend-item input[type="checkbox"]:checked::before {
+  transform: translateX(14px);
 }
 
-.legend-item input[type="checkbox"]#checkbox-assumed-influence:checked {
-  background-color: black;
+/* Direct Reference specific styles */
+#checkbox-direct-reference:checked {
+  background-color: rgb(251, 195, 195);
+}
+
+#checkbox-direct-reference {
+  background-color: rgb(255, 255, 255);
+  border: 1px solid red;
+}
+
+/* Assumed Influence specific styles */
+#checkbox-assumed-influence {
+  background-color: #ffffff; /* Default for unchecked state */
+  border: 1px solid black;
+}
+
+#checkbox-assumed-influence:checked {
+  background-color: #b5b3b3;
 }
 
 .legend-item label {
-  cursor: pointer; /* Changes the cursor to pointer when hovering over the label */
+  margin-left: 8px;
+  cursor: pointer;
 }
+
 
 .tags-container {
   position: absolute;
