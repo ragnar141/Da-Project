@@ -21,6 +21,12 @@
   transition: left 0.2s, background-color 0.2s;
 }
 
+/* Adjust the toggle switch circle position in the legend container */
+.legend-container .toggle-switch .toggle {
+  top: 1px; /* Moved up by 0.5px from 1.5px to 1px */
+}
+
+
 /* Toggle for Direct References */
 .legend-container .legend-item:nth-child(1) .toggle-switch {
   border-color: #e21700; /* Darker red border */
