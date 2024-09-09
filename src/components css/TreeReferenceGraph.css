@@ -40,15 +40,15 @@
 
 /* Toggle for Assumed Influences */
 .legend-container .legend-item:nth-child(2) .toggle-switch {
-  border-color: #000000; /* Black border */
+  border-color: #0003cb; /* Black border */
 }
 
 .legend-container .legend-item:nth-child(2) .toggle-switch.active {
-  background-color: #b0b0b0; /* Grey background when active */
+  background-color: #becaf7; /* Grey background when active */
 }
 
 .legend-container .legend-item:nth-child(2) .toggle-switch .toggle {
-  background-color: #000000; /* Black circle */
+  background-color: #000dc6; /* Black circle */
 }
 
 .legend-container .legend-item:nth-child(2) .toggle-switch.active .toggle {
@@ -58,18 +58,18 @@
 /* Toggle for Group1 and Group2 (Blue) */
 .tags-container .toggle-switch {
   position: relative;
-  border-color: rgb(0, 2, 139); /* Darker blue border */
+  border-color: rgb(0, 0, 0); /* Darker blue border */
   width: 25px;  /* Smaller width for group toggles */
   height: 14px; /* Smaller height for group toggles */
 }
 
 .tags-container .toggle-switch.active {
-  background-color: #85c1e9; /* Lighter blue when active */
+  background-color: #c0c0c0; /* Lighter blue when active */
 }
 
 .tags-container .toggle-switch .toggle {
   position: absolute;
-  background-color: rgb(0, 2, 139); /* Darker blue circle */
+  background-color: rgb(0, 0, 0); /* Darker blue circle */
   width: 12px; /* Smaller circle */
   height: 12px; /* Smaller circle */
   top: 1px;
@@ -85,11 +85,11 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly; /* Keep the toggle switch to the right of the label */
-  gap: 10px;
+  gap: 5px;
 }
 
 .toggle-container span {
-  margin-right: 2px !important; /* Manually add spacing to the label */
+  margin-right: 0px !important; /* Manually add spacing to the label */
 }
 
 .toggle-switch {
@@ -244,6 +244,7 @@ svg {
   align-items: center;
   font-size: 14px;
   font-family: "Helvetica", "Arial", sans-serif;
+  pointer-events: none;
 }
 
 .legend-item {
@@ -252,6 +253,7 @@ svg {
   margin-right: 40px;
   gap: 10px; /* Add space between the label and the toggle switch */
   margin-bottom: 100px; /* Add space between the two legend items */
+  pointer-events: auto;
 }
 
 .legend-item label {
@@ -310,7 +312,7 @@ svg {
 
 .tag-item input {
   margin-right: 5px; /* Space between checkbox and label */
-  accent-color: rgb(0, 2, 139); /* Change the color of the checkmark to black when checked */
+  accent-color: rgb(0, 0, 0); /* Change the color of the checkmark to black when checked */
 }
 
 .no-scroll {

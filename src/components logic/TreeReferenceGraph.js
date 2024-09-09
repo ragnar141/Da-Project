@@ -389,7 +389,7 @@ const TreeReferenceGraph = ({ onExpand }) => {
       const target = dataMap.get(targetId);
   
       if (source && target) {
-        const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
+        const color = ref.type_of_reference === 'direct reference' ? 'red' : 'blue';
         referenceLines.append('line')
           .attr('x1', getXPosition(xScale, source.adjustedYear || source.year))
           .attr('y1', getYPosition(yScale, source.language, source.adjustedAuthor))
@@ -428,7 +428,7 @@ const TreeReferenceGraph = ({ onExpand }) => {
       sourceReferences.forEach(ref => {
         const target = dataMap.get(ref.secondary_text);
         if (target && adjustedData.includes(target)) {
-          const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
+          const color = ref.type_of_reference === 'direct reference' ? 'red' : 'blue';
           referenceLines.append('line')
             .attr('x1', d.adjustedX)
             .attr('y1', getYPosition(yScale, d.language, d.adjustedAuthor))
@@ -444,7 +444,7 @@ const TreeReferenceGraph = ({ onExpand }) => {
       targetReferences.forEach(ref => {
         const source = dataMap.get(ref.primary_text);
         if (source && adjustedData.includes(source)) {
-          const color = ref.type_of_reference === 'direct reference' ? 'red' : 'black';
+          const color = ref.type_of_reference === 'direct reference' ? 'red' : 'blue';
           referenceLines.append('line')
             .attr('x1', source.adjustedX)
             .attr('y1', getYPosition(yScale, source.language, source.adjustedAuthor))
@@ -573,13 +573,15 @@ const TreeReferenceGraph = ({ onExpand }) => {
       .attr('width', width)
       .attr('height', height);
   
-    svg.append('defs')
+      svg.append('defs')
       .append('clipPath')
       .attr('id', 'xAxisClip')
       .append('rect')
       .attr('x', -margin.left)
       .attr('width', width + margin.left)
-      .attr('height', height);
+      .attr('height', height);  // Include top and bottom margins as well
+    
+    
 
     updateChartRef.current = updateChart;
     const newAdjustedData = updateChart();
@@ -721,14 +723,14 @@ const TreeReferenceGraph = ({ onExpand }) => {
     >
       <div ref={legendContainerRef} className="legend-container">
         <div className="legend-item">
-          <span>direct reference</span>
+          <span>show direct reference</span>
           <ToggleSwitch
             isAllSelected={state.showDirectReferences}
             onToggle={handleToggleDirectReferences}
           />
         </div>
         <div className="legend-item">
-          <span>assumed influence</span>
+          <span>show assumed influence</span>
           <ToggleSwitch
             isAllSelected={state.showAssumedInfluences}
             onToggle={handleToggleAssumedInfluences}
