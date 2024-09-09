@@ -14,8 +14,7 @@ const group1Tags = [
 
 const group2Tags = [
   "theology", "philosophy", "logic", "rhetoric", "ethics", "metaphysics", "history", "natural sciences", "mathematics",
-  "political science", "sociology", "psychology",
-  "epistemology", "medicine", "economics", "education", "public relations", "law", "warfare", "strategy"
+  "political science", "sociology", "psychology", "epistemology", "medicine", "economics", "education", "public relations", "law", "warfare", "strategy"
 ];
 
 // Initial state for the reducer
@@ -85,6 +84,18 @@ const reducer = (state, action) => {
   }
 };
 
+// ToggleSwitch component for selecting all/none tags in a group or for toggling references
+const ToggleSwitch = ({ isAllSelected, onToggle }) => {
+  return (
+    <div
+      className={`toggle-switch ${isAllSelected ? 'active' : ''}`}
+      onClick={onToggle}
+    >
+      <div className="toggle"></div>
+    </div>
+  );
+};
+
 const TreeReferenceGraph = ({ onExpand }) => {
   console.log('TreeReferenceGraph component rendered');
   const updateChartRef = useRef(null); 
@@ -103,13 +114,27 @@ const TreeReferenceGraph = ({ onExpand }) => {
   const width = 1440 - margin.left - margin.right; // Calculate width
   const height = 690 - margin.top - margin.bottom; // Calculate height
 
-  const handleSelectAllGroup2 = () => {
-    dispatch({ type: 'SET_SELECTED_TAGS', payload: [...state.selectedTags, ...group2Tags] });
+  // Handler functions for group1Tags
+  const handleToggleGroup1 = () => {
+    const allSelected = group1Tags.every(tag => state.selectedTags.includes(tag));
+    const updatedTags = allSelected ? state.selectedTags.filter(tag => !group1Tags.includes(tag)) : [...new Set([...state.selectedTags, ...group1Tags])];
+    dispatch({ type: 'SET_SELECTED_TAGS', payload: updatedTags });
   };
 
-  const handleSelectNoneGroup2 = () => {
-    const updatedTags = state.selectedTags.filter(tag => !group2Tags.includes(tag));
+  // Handler functions for group2Tags
+  const handleToggleGroup2 = () => {
+    const allSelected = group2Tags.every(tag => state.selectedTags.includes(tag));
+    const updatedTags = allSelected ? state.selectedTags.filter(tag => !group2Tags.includes(tag)) : [...new Set([...state.selectedTags, ...group2Tags])];
     dispatch({ type: 'SET_SELECTED_TAGS', payload: updatedTags });
+  };
+
+  // Toggle switch for Direct References and Assumed Influences
+  const handleToggleDirectReferences = () => {
+    dispatch({ type: 'TOGGLE_DIRECT_REFERENCE' });
+  };
+
+  const handleToggleAssumedInfluences = () => {
+    dispatch({ type: 'TOGGLE_ASSUMED_INFLUENCE' });
   };
 
   const languages = useMemo(() => [
@@ -696,22 +721,18 @@ const TreeReferenceGraph = ({ onExpand }) => {
     >
       <div ref={legendContainerRef} className="legend-container">
         <div className="legend-item">
-          <input
-            type="checkbox"
-            id="checkbox-direct-reference"
-            checked={state.showDirectReferences}
-            onChange={() => dispatch({ type: 'TOGGLE_DIRECT_REFERENCE' })}
+          <span>direct reference</span>
+          <ToggleSwitch
+            isAllSelected={state.showDirectReferences}
+            onToggle={handleToggleDirectReferences}
           />
-          <label htmlFor="checkbox-direct-reference">direct reference</label>
         </div>
         <div className="legend-item">
-          <input
-            type="checkbox"
-            id="checkbox-assumed-influence"
-            checked={state.showAssumedInfluences}
-            onChange={() => dispatch({ type: 'TOGGLE_ASSUMED_INFLUENCE' })}
+          <span>assumed influence</span>
+          <ToggleSwitch
+            isAllSelected={state.showAssumedInfluences}
+            onToggle={handleToggleAssumedInfluences}
           />
-          <label htmlFor="checkbox-assumed-influence">assumed influence</label>
         </div>
       </div>
 
@@ -724,8 +745,16 @@ const TreeReferenceGraph = ({ onExpand }) => {
         />
       </div>
       <svg ref={chartRef} onWheel={handleHoverCardWheel}>
-        <ZoomableArea width={width} height={height} margin={margin} onZoom={setCurrentZoomState} zoomState={currentZoomState} onClick={handleZoomableAreaClick} />
+        <ZoomableArea 
+          width={width} 
+          height={height} 
+          margin={margin} 
+          onZoom={setCurrentZoomState} 
+          zoomState={currentZoomState} 
+          onClick={handleZoomableAreaClick} 
+        />
       </svg>
+      
       <div className="hover-card" ref={hoverCardRef} style={{ pointerEvents: 'auto', display: state.hoveredText ? 'block' : 'none' }}>
         {state.hoveredText ? console.log('Hover card displayed') : console.log('Hover card hidden')}
         {state.referencingTitles.length > 0 && (
@@ -760,44 +789,56 @@ const TreeReferenceGraph = ({ onExpand }) => {
           </div>
         )}
       </div>
+
       <div className="tags-container" ref={tagsContainerRef}>
-        <div className="tag-group tag-group-1">
-          {group1Tags.map((tag, index) => (
-            <div
-              key={index}
-              className={`tag-item ${["prophetic/religious", "essay/treatise", "narrative"].includes(tag) ? "full-width" : ""}`}
-            >
-              <input
-                type="checkbox"
-                id={`tag-${tag}`}
-                value={tag}
-                checked={state.selectedTags.includes(tag)}
-                onChange={() => dispatch({ type: 'TOGGLE_TAG', payload: tag })}
-              />
-              <label htmlFor={`tag-${tag}`}>{tag}</label>
-            </div>
-          ))}
-        </div>
-        <div className="tag-group tag-group-2">
-          <div className="select-buttons" style={{marginBottom: '5px'}}>
-            <span>select disciplines: </span>
-            <button onClick={handleSelectAllGroup2} style={{ fontSize: '12px', padding: '2px 6px', marginRight: '2px' }}>All</button>
-            <button onClick={handleSelectNoneGroup2} style={{ fontSize: '12px', padding: '2px 6px' }}>None</button>
-          </div>
-          {group2Tags.map((tag, index) => (
-            <div key={index} className="tag-item">
-              <input
-                type="checkbox"
-                id={`tag-${tag}`}
-                value={tag}
-                checked={state.selectedTags.includes(tag)}
-                onChange={() => dispatch({ type: 'TOGGLE_TAG', payload: tag })}
-              />
-              <label htmlFor={`tag-${tag}`}>{tag}</label>
-            </div>
-          ))}
-        </div>
+  <div className="toggle-container">
+    <span>select all literary forms</span>
+    <ToggleSwitch
+      isAllSelected={group1Tags.every(tag => state.selectedTags.includes(tag))}
+      onToggle={handleToggleGroup1}
+    />
+  </div>
+  <div className="tag-group tag-group-1">
+    {group1Tags.map((tag, index) => (
+      <div
+        key={index}
+        className={`tag-item ${["prophetic/religious", "essay/treatise", "narrative"].includes(tag) ? "full-width" : ""}`}
+      >
+        <input
+          type="checkbox"
+          id={`tag-${tag}`}
+          value={tag}
+          checked={state.selectedTags.includes(tag)}
+          onChange={() => dispatch({ type: 'TOGGLE_TAG', payload: tag })}
+        />
+        <label htmlFor={`tag-${tag}`}>{tag}</label>
       </div>
+    ))}
+  </div>
+
+  <div className="toggle-container">
+    <span>select all disciplines</span>
+    <ToggleSwitch
+      isAllSelected={group2Tags.every(tag => state.selectedTags.includes(tag))}
+      onToggle={handleToggleGroup2}
+    />
+  </div>
+  <div className="tag-group tag-group-2">
+    {group2Tags.map((tag, index) => (
+      <div key={index} className="tag-item">
+        <input
+          type="checkbox"
+          id={`tag-${tag}`}
+          value={tag}
+          checked={state.selectedTags.includes(tag)}
+          onChange={() => dispatch({ type: 'TOGGLE_TAG', payload: tag })}
+        />
+        <label htmlFor={`tag-${tag}`}>{tag}</label>
+      </div>
+    ))}
+  </div>
+</div>
+
     </div>
   );
 };
