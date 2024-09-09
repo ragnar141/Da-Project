@@ -13,7 +13,7 @@ const Home = () => {
         </div>
       </div>
       <div className="section description-section">
-        Uni is an online platform dedicated to providing free self-education resources and affordable courses. Our interdisciplinary approach fosters a holistic understanding of the world, helping learners connect ideas across fields.
+        Uni is an online platform dedicated to providing free self-education resources and courses. Our interdisciplinary approach fosters a holistic understanding of the world, helping learners connect ideas across fields.
       </div>
     </div>
   );

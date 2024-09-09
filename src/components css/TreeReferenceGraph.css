@@ -106,23 +106,25 @@
 .tree-reference-graph {
   position: relative;
   pointer-events: auto;
-  transition: width 2s ease, height 2s ease; /* Slower transition */
+  transition: transform 0.5s ease, width 0.5s ease, height 0.5s ease; /* Synchronized transition */
 }
 
 .tree-reference-graph.collapsed {
   position: absolute;
+  bottom: -1025px;
   left: 700px;
   transform: scale(0.5); /* Adjust the scale factor as needed */
   transform-origin: top left; /* Ensures scaling starts from the top-left corner */
-  transition-delay: 2s; /* Add a slight delay for collapsing */
+  transition-delay: 0.2s; /* Add a slight delay if necessary */
 }
 
 .tree-reference-graph.expanded {
   width: 100%;
   height: 100vh;
   background-color: #ffffff;
-  transition-delay: 2s; /* No delay for expanding */
+  transition-delay: 0s; /* Remove any delay for expanding */
 }
+
 
 /* SVG styling */
 svg {

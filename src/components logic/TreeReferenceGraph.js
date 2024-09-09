@@ -651,7 +651,7 @@ const TreeReferenceGraph = ({ onExpand }) => {
     document.body.classList.add('no-scroll');
     setIsExpanded(true);
     setTimeout(() => {
-      onExpand();
+      if (onExpand) onExpand(true); // Pass true when expanded
     }, 300);
   }, [onExpand]);
 
@@ -661,8 +661,9 @@ const TreeReferenceGraph = ({ onExpand }) => {
     if (clientX < rect.left) {
       document.body.classList.remove('no-scroll');
       setIsExpanded(false);
+      if (onExpand) onExpand(false); // Pass false when collapsed
     }
-  }, []);
+  }, [onExpand]);
 
   useEffect(() => {
     console.log('Setting up event listeners');
