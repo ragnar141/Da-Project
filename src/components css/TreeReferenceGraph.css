@@ -64,8 +64,8 @@
 .tags-container .toggle-switch {
   position: relative;
   border-color: rgb(0, 0, 0); /* Darker blue border */
-  width: 25px;  /* Smaller width for group toggles */
-  height: 14px; /* Smaller height for group toggles */
+  width: 19.5px;  /* Smaller width for group toggles */
+  height: 10px; /* Smaller height for group toggles */
 }
 
 .tags-container .toggle-switch.active {
@@ -75,14 +75,14 @@
 .tags-container .toggle-switch .toggle {
   position: absolute;
   background-color: rgb(0, 0, 0); /* Darker blue circle */
-  width: 12px; /* Smaller circle */
-  height: 12px; /* Smaller circle */
-  top: 1px;
-  left: 1px;
+  width: 8px; /* Smaller circle */
+  height: 8px; /* Smaller circle */
+  top: 0.7px;
+  left: 2px;
 }
 
 .tags-container .toggle-switch.active .toggle {
-  left: 12px; /* Adjust for smaller toggle */
+  left: 10px; /* Adjust for smaller toggle */
 }
 
 /* Toggle container styling for group toggles */
@@ -105,38 +105,23 @@
   transition: transform 0.5s ease, width 0.5s ease, height 0.5s ease; /* Synchronized transition */
 }
 
-.tree-reference-graph.collapsed {
-  position: absolute;
-  bottom: -380px;
-  left: 650px;
-  transform: scale(0.5); /* Adjust the scale factor as needed */
-  transform-origin: top left; /* Ensures scaling starts from the top-left corner */
-  transition-delay: 0.2s; /* Add a slight delay if necessary */
-}
-
-.tree-reference-graph.expanded {
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  background-color: #ffffff;
-  transition-delay: 0s; /* Remove any delay for expanding */
-}
 
 /* SVG styling */
 svg {
   background-color: white;
   margin-top: 80px; /* Adjust this value as needed to move the graph lower */
-  margin-left: 40px;
+  margin-left: 30px;
   transition: transform 0.3s ease; /* Add transition for transform property */
+  overflow: visible;
 }
 
 /* Hover card styling */
 .hover-card {
   position: absolute;
-  top: 5px;
-  right: 15px; /* Position the container all the way to the right */
+  top: 43px;
+  right: 10px; /* Position the container all the way to the right */
   width: 183px; /* Adjust width to fit the right segment */
-  height: 95.5%;
+  height: 92.5%;
   width: 178px; /* Adjust width to fit the right segment */
   background-color: white;
   border: 1px solid black;
@@ -190,7 +175,7 @@ svg {
   position: absolute; /* Position it absolutely */
   left: -14px; /* Adjust left position */
   top: -2px; /* Adjust top position */
-  font-size: 23px; /* Adjust font size */
+  font-size: 25px; /* Adjust font size */
   line-height: 1; /* Adjust line height */
   color: black; /* Default color */
 }
@@ -199,8 +184,8 @@ svg {
   color: red; /* Red color for direct reference */
 }
 
-.hover-card ul li.similar-themes::before {
-  color: black; /* Black color for similar themes */
+.hover-card ul li.assumed-influence::before {
+  color: rgb(42, 0, 209); /* Black color for similar themes */
 }
 
 .hover-card-section {
@@ -242,7 +227,7 @@ svg {
 
 .legend-container {
   position: absolute;
-  top: 58px;
+  top: 53px;
   right: 210px; /* Adjusted for better visibility */
   display: flex;
   align-items: center;
@@ -268,15 +253,16 @@ svg {
 /* Tags container styling */
 .tags-container {
   position: absolute;
-  top: 5px;
-  right: 15px; /* Position the container all the way to the right */
+  top: 43px;
+  right: 10px; /* Position the container all the way to the right */
   width: 183px; /* Adjust width to fit the right segment */
-  height: 96%; /* Make the container the full height */
+  height: 94%; /* Make the container the full height */
   background-color: white;
   border: 1px solid black;
   border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 7px; /* Add padding inside the container */
+  padding-bottom: 2px;
   pointer-events: auto; /* Ensure the container can capture mouse events */
   font-size: 13px; /* Reduced font size */
   font-family: "Helvetica", "Arial", sans-serif;
@@ -300,7 +286,7 @@ svg {
   display: grid;
   grid-template-columns: 1fr; /* Prevent splitting "Select all" */
   gap: 4px; /* Space between tag items */
-  margin-bottom: 20px; /* Space between groups */
+  margin-bottom: 5px; /* Space between groups */
 }
 
 .tag-group-1 .full-width {

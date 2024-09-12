@@ -1,60 +1,62 @@
 .search-bar-container {
-    position: absolute;
-    top: 50px;
-    left: 120px; /* Change from left to right and set the desired distance from the right edge */
-    width: 300px;
-    z-index: 20; /* Ensure the search bar is on top of other elements */
-    pointer-events: auto; /* Ensure the search bar can capture mouse events */
-  }
-  
-  .search-bar-input {
-    width: 100%;
-    padding: 4px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
-  .search-results-container {
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-top: 5px;
-    max-height: 200px;
-    overflow-y: auto;
-  }
-  
-  .search-results-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .search-result-item {
-    padding: 8px;
-    cursor: pointer;
-    font-family: 'Helvetica', 'Arial', sans-serif; /* Set the desired font family */
-    font-size: 14px; /* Set the desired font size */
-  }
-  
-  .search-result-item:hover,
-  .search-result-item.active {
-    background-color: #f0f0f0;
-  }
+  position: absolute;
+  top: 41px;
+  left: 130px;
+  width: 300px;
+  z-index: 20; /* Ensure the search bar is on top of other elements */
+  pointer-events: auto; /* Ensure the search bar can capture mouse events */
+}
 
-  /* SearchBar.css */
+.search-bar-input {
+  width: 100%;
+  padding: 8px; /* Increase padding for more height */
+  height: 37px; /* Set a bigger height */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px; /* Slightly increase the font size for better appearance */
+  box-sizing: border-box; /* Make sure padding is included in height */
+}
+
+.search-results-container {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.search-results-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.search-result-item {
+  padding: 8px;
+  cursor: pointer;
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  font-size: 14px;
+}
+
+.search-result-item:hover,
+.search-result-item.active {
+  background-color: #f0f0f0;
+}
+
+/* SearchBar.css */
 .search-bar {
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
-    box-sizing: border-box;
-    transition: border-color 0.3s;
-  }
-  
-  .search-bar:focus {
-    outline: none;
-    border-color: #007bff;
-  }
-  
+  padding: 8px;
+  height: 38px; /* Increased height for consistency with input */
+  font-size: 15px; /* Increased font size */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.search-bar:focus {
+  outline: none;
+  border-color: #007bff;
+}

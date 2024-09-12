@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
 import TreeReferenceGraph from './components logic/TreeReferenceGraph';
 import './App.css';
 
@@ -7,40 +7,10 @@ function App() {
     return (
       <Router>
         <div className="App">
-          <nav className="navbar">
-            <div className="logo">
-              <Link to="/">UNI</Link> {/* Separate logo component */}
-            </div>
-            <ul className="nav-links">
-              <li>
-                <Link to="/library">Library</Link> {/* Link to the library page */}
-              </li>
-              <li>
-                <Link to="/courses">Courses</Link> {/* Link to the courses page */}
-              </li>
-              <li>
-                <Link to="/contact">Contact</Link> {/* Link to the contact page */}
-              </li>
-            </ul>
-          </nav>
-
+          <Navbar />
           {/* Define routes for each section */}
           <Routes>
-            <Route path="/" element={
-              <div className="home-container">
-                <div className="title-section">
-                  <div className="section welcome-section">
-                    Welcome to
-                  </div>
-                  <div className="section uni-section">
-                    UNI
-                  </div>
-                </div>
-                <div className="section description-section">
-                  Uni is an online platform dedicated to providing free self-education resources and courses. Our interdisciplinary approach fosters a holistic understanding of the world, helping learners connect ideas across fields.
-                </div>
-              </div>
-            } />
+            <Route path="/" element={<Home />} />
             <Route path="/library" element={<Library />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/contact" element={<Contact />} />
@@ -50,11 +20,46 @@ function App() {
     );
 }
 
+function Navbar() {
+  const location = useLocation(); // Get current location
+
+  return (
+    <nav className="navbar">
+      <div className="logo">
+        <Link to="/">UNI</Link>
+      </div>
+
+      <div className="current-page-container">
+        {location.pathname === '/library' && <span className="current-page">Library</span>}
+        {location.pathname === '/courses' && <span className="current-page">Courses</span>}
+        {location.pathname === '/contact' && <span className="current-page">Contact</span>}
+      </div>
+
+      <ul className="nav-links">
+        {location.pathname !== '/library' && (
+          <li>
+            <Link to="/library">Library</Link>
+          </li>
+        )}
+        {location.pathname !== '/courses' && (
+          <li>
+            <Link to="/courses">Courses</Link>
+          </li>
+        )}
+        {location.pathname !== '/contact' && (
+          <li>
+            <Link to="/contact">Contact</Link>
+          </li>
+        )}
+      </ul>
+    </nav>
+  );
+}
+
 // Define the Library component to render TreeReferenceGraph
 function Library() {
   return (
     <div className="library-section">
-      <h1 className="library-title">Library</h1>
       <TreeReferenceGraph />
     </div>
   );
@@ -67,6 +72,24 @@ function Courses() {
 
 function Contact() {
   return <div>Contact Section (To Be Developed)</div>;
+}
+
+function Home() {
+  return (
+    <div className="home-container">
+      <div className="welcome_statement">
+        <div className="welcome_to">
+          Welcome to
+        </div>
+        <div className="big_UNI">
+          UNI
+        </div>
+      </div>
+      <div className="description">
+        Uni is an online platform dedicated to providing free self-education resources and courses. Our interdisciplinary approach fosters a holistic understanding of the world, helping learners connect ideas across fields.
+      </div>
+    </div>
+  );
 }
 
 export default App;

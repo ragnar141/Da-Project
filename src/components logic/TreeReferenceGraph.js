@@ -96,7 +96,7 @@ const ToggleSwitch = ({ isAllSelected, onToggle }) => {
   );
 };
 
-const TreeReferenceGraph = ({ onExpand }) => {
+const TreeReferenceGraph = () => {
   console.log('TreeReferenceGraph component rendered');
   const updateChartRef = useRef(null); 
   const chartRef = useRef(null);         // Reference to the SVG element
@@ -109,7 +109,7 @@ const TreeReferenceGraph = ({ onExpand }) => {
   const [adjustedData, setAdjustedData] = useState([]); // Adjusted data state
   const [activeCircleId, setActiveCircleId] = useState(null);
 
-  const margin = useMemo(() => ({ top: 0, right: 185, bottom: 20, left: 70 }), []); // Margin for the SVG
+  const margin = useMemo(() => ({ top: 0, right: 185, bottom: 20, left: 100 }), []); // Margin for the SVG
   const width = 1440 - margin.left - margin.right; // Calculate width
   const height = 620 - margin.top - margin.bottom; // Calculate height
 
@@ -277,10 +277,10 @@ const TreeReferenceGraph = ({ onExpand }) => {
               text.append('tspan').text('Different').attr('x', -10).attr('dy', '-0.3em');
               text.append('tspan').text('Languages').attr('x', -10).attr('dy', '1.2em');
             } else if (label === 'Italian/Spanish/Danish/Russian') {
-              text.append('tspan').text('Italian').attr('x', -10).attr('dy', '-1.6em');
-              text.append('tspan').text('Spanish').attr('x', -10).attr('dy', '1.2em');
-              text.append('tspan').text('Danish').attr('x', -10).attr('dy', '1.2em');
-              text.append('tspan').text('Russian').attr('x', -10).attr('dy', '1.2em');
+              // Combine "Italian" and "Spanish" on one line
+  text.append('tspan').text('Italian Spanish').attr('x', -10).attr('dy', '-0.5em');
+  // "Danish" and "Russian" on the next line
+  text.append('tspan').text('Danish Russian').attr('x', -10).attr('dy', '1.2em');
             } else if (label === 'Japanese/Korean') {
               text.append('tspan').text('Japanese').attr('x', -10).attr('dy', '-0.5em');
               text.append('tspan').text('Korean').attr('x', -10).attr('dy', '1.2em');
