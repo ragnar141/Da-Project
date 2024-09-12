@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Element, scroller } from 'react-scroll';
 import Home from './components logic/Home';
 import TreeReferenceGraph from './components logic/TreeReferenceGraph';
@@ -9,8 +9,8 @@ function App() {
 
   // Function to handle expansion state from TreeReferenceGraph
   const handleExpand = (expanded) => {
-    setIsLibraryExpanded(expanded); // Update the state when the graph expands or collapses
-  
+    setIsLibraryExpanded(expanded);
+
     if (expanded) {
       // Delay the scroll to allow expansion to complete
       setTimeout(() => {
@@ -18,25 +18,18 @@ function App() {
         if (element) {
           element.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
-      }, 500); // Adjust the delay to match the transition duration
+      }, 500);
     }
   };
 
-  // Scroll to top on initial render or refresh and prevent the browser from restoring scroll position
-  useEffect(() => {
-    window.history.scrollRestoration = 'manual'; // Disable automatic scroll restoration
-    window.scrollTo(0, 0);  // Scroll to top manually on page load
-  }, []);
-
   return (
     <div className="App">
-      {/* Conditionally hide the navbar if the library is expanded */}
       <nav className={`navbar ${isLibraryExpanded ? 'hidden' : ''}`}>
         <ul className="nav-links">
           <li onClick={() => scroller.scrollTo('home', { smooth: true })}>UNI</li>
-          <li onClick={() => scroller.scrollTo('library', { smooth: true })}>library</li>
-          <li onClick={() => scroller.scrollTo('courses', { smooth: true })}>courses</li>
-          <li onClick={() => scroller.scrollTo('contact', { smooth: true })}>contact</li>
+          <li onClick={() => scroller.scrollTo('library', { smooth: true })}>Library</li>
+          <li onClick={() => scroller.scrollTo('courses', { smooth: true })}>Courses</li>
+          <li onClick={() => scroller.scrollTo('contact', { smooth: true })}>Contact</li>
         </ul>
       </nav>
 
@@ -44,11 +37,20 @@ function App() {
         <Home />
       </Element>
 
-      <Element name="library" id="library" className="section">
-        <TreeReferenceGraph onExpand={handleExpand} />
+      <Element name="library" id="library" className={`section ${isLibraryExpanded ? 'library-expanded' : ''}`}>
+        <div className="library-section">
+          <h1 className={`library-title ${isLibraryExpanded ? 'expanded' : ''}`}>Library</h1>
+          <div className="library-info">
+            <p>Hover over the graph to enter the library. To exit - move your cursor all the way to the left.</p>
+            <p>Use the search bar to find texts by author or title.</p>
+            <p>Customize the displayed texts by selecting or deselecting tags in the sidebar on the right.</p>
+            <p>Zoom in and out while hovering over the graph's empty spaces.</p>
+            <p>Hover over a circle to see detailed information about the text.</p>
+          </div>
+          <TreeReferenceGraph onExpand={handleExpand} />
+        </div>
       </Element>
 
-      {/* Placeholder elements */}
       <Element name="courses" id="courses" className="section">
         <div>Courses Section (To Be Developed)</div>
       </Element>

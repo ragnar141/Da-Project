@@ -1,6 +1,5 @@
-
 .App {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .section {
@@ -43,4 +42,57 @@
 
 .nav-links li:hover {
   color: #ffcc00;
+}
+
+.library-section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  padding-left: 40px;
+  position: relative; /* Set relative positioning for title */
+}
+
+.library-title {
+  font-weight: bold;
+  font-size: 5rem;
+  position: absolute; /* Absolute position for centering in the section */
+  top: -250px; /* Adjust this value to move the title vertically */
+  left: 50%;
+  transform: translateX(-50%); /* Center horizontally */
+  transition: all 0.5s ease; /* Smooth transition */
+  z-index: 10; /* Ensure it's above the info and graph */
+}
+
+
+
+.library-info {
+  max-width: 350px;
+  margin-right: 40px;
+  font-size: 1rem;
+  line-height: 1.5;
+  position: relative;
+  left: 150px;
+  bottom: 15px;
+}
+
+.library-expanded .library-info {
+  left: -300px;
+}
+
+@media screen and (max-width: 768px) {
+  .library-info {
+    max-width: 100%;
+    left: 0;
+    margin-right: 10px;
+  }
+
+  .library-title {
+    font-size: 3rem; /* Smaller font size for mobile */
+    top: 10px; /* Adjust title position for smaller screens */
+  }
+
+  .library-expanded .library-title {
+    top: -80px;
+  }
 }

@@ -26,7 +26,6 @@
   top: 1px; /* Moved up by 0.5px from 1.5px to 1px */
 }
 
-
 /* Toggle for Direct References */
 .legend-container .legend-item:nth-child(1) .toggle-switch {
   border-color: #e21700; /* Darker red border */
@@ -89,17 +88,14 @@
 /* Toggle container styling for group toggles */
 .toggle-container {
   display: flex;
-  align-items: center;
-  justify-content: space-evenly; /* Keep the toggle switch to the right of the label */
-  gap: 5px;
-}
-
-.toggle-container span {
-  margin-right: 0px !important; /* Manually add spacing to the label */
+  align-items: center; /* Ensure both elements stay vertically aligned */
+  justify-content: flex-start; /* Move both elements to the left side */
+  margin-top: 5px; /* Keep the margin if needed */
+  gap: 40px; /* Add small gap between the span and the toggle switch */
 }
 
 .toggle-switch {
-  margin-left: 1px; /* Add some space to the toggle switch itself */
+  margin-left: 10px; /* Add some space to the toggle switch itself */
 }
 
 /* Specific styles for tree reference graph */
@@ -111,25 +107,25 @@
 
 .tree-reference-graph.collapsed {
   position: absolute;
-  bottom: -1025px;
-  left: 700px;
+  bottom: -380px;
+  left: 650px;
   transform: scale(0.5); /* Adjust the scale factor as needed */
   transform-origin: top left; /* Ensures scaling starts from the top-left corner */
   transition-delay: 0.2s; /* Add a slight delay if necessary */
 }
 
 .tree-reference-graph.expanded {
+  position: absolute;
   width: 100%;
   height: 100vh;
   background-color: #ffffff;
   transition-delay: 0s; /* Remove any delay for expanding */
 }
 
-
 /* SVG styling */
 svg {
   background-color: white;
-  margin-top: 30px; /* Adjust this value as needed to move the graph lower */
+  margin-top: 80px; /* Adjust this value as needed to move the graph lower */
   margin-left: 40px;
   transition: transform 0.3s ease; /* Add transition for transform property */
 }
@@ -137,10 +133,10 @@ svg {
 /* Hover card styling */
 .hover-card {
   position: absolute;
-  top: 20px;
-  right: 5px; /* Position the container all the way to the right */
+  top: 5px;
+  right: 15px; /* Position the container all the way to the right */
   width: 183px; /* Adjust width to fit the right segment */
-  height: 93%;
+  height: 95.5%;
   width: 178px; /* Adjust width to fit the right segment */
   background-color: white;
   border: 1px solid black;
@@ -246,7 +242,7 @@ svg {
 
 .legend-container {
   position: absolute;
-  top: 8px;
+  top: 58px;
   right: 210px; /* Adjusted for better visibility */
   display: flex;
   align-items: center;
@@ -272,10 +268,10 @@ svg {
 /* Tags container styling */
 .tags-container {
   position: absolute;
-  top: 20px;
-  right: 5px; /* Position the container all the way to the right */
+  top: 5px;
+  right: 15px; /* Position the container all the way to the right */
   width: 183px; /* Adjust width to fit the right segment */
-  height: 93%; /* Make the container the full height */
+  height: 96%; /* Make the container the full height */
   background-color: white;
   border: 1px solid black;
   border-radius: 4px;
@@ -292,11 +288,18 @@ svg {
   z-index: 1; /* Ensure the tags container is below the hover card */
 }
 
+/* Add margin to move "Select all" to the right */
+.toggle-container span {
+  padding: 1px 0; /* Reduced top and bottom padding */
+  margin-left: 5px; /* Added margin to move "Select all" to the right */
+}
+
+
 /* Tag group styling */
 .tag-group-1 {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Create two columns */
-  gap: 5px; /* Space between tag items */
+  grid-template-columns: 1fr; /* Prevent splitting "Select all" */
+  gap: 4px; /* Space between tag items */
   margin-bottom: 20px; /* Space between groups */
 }
 
@@ -315,12 +318,24 @@ svg {
 }
 
 .tag-group-2 .tag-item {
-  margin-bottom: 5px; /* Add more space between tag items in the second group */
+  margin-bottom: 4px; /* Add more space between tag items in the second group */
 }
 
+
+
+
 .tag-item input {
-  margin-right: 5px; /* Space between checkbox and label */
+  margin-right: 8px; /* Space between checkbox and label */
   accent-color: rgb(0, 0, 0); /* Change the color of the checkmark to black when checked */
+}
+
+/* Reduced font size and padding for h2 elements inside tag container */
+.tags-container h2 {
+  font-size: 13px;
+  margin-top: 2px; /* Reduced top and bottom margin */
+  margin-bottom: -2px;
+  font-weight: bolder;
+  text-align: center;
 }
 
 .no-scroll {
