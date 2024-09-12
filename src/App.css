@@ -1,98 +1,78 @@
-.App {
-  overflow: hidden;
-}
-
-.section {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 80px;
-}
-
+/* Navbar Styling */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  background-color: #333;
-  padding: 10px;
+  background-color: #000000;
+  padding: 10px 20px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between; /* Separate logo and nav links */
+  align-items: center;
   z-index: 100;
+}
+
+.logo a {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
-  justify-content: space-between; /* Spread out the links */
-  width: 60%; /* Adjust this width to control how far apart the links are */
-  margin: 0 auto; /* Center the nav links within the navbar */
+  gap: 30px; /* Space between links */
+  margin: 0; /* Remove default margins */
 }
 
 .nav-links li {
   color: white;
-  cursor: pointer;
   font-size: 1.2rem;
 }
 
-.hidden {
-  display: none; /* Hide the navbar when the hidden class is applied */
+.nav-links li a {
+  text-decoration: none;
+  color: white;
 }
 
-.nav-links li:hover {
+.nav-links li a:hover {
   color: #ffcc00;
 }
 
-.library-section {
+/* Home Section Styling */
+.home-container {
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  width: 100%;
-  padding-left: 40px;
-  position: relative; /* Set relative positioning for title */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #ffffff;
 }
 
-.library-title {
+.title-section {
+  position: absolute;
+  bottom: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.welcome-section {
+  margin-right: 100px;
+}
+
+.uni-section {
   font-weight: bold;
   font-size: 5rem;
-  position: absolute; /* Absolute position for centering in the section */
-  top: -250px; /* Adjust this value to move the title vertically */
-  left: 50%;
-  transform: translateX(-50%); /* Center horizontally */
-  transition: all 0.5s ease; /* Smooth transition */
-  z-index: 10; /* Ensure it's above the info and graph */
 }
 
-
-
-.library-info {
-  max-width: 350px;
-  margin-right: 40px;
-  font-size: 1rem;
-  line-height: 1.5;
-  position: relative;
-  left: 150px;
-  bottom: 15px;
-}
-
-.library-expanded .library-info {
-  left: -300px;
-}
-
-@media screen and (max-width: 768px) {
-  .library-info {
-    max-width: 100%;
-    left: 0;
-    margin-right: 10px;
-  }
-
-  .library-title {
-    font-size: 3rem; /* Smaller font size for mobile */
-    top: 10px; /* Adjust title position for smaller screens */
-  }
-
-  .library-expanded .library-title {
-    top: -80px;
-  }
+.description-section {
+  position: absolute;
+  top: 100px;
+  text-align: center;
+  font-size: 1.2rem;
+  max-width: 800px;
 }

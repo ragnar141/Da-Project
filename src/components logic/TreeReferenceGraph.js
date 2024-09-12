@@ -107,7 +107,6 @@ const TreeReferenceGraph = ({ onExpand }) => {
   const [state, dispatch] = useReducer(reducer, initialState); // Use useReducer for state management
   const [currentZoomState, setCurrentZoomState] = useState(d3.zoomIdentity); // Zoom state
   const [adjustedData, setAdjustedData] = useState([]); // Adjusted data state
-  const [isExpanded, setIsExpanded] = useState(false); // Expanded state
   const [activeCircleId, setActiveCircleId] = useState(null);
 
   const margin = useMemo(() => ({ top: 0, right: 185, bottom: 20, left: 70 }), []); // Margin for the SVG
@@ -647,81 +646,14 @@ const TreeReferenceGraph = ({ onExpand }) => {
     }
   };
 
-  const handleMouseEnter = useCallback(() => {
-    document.body.classList.add('no-scroll');
-    setIsExpanded(true);
-    setTimeout(() => {
-      if (onExpand) onExpand(true); // Pass true when expanded
-    }, 300);
-  }, [onExpand]);
+  
 
-  const handleMouseLeave = useCallback((event) => {
-    const { clientX } = event;
-    const rect = chartRef.current.getBoundingClientRect();
-    if (clientX < rect.left) {
-      document.body.classList.remove('no-scroll');
-      setIsExpanded(false);
-      if (onExpand) onExpand(false); // Pass false when collapsed
-    }
-  }, [onExpand]);
-
-  useEffect(() => {
-    console.log('Setting up event listeners');
-    const svgElement = chartRef.current;
-    const legendElement = legendContainerRef.current;
-    const tagsElement = tagsContainerRef.current;
-    const searchBarElement = searchBarContainerRef.current;
-
-    if (svgElement) {
-      svgElement.addEventListener('mouseenter', handleMouseEnter);
-      svgElement.addEventListener('mouseleave', handleMouseLeave);
-    }
-
-    if (legendElement) {
-      legendElement.addEventListener('mouseenter', handleMouseEnter);
-      legendElement.addEventListener('mouseleave', handleMouseLeave);
-    }
-
-    if (tagsElement) {
-      tagsElement.addEventListener('mouseenter', handleMouseEnter);
-      tagsElement.addEventListener('mouseleave', handleMouseLeave);
-    }
-
-    if (searchBarElement) {
-      searchBarElement.addEventListener('mouseenter', handleMouseEnter);
-      searchBarElement.addEventListener('mouseleave', handleMouseLeave);
-    }
-
-    return () => {
-      if (svgElement) {
-        svgElement.removeEventListener('mouseenter', handleMouseEnter);
-        svgElement.removeEventListener('mouseleave', handleMouseLeave);
-      }
-
-      if (legendElement) {
-        legendElement.removeEventListener('mouseenter', handleMouseEnter);
-        legendElement.removeEventListener('mouseleave', handleMouseLeave);
-      }
-
-      if (tagsElement) {
-        tagsElement.removeEventListener('mouseenter', handleMouseEnter);
-        tagsElement.removeEventListener('mouseleave', handleMouseLeave);
-      }
-
-      if (searchBarElement) {
-        searchBarElement.removeEventListener('mouseenter', handleMouseEnter);
-        searchBarElement.removeEventListener('mouseleave', handleMouseLeave);
-      }
-    };
-  }, [chartRef, legendContainerRef, tagsContainerRef, searchBarContainerRef, handleMouseEnter, handleMouseLeave]);
-
+  
   return (
     <div 
       id="tree-reference-graph"
-      className={`tree-reference-graph ${isExpanded ? 'expanded' : 'collapsed'}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
+      className={`tree-reference-graph`}
+     >
       <div ref={legendContainerRef} className="legend-container">
         <div className="legend-item">
           <span>Show Direct Reference</span>
