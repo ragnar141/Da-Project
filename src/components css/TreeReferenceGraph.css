@@ -113,6 +113,7 @@ svg {
   margin-left: 30px;
   transition: transform 0.3s ease; /* Add transition for transform property */
   overflow: visible;
+  cursor: default;
 }
 
 /* Hover card styling */

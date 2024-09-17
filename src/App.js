@@ -12,8 +12,8 @@ function App() {
         <Navbar />              
           <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/library" element={<Library />} />
           <Route path="/courses" element={<Courses />} />
+          <Route path="/library" element={<Library />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>
@@ -30,19 +30,20 @@ function Navbar() {
         <Link to="/">UNI</Link>
       </div>
       <ul className="nav-links">
+      <li className={location.pathname === '/courses' ? 'active' : ''}>
+          <Link to="/courses">Courses</Link>
+        </li>
         <li className={location.pathname === '/library' ? 'active' : ''}>
           <Link to="/library">Library</Link>
         </li>
-        <li className={location.pathname === '/courses' ? 'active' : ''}>
-          <Link to="/courses">Courses</Link>
-        </li>
-        <li className={location.pathname === '/contact' ? 'active' : ''}>
+       <li className={location.pathname === '/universe' ? 'active' : ''}>
           <Link to="/contact">Contact</Link>
         </li>
       </ul>
     </nav>
   );
 }
+
 
 function Home() {
   return (
