@@ -508,7 +508,7 @@ const TreeReferenceGraph = () => {
           }))
           .sort((a, b) => b.year - a.year);
         dispatch({ type: 'SET_HOVERED_TEXT', payload: { text: d, referencingTitles: refs, referencedTitles: refsBy } });
-        d3.select(event.target).style('fill', 'black').attr('r', 10);
+        d3.select(event.target).style('fill', '#ffcc00').attr('r', 10);
 
         setTimeout(() => {
           if (hoverCardRef.current) {
