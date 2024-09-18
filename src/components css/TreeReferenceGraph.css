@@ -1,4 +1,20 @@
 /* General styling for toggle switches */
+.text-card {
+  position: absolute;
+  background-color: #f9f9f9;
+  border: 1px solid black;
+  padding: 3px;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: "Helvetica", "Arial", sans-serif;
+  font-size: 12px;
+  pointer-events: none; /* Ensure it's not interactive */
+  z-index: 15; /* Ensure it appears on top of other elements */
+  display: none; /* Hidden by default */
+}
+
+
+
 .toggle-switch {
   position: relative;
   width: 30px;   /* Reduced width */

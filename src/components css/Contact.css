@@ -27,15 +27,15 @@ circle {
 .user-card {
   position: absolute; /* Positioned relative to the globe-container */
   background-color: #f9f9f9;
-  border: 1px solid #d3d3d3;
+  border: 1px solid #000000;
   padding: 3px;
   border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
+  font-family: "Helvetica", "Arial", sans-serif;
   font-size: 12px;
   z-index: 10; /* Ensure the card appears above other elements */
   pointer-events: none; /* Disable pointer events to prevent interaction with the card */
-  transition: opacity 0.3s ease;
+  
   
   /* Offset the UserCard more to the right */
   transform: translateX(290px) translateY(40px);

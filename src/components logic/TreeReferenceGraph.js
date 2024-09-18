@@ -8,6 +8,7 @@ import ZoomableArea from './ZoomableArea';
 import SearchBar from './SearchBar'; // Import the SearchBar component
 
 // Define the list of tags
+
 const group1Tags = [
   "poetry", "dialogue", "novel", "play", "prophetic/religious", "essay/treatise", "narrative"
 ];
@@ -108,6 +109,7 @@ const TreeReferenceGraph = () => {
   const [currentZoomState, setCurrentZoomState] = useState(d3.zoomIdentity); // Zoom state
   const [adjustedData, setAdjustedData] = useState([]); // Adjusted data state
   const [activeCircleId, setActiveCircleId] = useState(null);
+  const textCardRef = useRef(null);
 
   const margin = useMemo(() => ({ top: 0, right: 185, bottom: 20, left: 100 }), []); // Margin for the SVG
   const width = 1440 - margin.left - margin.right; // Calculate width
@@ -461,7 +463,7 @@ const TreeReferenceGraph = () => {
       .attr('class', 'circles-group')
       .attr('clip-path', 'url(#clip)');
 
-    circlesGroup.selectAll('circle')
+      circlesGroup.selectAll('circle')
       .data(adjustedData)
       .enter()
       .append('circle')
@@ -477,6 +479,7 @@ const TreeReferenceGraph = () => {
       .style('stroke-opacity', d => getBorderOpacity(Math.max(currentZoomState.k, 1))) // Adjust border opacity based on zoom
       .on('mouseover', (event, d) => {
         d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.9);
+        
         const refs = referencesData
           .filter(ref => ref.primary_text === d.id)
           .map(ref => ({
@@ -492,6 +495,7 @@ const TreeReferenceGraph = () => {
             referenceType: text.referenceType
           }))
           .sort((a, b) => b.year - a.year);
+          
         const refsBy = referencesData
           .filter(ref => ref.secondary_text === d.id)
           .map(ref => ({
@@ -507,9 +511,25 @@ const TreeReferenceGraph = () => {
             referenceType: text.referenceType
           }))
           .sort((a, b) => b.year - a.year);
+          
         dispatch({ type: 'SET_HOVERED_TEXT', payload: { text: d, referencingTitles: refs, referencedTitles: refsBy } });
+        
         d3.select(event.target).style('fill', '#ffcc00').attr('r', 10);
-
+    
+        // Display the TextCard on hover
+        if (textCardRef.current) {
+          const circlePosition = event.target.getBoundingClientRect();
+          const textCard = textCardRef.current;
+    
+          // Position the TextCard relative to the hovered circle
+          textCard.style.left = `${circlePosition.left - 150}px`; // Move left
+          textCard.style.top = `${circlePosition.top - 50}px`; // Move up
+          textCard.style.display = 'block'; // Show the TextCard
+    
+          // Update the content of the TextCard
+          textCard.innerHTML = `<strong>${d.title}</strong><br>${d.author}`;
+        }
+    
         setTimeout(() => {
           if (hoverCardRef.current) {
             const hoverCardMain = hoverCardRef.current.querySelector('.hover-card-main');
@@ -526,13 +546,18 @@ const TreeReferenceGraph = () => {
       .on('mouseout', (event, d) => {
         d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.05);
         dispatch({ type: 'CLEAR_HOVERED_TEXT' });
-
+    
         const zoomScaleFactor = Math.max(currentZoomState.k, 1);
         const radius = Math.min(5, 2 * zoomScaleFactor);
-
+    
         d3.select(event.target)
           .style('fill', 'white')
           .attr('r', radius);
+    
+        // Hide the TextCard on mouse out
+        if (textCardRef.current) {
+          textCardRef.current.style.display = 'none';
+        }
       })
       .on('click', (event, d) => {
         if (d.link) {
@@ -654,6 +679,7 @@ const TreeReferenceGraph = () => {
       id="tree-reference-graph"
       className={`tree-reference-graph`}
      >
+      <div ref={textCardRef} className="text-card" />
       <div ref={legendContainerRef} className="legend-container">
         <div className="legend-item">
           <span>Show Direct Reference</span>
