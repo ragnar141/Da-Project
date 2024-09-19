@@ -40,6 +40,24 @@ function Contact() {
   const [hoveredData, setHoveredData] = useState(null); // Track hovered data
   const [hoverPosition, setHoverPosition] = useState({ x: 0, y: 0 }); // Track hover position
 
+  const [currentView, setCurrentView] = useState('signIn');  // Track which view is active
+  const [userData, setUserData] = useState(null);  // Store user data after login or account creation
+
+  const handleViewChange = (view) => setCurrentView(view);
+
+  // Dummy function to simulate sign-in (will connect to Firebase later)
+  const handleSignIn = (id, password) => {
+    // For now, we'll simulate a successful login
+    setUserData({ uniId: id, name: "Test User", dob: "01/01/1990", email: "test@example.com" });
+    handleViewChange('yourAccount');
+  };
+
+  // Dummy function for creating an account (will integrate Firebase later)
+  const handleCreateAccount = (data) => {
+    setUserData(data);  // Save user data locally for now
+    handleViewChange('yourAccount');
+  };
+
   // Memoized function to set up the projection and path generator
   const renderGlobe = useMemo(() => {
     const initialScale = 250;  // Default size of the globe

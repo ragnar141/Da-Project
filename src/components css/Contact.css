@@ -33,12 +33,13 @@ circle {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-family: "Helvetica", "Arial", sans-serif;
   font-size: 12px;
+  pointer-events: none; /* Ensure it's not interactive */
   z-index: 10; /* Ensure the card appears above other elements */
   pointer-events: none; /* Disable pointer events to prevent interaction with the card */
-  
+  width: 120px;
   
   /* Offset the UserCard more to the right */
-  transform: translateX(290px) translateY(40px);
+  transform: translateX(328px) translateY(23px);
 }
 
 .user-card p {

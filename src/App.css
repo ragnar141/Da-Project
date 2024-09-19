@@ -49,8 +49,7 @@
 }
 
 .nav-links li.active a {
-  font-size: 1.4rem;
-  color: white;
+  color: #ffcc00;
   position: relative;
 }
 

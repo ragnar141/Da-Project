@@ -27,7 +27,7 @@ const initialState = {
   searchQuery: '',
   searchResults: [],
   showDirectReferences: true,  // New state to control direct references visibility
-  showAssumedInfluences: true  // New state to control assumed influences visibility
+  showAssumedInfluences: false  // New state to control assumed influences visibility
 };
 
 // Reducer function to handle state updates
@@ -332,7 +332,7 @@ const TreeReferenceGraph = () => {
             }
             return Math.min(5, 2 * zoomScaleFactor); // Cap the radius at 5
           })
-          .style('fill', (d) => (d.id === activeCircleId ? 'black' : 'white')) // Fill active circle black
+          .style('fill', (d) => (d.id === activeCircleId ? 'yellow' : 'white')) // Fill active circle black
           .style('stroke', 'black')
           .style('stroke-opacity', (d) => getBorderOpacity(zoomScaleFactor));
 
@@ -478,92 +478,114 @@ const TreeReferenceGraph = () => {
       .style('stroke', 'black')
       .style('stroke-opacity', d => getBorderOpacity(Math.max(currentZoomState.k, 1))) // Adjust border opacity based on zoom
       .on('mouseover', (event, d) => {
+        // Highlight the reference lines associated with the circle
         d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.9);
-        
-        const refs = referencesData
-          .filter(ref => ref.primary_text === d.id)
-          .map(ref => ({
-            ...dataMap.get(ref.secondary_text),
-            referenceType: ref.type_of_reference
-          }))
-          .filter(Boolean)
-          .filter(text => adjustedData.some(dataItem => dataItem.id === text.id))
-          .map(text => ({
-            title: text.title,
-            year: text.year,
-            date: text.dateForCard,
-            referenceType: text.referenceType
-          }))
-          .sort((a, b) => b.year - a.year);
-          
-        const refsBy = referencesData
-          .filter(ref => ref.secondary_text === d.id)
-          .map(ref => ({
-            ...dataMap.get(ref.primary_text),
-            referenceType: ref.type_of_reference
-          }))
-          .filter(Boolean)
-          .filter(text => adjustedData.some(dataItem => dataItem.id === text.id))
-          .map(text => ({
-            title: text.title,
-            year: text.year,
-            date: text.dateForCard,
-            referenceType: text.referenceType
-          }))
-          .sort((a, b) => b.year - a.year);
-          
-        dispatch({ type: 'SET_HOVERED_TEXT', payload: { text: d, referencingTitles: refs, referencedTitles: refsBy } });
-        
+    
+        // Highlight the circle and show the TextCard
         d3.select(event.target).style('fill', '#ffcc00').attr('r', 10);
     
-        // Display the TextCard on hover
+        // Display the TextCard
         if (textCardRef.current) {
           const circlePosition = event.target.getBoundingClientRect();
           const textCard = textCardRef.current;
+          const textCardWidth = textCard.offsetWidth;
+          const textCardHeight = textCard.offsetHeight;
     
-          // Position the TextCard relative to the hovered circle
-          textCard.style.left = `${circlePosition.left - 150}px`; // Move left
-          textCard.style.top = `${circlePosition.top - 50}px`; // Move up
+          textCard.style.left = `${circlePosition.left - textCardWidth + circlePosition.width / 2}px`; // Move left by card width
+          textCard.style.top = `${circlePosition.top - textCardHeight + circlePosition.height / 2}px`; // Move up by card height
           textCard.style.display = 'block'; // Show the TextCard
-    
-          // Update the content of the TextCard
-          textCard.innerHTML = `<strong>${d.title}</strong><br>${d.author}`;
+          textCard.innerHTML = `<strong>${d.title}</strong>`; // Update the content of the TextCard
         }
-    
-        setTimeout(() => {
-          if (hoverCardRef.current) {
-            const hoverCardMain = hoverCardRef.current.querySelector('.hover-card-main');
-            const hoverCardHeight = hoverCardRef.current.clientHeight;
-            const hoverCardMainHeight = hoverCardMain.clientHeight;
-            const scrollTop = hoverCardMain.offsetTop - (hoverCardHeight / 2 - hoverCardMainHeight / 2);
-            hoverCardRef.current.scrollTo({ top: scrollTop, behavior: 'smooth' });
-            console.log('Event listener added to hoverCardRef');
-          } else {
-            console.log('hoverCardRef.current is null in setTimeout');
-          }
-        }, 0);
       })
       .on('mouseout', (event, d) => {
+        // Reset reference line opacity
         d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.05);
-        dispatch({ type: 'CLEAR_HOVERED_TEXT' });
-    
+        
+        // Reset the circle color and radius
         const zoomScaleFactor = Math.max(currentZoomState.k, 1);
         const radius = Math.min(5, 2 * zoomScaleFactor);
-    
         d3.select(event.target)
           .style('fill', 'white')
           .attr('r', radius);
     
-        // Hide the TextCard on mouse out
+        // Hide the TextCard
         if (textCardRef.current) {
           textCardRef.current.style.display = 'none';
         }
       })
       .on('click', (event, d) => {
-        if (d.link) {
-          window.open(d.link, '_blank');
+        event.stopPropagation(); // Prevent click from propagating further
+    
+        // Highlight the reference lines when clicked
+        d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.9);
+    
+        // Fetch referencing and referenced texts (refs and refsBy)
+        const refs = referencesData
+            .filter(ref => ref.primary_text === d.id)
+            .map(ref => ({
+                ...dataMap.get(ref.secondary_text),
+                referenceType: ref.type_of_reference
+            }))
+            .filter(Boolean)
+            .filter(text => adjustedData.some(dataItem => dataItem.id === text.id))
+            .map(text => ({
+                title: text.title,
+                year: text.year,
+                date: text.dateForCard,
+                referenceType: text.referenceType
+            }))
+            .sort((a, b) => b.year - a.year);
+    
+        const refsBy = referencesData
+            .filter(ref => ref.secondary_text === d.id)
+            .map(ref => ({
+                ...dataMap.get(ref.primary_text),
+                referenceType: ref.type_of_reference
+            }))
+            .filter(Boolean)
+            .filter(text => adjustedData.some(dataItem => dataItem.id === text.id))
+            .map(text => ({
+                title: text.title,
+                year: text.year,
+                date: text.dateForCard,
+                referenceType: text.referenceType
+            }))
+            .sort((a, b) => b.year - a.year);
+    
+        // Dispatch hovered text and references into the state for rendering in HoverCard
+        dispatch({ type: 'SET_HOVERED_TEXT', payload: { text: d, referencingTitles: refs, referencedTitles: refsBy } });
+    
+        // Show the HoverCard and populate it with the relevant data
+        if (hoverCardRef.current) {
+            const hoverCard = hoverCardRef.current;
+            hoverCard.style.display = 'block'; // Show the HoverCard
+    
+            // Update the HoverCard content
+            hoverCard.querySelector('.hover-card-main').innerHTML = `
+                <p><span class="hover-card-title">${d.title}</span></p>
+                <p><span>${d.author}</span></p>
+                <p><span>${d.dateForCard}</span></p>
+                <p><span>${d.oLanguage}</span></p>
+                <p><span>${d.location}</span></p>
+                <p><a href="${d.link}" target="_blank" class="download-link" style="color: blue;">Download</a></p>
+            `;
         }
-      });
+    
+        // Handle click outside HoverCard to hide it
+        const handleClickOutsideHoverCard = (e) => {
+            // Ensure clicking inside the hoverCard or the circle does not close the card
+            if (
+              hoverCardRef.current && 
+              !hoverCardRef.current.contains(e.target) && 
+              e.target !== event.target // Check if the click is not on the circle
+            ) {
+                hoverCardRef.current.style.display = 'none'; // Hide the HoverCard
+                document.removeEventListener('click', handleClickOutsideHoverCard); // Remove the event listener
+            }
+        };
+        document.addEventListener('click', handleClickOutsideHoverCard);
+    });
+    
 
     svg.selectAll('.horizontal-line')
       .data([...languages.map(d => yScale(d) - yScale.step() / 2), height])
