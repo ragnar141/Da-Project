@@ -1,19 +1,39 @@
-.text-card {
+.main-content.blurred {
+  filter: blur(5px);
+  pointer-events: none; /* Disable interactions with blurred content */
+}
+
+.close-button {
   position: absolute;
+  top: 10px;
+  right: 15px;
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #333;
+}
+
+.close-button:hover {
+  color: #ffcc00; /* Change color on hover */
+}
+
+.text-card {
+  position: absolute; /* Ensure it's positioned relative to the viewport */
   background-color: #f9f9f9;
   border: 1px solid black;
-  padding: 3px;
-  border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-family: "Helvetica", "Arial", sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   pointer-events: none; /* Ensure it's not interactive */
   z-index: 15; /* Ensure it appears on top of other elements */
   display: none; /* Hidden by default */
-  width: 120px;
-  transform: translateX(-140px) translateY(-78px);
+  
+  /* Ensure no unnecessary padding or margins affect the positioning */
+  padding: 4px;
+  margin: 0;
 }
-
 
 .toggle-switch {
   position: relative;
@@ -116,7 +136,7 @@
 
 /* Specific styles for tree reference graph */
 .tree-reference-graph {
-  position: relative;
+  position: absolute;
   pointer-events: auto;
   transition: transform 0.5s ease, width 0.5s ease, height 0.5s ease; /* Synchronized transition */
 }
@@ -134,36 +154,46 @@ svg {
 
 /* Hover card styling */
 .hover-card {
-  position: absolute;
-  top: 43px;
-  right: 10px; /* Position the container all the way to the right */
-  width: 183px; /* Adjust width to fit the right segment */
-  height: 92.5%;
-  width: 178px; /* Adjust width to fit the right segment */
+  position: fixed; /* Make it fixed to the viewport */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center it on the screen */
+  width: 90%; /* Set the width to 90% of the screen */
+  height: 40%; /* Set the height to 40% of the screen */
   background-color: white;
   border: 1px solid black;
-  border-radius: 4px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px; /* Add padding inside the card */
-  pointer-events: auto; /* Ensure the card can capture mouse events */
-  font-size: 14px; /* Reduced font size */
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  pointer-events: auto;
+  font-size: 16px;
   font-family: "Helvetica", "Arial", sans-serif;
-  transition: opacity 0.2s;
-  overflow-y: auto !important; /* Allow vertical scrolling if content overflows */
-  overflow-x: hidden; /* Prevent horizontal scrolling */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Space sections evenly */
-  z-index: 10; /* Ensure the hover card is on top of other elements */
-  display: none; /* Hide by default */
+  transition: opacity 0.3s, transform 0.3s;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 100;
+  display: none;
+  display: flex; /* Use flexbox to control the vertical alignment of the contents */
+  justify-content: center; /* Vertically center the entire hover-card contents */
+  align-items: center; /* Horizontally center the entire hover-card contents */
 }
 
-.download-link {
-  color: blue;
-  text-decoration: underline;
-  cursor: pointer;
+.hover-card-columns {
+  display: flex; /* Arrange the child divs in a row */
+  gap: 100px; /* Add spacing between the columns */
+  width: 100%;
+  height: 100%;
 }
-/* Hover card content */
+
+.hover-card-column {
+  flex: 1; /* Each column takes up an equal amount of space */
+  padding: 10px; /* Optional padding inside each column */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align content vertically at the start */
+  align-items: center; /* Center the content horizontally */
+}
+
 .hover-card p {
   margin: 0;
   padding: 2px 0;
@@ -207,30 +237,33 @@ svg {
 }
 
 .hover-card ul li.assumed-influence::before {
-  color: rgb(42, 0, 209); /* Black color for similar themes */
+  color: rgb(42, 0, 209); /* Blue color for assumed influence */
 }
 
 .hover-card-section {
-  text-align: left;
-  flex-grow: 1; /* Allow the section to grow */
+  flex-grow: 1; /* Allow this section to grow and take remaining space */
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center content vertically */
+  justify-content: flex-end; /* Align the content to the bottom */
   font-size: 14px;
   padding-left: 14px;
+  width: 100%;
 }
 
+.hover-card-column:nth-child(1) .hover-card-section {
+  padding-left: 30px;
+}
+
+
 .hover-card-main {
-  padding-top: 70px;
-  padding-bottom: 70px;
-  padding-left: 10px;
-  text-align: center;
-  flex-grow: 1; /* Allow the section to grow */
+  flex-grow: 0; /* Ensure the main content doesn't take unnecessary space */
+  margin-bottom: 20px; /* Add space below the main content */
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center content vertically */
-  align-items: center; /* Center content horizontally */
-  font-size: 15px;
+  justify-content: center; /* Center content vertically within the hover-card */
+  align-items: center; /* Center content horizontally within the hover-card */
+  text-align: center;
+  font-size: 16px;
 }
 
 .hover-card-main p {
@@ -238,9 +271,23 @@ svg {
 }
 
 .hover-card-title {
-  font-size: 18px; /* Set font size of title component */
+  font-size: 25px; /* Set font size of title component */
+  padding-top: 10px;
+  padding-bottom: 30px;
   font-weight: bold;
 }
+
+
+
+.download-link {
+  padding-top: 30px;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 13px;
+}
+/* Hover card content */
+
 
 /* Legend styling */
 .legend {
@@ -276,7 +323,7 @@ svg {
 .tags-container {
   position: absolute;
   top: 43px;
-  right: 10px; /* Position the container all the way to the right */
+  right: -40px; /* Position the container all the way to the right */
   width: 183px; /* Adjust width to fit the right segment */
   height: 94%; /* Make the container the full height */
   background-color: white;

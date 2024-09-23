@@ -8,7 +8,6 @@ import ZoomableArea from './ZoomableArea';
 import SearchBar from './SearchBar'; // Import the SearchBar component
 
 // Define the list of tags
-
 const group1Tags = [
   "poetry", "dialogue", "novel", "play", "prophetic/religious", "essay/treatise", "narrative"
 ];
@@ -26,8 +25,8 @@ const initialState = {
   selectedTags: [...group1Tags, ...group2Tags],
   searchQuery: '',
   searchResults: [],
-  showDirectReferences: true,  // New state to control direct references visibility
-  showAssumedInfluences: false  // New state to control assumed influences visibility
+  showDirectReferences: true,  // State to control direct references visibility
+  showAssumedInfluences: false  // State to control assumed influences visibility
 };
 
 // Reducer function to handle state updates
@@ -86,30 +85,26 @@ const reducer = (state, action) => {
 };
 
 // ToggleSwitch component for selecting all/none tags in a group or for toggling references
-const ToggleSwitch = ({ isAllSelected, onToggle }) => {
-  return (
-    <div
-      className={`toggle-switch ${isAllSelected ? 'active' : ''}`}
-      onClick={onToggle}
-    >
-      <div className="toggle"></div>
-    </div>
-  );
-};
+const ToggleSwitch = ({ isAllSelected, onToggle }) => (
+  <div className={`toggle-switch ${isAllSelected ? 'active' : ''}`} onClick={onToggle}>
+    <div className="toggle"></div>
+  </div>
+);
 
 const TreeReferenceGraph = () => {
   console.log('TreeReferenceGraph component rendered');
   const updateChartRef = useRef(null); 
   const chartRef = useRef(null);         // Reference to the SVG element
   const hoverCardRef = useRef(null);     // Reference to the hover card element
+  const textCardRef = useRef(null);      // Reference for the TextCard
   const tagsContainerRef = useRef(null);
   const legendContainerRef = useRef(null); // Reference to the tags container element
   const searchBarContainerRef = useRef(null); // Reference to the search bar container
+
   const [state, dispatch] = useReducer(reducer, initialState); // Use useReducer for state management
   const [currentZoomState, setCurrentZoomState] = useState(d3.zoomIdentity); // Zoom state
   const [adjustedData, setAdjustedData] = useState([]); // Adjusted data state
   const [activeCircleId, setActiveCircleId] = useState(null);
-  const textCardRef = useRef(null);
 
   const margin = useMemo(() => ({ top: 0, right: 185, bottom: 20, left: 100 }), []); // Margin for the SVG
   const width = 1440 - margin.left - margin.right; // Calculate width
@@ -139,7 +134,7 @@ const TreeReferenceGraph = () => {
   };
 
   const languages = useMemo(() => [
-      'Japanese/Korean', 'Chinese/Thai', 'Sanskrit/Pali/Tibetan','Different Languages','Latin','Arabic','Greek', 'German','English', 'French', 'Italian/Spanish/Danish/Russian'
+      'Japanese/Korean', 'Chinese/Thai', 'Sanskrit/Pali/Tibetan', 'Different Languages', 'Latin', 'Arabic', 'Greek', 'German', 'English', 'French', 'Italian/Spanish/Danish/Russian'
   ], []);
 
   const xScale = useMemo(() => d3.scaleLinear()
@@ -160,50 +155,42 @@ const TreeReferenceGraph = () => {
 
     let positionFactor = 0.5;
     if (adjustedAuthor && adjustedAuthor.length > 0) {
-        const firstLetter = adjustedAuthor[0].toUpperCase();
-        const normalizedValue = (firstLetter.charCodeAt(0) - 65) / 25;
-        positionFactor = Math.min(Math.max(normalizedValue, 0), 1);
+      const firstLetter = adjustedAuthor[0].toUpperCase();
+      const normalizedValue = (firstLetter.charCodeAt(0) - 65) / 25;
+      positionFactor = Math.min(Math.max(normalizedValue, 0), 1);
     }
 
     const finalYPos = yPos - segmentHeight / 2 + padding + positionFactor * (segmentHeight - 2 * padding);
     return finalYPos;
-}, []);  // Assuming `languages` and `height` are the relevant dependencies
+  }, []);
 
   const adjustForOverlap = useCallback((data, xScale) => {
-    console.log('Adjusting for overlap');
     const radius = 0.5; // Radius of the circles
     const adjustedData = [...data]; // Create a copy of the data array to avoid mutating the original data
     const groupedData = d3.groups(adjustedData, d => `${d.year}-${d.author}`); // Group data points by year and author
-  
+
     groupedData.forEach(([key, group]) => { // Iterate through each group of data points
       if (group.length > 1) { // If there are multiple data points in the same group (i.e., they overlap)
-        group.forEach((d, i) => { 
-          const originalX = xScale(d.year); // Save original x position for logging
-  
-          // Adjust the x position to prevent overlap by shifting each point
+        group.forEach((d, i) => {
+          const originalX = xScale(d.year);
           d.adjustedX = originalX + i * radius * 2;
-          d.adjustedYear = xScale.invert(d.adjustedX); // Calculate the adjusted year
-  
-          // Log the data point if its position got adjusted
-          if (d.adjustedX !== originalX) {
-            console.log(`Adjusted position for: ${d.title} (originalX: ${originalX}, adjustedX: ${d.adjustedX})`);
-          }
+          d.adjustedYear = xScale.invert(d.adjustedX);
         });
-      } else { // If there is only one data point in the group, no adjustment is needed
-        group[0].adjustedX = xScale(group[0].year); // Set the adjusted x position to the original x position
-        group[0].adjustedYear = group[0].year; // Set the adjusted year to the original year
+      } else {
+        group[0].adjustedX = xScale(group[0].year);
+        group[0].adjustedYear = group[0].year;
       }
     });
-  
-    return adjustedData; // Return the array with adjusted data points
+
+    return adjustedData;
   }, []);
 
   const data = useMemo(() => {
-    console.log('Processing data');
     return textsData.map(d => ({
       id: d.index,
       language: d["dataviz friendly original language"],
       year: d["dataviz friendly date"],
+      // Continuing from where we left off...
       dateForCard: d["date"],
       oLanguage: d["original language"],
       author: d.author,
@@ -220,14 +207,12 @@ const TreeReferenceGraph = () => {
   }, [data, xScale, adjustForOverlap]);
 
   const dataMap = useMemo(() => {
-    console.log('Creating dataMap from adjustedData');
     return new Map(initialAdjustedData.map(d => [d.id, d]));
   }, [initialAdjustedData]);
 
   // Function to get border opacity based on zoom level
   const getBorderOpacity = (zoomScaleFactor) => {
-    // Adjust the opacity based on zoom level
-    return Math.min(1, zoomScaleFactor * 0.5); // Adjust this factor to control opacity change
+    return Math.min(1, zoomScaleFactor * 0.5);
   };
 
   const handleZoomableAreaClick = () => {
@@ -239,16 +224,15 @@ const TreeReferenceGraph = () => {
 
   const applyZoom = useCallback(
     (zoomTransform, adjustedData) => {
-      console.log('Applying zoom');
       if (zoomTransform && adjustedData) {
+        console.log("applyin zoooomies");
         const svg = d3.select(chartRef.current).select('g');
-        console.log("Applying zoom state:", zoomTransform);
         const newXScale = zoomTransform.rescaleX(xScale);
 
         const newYScaleRange = yScale.range().map((d) => zoomTransform.applyY(d));
         const newYScale = yScale.copy().range(newYScaleRange);
 
-        const zoomScaleFactor = Math.max(zoomTransform.k, 1); // Ensure the scale factor is at least 1
+        const zoomScaleFactor = Math.max(zoomTransform.k, 1);
 
         svg.select('.x-axis').remove();
         svg
@@ -279,10 +263,8 @@ const TreeReferenceGraph = () => {
               text.append('tspan').text('Different').attr('x', -10).attr('dy', '-0.3em');
               text.append('tspan').text('Languages').attr('x', -10).attr('dy', '1.2em');
             } else if (label === 'Italian/Spanish/Danish/Russian') {
-              // Combine "Italian" and "Spanish" on one line
-  text.append('tspan').text('Italian Spanish').attr('x', -10).attr('dy', '-0.5em');
-  // "Danish" and "Russian" on the next line
-  text.append('tspan').text('Danish Russian').attr('x', -10).attr('dy', '1.2em');
+              text.append('tspan').text('Italian Spanish').attr('x', -10).attr('dy', '-0.5em');
+              text.append('tspan').text('Danish Russian').attr('x', -10).attr('dy', '1.2em');
             } else if (label === 'Japanese/Korean') {
               text.append('tspan').text('Japanese').attr('x', -10).attr('dy', '-0.5em');
               text.append('tspan').text('Korean').attr('x', -10).attr('dy', '1.2em');
@@ -332,7 +314,7 @@ const TreeReferenceGraph = () => {
             }
             return Math.min(5, 2 * zoomScaleFactor); // Cap the radius at 5
           })
-          .style('fill', (d) => (d.id === activeCircleId ? 'yellow' : 'white')) // Fill active circle black
+          .style('fill', (d) => (d.id === activeCircleId ? '#ffcc00' : 'white'))
           .style('stroke', 'black')
           .style('stroke-opacity', (d) => getBorderOpacity(zoomScaleFactor));
 
@@ -354,7 +336,7 @@ const TreeReferenceGraph = () => {
               .attr('y1', y1)
               .attr('x2', x2)
               .attr('y2', y2)
-              .attr('stroke-opacity', activeCircleId && (sourceId === activeCircleId || targetId === activeCircleId) ? 0.9 : 0.05); // Adjust opacity based on active circle
+              .attr('stroke-opacity', activeCircleId && (sourceId === activeCircleId || targetId === activeCircleId) ? 0.9 : 0.05);
           }
         });
       }
@@ -363,9 +345,9 @@ const TreeReferenceGraph = () => {
   );
 
   const updateChart = useCallback(() => {
-    console.log('Updating chart');
+    console.log("updatin da chart");
     const svg = d3.select(chartRef.current).select('g');
-  
+
     // Remove existing reference lines
     svg.selectAll('.reference-line').remove();
 
@@ -377,18 +359,18 @@ const TreeReferenceGraph = () => {
     if (state.showAssumedInfluences) {
       referencesData = referencesData.concat(assumedInfluencesData);
     }
-  
+
     const referenceLines = svg.append('g')
       .attr('class', 'reference-lines')
       .attr('clip-path', 'url(#clip)');
-  
+
     referencesData.forEach((ref) => {
       const sourceId = String(ref.primary_text);
       const targetId = String(ref.secondary_text);
-      
+
       const source = dataMap.get(sourceId);
       const target = dataMap.get(targetId);
-  
+
       if (source && target) {
         const color = ref.type_of_reference === 'direct reference' ? 'red' : 'blue';
         referenceLines.append('line')
@@ -402,12 +384,12 @@ const TreeReferenceGraph = () => {
           .attr('class', `reference-line reference-${source.id} reference-${target.id}`);
       }
     });
-  
+
     // Redraw circles and other elements as needed
     svg.selectAll('circle').remove();
 
     const filteredData = state.selectedTags.length === 0 ? [] : data.filter(d => {
-      const tagsArray = Array.isArray(d.tags) ? d.tags.map(tag => tag.trim().toLowerCase()) : d.tags.split(',' ).map(tag => tag.trim().toLowerCase());
+      const tagsArray = Array.isArray(d.tags) ? d.tags.map(tag => tag.trim().toLowerCase()) : d.tags.split(',').map(tag => tag.trim().toLowerCase());
       const hasMatchingTagGroup2 = state.selectedTags.some(tag => {
         const normalizedTag = tag.trim().toLowerCase();
         return group2Tags.includes(tag) && tagsArray.includes(normalizedTag);
@@ -463,7 +445,7 @@ const TreeReferenceGraph = () => {
       .attr('class', 'circles-group')
       .attr('clip-path', 'url(#clip)');
 
-      circlesGroup.selectAll('circle')
+    circlesGroup.selectAll('circle')
       .data(adjustedData)
       .enter()
       .append('circle')
@@ -478,115 +460,152 @@ const TreeReferenceGraph = () => {
       .style('stroke', 'black')
       .style('stroke-opacity', d => getBorderOpacity(Math.max(currentZoomState.k, 1))) // Adjust border opacity based on zoom
       .on('mouseover', (event, d) => {
-        // Highlight the reference lines associated with the circle
         d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.9);
-    
-        // Highlight the circle and show the TextCard
         d3.select(event.target).style('fill', '#ffcc00').attr('r', 10);
-    
-        // Display the TextCard
+      
         if (textCardRef.current) {
-          const circlePosition = event.target.getBoundingClientRect();
           const textCard = textCardRef.current;
-          const textCardWidth = textCard.offsetWidth;
-          const textCardHeight = textCard.offsetHeight;
-    
-          textCard.style.left = `${circlePosition.left - textCardWidth + circlePosition.width / 2}px`; // Move left by card width
-          textCard.style.top = `${circlePosition.top - textCardHeight + circlePosition.height / 2}px`; // Move up by card height
-          textCard.style.display = 'block'; // Show the TextCard
-          textCard.innerHTML = `<strong>${d.title}</strong>`; // Update the content of the TextCard
+      
+          // Step 1: Make the textCard visible to force it into the DOM
+          textCard.style.display = 'block';
+          textCard.innerHTML = `<strong>${d.title}</strong>`;
+      
+          // Step 2: Force reflow using void operator
+          void textCard.offsetWidth;  // This forces reflow and avoids the lint error
+      
+          // Step 3: Use requestAnimationFrame to ensure dimensions are updated
+          requestAnimationFrame(() => {
+            const cx = parseFloat(event.target.getAttribute('cx'));
+            const cy = parseFloat(event.target.getAttribute('cy'));
+      
+            const textCardWidth = textCard.offsetWidth;
+            const textCardHeight = textCard.offsetHeight;
+
+            
+      
+            const svgRect = chartRef.current.getBoundingClientRect(); // Get SVG container boundaries
+            const padding = 10; // Padding to prevent the textCard from touching the edges
+      
+            // Calculate new left position and check for boundary overflow
+            let leftPosition = cx - textCardWidth / 2;
+            if (leftPosition < padding) {
+              leftPosition = padding; // Ensure it doesn't overflow on the left
+            } else if (leftPosition + textCardWidth > svgRect.width - padding) {
+              leftPosition = svgRect.width - textCardWidth - padding; // Ensure it doesn't overflow on the right
+            }
+      
+            // Calculate new top position and check for boundary overflow
+            let topPosition = cy + 40;
+            if (topPosition + textCardHeight > svgRect.height - padding) {
+              topPosition = cy - textCardHeight - 10; // Position it above the circle if it's too low
+            } else if (topPosition < padding) {
+              topPosition = padding; // Prevent overflow at the top
+            }
+      
+            // Apply calculated positions to the textCard
+            textCard.style.left = `${leftPosition}px`;
+            textCard.style.top = `${topPosition}px`;
+          });
         }
       })
+      
+      
+      
+      
       .on('mouseout', (event, d) => {
-        // Reset reference line opacity
         d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.05);
-        
-        // Reset the circle color and radius
         const zoomScaleFactor = Math.max(currentZoomState.k, 1);
         const radius = Math.min(5, 2 * zoomScaleFactor);
         d3.select(event.target)
           .style('fill', 'white')
           .attr('r', radius);
-    
-        // Hide the TextCard
+      
         if (textCardRef.current) {
           textCardRef.current.style.display = 'none';
         }
       })
+      
       .on('click', (event, d) => {
         event.stopPropagation(); // Prevent click from propagating further
-    
+      
         // Highlight the reference lines when clicked
         d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.9);
-    
+      
         // Fetch referencing and referenced texts (refs and refsBy)
         const refs = referencesData
-            .filter(ref => ref.primary_text === d.id)
-            .map(ref => ({
-                ...dataMap.get(ref.secondary_text),
-                referenceType: ref.type_of_reference
-            }))
-            .filter(Boolean)
-            .filter(text => adjustedData.some(dataItem => dataItem.id === text.id))
-            .map(text => ({
-                title: text.title,
-                year: text.year,
-                date: text.dateForCard,
-                referenceType: text.referenceType
-            }))
-            .sort((a, b) => b.year - a.year);
-    
+          .filter(ref => ref.primary_text === d.id)
+          .map(ref => ({
+            ...dataMap.get(ref.secondary_text),
+            referenceType: ref.type_of_reference,
+          }))
+          .filter(Boolean)
+          .filter(text => adjustedData.some(dataItem => dataItem.id === text.id))
+          .map(text => ({
+            title: text.title,
+            year: text.year,
+            date: text.dateForCard,
+            referenceType: text.referenceType,
+          }))
+          .sort((a, b) => b.year - a.year);
+      
         const refsBy = referencesData
-            .filter(ref => ref.secondary_text === d.id)
-            .map(ref => ({
-                ...dataMap.get(ref.primary_text),
-                referenceType: ref.type_of_reference
-            }))
-            .filter(Boolean)
-            .filter(text => adjustedData.some(dataItem => dataItem.id === text.id))
-            .map(text => ({
-                title: text.title,
-                year: text.year,
-                date: text.dateForCard,
-                referenceType: text.referenceType
-            }))
-            .sort((a, b) => b.year - a.year);
-    
+          .filter(ref => ref.secondary_text === d.id)
+          .map(ref => ({
+            ...dataMap.get(ref.primary_text),
+            referenceType: ref.type_of_reference,
+          }))
+          .filter(Boolean)
+          .filter(text => adjustedData.some(dataItem => dataItem.id === text.id))
+          .map(text => ({
+            title: text.title,
+            year: text.year,
+            date: text.dateForCard,
+            referenceType: text.referenceType,
+          }))
+          .sort((a, b) => b.year - a.year);
+      
         // Dispatch hovered text and references into the state for rendering in HoverCard
-        dispatch({ type: 'SET_HOVERED_TEXT', payload: { text: d, referencingTitles: refs, referencedTitles: refsBy } });
+        dispatch({
+          type: 'SET_HOVERED_TEXT',
+          payload: { text: d, referencingTitles: refs, referencedTitles: refsBy },
+        });
     
-        // Show the HoverCard and populate it with the relevant data
-        if (hoverCardRef.current) {
+        // Delay execution to allow HoverCard to render
+        setTimeout(() => {
+          if (hoverCardRef.current) {
             const hoverCard = hoverCardRef.current;
             hoverCard.style.display = 'block'; // Show the HoverCard
     
             // Update the HoverCard content
             hoverCard.querySelector('.hover-card-main').innerHTML = `
-                <p><span class="hover-card-title">${d.title}</span></p>
-                <p><span>${d.author}</span></p>
-                <p><span>${d.dateForCard}</span></p>
-                <p><span>${d.oLanguage}</span></p>
-                <p><span>${d.location}</span></p>
-                <p><a href="${d.link}" target="_blank" class="download-link" style="color: blue;">Download</a></p>
+              <p><span class="hover-card-title">${d.title}</span></p>
+              <p><span>${d.author}</span></p>
+              <p><span>${d.dateForCard}</span></p>
+              <p><span>${d.oLanguage}</span></p>
+              <p><span>${d.location}</span></p>
+              <p><a href="${d.link}" target="_blank" class="download-link" style="color: blue;">Download</a></p>
             `;
-        }
+          } else {
+            console.error('Hover card reference is null.');
+          }
+        }, 0); // Delay by 0ms to allow hoverCardRef to be updated
     
         // Handle click outside HoverCard to hide it
         const handleClickOutsideHoverCard = (e) => {
-            // Ensure clicking inside the hoverCard or the circle does not close the card
-            if (
-              hoverCardRef.current && 
-              !hoverCardRef.current.contains(e.target) && 
-              e.target !== event.target // Check if the click is not on the circle
-            ) {
-                hoverCardRef.current.style.display = 'none'; // Hide the HoverCard
-                document.removeEventListener('click', handleClickOutsideHoverCard); // Remove the event listener
-            }
+          if (
+            hoverCardRef.current &&
+            !hoverCardRef.current.contains(e.target) &&
+            e.target !== event.target // Check if the click is not on the circle
+          ) {
+            hoverCardRef.current.style.display = 'none'; // Hide the HoverCard
+            document.removeEventListener('click', handleClickOutsideHoverCard); // Remove the event listener
+          }
         };
         document.addEventListener('click', handleClickOutsideHoverCard);
     });
     
-
+      
+    
     svg.selectAll('.horizontal-line')
       .data([...languages.map(d => yScale(d) - yScale.step() / 2), height])
       .enter()
@@ -605,66 +624,48 @@ const TreeReferenceGraph = () => {
   }, [adjustForOverlap, height, width, languages, currentZoomState, state.showAssumedInfluences, state.showDirectReferences, data, dataMap, getYPosition, state.selectedTags, xScale, yScale]);
 
   useEffect(() => {
-    console.log('Rendering static elements');
     const svg = d3.select(chartRef.current)
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
-  
+
     svg.append('defs')
       .append('clipPath')
       .attr('id', 'clip')
       .append('rect')
       .attr('width', width)
       .attr('height', height);
-  
-      svg.append('defs')
+
+    svg.append('defs')
       .append('clipPath')
       .attr('id', 'xAxisClip')
       .append('rect')
       .attr('x', -margin.left)
       .attr('width', width + margin.left)
-      .attr('height', height);  // Include top and bottom margins as well
-    
-    
+      .attr('height', height);
 
     updateChartRef.current = updateChart;
     const newAdjustedData = updateChart();
     setAdjustedData(newAdjustedData);
 
-    console.log('Initial call to applyZoom');
     applyZoom(d3.zoomIdentity, newAdjustedData);
   }, [height, margin.left, margin.right, margin.top, margin.bottom, width, xScale, yScale, applyZoom, updateChart]);
 
   useEffect(() => {
     if (updateChartRef.current) {
-      console.log('Calling updateChartRef.current');
       updateChartRef.current();
-    } else {
-      console.log('updateChartRef.current is not set');
     }
   }, [state.showDirectReferences, state.showAssumedInfluences]);
 
   useEffect(() => {
-    console.log('Handling zoom updates');
     applyZoom(currentZoomState, adjustedData);
   }, [currentZoomState, adjustedData, applyZoom]);
-
-  const handleHoverCardWheel = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log("Hover card wheel event handled");
-
-    const scrollAmount = 0.5 * e.deltaY;
-    const hoverCard = hoverCardRef.current;
-    hoverCard.scrollTop += scrollAmount;
-  };
 
   const handleQueryChange = (event) => {
     const query = event.target.value;
     dispatch({ type: 'SET_SEARCH_QUERY', payload: query });
-  
+
     if (query) {
       const searchResults = adjustedData.filter(d => 
         query.split(' ').every(part => 
@@ -681,44 +682,55 @@ const TreeReferenceGraph = () => {
   const handleResultClick = (result) => {
     const svg = d3.select(chartRef.current).select('g');
     const targetCircle = svg.select(`#circle-${result.id}`);
-    
+
     if (!targetCircle.empty()) {
       const event = new Event('mouseover');
       targetCircle.node().dispatchEvent(event);
+
+      const cx = parseFloat(targetCircle.attr('cx'));
+      const cy = parseFloat(targetCircle.attr('cy'));
+
+      if (textCardRef.current) {
+        const textCard = textCardRef.current;
+        const textCardWidth = textCard.offsetWidth;
+        console.log("width:", textCardWidth);
+        const textCardHeight = textCard.offsetHeight;
+        console.log("height:", textCardHeight);
+        console.log("EEKS", cx);
+        console.log("EEGRIK", cy);
+        
+
+        const leftPosition = cx + textCardWidth/2;
+        const topPosition = cy + 40;
+
+        textCard.style.left = `${leftPosition}px`;
+        textCard.style.top = `${topPosition}px`;
+        textCard.style.display = 'block';
+        textCard.innerHTML = `<strong>${result.title}</strong>`;
+      }
+
       dispatch({ type: 'SET_SEARCH_QUERY', payload: '' });
       dispatch({ type: 'SET_SEARCH_RESULTS', payload: [] });
-      setActiveCircleId(result.id); // Set the active circle
+      setActiveCircleId(result.id);
     } else {
       console.log("Target circle not found for result:", result);
     }
   };
 
-  
-
-  
   return (
-    <div 
-      id="tree-reference-graph"
-      className={`tree-reference-graph`}
-     >
+    <div id="tree-reference-graph" className="tree-reference-graph">
       <div ref={textCardRef} className="text-card" />
       <div ref={legendContainerRef} className="legend-container">
         <div className="legend-item">
           <span>Show Direct Reference</span>
-          <ToggleSwitch
-            isAllSelected={state.showDirectReferences}
-            onToggle={handleToggleDirectReferences}
-          />
+          <ToggleSwitch isAllSelected={state.showDirectReferences} onToggle={handleToggleDirectReferences} />
         </div>
         <div className="legend-item">
           <span>Show Assumed Influence</span>
-          <ToggleSwitch
-            isAllSelected={state.showAssumedInfluences}
-            onToggle={handleToggleAssumedInfluences}
-          />
+          <ToggleSwitch isAllSelected={state.showAssumedInfluences} onToggle={handleToggleAssumedInfluences} />
         </div>
       </div>
-  
+
       <div ref={searchBarContainerRef}>
         <SearchBar
           query={state.searchQuery}
@@ -727,7 +739,7 @@ const TreeReferenceGraph = () => {
           onResultClick={handleResultClick}
         />
       </div>
-      <svg ref={chartRef} onWheel={handleHoverCardWheel}>
+      <svg ref={chartRef}>
         <ZoomableArea 
           width={width} 
           height={height} 
@@ -737,51 +749,66 @@ const TreeReferenceGraph = () => {
           onClick={handleZoomableAreaClick} 
         />
       </svg>
-  
+
+      {/* Hover card */}
       <div className="hover-card" ref={hoverCardRef} style={{ pointerEvents: 'auto', display: state.hoveredText ? 'block' : 'none' }}>
-        {state.hoveredText ? console.log('Hover card displayed') : console.log('Hover card hidden')}
-        {state.referencingTitles.length > 0 && (
-          <div className="hover-card-section">
-            <p><strong>Informs:</strong></p>
-            <ul>
-              {state.referencingTitles.map((item, index) => (
-                <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'assumed-influence'}>
-                  {item.title} ({item.date})
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-        <div className="hover-card-main">
-          <p><span className="hover-card-title">{state.hoveredText?.title}</span></p>
-          <p><span>{state.hoveredText?.author}</span></p>
-          <p><span>{state.hoveredText?.dateForCard}</span></p>
-          <p><span>{state.hoveredText?.oLanguage}</span></p>
-          <p><span>{state.hoveredText?.location}</span></p>
-        </div>
-        {state.referencedTitles.length > 0 && (
-          <div className="hover-card-section">
-            <p><strong>Informed by:</strong></p>
-            <ul>
-              {state.referencedTitles.map((item, index) => (
-                <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'assumed-influence'}>
-                  {item.title} ({item.date})
-                </li>
-              ))}
-            </ul>
+        {state.hoveredText && (
+          <div className="hover-card-columns">
+            {/* Column 1 */}
+            <div className="hover-card-column">
+              {state.referencedTitles.length > 0 && (
+                <div className="hover-card-section">
+                  <p><strong>Informed by:</strong></p>
+                  <ul>
+                    {state.referencedTitles.map((item, index) => (
+                      <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'assumed-influence'}>
+                        {item.title} ({item.date})
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            {/* Column 2: Main Content */}
+            <div className="hover-card-column">
+              <div className="hover-card-main">
+                <p><span className="hover-card-title">{state.hoveredText?.title}</span></p>
+                <p><span>{state.hoveredText?.author}</span></p>
+                <p><span>{state.hoveredText?.dateForCard}</span></p>
+                <p><span>{state.hoveredText?.oLanguage}</span></p>
+                <p><span>{state.hoveredText?.location}</span></p>
+              </div>
+            </div>
+
+            {/* Column 3 */}
+            <div className="hover-card-column">
+              {state.referencingTitles.length > 0 && (
+                <div className="hover-card-section">
+                  <p><strong>Informs:</strong></p>
+                  <ul>
+                    {state.referencingTitles.map((item, index) => (
+                      <li key={index} className={item.referenceType === 'direct reference' ? 'direct-reference' : 'assumed-influence'}>
+                        {item.title} ({item.date})
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
-  
+
       <div className="tags-container" ref={tagsContainerRef}>
-        <h2>Literary Forms</h2> {/* New label for group1Tags */}
+        <h2>Literary Forms</h2>
         <div className="toggle-container">
-            <span>Select all</span>
-            <ToggleSwitch
-              isAllSelected={group1Tags.every(tag => state.selectedTags.includes(tag))}
-              onToggle={handleToggleGroup1}
-            />
-          </div>
+          <span>Select all</span>
+          <ToggleSwitch
+            isAllSelected={group1Tags.every(tag => state.selectedTags.includes(tag))}
+            onToggle={handleToggleGroup1}
+          />
+        </div>
         <div className="tag-group tag-group-1">
           {group1Tags.map((tag, index) => (
             <div
@@ -798,16 +825,16 @@ const TreeReferenceGraph = () => {
               <label htmlFor={`tag-${tag}`}>{tag}</label>
             </div>
           ))}
-         </div>
-  
-        <h2>Disciplines</h2> {/* New label for group2Tags */}
+        </div>
+
+        <h2>Disciplines</h2>
         <div className="toggle-container">
-            <span>Select all</span>
-            <ToggleSwitch
-              isAllSelected={group2Tags.every(tag => state.selectedTags.includes(tag))}
-              onToggle={handleToggleGroup2}
-            />
-          </div>
+          <span>Select all</span>
+          <ToggleSwitch
+            isAllSelected={group2Tags.every(tag => state.selectedTags.includes(tag))}
+            onToggle={handleToggleGroup2}
+          />
+        </div>
         <div className="tag-group tag-group-2">
           {group2Tags.map((tag, index) => (
             <div key={index} className="tag-item">
@@ -821,7 +848,7 @@ const TreeReferenceGraph = () => {
               <label htmlFor={`tag-${tag}`}>{tag}</label>
             </div>
           ))}
-          </div>
+        </div>
       </div>
     </div>
   );

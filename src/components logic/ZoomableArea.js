@@ -18,7 +18,8 @@ const ZoomableArea = ({ width, height, margin, onZoom, zoomState, onClick }) => 
     svg.call(zoom);
 
     return () => {
-      svg.on('.zoom', null);
+      svg.call(d3.zoom().transform, d3.zoomIdentity); // Reset zoom state on unmount
+      svg.on('.zoom', null); // Remove zoom event listener
     };
   }, [onZoom, width, height, margin]);
 
