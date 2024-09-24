@@ -23,9 +23,15 @@ const SearchBar = ({ query, results, onQueryChange, onResultClick }) => {
           event.preventDefault(); // Prevent default scrolling behavior
           break;
         case 'Enter':
-          if (selectedIndex >= 0) {
-            onResultClick(results[selectedIndex]);
+          if (results.length > 0) {
+            if (selectedIndex >= 0) {
+              onResultClick(results[selectedIndex]);
+            } else {
+              // If no result is selected, default to the first result
+              onResultClick(results[0]);
+            }
           }
+          event.preventDefault(); // Prevent default form submission behavior
           break;
         default:
           break;
@@ -48,6 +54,7 @@ const SearchBar = ({ query, results, onQueryChange, onResultClick }) => {
   const handleBlur = () => {
     if (!isClickingResult.current) {
       onQueryChange({ target: { value: '' } }); // Clear the search query
+      setSelectedIndex(-1); // Reset selected index
     }
   };
 
@@ -59,6 +66,7 @@ const SearchBar = ({ query, results, onQueryChange, onResultClick }) => {
   const handleResultClick = (result) => {
     onResultClick(result);
     isClickingResult.current = false;
+    setSelectedIndex(-1); // Reset selected index after click
   };
 
   return (

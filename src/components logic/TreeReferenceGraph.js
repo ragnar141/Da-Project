@@ -94,7 +94,7 @@ const ToggleSwitch = ({ isAllSelected, onToggle }) => (
 
 const TreeReferenceGraph = () => {
   console.log('TreeReferenceGraph component rendered');
-  const updateChartRef = useRef(null); 
+  const updateChartRef = useRef(null);
   const chartRef = useRef(null);         // Reference to the SVG element
   const hoverCardRef = useRef(null);     // Reference to the hover card element
   const textCardRef = useRef(null);      // Reference for the TextCard
@@ -106,15 +106,11 @@ const TreeReferenceGraph = () => {
   const [currentZoomState, setCurrentZoomState] = useState(d3.zoomIdentity); // Zoom state
   const [adjustedData, setAdjustedData] = useState([]); // Adjusted data state
   const [activeCircleId, setActiveCircleId] = useState(null);
-  
 
   const margin = useMemo(() => ({ top: 0, right: 185, bottom: 20, left: 100 }), []); // Margin for the SVG
   const width = 1440 - margin.left - margin.right; // Calculate width
   const height = 620 - margin.top - margin.bottom; // Calculate height
-  const [zoomTarget, setZoomTarget] = useState(null);
-
-
- 
+  const [zoomTarget] = useState(null);
 
   // Handler functions for group1Tags
   const handleToggleGroup1 = () => {
@@ -140,7 +136,7 @@ const TreeReferenceGraph = () => {
   };
 
   const languages = useMemo(() => [
-      'Japanese/Korean', 'Chinese/Thai', 'Sanskrit/Pali/Tibetan', 'Different Languages', 'Latin', 'Arabic', 'Greek', 'German', 'English', 'French', 'Italian/Spanish/Danish/Russian'
+    'Japanese/Korean', 'Chinese/Thai', 'Sanskrit/Pali/Tibetan', 'Different Languages', 'Latin', 'Arabic', 'Greek', 'German', 'English', 'French', 'Italian/Spanish/Danish/Russian'
   ], []);
 
   const xScale = useMemo(() => d3.scaleLinear()
@@ -196,7 +192,6 @@ const TreeReferenceGraph = () => {
       id: d.index,
       language: d["dataviz friendly original language"],
       year: d["dataviz friendly date"],
-      // Continuing from where we left off...
       dateForCard: d["date"],
       oLanguage: d["original language"],
       author: d.author,
@@ -226,18 +221,22 @@ const TreeReferenceGraph = () => {
       setActiveCircleId(null);
       dispatch({ type: 'CLEAR_HOVERED_TEXT' });
     }
+    // Make the textCard disappear by setting its display to 'none'
+    if (textCardRef.current) {
+      textCardRef.current.style.display = 'none';
+    }
   };
 
   const applyZoom = useCallback(
     (zoomTransform, adjustedData, zoomTarget) => {
       if (zoomTransform && adjustedData) {
-        console.log("applyin zoooomies");
-        
+        console.log("Applying zoom...");
+
         if (zoomTransform.k === currentZoomState.k && zoomTarget === activeCircleId) {
           console.log('Zoom already applied to the current target, skipping...');
           return; // Skip reapplying the same zoom
         }
-        
+
         const svg = d3.select(chartRef.current).select('g');
         const newXScale = zoomTransform.rescaleX(xScale);
 
@@ -354,21 +353,21 @@ const TreeReferenceGraph = () => {
 
         if (textCardRef.current && textCardRef.current.style.display === 'block' && activeCircleId) {
           const targetCircle = adjustedData.find((d) => d.id === activeCircleId);
-  
+
           if (targetCircle) {
             // Apply zoom transformation to target circle position
             const adjustedCx = newXScale(targetCircle.adjustedYear || targetCircle.year);
             const adjustedCy = getYPosition(newYScale, targetCircle.language, targetCircle.adjustedAuthor);
-  
+
             requestAnimationFrame(() => {
               const textCard = textCardRef.current;
-  
+
               const textCardWidth = textCard.offsetWidth;
               const textCardHeight = textCard.offsetHeight;
-  
+
               const svgRect = chartRef.current.getBoundingClientRect();
               const padding = 10;
-  
+
               // Recalculate the position based on the adjusted circle position
               let leftPosition = adjustedCx - textCardWidth / 2 + 130;
               if (leftPosition < padding) {
@@ -376,23 +375,23 @@ const TreeReferenceGraph = () => {
               } else if (leftPosition + textCardWidth > svgRect.width - padding) {
                 leftPosition = svgRect.width - textCardWidth - padding;
               }
-  
+
               let topPosition = adjustedCy + 40;
               if (topPosition + textCardHeight > svgRect.height - padding) {
                 topPosition = adjustedCy - textCardHeight - 10;
               } else if (topPosition < padding) {
                 topPosition = padding;
               }
-  
+
               // Apply new positions to the textCard
               textCard.style.left = `${leftPosition}px`;
               textCard.style.top = `${topPosition}px`;
-  
+
               console.log(`TextCard updated during zoom/drag: left = ${leftPosition}px, top = ${topPosition}px`);
             });
           }
         }
-  
+
         // Update the current zoom state
         setCurrentZoomState(zoomTransform);
       }
@@ -400,14 +399,24 @@ const TreeReferenceGraph = () => {
     [xScale, yScale, getYPosition, width, height, languages, dataMap, activeCircleId, currentZoomState.k]
   );
 
-  const debouncedApplyZoom = useCallback(
-    debounce((zoomTransform, adjustedData, zoomTarget) => {
-      // The function logic here
-    }, 100), [xScale, yScale, getYPosition, width, height, languages, dataMap, activeCircleId, currentZoomState.k]
-  );
+  // Use useRef and useEffect to manage the debounced function
+  const debouncedApplyZoomRef = useRef(null);
+
+  useEffect(() => {
+    debouncedApplyZoomRef.current = debounce((zoomTransform, adjustedData, zoomTarget) => {
+      applyZoom(zoomTransform, adjustedData, zoomTarget);
+    }, 100);
+
+    // Cleanup function to cancel any pending debounced calls if the component unmounts
+    return () => {
+      if (debouncedApplyZoomRef.current) {
+        debouncedApplyZoomRef.current.cancel();
+      }
+    };
+  }, [applyZoom]);
 
   const updateChart = useCallback(() => {
-    console.log("updatin da chart");
+    console.log("Updating the chart...");
     const svg = d3.select(chartRef.current).select('g');
 
     // Remove existing reference lines
@@ -522,40 +531,62 @@ const TreeReferenceGraph = () => {
       .style('stroke', 'black')
       .style('stroke-opacity', d => getBorderOpacity(Math.max(currentZoomState.k, 1))) // Adjust border opacity based on zoom
       .on('mouseover', (event, d) => {
+        // Check if there is an active circle
+        if (activeCircleId && activeCircleId !== d.id) {
+          // Deactivate the currently active circle by resetting its styles
+          const activeCircle = d3.select(`#circle-${activeCircleId}`);
+          if (!activeCircle.empty()) {
+            activeCircle.style('fill', 'white').attr('r', Math.min(5, 2 * currentZoomState.k)); // Reset fill and radius
+          }
+
+          // Hide the currently displayed TextCard
+          if (textCardRef.current) {
+            textCardRef.current.style.display = 'none';
+          }
+
+          // Reset the opacity of any reference lines associated with the active circle
+          d3.selectAll(`.reference-${activeCircleId}`).attr('stroke-opacity', 0.05);
+        }
+
+        // Set the new active circle's ID
+        setActiveCircleId(d.id);
+
+        // Highlight the reference lines associated with the new circle
         d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.9);
+
+        // Change the fill and radius of the hovered circle
         d3.select(event.target).style('fill', '#ffcc00').attr('r', 10);
-      
+
+        // Check if the TextCard exists and proceed to display it
         if (textCardRef.current) {
           const textCard = textCardRef.current;
-      
-          // Step 1: Make the textCard visible to force it into the DOM
+
+          // Step 1: Make the TextCard visible
           textCard.style.display = 'block';
           textCard.innerHTML = `<strong>${d.title}</strong>`;
-      
-          // Step 2: Force reflow using void operator
-          void textCard.offsetWidth;  // This forces reflow and avoids the lint error
-      
+
+          // Step 2: Force reflow
+          void textCard.offsetWidth;
+
           // Step 3: Use requestAnimationFrame to ensure dimensions are updated
           requestAnimationFrame(() => {
             const cx = parseFloat(event.target.getAttribute('cx'));
             const cy = parseFloat(event.target.getAttribute('cy'));
-      
+
             const textCardWidth = textCard.offsetWidth;
             const textCardHeight = textCard.offsetHeight;
 
-            
-      
             const svgRect = chartRef.current.getBoundingClientRect(); // Get SVG container boundaries
-            const padding = 10; // Padding to prevent the textCard from touching the edges
-      
+            const padding = 10; // Padding to prevent the TextCard from touching the edges
+
             // Calculate new left position and check for boundary overflow
-            let leftPosition = cx - textCardWidth/2 + 130;
+            let leftPosition = cx - textCardWidth / 2 + 130;
             if (leftPosition < padding) {
               leftPosition = padding; // Ensure it doesn't overflow on the left
             } else if (leftPosition + textCardWidth > svgRect.width - padding) {
               leftPosition = svgRect.width - textCardWidth - padding; // Ensure it doesn't overflow on the right
             }
-      
+
             // Calculate new top position and check for boundary overflow
             let topPosition = cy + 40;
             if (topPosition + textCardHeight > svgRect.height - padding) {
@@ -563,17 +594,13 @@ const TreeReferenceGraph = () => {
             } else if (topPosition < padding) {
               topPosition = padding; // Prevent overflow at the top
             }
-      
-            // Apply calculated positions to the textCard
+
+            // Apply calculated positions to the TextCard
             textCard.style.left = `${leftPosition}px`;
             textCard.style.top = `${topPosition}px`;
           });
         }
       })
-      
-      
-      
-      
       .on('mouseout', (event, d) => {
         d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.05);
         const zoomScaleFactor = Math.max(currentZoomState.k, 1);
@@ -581,18 +608,19 @@ const TreeReferenceGraph = () => {
         d3.select(event.target)
           .style('fill', 'white')
           .attr('r', radius);
-      
+
+        setActiveCircleId(null);
+
         if (textCardRef.current) {
           textCardRef.current.style.display = 'none';
         }
       })
-      
       .on('click', (event, d) => {
         event.stopPropagation(); // Prevent click from propagating further
-      
+
         // Highlight the reference lines when clicked
         d3.selectAll(`.reference-${d.id}`).attr('stroke-opacity', 0.9);
-      
+
         // Fetch referencing and referenced texts (refs and refsBy)
         const refs = referencesData
           .filter(ref => ref.primary_text === d.id)
@@ -609,7 +637,7 @@ const TreeReferenceGraph = () => {
             referenceType: text.referenceType,
           }))
           .sort((a, b) => b.year - a.year);
-      
+
         const refsBy = referencesData
           .filter(ref => ref.secondary_text === d.id)
           .map(ref => ({
@@ -625,19 +653,19 @@ const TreeReferenceGraph = () => {
             referenceType: text.referenceType,
           }))
           .sort((a, b) => b.year - a.year);
-      
+
         // Dispatch hovered text and references into the state for rendering in HoverCard
         dispatch({
           type: 'SET_HOVERED_TEXT',
           payload: { text: d, referencingTitles: refs, referencedTitles: refsBy },
         });
-    
+
         // Delay execution to allow HoverCard to render
         setTimeout(() => {
           if (hoverCardRef.current) {
             const hoverCard = hoverCardRef.current;
             hoverCard.style.display = 'block'; // Show the HoverCard
-    
+
             // Update the HoverCard content
             hoverCard.querySelector('.hover-card-main').innerHTML = `
               <p><span class="hover-card-title">${d.title}</span></p>
@@ -651,7 +679,7 @@ const TreeReferenceGraph = () => {
             console.error('Hover card reference is null.');
           }
         }, 0); // Delay by 0ms to allow hoverCardRef to be updated
-    
+
         // Handle click outside HoverCard to hide it
         const handleClickOutsideHoverCard = (e) => {
           if (
@@ -664,10 +692,8 @@ const TreeReferenceGraph = () => {
           }
         };
         document.addEventListener('click', handleClickOutsideHoverCard);
-    });
-    
-      
-    
+      });
+
     svg.selectAll('.horizontal-line')
       .data([...languages.map(d => yScale(d) - yScale.step() / 2), height])
       .enter()
@@ -683,7 +709,7 @@ const TreeReferenceGraph = () => {
       .attr('clip-path', 'url(#xAxisClip)');
 
     return adjustedData;
-  }, [adjustForOverlap, height, width, languages, currentZoomState, state.showAssumedInfluences, state.showDirectReferences, data, dataMap, getYPosition, state.selectedTags, xScale, yScale]);
+  }, [adjustForOverlap, activeCircleId, height, width, languages, currentZoomState, state.showAssumedInfluences, state.showDirectReferences, data, dataMap, getYPosition, state.selectedTags, xScale, yScale]);
 
   useEffect(() => {
     const svg = d3.select(chartRef.current)
@@ -729,8 +755,8 @@ const TreeReferenceGraph = () => {
     dispatch({ type: 'SET_SEARCH_QUERY', payload: query });
 
     if (query) {
-      const searchResults = adjustedData.filter(d => 
-        query.split(' ').every(part => 
+      const searchResults = adjustedData.filter(d =>
+        query.split(' ').every(part =>
           d.author.toLowerCase().includes(part.toLowerCase()) ||
           d.title.toLowerCase().includes(part.toLowerCase())
         )
@@ -748,7 +774,7 @@ const TreeReferenceGraph = () => {
         const newAdjustedData = updateChart();
         resolve(newAdjustedData);
       });
-  
+
       updateChartPromise.then((newAdjustedData) => {
         const target = newAdjustedData.find((d) => d.id === zoomTarget);
         if (target) {
@@ -757,77 +783,75 @@ const TreeReferenceGraph = () => {
           const zoomTransform = d3.zoomIdentity
             .translate(width / 2 - cx * maxZoomLevel, height / 2 - cy * maxZoomLevel)
             .scale(maxZoomLevel);
-  
-          debouncedApplyZoom(zoomTransform, newAdjustedData, zoomTarget);
+
+          debouncedApplyZoomRef.current(zoomTransform, newAdjustedData, zoomTarget);
         }
       });
     }
-  }, [zoomTarget, debouncedApplyZoom, xScale, yScale, getYPosition, height, updateChart, width]);
-  
-  
+  }, [zoomTarget, xScale, yScale, getYPosition, height, updateChart, width, applyZoom]);
 
   const handleResultClick = (result) => {
     const svg = d3.select(chartRef.current).select('g');
-  
+
     // Reset the zoom to the default level (fully zoomed out)
     const defaultZoomTransform = d3.zoomIdentity; // Default zoom identity (no zoom applied)
-  
+
     // Apply the default zoom transform first to reset the zoom
     applyZoom(defaultZoomTransform, adjustedData);
-  
+
     // Use a small timeout to allow the zoom reset to apply before continuing
     setTimeout(() => {
       // After resetting the zoom, calculate the new zoom transform for the clicked result
       const maxZoomLevel = 8; // Example scale factor for maximum zoom
-  
+
       // Find the circle after resetting the zoom
       const targetCircle = svg.select(`#circle-${result.id}`);
-  
+
       if (!targetCircle.empty()) {
         // Get the position of the circle
         const cx = parseFloat(targetCircle.attr('cx'));
         const cy = parseFloat(targetCircle.attr('cy'));
-  
+
         console.log(`Circle position: cx = ${cx}, cy = ${cy}`);
-  
+
         // Now apply the zoom transform for the result
         const zoomTransform = d3.zoomIdentity
           .translate(width / 2 - cx * maxZoomLevel, height / 2 - cy * maxZoomLevel)
           .scale(maxZoomLevel);
-  
+
         console.log(`Zooming in with transform: ${JSON.stringify(zoomTransform)}`);
-  
+
         // Apply the zoom transform to zoom in on the circle
         applyZoom(zoomTransform, adjustedData);
-  
+
         // After zooming in, trigger 'mouseover' event on the circle
         console.log('Triggering mouseover event');
         const event = new Event('mouseover');
         targetCircle.node().dispatchEvent(event);
-  
+
         // Ensure TextCard is displayed after zoom
         requestAnimationFrame(() => {
           if (textCardRef.current) {
             const textCard = textCardRef.current;
-  
+
             // Display and update the content of the TextCard
             textCard.style.display = 'block';
             textCard.innerHTML = `<strong>${result.title}</strong>`;
-  
+
             // Get TextCard dimensions
             const textCardWidth = textCard.offsetWidth;
             const textCardHeight = textCard.offsetHeight;
-  
+
             console.log(`TextCard size: width = ${textCardWidth}, height = ${textCardHeight}`);
-  
+
             // Get the boundaries of the SVG container for proper positioning
             const svgRect = chartRef.current.getBoundingClientRect();
             const padding = 10; // Padding to prevent overflow
-  
+
             // Adjust `cx` and `cy` based on the current zoom level
             const adjustedCx = zoomTransform.applyX(cx);
             const adjustedCy = zoomTransform.applyY(cy);
-  
+
             // Calculate the left position, centering on the adjusted `cx`, and preventing overflow
             let leftPosition = adjustedCx - textCardWidth / 2 + 130;
             if (leftPosition < padding) {
@@ -835,7 +859,7 @@ const TreeReferenceGraph = () => {
             } else if (leftPosition + textCardWidth > svgRect.width - padding) {
               leftPosition = svgRect.width - textCardWidth - padding; // Prevent right overflow
             }
-  
+
             // Calculate the top position, placing the TextCard below the adjusted circle, and ensuring no overflow
             let topPosition = adjustedCy + 40;
             if (topPosition + textCardHeight > svgRect.height - padding) {
@@ -843,15 +867,15 @@ const TreeReferenceGraph = () => {
             } else if (topPosition < padding) {
               topPosition = padding; // Prevent top overflow
             }
-  
+
             // Apply calculated positions to the TextCard
             textCard.style.left = `${leftPosition}px`;
             textCard.style.top = `${topPosition}px`;
-  
+
             console.log(`TextCard positioned at: left = ${leftPosition}px, top = ${topPosition}px`);
           }
         });
-  
+
         // Clear search input and results after handling the click
         dispatch({ type: 'SET_SEARCH_QUERY', payload: '' });
         dispatch({ type: 'SET_SEARCH_RESULTS', payload: [] });
@@ -861,9 +885,6 @@ const TreeReferenceGraph = () => {
       }
     }, 200); // Adjust timeout duration as necessary to allow zoom reset to complete
   };
-  
-  
-  
 
   return (
     <div id="tree-reference-graph" className="tree-reference-graph">
@@ -888,13 +909,13 @@ const TreeReferenceGraph = () => {
         />
       </div>
       <svg ref={chartRef}>
-        <ZoomableArea 
-          width={width} 
-          height={height} 
-          margin={margin} 
-          onZoom={setCurrentZoomState} 
-          zoomState={currentZoomState} 
-          onClick={handleZoomableAreaClick} 
+        <ZoomableArea
+          width={width}
+          height={height}
+          margin={margin}
+          onZoom={setCurrentZoomState}
+          zoomState={currentZoomState}
+          onClick={handleZoomableAreaClick}
         />
       </svg>
 
