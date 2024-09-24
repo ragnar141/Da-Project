@@ -537,7 +537,7 @@ const TreeReferenceGraph = () => {
             const padding = 10; // Padding to prevent the textCard from touching the edges
       
             // Calculate new left position and check for boundary overflow
-            let leftPosition = cx - textCardWidth / 2;
+            let leftPosition = cx - textCardWidth/2 + 130;
             if (leftPosition < padding) {
               leftPosition = padding; // Ensure it doesn't overflow on the left
             } else if (leftPosition + textCardWidth > svgRect.width - padding) {
@@ -813,7 +813,7 @@ const TreeReferenceGraph = () => {
             const padding = 10; // Padding to prevent overflow
   
             // Calculate the left position, preventing overflow
-            let leftPosition = cx - textCardWidth / 2;
+            let leftPosition = cx - textCardWidth/2 + 130;
             if (leftPosition < padding) {
               leftPosition = padding; // Prevent left overflow
             } else if (leftPosition + textCardWidth > svgRect.width - padding) {
