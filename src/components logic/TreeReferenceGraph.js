@@ -6,6 +6,7 @@ import directReferencesData from './datasets/direct_references.json';
 import assumedInfluencesData from './datasets/assumed_influences.json';
 import ZoomableArea from './ZoomableArea';
 import SearchBar from './SearchBar'; // Import the SearchBar component
+import { debounce } from 'lodash';
 
 // Define the list of tags
 const group1Tags = [
@@ -105,10 +106,15 @@ const TreeReferenceGraph = () => {
   const [currentZoomState, setCurrentZoomState] = useState(d3.zoomIdentity); // Zoom state
   const [adjustedData, setAdjustedData] = useState([]); // Adjusted data state
   const [activeCircleId, setActiveCircleId] = useState(null);
+  
 
   const margin = useMemo(() => ({ top: 0, right: 185, bottom: 20, left: 100 }), []); // Margin for the SVG
   const width = 1440 - margin.left - margin.right; // Calculate width
   const height = 620 - margin.top - margin.bottom; // Calculate height
+  const [zoomTarget, setZoomTarget] = useState(null);
+
+
+ 
 
   // Handler functions for group1Tags
   const handleToggleGroup1 = () => {
@@ -223,9 +229,15 @@ const TreeReferenceGraph = () => {
   };
 
   const applyZoom = useCallback(
-    (zoomTransform, adjustedData) => {
+    (zoomTransform, adjustedData, zoomTarget) => {
       if (zoomTransform && adjustedData) {
         console.log("applyin zoooomies");
+        
+        if (zoomTransform.k === currentZoomState.k && zoomTarget === activeCircleId) {
+          console.log('Zoom already applied to the current target, skipping...');
+          return; // Skip reapplying the same zoom
+        }
+        
         const svg = d3.select(chartRef.current).select('g');
         const newXScale = zoomTransform.rescaleX(xScale);
 
@@ -339,9 +351,47 @@ const TreeReferenceGraph = () => {
               .attr('stroke-opacity', activeCircleId && (sourceId === activeCircleId || targetId === activeCircleId) ? 0.9 : 0.05);
           }
         });
+
+        if (zoomTarget) {
+          const targetCircle = adjustedData.find((d) => d.id === zoomTarget);
+          if (targetCircle) {
+            console.log('Displaying text card for:', targetCircle.title);
+            requestAnimationFrame(() => {
+              if (textCardRef.current) {
+                const textCard = textCardRef.current;
+                const cx = newXScale(targetCircle.adjustedYear || targetCircle.year);
+                const cy = getYPosition(newYScale, targetCircle.language, targetCircle.adjustedAuthor);
+
+                // Calculate position and display the text card
+                const textCardWidth = textCard.offsetWidth;
+                const textCardHeight = textCard.offsetHeight;
+                const svgRect = chartRef.current.getBoundingClientRect();
+                let leftPosition = cx - textCardWidth / 2;
+                let topPosition = cy + 40;
+
+                // Prevent overflow
+                const padding = 10;
+                leftPosition = Math.max(padding, Math.min(svgRect.width - textCardWidth - padding, leftPosition));
+                topPosition = Math.max(padding, Math.min(svgRect.height - textCardHeight - padding, topPosition));
+
+                textCard.style.left = `${leftPosition}px`;
+                textCard.style.top = `${topPosition}px`;
+                textCard.style.display = 'block';
+                textCard.innerHTML = `<strong>${targetCircle.title}</strong>`;
+              }
+            });
+          }
+        }
+        setCurrentZoomState(zoomTransform); // Update zoom state
       }
     },
-    [xScale, yScale, getYPosition, width, height, languages, dataMap, activeCircleId]
+    [xScale, yScale, getYPosition, width, height, languages, dataMap, activeCircleId, currentZoomState.k]
+  );
+
+  const debouncedApplyZoom = useCallback(
+    debounce((zoomTransform, adjustedData, zoomTarget) => {
+      // The function logic here
+    }, 100), [xScale, yScale, getYPosition, width, height, languages, dataMap, activeCircleId, currentZoomState.k]
   );
 
   const updateChart = useCallback(() => {
@@ -679,43 +729,125 @@ const TreeReferenceGraph = () => {
     }
   };
 
+  useEffect(() => {
+    const maxZoomLevel = 8; // Define max zoom level here
+    if (zoomTarget !== null) {
+      const updateChartPromise = new Promise((resolve) => {
+        const newAdjustedData = updateChart();
+        resolve(newAdjustedData);
+      });
+  
+      updateChartPromise.then((newAdjustedData) => {
+        const target = newAdjustedData.find((d) => d.id === zoomTarget);
+        if (target) {
+          const cx = xScale(target.adjustedYear || target.year);
+          const cy = getYPosition(yScale, target.language, target.adjustedAuthor);
+          const zoomTransform = d3.zoomIdentity
+            .translate(width / 2 - cx * maxZoomLevel, height / 2 - cy * maxZoomLevel)
+            .scale(maxZoomLevel);
+  
+          debouncedApplyZoom(zoomTransform, newAdjustedData, zoomTarget);
+        }
+      });
+    }
+  }, [zoomTarget, debouncedApplyZoom, xScale, yScale, getYPosition, height, updateChart, width]);
+  
+  
+
   const handleResultClick = (result) => {
     const svg = d3.select(chartRef.current).select('g');
-    const targetCircle = svg.select(`#circle-${result.id}`);
-
-    if (!targetCircle.empty()) {
-      const event = new Event('mouseover');
-      targetCircle.node().dispatchEvent(event);
-
-      const cx = parseFloat(targetCircle.attr('cx'));
-      const cy = parseFloat(targetCircle.attr('cy'));
-
-      if (textCardRef.current) {
-        const textCard = textCardRef.current;
-        const textCardWidth = textCard.offsetWidth;
-        console.log("width:", textCardWidth);
-        const textCardHeight = textCard.offsetHeight;
-        console.log("height:", textCardHeight);
-        console.log("EEKS", cx);
-        console.log("EEGRIK", cy);
-        
-
-        const leftPosition = cx + textCardWidth/2;
-        const topPosition = cy + 40;
-
-        textCard.style.left = `${leftPosition}px`;
-        textCard.style.top = `${topPosition}px`;
-        textCard.style.display = 'block';
-        textCard.innerHTML = `<strong>${result.title}</strong>`;
+    
+    // Reset the zoom to the default level (fully zoomed out)
+    const defaultZoomTransform = d3.zoomIdentity; // Default zoom identity (no zoom applied)
+    
+    // Apply the default zoom transform first to reset the zoom
+    applyZoom(defaultZoomTransform, adjustedData);
+    
+    // Use a small timeout to allow the zoom reset to apply before continuing
+    setTimeout(() => {
+      // After resetting the zoom, calculate the new zoom transform for the clicked result
+      const maxZoomLevel = 8; // Example scale factor for maximum zoom
+      
+      // Find the circle after resetting the zoom
+      const targetCircle = svg.select(`#circle-${result.id}`);
+      
+      if (!targetCircle.empty()) {
+        // Get the position of the circle
+        const cx = parseFloat(targetCircle.attr('cx'));
+        const cy = parseFloat(targetCircle.attr('cy'));
+  
+        console.log(`Circle position: cx = ${cx}, cy = ${cy}`);
+  
+        // Now apply the zoom transform for the result
+        const zoomTransform = d3.zoomIdentity
+          .translate(width / 2 - cx * maxZoomLevel, height / 2 - cy * maxZoomLevel)
+          .scale(maxZoomLevel);
+  
+        console.log(`Zooming in with transform: ${JSON.stringify(zoomTransform)}`);
+  
+        // Apply the zoom transform to zoom in on the circle
+        applyZoom(zoomTransform, adjustedData);
+  
+        // After zooming in, trigger 'mouseover' event on the circle
+        console.log('Triggering mouseover event');
+        const event = new Event('mouseover');
+        targetCircle.node().dispatchEvent(event);
+  
+        // Ensure TextCard is displayed after zoom
+        requestAnimationFrame(() => {
+          if (textCardRef.current) {
+            const textCard = textCardRef.current;
+  
+            // Display and update the content of the TextCard
+            textCard.style.display = 'block';
+            textCard.innerHTML = `<strong>${result.title}</strong>`;
+  
+            // Get TextCard dimensions
+            const textCardWidth = textCard.offsetWidth;
+            const textCardHeight = textCard.offsetHeight;
+  
+            console.log(`TextCard size: width = ${textCardWidth}, height = ${textCardHeight}`);
+  
+            // Get the boundaries of the SVG container for proper positioning
+            const svgRect = chartRef.current.getBoundingClientRect();
+            const padding = 10; // Padding to prevent overflow
+  
+            // Calculate the left position, preventing overflow
+            let leftPosition = cx - textCardWidth / 2;
+            if (leftPosition < padding) {
+              leftPosition = padding; // Prevent left overflow
+            } else if (leftPosition + textCardWidth > svgRect.width - padding) {
+              leftPosition = svgRect.width - textCardWidth - padding; // Prevent right overflow
+            }
+  
+            // Calculate the top position, ensuring it doesn't overflow
+            let topPosition = cy + 40;
+            if (topPosition + textCardHeight > svgRect.height - padding) {
+              topPosition = cy - textCardHeight - 10; // Position above if it overflows below
+            } else if (topPosition < padding) {
+              topPosition = padding; // Prevent top overflow
+            }
+  
+            // Apply calculated positions to the TextCard
+            textCard.style.left = `${leftPosition}px`;
+            textCard.style.top = `${topPosition}px`;
+  
+            console.log(`TextCard positioned at: left = ${leftPosition}px, top = ${topPosition}px`);
+          }
+        });
+  
+        // Clear search input and results after handling the click
+        dispatch({ type: 'SET_SEARCH_QUERY', payload: '' });
+        dispatch({ type: 'SET_SEARCH_RESULTS', payload: [] });
+        setActiveCircleId(result.id);
+      } else {
+        console.log("Target circle not found for result:", result);
       }
-
-      dispatch({ type: 'SET_SEARCH_QUERY', payload: '' });
-      dispatch({ type: 'SET_SEARCH_RESULTS', payload: [] });
-      setActiveCircleId(result.id);
-    } else {
-      console.log("Target circle not found for result:", result);
-    }
+    }, 200); // Adjust timeout duration as necessary to allow zoom reset to complete
   };
+  
+  
+  
 
   return (
     <div id="tree-reference-graph" className="tree-reference-graph">
