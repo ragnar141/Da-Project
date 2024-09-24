@@ -352,37 +352,49 @@ const TreeReferenceGraph = () => {
           }
         });
 
-        if (zoomTarget) {
-          const targetCircle = adjustedData.find((d) => d.id === zoomTarget);
+        if (textCardRef.current && textCardRef.current.style.display === 'block' && activeCircleId) {
+          const targetCircle = adjustedData.find((d) => d.id === activeCircleId);
+  
           if (targetCircle) {
-            console.log('Displaying text card for:', targetCircle.title);
+            // Apply zoom transformation to target circle position
+            const adjustedCx = newXScale(targetCircle.adjustedYear || targetCircle.year);
+            const adjustedCy = getYPosition(newYScale, targetCircle.language, targetCircle.adjustedAuthor);
+  
             requestAnimationFrame(() => {
-              if (textCardRef.current) {
-                const textCard = textCardRef.current;
-                const cx = newXScale(targetCircle.adjustedYear || targetCircle.year);
-                const cy = getYPosition(newYScale, targetCircle.language, targetCircle.adjustedAuthor);
-
-                // Calculate position and display the text card
-                const textCardWidth = textCard.offsetWidth;
-                const textCardHeight = textCard.offsetHeight;
-                const svgRect = chartRef.current.getBoundingClientRect();
-                let leftPosition = cx - textCardWidth / 2;
-                let topPosition = cy + 40;
-
-                // Prevent overflow
-                const padding = 10;
-                leftPosition = Math.max(padding, Math.min(svgRect.width - textCardWidth - padding, leftPosition));
-                topPosition = Math.max(padding, Math.min(svgRect.height - textCardHeight - padding, topPosition));
-
-                textCard.style.left = `${leftPosition}px`;
-                textCard.style.top = `${topPosition}px`;
-                textCard.style.display = 'block';
-                textCard.innerHTML = `<strong>${targetCircle.title}</strong>`;
+              const textCard = textCardRef.current;
+  
+              const textCardWidth = textCard.offsetWidth;
+              const textCardHeight = textCard.offsetHeight;
+  
+              const svgRect = chartRef.current.getBoundingClientRect();
+              const padding = 10;
+  
+              // Recalculate the position based on the adjusted circle position
+              let leftPosition = adjustedCx - textCardWidth / 2 + 130;
+              if (leftPosition < padding) {
+                leftPosition = padding;
+              } else if (leftPosition + textCardWidth > svgRect.width - padding) {
+                leftPosition = svgRect.width - textCardWidth - padding;
               }
+  
+              let topPosition = adjustedCy + 40;
+              if (topPosition + textCardHeight > svgRect.height - padding) {
+                topPosition = adjustedCy - textCardHeight - 10;
+              } else if (topPosition < padding) {
+                topPosition = padding;
+              }
+  
+              // Apply new positions to the textCard
+              textCard.style.left = `${leftPosition}px`;
+              textCard.style.top = `${topPosition}px`;
+  
+              console.log(`TextCard updated during zoom/drag: left = ${leftPosition}px, top = ${topPosition}px`);
             });
           }
         }
-        setCurrentZoomState(zoomTransform); // Update zoom state
+  
+        // Update the current zoom state
+        setCurrentZoomState(zoomTransform);
       }
     },
     [xScale, yScale, getYPosition, width, height, languages, dataMap, activeCircleId, currentZoomState.k]
@@ -756,21 +768,21 @@ const TreeReferenceGraph = () => {
 
   const handleResultClick = (result) => {
     const svg = d3.select(chartRef.current).select('g');
-    
+  
     // Reset the zoom to the default level (fully zoomed out)
     const defaultZoomTransform = d3.zoomIdentity; // Default zoom identity (no zoom applied)
-    
+  
     // Apply the default zoom transform first to reset the zoom
     applyZoom(defaultZoomTransform, adjustedData);
-    
+  
     // Use a small timeout to allow the zoom reset to apply before continuing
     setTimeout(() => {
       // After resetting the zoom, calculate the new zoom transform for the clicked result
       const maxZoomLevel = 8; // Example scale factor for maximum zoom
-      
+  
       // Find the circle after resetting the zoom
       const targetCircle = svg.select(`#circle-${result.id}`);
-      
+  
       if (!targetCircle.empty()) {
         // Get the position of the circle
         const cx = parseFloat(targetCircle.attr('cx'));
@@ -812,18 +824,22 @@ const TreeReferenceGraph = () => {
             const svgRect = chartRef.current.getBoundingClientRect();
             const padding = 10; // Padding to prevent overflow
   
-            // Calculate the left position, preventing overflow
-            let leftPosition = cx - textCardWidth/2 + 130;
+            // Adjust `cx` and `cy` based on the current zoom level
+            const adjustedCx = zoomTransform.applyX(cx);
+            const adjustedCy = zoomTransform.applyY(cy);
+  
+            // Calculate the left position, centering on the adjusted `cx`, and preventing overflow
+            let leftPosition = adjustedCx - textCardWidth / 2 + 130;
             if (leftPosition < padding) {
               leftPosition = padding; // Prevent left overflow
             } else if (leftPosition + textCardWidth > svgRect.width - padding) {
               leftPosition = svgRect.width - textCardWidth - padding; // Prevent right overflow
             }
   
-            // Calculate the top position, ensuring it doesn't overflow
-            let topPosition = cy + 40;
+            // Calculate the top position, placing the TextCard below the adjusted circle, and ensuring no overflow
+            let topPosition = adjustedCy + 40;
             if (topPosition + textCardHeight > svgRect.height - padding) {
-              topPosition = cy - textCardHeight - 10; // Position above if it overflows below
+              topPosition = adjustedCy - textCardHeight - 10; // Position above if it overflows below
             } else if (topPosition < padding) {
               topPosition = padding; // Prevent top overflow
             }
