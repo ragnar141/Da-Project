@@ -3,7 +3,11 @@ import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react
 import TreeReferenceGraph from './components logic/TreeReferenceGraph';
 import Courses from './components logic/Courses';
 import Contact from './components logic/Contact.js';
+import OtahhL1 from './components logic/OTAHH/otahh_l1.js'; // Import the respective course component
+
+import GF_l1 from './components logic/GF/GF_l1.js'; // Example for another course
 import './App.css';
+import PR_l1 from './components logic/PR/PR_l1.js';
 
 function App() {
   return (

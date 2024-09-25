@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useMemo, useCallback, useState } from 'react'
 import * as d3 from 'd3';
 import { geoOrthographic, geoPath } from 'd3-geo';
 import * as topojson from 'topojson-client';
-import '../components css/otahh_l1.css';
+import '../../components css/otahh_l1.css';
+
 
 // Helper function to calculate the distance between two lat/lng points using Haversine formula
 const haversineDistance = (lat1, lng1, lat2, lng2) => {
@@ -34,11 +35,13 @@ const UserCard = ({ data, position }) => {
   );
 };
 
-function Contact() {
+function OtahhL1() {
   const svgRef = useRef();
   const zoomScaleRef = useRef(1); // Initialize zoom scale at 1
   const [hoveredData, setHoveredData] = useState(null); // Track hovered data
   const [hoverPosition, setHoverPosition] = useState({ x: 0, y: 0 }); // Track hover position
+
+ 
  
 
   // Memoized function to set up the projection and path generator
@@ -273,4 +276,4 @@ function Contact() {
   );
 }
 
-export default Contact;
+export default OtahhL1;

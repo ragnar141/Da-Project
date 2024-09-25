@@ -18,8 +18,8 @@ function Courses() {
 
           {/* Second Column: Author */}
           <div className="column column-author">
-          <p>author and lecturer:</p> 
-          <p>Amir Yakhin</p>
+            <p>author and lecturer:</p> 
+            <p>Amir Yakhin</p>
           </div>
 
           {/* Third Column: Info and Button */}
@@ -28,13 +28,15 @@ function Courses() {
             <Link to="/courses/on-thinking-and-human-history" className="course-button">go to course >></Link>
           </div>
         </div>
+
+        {/* Course 2: Public Relations */}
         <div className="course-item">
           {/* First Column: Title and Description */}
           <div className="column column-title">
             <h2>
-              <Link to="/courses/on-thinking-and-human-history">Public Relations</Link>
+              <Link to="/courses/public-relations">Public Relations</Link>
             </h2>
-            <p>Politics, propogranda, war, strategic commincation, marketing and memes. </p>
+            <p>Politics, propaganda, war, strategic communication, marketing, and memes.</p>
           </div>
 
           {/* Second Column: Author */}
@@ -46,28 +48,30 @@ function Courses() {
           {/* Third Column: Info and Button */}
           <div className="column column-info">
             <p className="info">6 lectures • 10 hours</p>
-            <Link to="/courses/on-thinking-and-human-history" className="course-button">go to course >></Link>
+            <Link to="/courses/public-relations" className="course-button">go to course >></Link>
           </div>
         </div>
+
+        {/* Course 3: Modern German Thought */}
         <div className="course-item">
           {/* First Column: Title and Description */}
           <div className="column column-title">
             <h2>
-              <Link to="/courses/on-thinking-and-human-history">Modern German thought: Conclusion of Philosophy</Link>
+              <Link to="/courses/modern-german-thought">Modern German Thought: Conclusion of Philosophy</Link>
             </h2>
-            <p>Tracing the origins of German Idealism, we will examine the history of philosophy and its limits.  </p>
+            <p>Tracing the origins of German Idealism, we will examine the history of philosophy and its limits.</p>
           </div>
 
           {/* Second Column: Author */}
           <div className="column column-author">
-          <p>author and lecturer:</p> 
-          <p>Jay Ryoo</p>
+            <p>author and lecturer:</p> 
+            <p>Jay Ryoo</p>
           </div>
 
           {/* Third Column: Info and Button */}
           <div className="column column-info">
             <p className="info">9 lectures • 18 hours</p>
-            <Link to="/courses/on-thinking-and-human-history" className="course-button">go to course >></Link>
+            <Link to="/courses/modern-german-thought" className="course-button">go to course >></Link>
           </div>
         </div>
 
