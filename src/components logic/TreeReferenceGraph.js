@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useReducer, useMemo, useCallback, useState } from 'react';
 import * as d3 from 'd3';
 import '../components css/TreeReferenceGraph.css'; // Import the CSS file
-import textsData from './datasets/converted_data.json';
+import textsData from './datasets/formatted_data.json';
 import directReferencesData from './datasets/direct_references.json';
 import assumedInfluencesData from './datasets/assumed_influences.json';
 import ZoomableArea from './ZoomableArea';
@@ -111,6 +111,24 @@ const TreeReferenceGraph = () => {
   const width = 1440 - margin.left - margin.right; // Calculate width
   const height = 620 - margin.top - margin.bottom; // Calculate height
   const [zoomTarget] = useState(null);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape' && state.hoveredText) {
+        handleCloseHoverCard();
+      }
+    };
+
+    // Attach the event listener when hover card is visible
+    if (state.hoveredText) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+
+    // Clean up the event listener when hover card is hidden or on unmount
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [state.hoveredText]); // Re-run the effect when hoveredText state changes
   
   const handleCloseHoverCard = () => {
     dispatch({ type: 'CLEAR_HOVERED_TEXT' });
@@ -640,7 +658,7 @@ const TreeReferenceGraph = () => {
             date: text.dateForCard,
             referenceType: text.referenceType,
           }))
-          .sort((a, b) => b.year - a.year);
+          .sort((a, b) => a.year - b.year);
 
         const refsBy = referencesData
           .filter(ref => ref.secondary_text === d.id)
@@ -656,7 +674,7 @@ const TreeReferenceGraph = () => {
             date: text.dateForCard,
             referenceType: text.referenceType,
           }))
-          .sort((a, b) => b.year - a.year);
+          .sort((a, b) => a.year - b.year);
 
         // Dispatch hovered text and references into the state for rendering in HoverCard
         dispatch({
