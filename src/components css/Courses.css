@@ -5,10 +5,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: left;
   min-height: 100vh;
   background-color: #f9f9f9;
-  padding: 40px;
+  padding-left: 30px;
+  padding-top: 20px;
 }
 
 /* Heading styling */
@@ -31,15 +32,16 @@
 /* Updated Course item styling */
 .course-list {
   width: 100%; /* Stretch the course list to full width */
-  max-width: 1200px; /* Limit the maximum width of the course list */
+  max-width: 1350px; /* Limit the maximum width of the course list */
 }
 
 .course-item {
+  height: 120px;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 30px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between; /* Ensure columns are spaced appropriately */
@@ -62,13 +64,24 @@
 .column-title h2 {
   font-size: 24px;
   margin-bottom: 10px;
-  color: #333;
+  color: #000000;
+}
+
+/* Remove the default link style and apply black color */
+.column-title h2 a {
+  text-decoration: none; /* Remove underline */
+  color: #000000; /* Set link color to black */
+}
+
+.column-title h2 a:hover {
+  color: #ffcc00; /* Set link color to #ffcc00 on hover */
 }
 
 .column-title p {
   font-size: 16px;
-  color: #555;
+  color: #000000;
   margin-bottom: 10px;
+  text-align: left;
 }
 
 /* Second column: Author */
@@ -79,18 +92,24 @@
   align-items: center;
 }
 
+.column-author p:first-child {
+  font-weight: bold; /* Make the first <p> element bold */
+}
+
 .column-author p {
-  font-size: 14px;
-  font-weight: bold;
+  font-family: "Helvetica", "Arial", sans-serif; /* Set font to Helvetica */
+  font-size: 13px;
+  
   color: #222;
   margin: 0;
+  
 }
 
 /* Third column: Info and Go to Course button */
 .column-info {
   flex: 1;
   text-align: right;
-  display: flex;
+  display: flex-end;
   flex-direction: column;
   justify-content: space-between;
 }
@@ -99,6 +118,7 @@
   font-size: 14px;
   color: #777;
   margin-bottom: 10px;
+  margin-right: 8px;
   text-align: right;
 }
 
@@ -106,12 +126,13 @@
   align-self: flex-end;
   text-decoration: none;
   color: white;
-  background-color: #007bff;
+  background-color: #000dc6;
   border: none;
   padding: 10px 15px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 1px;
+  font-family: "Helvetica", "Arial", sans-serif; /* Set font to Helvetica */
 }
 
 .column-info .course-button:hover {
