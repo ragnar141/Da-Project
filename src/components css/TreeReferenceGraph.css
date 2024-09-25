@@ -3,6 +3,7 @@
   pointer-events: none; /* Disable interactions with blurred content */
 }
 
+
 .close-button {
   position: absolute;
   top: 10px;
@@ -154,12 +155,12 @@ svg {
 
 /* Hover card styling */
 .hover-card {
-  position: fixed; /* Make it fixed to the viewport */
+  position: absolute; /* Make it fixed to the viewport */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); /* Center it on the screen */
   width: 90%; /* Set the width to 90% of the screen */
-  height: 40%; /* Set the height to 40% of the screen */
+  height: 50%; /* Set the height to 40% of the screen */
   background-color: white;
   border: 1px solid black;
   border-radius: 8px;
@@ -178,20 +179,38 @@ svg {
   align-items: center; /* Horizontally center the entire hover-card contents */
 }
 
+.hover-card-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
 .hover-card-columns {
-  display: flex; /* Arrange the child divs in a row */
-  gap: 100px; /* Add spacing between the columns */
+  display: flex;
+  gap: 100px; /* Adjust spacing between columns */
   width: 100%;
   height: 100%;
 }
 
 .hover-card-column {
-  flex: 1; /* Each column takes up an equal amount of space */
-  padding: 10px; /* Optional padding inside each column */
+  flex: 1;
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Align content vertically at the start */
-  align-items: center; /* Center the content horizontally */
+  justify-content: flex-start; /* Align content at the top */
+  align-items: center;
+}
+
+.hover-card-column:nth-child(3) {
+  display: flex;
+  flex-direction: column-reverse; /* List will render at the top */
+  justify-content: flex-start; /* Ensure content stays at the top */
+  align-items: center;
+  padding: 10px;
 }
 
 .hover-card p {
@@ -240,24 +259,46 @@ svg {
   color: rgb(42, 0, 209); /* Blue color for assumed influence */
 }
 
-.hover-card-section {
-  flex-grow: 1; /* Allow this section to grow and take remaining space */
+.hover-card-columns {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end; /* Align the content to the bottom */
-  font-size: 14px;
-  padding-left: 14px;
+  gap: 100px; /* Add spacing between columns */
   width: 100%;
+  height: 100%;
 }
 
-.hover-card-column:nth-child(1) .hover-card-section {
-  padding-left: 30px;
+.hover-card-column {
+  flex: 1; /* Default flex for the other columns */
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align content at the top */
+  align-items: center;
+}
+
+.hover-card-column:nth-child(2) {
+  flex: 1.3; /* Middle column takes more space */
+}
+
+.hover-card-column:nth-child(1) {
+  display: flex;
+  flex-direction: column-reverse; /* List will render at the bottom */
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+}
+
+.hover-card-column:nth-child(3) {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* List will render at the top */
+  align-items: center;
+  padding: 10px;
 }
 
 
 .hover-card-main {
   flex-grow: 0; /* Ensure the main content doesn't take unnecessary space */
-  margin-bottom: 20px; /* Add space below the main content */
+  margin-bottom: 10px; /* Add space below the main content */
   display: flex;
   flex-direction: column;
   justify-content: center; /* Center content vertically within the hover-card */
@@ -271,8 +312,8 @@ svg {
 }
 
 .hover-card-title {
-  font-size: 25px; /* Set font size of title component */
-  padding-top: 10px;
+  font-size: 27px; /* Set font size of title component */
+  padding-top: 50px;
   padding-bottom: 30px;
   font-weight: bold;
 }
