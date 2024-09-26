@@ -1,4 +1,6 @@
 import React from 'react';
+import '../../components css/GF_l1.css';
+
 
 
 function GF_l1() {

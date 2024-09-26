@@ -120,6 +120,7 @@
 
 /* Home Section Styling */
 .home-container {
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -127,23 +128,27 @@
   height: 100vh;
   background-color: #ffffff;
 }
-
 .welcome_statement {
   position: absolute;
-  bottom: 380px;
+  bottom: 300px;
   display: flex;
+  flex-direction: column; /* Change to column layout */
   justify-content: center;
-  align-items: center;
+  align-items: center; /* Center the items horizontally */
   font-size: 2rem;
-  }
+  text-align: center; /* Center text */
+}
 
 .welcome_to {
-  margin-right: 100px;
+  padding-top: 50px;
+  margin-bottom: 70px; /* Add space between "Welcome to" and "UNI" */
 }
 
 .big_UNI {
+  margin-top: 50px;
   font-weight: bold;
   font-size: 5rem;
+  margin-bottom: 20px;
 }
 
 .description {

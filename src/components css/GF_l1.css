@@ -1,0 +1,94 @@
+
+/* GF_l1.css */
+
+/* General container styling */
+.course-content {
+    max-width: 900px; /* Set a max width for readability */
+    margin: 0 auto; /* Center the content */
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background for the content */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    font-family: Arial, sans-serif; /* Use a clean, readable font */
+    line-height: 1.6;
+  }
+  
+  /* Heading styles */
+  .course-content h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center; /* Center the main course title */
+    margin-bottom: 30px;
+  }
+  
+  .course-content h2 {
+    font-size: 1.8rem;
+    color: #444;
+    margin-bottom: 10px;
+  }
+  
+  /* Paragraph styles */
+  .course-content p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 15px;
+  }
+  
+  /* Lecture section styling */
+  .lecture-section {
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: #ffffff; /* White background for lecture sections */
+    border-radius: 8px;
+    border: 1px solid #ddd; /* Subtle border for separation */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Navigation buttons */
+  .course-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+  }
+  
+  .previous-button, .next-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .previous-button:hover, .next-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  .previous-button:active, .next-button:active {
+    background-color: #003f7f; /* Even darker blue on click */
+  }
+  
+  /* Responsive design for smaller screens */
+  @media (max-width: 768px) {
+    .course-content {
+      padding: 10px;
+    }
+  
+    .course-content h1 {
+      font-size: 2rem;
+    }
+  
+    .course-content h2 {
+      font-size: 1.5rem;
+    }
+  
+    .previous-button, .next-button {
+      padding: 10px 20px;
+      font-size: 0.9rem;
+    }
+  }
+  

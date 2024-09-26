@@ -4,10 +4,9 @@ import TreeReferenceGraph from './components logic/TreeReferenceGraph';
 import Courses from './components logic/Courses';
 import Contact from './components logic/Contact.js';
 import OtahhL1 from './components logic/OTAHH/otahh_l1.js'; // Import the respective course component
-
-import GF_l1 from './components logic/GF/GF_l1.js'; // Example for another course
+import GFL1 from './components logic/GF/GF_l1.js'; // Rename to PascalCase
+import PRL1 from './components logic/PR/PR_l1.js'; // Rename to PascalCase
 import './App.css';
-import PR_l1 from './components logic/PR/PR_l1.js';
 
 function App() {
   return (
@@ -15,11 +14,16 @@ function App() {
       <div className="App">
         <Navbar />              
           <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/courses" element={<Courses />} />
-          <Route path="/library" element={<Library />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/courses" element={<Courses />} />
+            <Route path="/library" element={<Library />} />
+            <Route path="/contact" element={<Contact />} />
+
+            {/* Individual Course Routes */}
+            <Route path="/courses/on-thinking-and-human-history" element={<OtahhL1 />} />
+            <Route path="/courses/public-relations" element={<PRL1 />} />
+            <Route path="/courses/modern-german-thought" element={<GFL1 />} /> {/* Updated to match the course link */}
+          </Routes>
       </div>
     </Router>
   );
@@ -34,20 +38,19 @@ function Navbar() {
         <Link to="/">UNI</Link>
       </div>
       <ul className="nav-links">
-      <li className={location.pathname === '/courses' ? 'active' : ''}>
+        <li className={location.pathname === '/courses' ? 'active' : ''}>
           <Link to="/courses">Courses</Link>
         </li>
         <li className={location.pathname === '/library' ? 'active' : ''}>
           <Link to="/library">Library</Link>
         </li>
-       <li className={location.pathname === '/contact' ? 'active' : ''}>
+        <li className={location.pathname === '/contact' ? 'active' : ''}>
           <Link to="/contact">Contact</Link>
         </li>
       </ul>
     </nav>
   );
 }
-
 
 function Home() {
   return (
@@ -61,9 +64,9 @@ function Home() {
         </div>
       </div>
       <div className="description">
-        This is a demo version of an online platform dedicated to providing free self-education resources and courses. Our interdisciplinary approach fosters a holistic understanding of the world, helping learners connect ideas across fields.
+        This is a demo version of an online platform dedicated to providing free self-education resources. Our interdisciplinary approach fosters a holistic understanding of the world, helping learners connect ideas across fields.
       </div>
-      <MailingListForm /> {/* Add Mailing List Form at the bottom */}
+      <MailingListForm />
     </div>
   );
 }
@@ -76,8 +79,6 @@ function Library() {
   );
 }
 
-
-// Mailing List Form Component
 function MailingListForm() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
