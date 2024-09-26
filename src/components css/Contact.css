@@ -1,0 +1,35 @@
+/* Contact.css */
+
+/* General container styling for the Contact component */
+.contact-container {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center; /* Center the iframe horizontally */
+    min-height: 60vh; /* Set minimum height for full viewport coverage */
+    background-color: #f4f4f9; /* Background color for the page */
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Styling for the iframe that holds the Google Sheet */
+  .contact-iframe {
+    
+    width: 100%; /* Take up 80% of the page width */
+    height: 640px; /* Fixed height for the iframe */
+    max-width: 1475px; /* Ensure the iframe doesn’t stretch too wide */
+    border: 2px solid #ddd; /* Add a subtle border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
+    margin-top: 30px; /* Move iframe slightly down */
+  }
+  
+  /* Responsive design: Make iframe adjust for smaller screens */
+  @media (max-width: 900px) {
+    .contact-iframe {
+
+      width: 95%; /* Reduce width for smaller screens */
+      height: 400px; /* Reduce height for smaller screens */
+      margin-top: 30px; /* Move iframe slightly down */
+    }
+  }
+  
