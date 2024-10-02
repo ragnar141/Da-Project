@@ -1,0 +1,85 @@
+/* Ensure the globe stays aligned to the right and responsive */
+.globe-container {
+  display: flex;
+  justify-content: flex-end; /* Align the globe to the right */
+  align-items: flex-start; /* Align items at the top */
+  flex-direction: column; /* Stack the globe and timeline vertically */
+  width: 100vw; /* Full width of the viewport */
+  height: 100vh; /* Full viewport height */
+  background-color: #ffffff; /* Set the background to white */
+  position: relative; /* Ensure positioned elements are relative to this container */
+  box-sizing: border-box; /* Include padding and borders in width/height calculations */
+  overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+/* Dropdown container styling */
+.dropdown-container {
+  position: fixed; /* Ensure the dropdown stays fixed on the screen */
+  top: 120px; /* Position it 20px from the top */
+  left: 120px; /* Position it 20px from the left */
+  z-index: 9999; /* Ensure the dropdown stays on top of all elements */
+  background-color: #fff; /* White background for clarity */
+  padding: 10px; /* Padding around the dropdown for spacing */
+  border-radius: 5px; /* Rounded corners for better appearance */
+
+}
+
+#author-select {
+  font-size: 16px;
+  padding: 5px;
+  margin-left: 5px;
+  font-family: "Arial", sans-serif;
+  cursor: pointer; /* Add a pointer cursor for better UX */
+}
+
+/* Styling for the globe */
+.otahh-globe {
+  align-self: flex-end; /* Move the globe to the right side */
+  width: 40vw; /* Make the globe responsive based on viewport width */
+  height: auto; /* Maintain aspect ratio */
+  max-width: 600px; /* Set maximum width to prevent excessive scaling */
+  max-height: 600px; /* Ensure the SVG doesn't grow too large */
+  margin-right: 20px; /* Add some margin to the right of the globe */
+  cursor: default; /* Default black arrow cursor */
+  box-sizing: border-box; /* Ensure padding and borders are accounted for */
+  transform: translateY(-50px); /* Move the globe up by 50px */
+}
+
+/* Grabbing cursor when the SVG is active */
+svg:active {
+  cursor: grabbing;
+}
+
+/* Styling for the timeline */
+.timeline {
+  position: absolute;
+  bottom: 0; /* Position at the bottom of the screen */
+  left: 0; /* Align to the left side */
+  width: 100vw; /* Full width of the viewport */
+  height: 100px; /* Height of the timeline */
+}
+
+/* Style for the axis labels on the timeline */
+.timeline text {
+  font-size: 12px;
+  font-family: "Times New Roman", serif;
+  fill: #000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .otahh-globe {
+    width: 60vw; /* Increase globe width on smaller screens */
+    margin-right: 10px; /* Adjust margin */
+  }
+
+  .timeline {
+    height: 80px; /* Decrease height of the timeline on smaller screens */
+  }
+
+  .dropdown-container {
+    top: 10px; /* Adjust top spacing for smaller screens */
+    left: 10px; /* Adjust left spacing for smaller screens */
+    padding: 5px; /* Reduce padding */
+  }
+}

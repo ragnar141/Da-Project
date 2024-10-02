@@ -1,0 +1,52 @@
+/* Specific container for the OnThinkingAndHumanHistory component */
+.otahh-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  min-height: 100vh; /* Ensure it takes the full height of the viewport */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.otahh-container h1 {
+  text-align: center;
+  
+  font-size: 2.5em;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.otahh-container ul {
+  list-style-type: none;
+  padding: 0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.otahh-container ul li {
+  margin: 15px 0;
+  text-align: center;
+}
+
+/* Link styling */
+.otahh-container ul li a {
+  text-decoration: none;
+  font-size: 1.2em;
+  color: #007BFF;
+
+  transition: color 0.3s ease;
+}
+
+.otahh-container ul li a:hover {
+  color: #0056b3;
+}
+
+@media screen and (max-width: 768px) {
+  .otahh-container h1 {
+    font-size: 2em;
+  }
+
+  .otahh-container ul li a {
+    font-size: 1em;
+  }
+}
