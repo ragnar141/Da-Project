@@ -11,7 +11,10 @@ const dataset = [
     "Author/Text Title": "Herodotus",
     "Sources": "The Histories",
     "Timeline": [-700, -425], // 700 BCE to 425 BCE
-    "Geography": "Greece"
+    "Geography": ["Greece", "Turkey", "Iran", "Iraq", "Lebanon", "Syria", "Israel", "Palestine", "Jordan",
+    "Egypt", "Libya", "Ukraine", "Southern Russia", "Kazakhstan", "Bulgaria", "Italy", "India",
+    "Saudi Arabia", "Oman", "Yemen", "United Arab Emirates", "Georgia", "Armenia",
+    "Azerbaijan", "Ethiopia"]
   },
   {
     "Index": 2,
@@ -151,33 +154,31 @@ function OtahhIntro() {
   // Function to highlight relevant geography on the globe
   const highlightGeography = useCallback(() => {
     const { projection, path } = renderGlobe;
-    const geography = selectedAuthor.Geography.split(',').map(region => region.trim());
   
-    console.log('Selected Author Geography:', geography); // Log the parsed geography array
-  
-    d3.json('/datasets/110m.json')
+    d3.json('/datasets/110m.json') // Load modern country borders
       .then(worldData => {
-        console.log('World Data:', worldData); // Check if the data is fetched properly
-        const land = topojson.feature(worldData, worldData.objects.countries);
-        console.log('Land Features:', land.features); // Log the country features
+        console.log("World data loaded for modern countries:", worldData);
   
-        // Apply fill for the selected regions without stroke (no borders)
+        const land = topojson.feature(worldData, worldData.objects.countries);
+  
+        // Highlight regions based on the selected author's Geography
         d3.select(svgRef.current).selectAll('path.land')
           .data(land.features)
           .join('path')
           .attr('d', path)
-          .attr('class', 'land') // Use a class to differentiate land paths
+          .attr('class', 'land')
           .attr('fill', d => {
             const countryName = d.properties.name;
-            const isHighlighted = geography.includes(countryName);
-            const fillColor = isHighlighted ? 'red' : '#d3d3d3';
-            console.log(`Country: ${countryName}, Fill: ${fillColor}`);
-            return fillColor;
+            const isHighlighted = selectedAuthor.Geography.includes(countryName);
+            return isHighlighted ? 'red' : '#d3d3d3'; // Highlight selected countries in red
           })
           .raise(); // Bring highlighted countries to the front
       })
-      .catch(error => console.error('Error fetching world data:', error));
+      .catch(error => console.error('Error loading world data:', error));
   }, [renderGlobe, selectedAuthor]);
+  
+  
+  
   
 
   // Function to handle change in dropdown selection
