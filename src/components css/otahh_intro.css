@@ -4,13 +4,13 @@
   justify-content: flex-end; /* Align the globe to the right */
   align-items: flex-start; /* Align items at the top */
   flex-direction: column; /* Stack the globe and timeline vertically */
-  width: 100vw; /* Full width of the viewport */
-  height: 100vh; /* Full viewport height */
+  width: 98vw; /* Full width of the viewport */
+  height: 96vh; /* Full viewport height */
   background-color: #ffffff; /* Set the background to white */
   position: relative; /* Ensure positioned elements are relative to this container */
   box-sizing: border-box; /* Include padding and borders in width/height calculations */
   overflow-x: hidden; /* Prevent horizontal overflow */
-}
+  }
 
 /* Dropdown container styling */
 .dropdown-container {
@@ -48,6 +48,7 @@
   box-sizing: border-box; /* Ensure padding and borders are accounted for */
   transform: translateY(-50px); /* Move the globe up by 50px */
   border: 1px solid #ddd; /* Add a subtle border around the globe */
+  margin-bottom: 30px;
 }
 
 /* Grabbing cursor when the SVG is active */
@@ -58,10 +59,10 @@ svg:active {
 /* Styling for the timeline */
 .timeline {
   position: absolute;
-  bottom: 0; /* Position at the bottom of the screen */
+  bottom: 40px; /* Position at the bottom of the screen */
   left: 0; /* Align to the left side */
-  width: 100vw; /* Full width of the viewport */
-  height: 100px; /* Height of the timeline */
+  width: 96vw; /* Full width of the viewport */
+  
   background-color: #f9f9f9; /* Light background color for the timeline */
   border-top: 1px solid #ddd; /* Border to distinguish the timeline */
 }

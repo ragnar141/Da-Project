@@ -11,14 +11,14 @@ const dataset = [
     "Author/Text Title": "Herodotus",
     "Sources": "The Histories",
     "Timeline": [-700, -425], // 700 BCE to 425 BCE
-    "Geography": "Greece, Persia, Egypt, Near East"
+    "Geography": "Greece"
   },
   {
     "Index": 2,
     "Author/Text Title": "Titus Livius (Livy)",
     "Sources": "Ab Urbe Condita",
     "Timeline": [-753, -9], // 753 BCE to 9 BCE
-    "Geography": "Rome, Italian Peninsula"
+    "Geography": "Italy"
   },
   // Add other entries here...
 ];
@@ -47,28 +47,37 @@ function OtahhIntro() {
   // Static rendering of globe elements (globe outline, landmasses)
   const renderStaticElements = useCallback(() => {
     const { path } = renderGlobe;
-
+  
     d3.json('/datasets/110m.json')
       .then(worldData => {
-        const land = topojson.feature(worldData, worldData.objects.land);
-
+        console.log('World Data Loaded:', worldData); // Log the fetched data
+        if (!worldData || !worldData.objects || !worldData.objects.countries) {
+          console.error('Invalid world data structure:', worldData);
+          return;
+        }
+  
+        const land = topojson.feature(worldData, worldData.objects.countries); // Corrected reference to 'countries'
+  
+        // Append the globe sphere with a grey outline
         d3.select(svgRef.current)
           .append('path')
           .datum({ type: 'Sphere' })
           .attr('d', path)
           .attr('fill', '#ffffff')
-          .attr('stroke', '#d3d3d3')
-          .attr('stroke-width', 2);
-
+          .attr('stroke', '#d3d3d3')  // Grey outline
+          .attr('stroke-width', 2);    // Set stroke width for globe outline
+  
+        // Append the landmasses without stroke (no borders for countries)
         d3.select(svgRef.current)
           .append('path')
           .datum(land)
           .attr('d', path)
-          .attr('fill', '#d3d3d3')
-          .attr('stroke', '#ffffff');
+          .attr('fill', '#d3d3d3');    // Fill countries with grey
       })
       .catch(error => console.error('Error fetching world data:', error));
   }, [renderGlobe]);
+  
+  
 
   const applyZoom = useCallback(() => {
     const { projection, path } = renderGlobe;
@@ -143,21 +152,33 @@ function OtahhIntro() {
   const highlightGeography = useCallback(() => {
     const { projection, path } = renderGlobe;
     const geography = selectedAuthor.Geography.split(',').map(region => region.trim());
-
-    d3.json('/datasets/countries.geojson')
+  
+    console.log('Selected Author Geography:', geography); // Log the parsed geography array
+  
+    d3.json('/datasets/110m.json')
       .then(worldData => {
-        const land = topojson.feature(worldData, worldData.objects.land);
-
-        // Apply fill for the selected regions (for simplicity we assume the regions can be mapped to countries)
+        console.log('World Data:', worldData); // Check if the data is fetched properly
+        const land = topojson.feature(worldData, worldData.objects.countries);
+        console.log('Land Features:', land.features); // Log the country features
+  
+        // Apply fill for the selected regions without stroke (no borders)
         d3.select(svgRef.current).selectAll('path.land')
           .data(land.features)
           .join('path')
           .attr('d', path)
           .attr('class', 'land') // Use a class to differentiate land paths
-          .attr('fill', d => geography.includes(d.properties.name) ? 'red' : '#d3d3d3'); // Highlight selected regions in red
+          .attr('fill', d => {
+            const countryName = d.properties.name;
+            const isHighlighted = geography.includes(countryName);
+            const fillColor = isHighlighted ? 'red' : '#d3d3d3';
+            console.log(`Country: ${countryName}, Fill: ${fillColor}`);
+            return fillColor;
+          })
+          .raise(); // Bring highlighted countries to the front
       })
       .catch(error => console.error('Error fetching world data:', error));
   }, [renderGlobe, selectedAuthor]);
+  
 
   // Function to handle change in dropdown selection
   const handleAuthorChange = (event) => {
@@ -192,8 +213,10 @@ function OtahhIntro() {
       <div className="globe-container" style={{ position: 'relative' }}>
         {/* Globe SVG */}
         <svg ref={svgRef} className="otahh-globe" width="600" height="600"></svg>
+      </div>
 
-        {/* Timeline SVG */}
+      {/* Timeline SVG (moved outside the globe container) */}
+      <div style={{ marginTop: '20px' }}>
         <svg ref={timelineRef} className="timeline"></svg>
       </div>
     </div>
