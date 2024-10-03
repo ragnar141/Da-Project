@@ -144,7 +144,7 @@ function OtahhIntro() {
     const { projection, path } = renderGlobe;
     const geography = selectedAuthor.Geography.split(',').map(region => region.trim());
 
-    d3.json('/datasets/110m.json')
+    d3.json('/datasets/countries.geojson')
       .then(worldData => {
         const land = topojson.feature(worldData, worldData.objects.land);
 

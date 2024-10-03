@@ -15,21 +15,25 @@
 /* Dropdown container styling */
 .dropdown-container {
   position: fixed; /* Ensure the dropdown stays fixed on the screen */
-  top: 120px; /* Position it 20px from the top */
-  left: 120px; /* Position it 20px from the left */
+  top: 60px; /* Position it 60px from the top */
+  left: 60px; /* Position it 60px from the left */
   z-index: 9999; /* Ensure the dropdown stays on top of all elements */
-  background-color: #fff; /* White background for clarity */
-  padding: 10px; /* Padding around the dropdown for spacing */
-  border-radius: 5px; /* Rounded corners for better appearance */
-
+  background-color: #f9f9f9; /* Slight gray background for clarity */
+  padding: 12px; /* Padding around the dropdown for spacing */
+  border-radius: 8px; /* Rounded corners for better appearance */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for a subtle elevation effect */
 }
 
+/* Styling for the dropdown */
 #author-select {
   font-size: 16px;
-  padding: 5px;
-  margin-left: 5px;
+  padding: 8px;
+  margin-left: 10px;
   font-family: "Arial", sans-serif;
   cursor: pointer; /* Add a pointer cursor for better UX */
+  border: 1px solid #ddd; /* Subtle border around dropdown */
+  border-radius: 4px; /* Rounded corners */
+  background-color: #ffffff; /* White background for the dropdown */
 }
 
 /* Styling for the globe */
@@ -40,9 +44,10 @@
   max-width: 600px; /* Set maximum width to prevent excessive scaling */
   max-height: 600px; /* Ensure the SVG doesn't grow too large */
   margin-right: 20px; /* Add some margin to the right of the globe */
-  cursor: default; /* Default black arrow cursor */
+  cursor: grab; /* Indicate that the globe can be dragged */
   box-sizing: border-box; /* Ensure padding and borders are accounted for */
   transform: translateY(-50px); /* Move the globe up by 50px */
+  border: 1px solid #ddd; /* Add a subtle border around the globe */
 }
 
 /* Grabbing cursor when the SVG is active */
@@ -57,6 +62,8 @@ svg:active {
   left: 0; /* Align to the left side */
   width: 100vw; /* Full width of the viewport */
   height: 100px; /* Height of the timeline */
+  background-color: #f9f9f9; /* Light background color for the timeline */
+  border-top: 1px solid #ddd; /* Border to distinguish the timeline */
 }
 
 /* Style for the axis labels on the timeline */
@@ -81,5 +88,9 @@ svg:active {
     top: 10px; /* Adjust top spacing for smaller screens */
     left: 10px; /* Adjust left spacing for smaller screens */
     padding: 5px; /* Reduce padding */
+  }
+
+  #author-select {
+    width: 100%; /* Ensure the dropdown is responsive */
   }
 }
