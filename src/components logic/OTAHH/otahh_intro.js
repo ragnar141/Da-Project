@@ -9,9 +9,18 @@ const dataset = [
   {
     "Index": 1,
     "Author/Text Title": "Herodotus",
-    "Sources": "The Histories",
-    "Timeline": [-700, -425], // 700 BCE to 425 BCE
-    "Source Date": "around 440 BC",
+    "Fundamental Works": { "Title": "The Histories", "Date of Issue": "around 440 BC" },
+    "Timeline": [-2600, -425], 
+    "Origin of history": "Mythical Past (Ancient Civilizations)",
+    "Author's spiritual/religious framework": "Ancient Greek",
+    "Stages of cycles": ["Growth and Expansion", "Success and Prosperity", "Hubris and Overreach", "Divine Justince and Decline", "Crisis and Collapse" ],
+       
+    "Timeline Stages": [
+      {"Stage": "The Ancient Civilizations", "Years": [-2600, -700]},
+      {"Stage": "The Rise of the Persian Empire", "Years": [-600, -490]},
+      {"Stage": "The Greco-Persian Wars", "Years": [-499, -479]},
+      {"Stage": "The Post-War Period and the Rise of Greek Power", "Years": [-479, -425]}
+    ],
 
     "Ancient regions": ["Egypt", "Persia", "Media", "Babylon", "Lydia", "Scythia", "India", "Libya", 
       "Phoenicia", "Cilicia", "Thrace", "Sogdiana", "Macedonia", "Colchis", "Ionia", 
@@ -26,10 +35,19 @@ const dataset = [
   {
     "Index": 2,
     "Author/Text Title": "Titus Livius (Livy)",
-    "Sources": "History of Rome",
-    "Timeline": [-753, -9],
-    "Source Date": "around  27 - 9 BC",
-
+    "Fundamental Works": { "Title": "History of Rome", "Date of Issue": "around  27 - 9 BC" },
+    "Timeline": [-1200, -9],
+    "Origin of history": "Mythical Past (Trojan War)",
+    "Author's spiritual/religious framework": "Ancient Roman",
+    "Stages of cycles": "-",
+    
+    "Timeline Stages": [
+      {"Stage": "Mythical and Monarchical Rome", "Years": [-753, -509]},
+      {"Stage": "Republican Rome and Internal Struggles", "Years": [-509, -264]},
+      {"Stage": "Rome's Wars and Expansion", "Years": [-264, -146]},
+      {"Stage": "Moral Decline in the Late Republic", "Years": [-146, -27]}
+    ],
+    
     "Ancient regions": ["Rome", "Etruria", "Latium", "Samnium", "Magna Graecia", "Carthage", "Gaul", "Hispania", 
       "Macedonia", "Greece", "Sicily", "Sardinia", "Illyria", "Cisalpine Gaul", "Transalpine Gaul", 
       "Egypt", "Syria", "Pergamon", "Numidia", "Britannia", "Parthia", "Armenia", "Thrace", 
@@ -42,9 +60,18 @@ const dataset = [
   {
     "Index": 3,
     "Author/Text Title": "Tacitus",
-    "Sources": "Annals",
-    "Timeline": [14, 96],
-    "Source Date": "around  115 - 120 CE",
+    "Fundamental Works": { "Title": "Annals", "Date of Issue": "around  115 - 120 CE" },
+    "Timeline": [14, 68],
+    "Origin of history": "-",
+    "Author's spiritual/religious framework": "Secular, philosophical",
+    "Stages of cycles": "-",
+
+    "Timeline Stages": [
+      {"Stage": "The Reign of Tiberius", "Years": [14, 37]},
+      {"Stage": "Republican Rome and Internal Struggles", "Years": [37, 41]},
+      {"Stage": "Rome's Wars and Expansion", "Years": [41, 54]},
+      {"Stage": "Moral Decline in the Late Republic", "Years": [54, 68]}
+    ],    
     
     "Ancient regions": ["Rome", "Italia", "Germania", "Britannia", "Gaul", "Hispania", "Egypt", "Syria", "Judea", 
       "Armenia", "Parthia", "Pannonia", "Dalmatia", "Illyria", "Numidia", "Mauretania", 
@@ -59,9 +86,21 @@ const dataset = [
   {
     "Index": 4,
     "Author/Text Title": "Flavius Josephus",
-    "Sources": "The Jewish War, Antiquities of the Jews",
-    "Timeline": [-2000, 73],
-    "Source Date": "around 93 CE",
+    "Fundamental Works": [{ "Title": "The Jewish War",  "Date of Issue": "around 93 CE" }, 
+    {"Title": "Antiquities of the Jews",  "Date of Issue": "around 93 CE" }],
+     "Timeline": [-4000, 73],
+    "Origin of history": "Genesis (Story of Adam and Eve)",
+    "Author's spiritual/religious framework": "Judaism",
+    "Stages of cycles": ["Faithfulness and Prosperity", "Rebellion and Punishment", "Hope for Restoration"],
+
+    "Timeline Stages": [
+      {"Stage": "Creation to the Patriarchs (Genesis)", "Years": [-4000, -1300]},
+      {"Stage": "The Exodus and the Law", "Years": [-1300, -1200]},
+      {"Stage": "The Judges and the Kings of Israel", "Years": [-1200, -587]},
+      {"Stage": "The Babylonian Exile and Return", "Years": [-587, -539]},
+      {"Stage": "Post-Biblical History", "Years": [-539, 94]},
+      {"Stage": "The Jewish War", "Years": [66, 70]}
+    ],    
 
     "Ancient regions": ["Judea", "Galilee", "Samaria", "Idumea", "Jerusalem", "Perea", "Decapolis", "Syria", 
       "Alexandria", "Egypt", "Rome", "Parthia", "Babylonia", "Arabia", "Phoenicia", 
@@ -342,7 +381,7 @@ function OtahhIntro() {
 
     // Define the time scale: 6000 BC to 2025 CE
     const xScale = d3.scaleLinear()
-      .domain([-2000, 2025]) // 6000 BC to 2025 CE
+      .domain([-2600, 2025]) // 6000 BC to 2025 CE
       .range([50, width - 50]); // Leave padding on both sides
 
     // Create the axis
