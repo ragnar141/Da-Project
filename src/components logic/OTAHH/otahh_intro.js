@@ -11,19 +11,238 @@ const dataset = [
     "Author/Text Title": "Herodotus",
     "Sources": "The Histories",
     "Timeline": [-700, -425], // 700 BCE to 425 BCE
-    "Geography": ["Greece", "Turkey", "Iran", "Iraq", "Lebanon", "Syria", "Israel", "Palestine", "Jordan",
-    "Egypt", "Libya", "Ukraine", "Southern Russia", "Kazakhstan", "Bulgaria", "Italy", "India",
-    "Saudi Arabia", "Oman", "Yemen", "United Arab Emirates", "Georgia", "Armenia",
-    "Azerbaijan", "Ethiopia"]
+    "Source Date": "around 440 BC",
+
+    "Ancient regions": ["Egypt", "Persia", "Media", "Babylon", "Lydia", "Scythia", "India", "Libya", 
+      "Phoenicia", "Cilicia", "Thrace", "Sogdiana", "Macedonia", "Colchis", "Ionia", 
+      "Syria", "Ethiopia", "Arabia", "Bactria"],
+
+    "Geography":   ["Greece", "Turkey", "Iran", "Iraq", "Lebanon", "Syria", "Israel", "Palestine", "Jordan", 
+      "Egypt", "Libya", "Ukraine", "Kazakhstan", "Bulgaria", "India", 
+      "Saudi Arabia", "Georgia", "Armenia", "Azerbaijan", "Ethiopia", "Uzbekistan", "Tajikistan", 
+      "Afghanistan", "Sudan", "Pakistan", "Turkmenistan"]
   },
+
   {
     "Index": 2,
     "Author/Text Title": "Titus Livius (Livy)",
-    "Sources": "Ab Urbe Condita",
-    "Timeline": [-753, -9], // 753 BCE to 9 BCE
-    "Geography": "Italy"
+    "Sources": "History of Rome",
+    "Timeline": [-753, -9],
+    "Source Date": "around  27 - 9 BC",
+
+    "Ancient regions": ["Rome", "Etruria", "Latium", "Samnium", "Magna Graecia", "Carthage", "Gaul", "Hispania", 
+      "Macedonia", "Greece", "Sicily", "Sardinia", "Illyria", "Cisalpine Gaul", "Transalpine Gaul", 
+      "Egypt", "Syria", "Pergamon", "Numidia", "Britannia", "Parthia", "Armenia", "Thrace", 
+      "Pontus", "Asia Minor", "Epirus", "Achaea", "Pannonia", "Dacia", "Corsica", "Cyrenaica"],      
+    
+    "Geography": ["Italy", "Tunisia", "France", "Spain", "Portugal", "Greece", "Turkey", "Egypt", "Libya", 
+      "Syria", "Albania", "Croatia", "Bosnia", "North Macedonia", "Serbia", "Bulgaria", "Hungary", 
+      "Romania", "Georgia", "Armenia", "UK", "Iraq", "Iran", "Morocco"]
   },
-  // Add other entries here...
+  {
+    "Index": 3,
+    "Author/Text Title": "Tacitus",
+    "Sources": "Annals",
+    "Timeline": [14, 96],
+    "Source Date": "around  115 - 120 CE",
+    
+    "Ancient regions": ["Rome", "Italia", "Germania", "Britannia", "Gaul", "Hispania", "Egypt", "Syria", "Judea", 
+      "Armenia", "Parthia", "Pannonia", "Dalmatia", "Illyria", "Numidia", "Mauretania", 
+      "Thrace", "Asia Minor", "Achaea", "Cappadocia", "Pontus", "Dacia", "Mesopotamia", 
+      "Africa Proconsularis", "Sicily"],
+      
+    "Geography": ["Italy", "Germany", "UK", "France", "Spain", "Portugal", "Egypt", "Syria", "Israel", 
+      "Palestine", "Armenia", "Iran", "Iraq", "Hungary", "Croatia", "Bosnia", "Albania", 
+      "Algeria", "Morocco", "Bulgaria", "Greece", "Turkey", "Romania", "Iraq", "Tunisia", 
+      "Libya"]
+  },
+  {
+    "Index": 4,
+    "Author/Text Title": "Flavius Josephus",
+    "Sources": "The Jewish War, Antiquities of the Jews",
+    "Timeline": [-2000, 73],
+    "Source Date": "around 93 CE",
+
+    "Ancient regions": ["Judea", "Galilee", "Samaria", "Idumea", "Jerusalem", "Perea", "Decapolis", "Syria", 
+      "Alexandria", "Egypt", "Rome", "Parthia", "Babylonia", "Arabia", "Phoenicia", 
+      "Mesopotamia", "Cyprus", "Persia", "Galatia", "Asia Minor"],      
+
+    "Geography": ["Israel", "Palestine", "Jordan", "Lebanon", "Egypt", "Syria", "Iraq", "Saudi Arabia", 
+      "Turkey", "Cyprus", "Italy", "Iran"]
+      
+  },
+  {
+    "Index": 5,
+    "Author/Text Title": "Kojiki",
+    "Sources": "-",
+    "Timeline": [-2000, 628],
+    "Source Date": "712 CE",
+
+    "Ancient regions": ["Wa", "Yamato", "Izumo", "Tsukushi", "Takamagahara", "Ashihara no Nakatsukuni", "Koshi", 
+      "Awaji", "Owari", "Hyuga", "Tsushima", "Hokkaido"],      
+
+    "Geography": "Japan"
+  },
+  {
+    "Index": 6,
+    "Author/Text Title": "Nihongi",
+    "Sources": "-",
+    "Timeline": [-2000, 697],
+    "Source Date": "720 CE",
+    
+    "Ancient regions": ["Wa", "Yamato", "Tsukushi", "Koshi", "Kibi", "Silla", "Baekje", "Goguryeo", "Kara", 
+      "Paekche", "Tunguska", "Lelang", "China", "Yamatai", "Ryukyu Islands"],
+      
+
+    "Geography": ["Japan", "South Korea", "North Korea", "China", "Russia (Manchuria)", "Ryukyu Islands"]
+  },
+  {
+    "Index": 7,
+    "Author/Text Title": "Persian Book of Kings (Shahnameh)",
+    "Sources": "Shahnameh by Ferdowsi",
+    "Timeline": [-2000, 651],
+    "Source Date": "1010 CE",
+
+    "Ancient regions": ["Iran", "Turan", "Zabulistan", "Sistan", "Mazandaran", "Khwarazm", "India", "China", 
+      "Rome", "Arabia", "Balkh", "Khorasan", "Ctesiphon", "Isfahan", "Herat", "Rey", "Armenia", 
+      "Caucasus", "Bukhara", "Gorgan", "Syria", "Yemen", "Sogdiana", "Parthia", "Azerbaijan", 
+      "Tabaristan", "Georgia"],
+  
+    "Geography": ["Iran", "Central Asia", "Afghanistan", "Uzbekistan", "Turkmenistan", "India", "China", 
+      "Turkey", "Iraq", "Syria", "Armenia", "Georgia", "Azerbaijan", "Yemen", "Tajikistan"]
+  },
+  {
+    "Index": 8,
+    "Author/Text Title": "Ibn Khaldun",
+    "Sources": "Muqaddimah",
+    "Timeline": [-2000, 1377],
+    "Source Date": "1377 CE",
+
+    "Ancient regions": ["Ifriqiya", "Maghreb", "Egypt", "Al-Andalus", "Arabia", "Persia", "Syria", "Iraq", "Yemen", 
+      "Berber Kingdoms", "Byzantium", "Sudan", "Sicily", "Constantinople", "Khorasan", 
+      "Transoxiana", "Sassanid Empire"],      
+
+    "Geography": ["Tunisia", "Algeria", "Libya", "Morocco", "Egypt", "Spain", "Portugal", "Saudi Arabia", 
+      "Iran", "Syria", "Iraq", "Yemen", "Turkey", "Sudan", "Italy", "Uzbekistan", "Tajikistan", 
+      "Turkmenistan"]      
+  },
+  
+  {
+    "Index": 9,
+    "Author/Text Title": "Isaac Newton",
+    "Sources": "The Chronology of Ancient Kingdoms Amended",
+    "Timeline": [-2000, -500],
+    "Source Date": "1728 CE",
+
+    "Ancient regions": ["Egypt", "Assyria", "Babylon", "Greece", "Israel", "Judah", "Persia", "Scythia", 
+      "Troy", "Thebes", "Phrygia"],
+      
+    "Geography": ["Egypt", "Iraq", "Syria", "Greece", "Israel", "Turkey", "Iran", "Georgia", "Ukraine", "Lebanon", "Jordan"]
+  },
+  {
+    "Index": 10,
+    "Author/Text Title": "Edward Gibbon",
+    "Sources": "The History of the Decline and Fall of the Roman Empire",
+    "Timeline": [98, 1453],
+    "Source Date": "1781 CE",
+    
+    "Ancient regions": ["Rome", "Gaul", "Britannia", "Hispania", "Germania", "North Africa", "Constantinople", 
+      "Asia Minor", "Greece", "Syria", "Palestine", "Egypt", "Visigothic Kingdom", "Ostrogothic Kingdom", 
+      "Vandal Kingdom", "Francia", "Persia", "Arabia", "Slavic Tribes", "Avar Kingdom", "Lombard Kingdom", 
+      "Balkans", "Turkey", "Ottoman Empire"],
+
+    "Geography": ["Italy", "France", "United Kingdom", "Spain", "Germany", "Tunisia", "Algeria", "Libya", "Turkey", 
+      "Greece", "Syria", "Israel", "Palestine", "Egypt", "Iraq", "Iran", "Saudi Arabia", "Jordan", 
+      "Portugal", "Hungary", "Bulgaria", "Serbia"]
+  },
+
+  {
+    "Index": 11,
+    "Author/Text Title": "Georg Wilhelm Friedrich Hegel",
+    "Sources": "Lectures on the Philosophy of History",
+    "Timeline": [-2000, 1800],
+    "Source Date": "1837 CE",
+
+    "Ancient regions": ["China", "India", "Persia", "Egypt", "Greece", "Rome", "Germany"],
+
+    "Geography": ["China", "India", "Iran", "Egypt", "Greece", "Italy", "Germany"]
+  },
+  {
+    "Index": 12,
+    "Author/Text Title": "Max Weber",
+    "Sources": "The Protestant Ethic and the Spirit of Capitalism, Economy and Society",
+    "Timeline": [1500, 2000],
+    "Source Date": "1905 CE",
+
+    "Ancient regions": ["Germany", "England", "The Netherlands", "Switzerland", "France", "United States", 
+      "Scandinavia", "Western Europe", "Ancient Rome", "China", "India", "Islamic World", 
+      "Medieval Europe", "Byzantine Empire", "Ancient Israel", "Buddhist Asia"],
+    
+    "Geography": ["Germany", "United Kingdom", "The Netherlands", "Switzerland", "France", "United States", 
+      "Sweden", "Denmark", "Norway", "Italy", "China", "India", "Turkey", "Saudi Arabia", 
+      "Iran", "Iraq", "Israel", "Palestine", "Japan", "Thailand", "Vietnam"]
+  },
+  {
+    "Index": 13,
+    "Author/Text Title": "Oswald Spengler",
+    "Sources": "The Decline of the West",
+    "Timeline": [-2000, 1900],
+    "Source Date": "1921 CE",
+
+    "Ancient regions": ["Egypt", "Babylonia", "Greece", "Rome", "Mesopotamia", "Persia", "Byzantine Empire", 
+      "Arabia", "India", "China"],      
+
+    "Geography": ["Egypt", "Iraq", "Greece", "Italy", "Iraq", "Iran", "Turkey", "Saudi Arabia", "India", "China"]
+  },
+  {
+    "Index": 14,
+    "Author/Text Title": "Arnold J. Toynbee",
+    "Sources": "A Study of History",
+    "Timeline": [-2000, 1950],
+    "Source Date": "1934 – 1961 CE",
+
+    "Ancient regions": ["Egypt", "Babylonia", "Sumer", "Greece", "Rome", "Byzantium", "Syria", "Persia", "India", "China", "Islamic Caliphates", 
+      "Mesoamerica (Aztec and Maya)", "Andean (Inca)"],
+     
+    "Geography": ["Egypt", "Iraq", "Syria", "Greece", "Italy", "Turkey", "Syria", "Iran", "India", "China", "Saudi Arabia", "Mexico", "Peru"]
+  },
+  {
+    "Index": 15,
+    "Author/Text Title": "Karl Jaspers",
+    "Sources": "The Origin and Goal of History",
+    "Timeline": [-2000, 1950],
+    "Source Date": "1951 CE",
+
+    "Ancient regions": ["Greece", "India", "China", "Israel", "Persia", "Mesopotamia", "Egypt", "Rome", "Western Europe", "Islamic World"],
+
+    "Geography": ["Greece", "India", "China", "Israel", "Iran", "Iraq", "Egypt", "Italy", "Western Europe", "Saudi Arabia", "Turkey", "Iran", "Iraq", "Syria", "Jordan"]
+  },
+  {
+    "Index": 16,
+    "Author/Text Title": "Peter Turchin",
+    "Sources": "Historical Dynamics, War and Peace and War, Secular Cycles",
+    "Timeline": [-2000, 2010],
+    "Source Date": "2003-2010 CE",
+    
+    "Ancient regions": ["Rome", "China", "Russia", "European Empires", "Islamic Caliphates", "Byzantium", "Ottoman Empire", "France", 
+      "Britain", "Muscovite Russia", "Tang Dynasty", "Song Dynasty", "Ming Dynasty"],
+
+    "Geography": ["Italy", "China", "Russia", "Western Europe", "Middle East", "Turkey", "France", "United Kingdom", "Germany", "Saudi Arabia", "Iraq", "Iran", "Syria"]
+
+  },
+  {
+    "Index": 17,
+    "Author/Text Title": "Yuval Noah Harari",
+    "Sources": "Sapiens: A Brief History of Humankind",
+    "Timeline": [-2000, 2011],
+    "Source Date": "2011 CE",
+
+    "Ancient regions": ["East Africa", "Middle East", "Europe", "Asia", "Australia", "Americas", "Fertile Crescent", 
+      "China", "Mesoamerica", "Andes", "Sub-Saharan Africa", "Indus Valley", "Mesopotamia", "Egypt", "India", "China", "Mediterranean", "Islamic Caliphates"],
+
+    "Geography": ["Kenya", "Ethiopia", "Sudan", "Iraq", "Turkey", "Syria", "Greece", "Italy", "Mexico", "Peru", 
+      "United States", "China", "India", "Egypt", "Saudi Arabia", "France", "Spain", "Iran", "United Kingdom", "Russia", "South Africa"]
+  }
 ];
 
 function OtahhIntro() {
@@ -123,7 +342,7 @@ function OtahhIntro() {
 
     // Define the time scale: 6000 BC to 2025 CE
     const xScale = d3.scaleLinear()
-      .domain([-6000, 2025]) // 6000 BC to 2025 CE
+      .domain([-2000, 2025]) // 6000 BC to 2025 CE
       .range([50, width - 50]); // Leave padding on both sides
 
     // Create the axis
