@@ -11,8 +11,8 @@ const dataset = [
     "Author/Text Title": "Herodotus",
     "Fundamental Works": { "Title": "The Histories", "Date of Issue": "around 440 BC" },
     "Timeline": [-2600, -425], 
-    "Origin of history": "Mythical Past (Ancient Civilizations)",
-    "Author's spiritual/religious framework": "Ancient Greek",
+    "Origin of history": "Mythical Past: Ancient Civilizations",
+    "Author's framework": "Ancient Greek",
     "Stages of cycles": ["Growth and Expansion", "Success and Prosperity", "Hubris and Overreach", "Divine Justince and Decline", "Crisis and Collapse" ],
        
     "Timeline Stages": [
@@ -37,8 +37,8 @@ const dataset = [
     "Author/Text Title": "Titus Livius (Livy)",
     "Fundamental Works": { "Title": "History of Rome", "Date of Issue": "around  27 - 9 BC" },
     "Timeline": [-1200, -9],
-    "Origin of history": "Mythical Past (Trojan War)",
-    "Author's spiritual/religious framework": "Ancient Roman",
+    "Origin of history": "Mythical Past: Trojan War",
+   "Author's framework": "Ancient Roman",
     "Stages of cycles": "-",
     
     "Timeline Stages": [
@@ -63,7 +63,7 @@ const dataset = [
     "Fundamental Works": { "Title": "Annals", "Date of Issue": "around  115 - 120 CE" },
     "Timeline": [14, 68],
     "Origin of history": "-",
-    "Author's spiritual/religious framework": "Secular, philosophical",
+    "Author's framework": "Secular, philosophical",
     "Stages of cycles": "-",
 
     "Timeline Stages": [
@@ -89,8 +89,8 @@ const dataset = [
     "Fundamental Works": [{ "Title": "The Jewish War",  "Date of Issue": "around 93 CE" }, 
     {"Title": "Antiquities of the Jews",  "Date of Issue": "around 93 CE" }],
      "Timeline": [-4000, 73],
-    "Origin of history": "Genesis (Story of Adam and Eve)",
-    "Author's spiritual/religious framework": "Judaism",
+    "Origin of history": "Genesis: story of Adam and Eve",
+    "Author's framework": "Judaism",
     "Stages of cycles": ["Faithfulness and Prosperity", "Rebellion and Punishment", "Hope for Restoration"],
 
     "Timeline Stages": [
@@ -113,10 +113,15 @@ const dataset = [
   {
     "Index": 5,
     "Author/Text Title": "Kojiki",
-    "Sources": "-",
-    "Timeline": [-2000, 628],
-    "Source Date": "712 CE",
-
+    "Fundamental Works": { "Title": "Kojiki",  "Date of Issue": "712 CE" }, 
+    "Timeline": [-4000, 499], //x
+    "Origin of history": "Mythical past: out of primordial chaos, the first gods spontaneously emerged.",
+    "Author's framework": "Shinto",
+    "Stages of cycles": "-",
+    "Timeline Stages": [
+      {"Stage": "Mythological Age (Time Before Human History)", "Years": [-4000, -660]},
+      {"Stage": "Historical Age (Legendary and Semi-Historical Period)", "Years": [-660, -499]},
+    ],  
     "Ancient regions": ["Wa", "Yamato", "Izumo", "Tsukushi", "Takamagahara", "Ashihara no Nakatsukuni", "Koshi", 
       "Awaji", "Owari", "Hyuga", "Tsushima", "Hokkaido"],      
 
@@ -125,23 +130,34 @@ const dataset = [
   {
     "Index": 6,
     "Author/Text Title": "Nihongi",
-    "Sources": "-",
-    "Timeline": [-2000, 697],
-    "Source Date": "720 CE",
-    
+    "Fundamental Works": { "Title": "Kojiki",  "Date of Issue": "720 CE" }, 
+    "Timeline": [-4000, 697], //x
+    "Origin of history": "Mythical past: out of primordial chaos, the first gods spontaneously emerged.",
+    "Author's framework": "Primarily Shinto, secondarily Buddhism",
+    "Stages of cycles": "-",
+    "Timeline Stages": [
+      {"Stage": "Mythological Age (Kami no Yo) ", "Years": [-4000, -660]},
+      {"Stage": "Semi-Historical Age", "Years": [-660, 600]},
+      {"Stage": "Historical Age", "Years": [600, 720]}
+    ],  
     "Ancient regions": ["Wa", "Yamato", "Tsukushi", "Koshi", "Kibi", "Silla", "Baekje", "Goguryeo", "Kara", 
       "Paekche", "Tunguska", "Lelang", "China", "Yamatai", "Ryukyu Islands"],
       
-
     "Geography": ["Japan", "South Korea", "North Korea", "China", "Russia (Manchuria)", "Ryukyu Islands"]
   },
   {
     "Index": 7,
-    "Author/Text Title": "Persian Book of Kings (Shahnameh)",
-    "Sources": "Shahnameh by Ferdowsi",
-    "Timeline": [-2000, 651],
-    "Source Date": "1010 CE",
-
+    "Author/Text Title": "Ferdawsi",
+    "Fundamental Works": {"Title": "Persian Book of Kings (Shahnameh)",  "Date of Issue": "1010 CE"}, 
+    "Timeline": [-4000, 651], //x
+    "Origin of history": "Mythical past: Ahura Mazda creates universe.",
+    "Author's framework": "Primarily Zoroastrianism, secondarily Islam",
+    "Stages of cycles": ["Truth and Justice  ->  Prosperity and Victory", "Tyranny, greed, and falsehood  ->  Death and Decline"],
+    "Timeline Stages": [
+      {"Stage": "Mythical Age", "Years": [-4000, -2000]},
+      {"Stage": "Legendary Age", "Years": [-2000, -330]},
+      {"Stage": "Historical Age", "Years": [-330, 651]}
+    ],
     "Ancient regions": ["Iran", "Turan", "Zabulistan", "Sistan", "Mazandaran", "Khwarazm", "India", "China", 
       "Rome", "Arabia", "Balkh", "Khorasan", "Ctesiphon", "Isfahan", "Herat", "Rey", "Armenia", 
       "Caucasus", "Bukhara", "Gorgan", "Syria", "Yemen", "Sogdiana", "Parthia", "Azerbaijan", 
@@ -153,9 +169,25 @@ const dataset = [
   {
     "Index": 8,
     "Author/Text Title": "Ibn Khaldun",
-    "Sources": "Muqaddimah",
+    "Fundamental Works": {"Title": "Muqaddimah",  "Date of Issue": "1377 CE"},
     "Timeline": [-2000, 1377],
-    "Source Date": "1377 CE",
+    "Origin of history": "-",
+    "Author's framework": "Rational, sociological",
+    "Stages of cycles": ["The Formation of a Dynasty (Gaining Asabiyyah)", "The Flourishing of the Dynasty", 
+      "The Decline of the Dynasty (Losing Asabiyyah)"],
+    "Timeline Stages": [
+      {"Stage": "Ancient Egypt", "Years": [-3100, -30]},
+      {"Stage": "Mesopotamia", "Years": [-3000, -539]},
+      {"Stage": "Pre-Islamic Tribal Arabia", "Years": [-500, 622]},
+      {"Stage": "Life of the Prophet Muhammad", "Years": [570, 632]},
+      {"Stage": "Umayyad Caliphate", "Years": [661, 750]},
+      {"Stage": "Abbasid Caliphate", "Years": [750, 1258]},
+      {"Stage": "Almoravid Dynasty", "Years": [1040, 1147]},
+      {"Stage": "Almohad Dynasty", "Years": [1121, 1269]},
+      {"Stage": "Hafsids of Tunisia", "Years": [1229, 1574]},
+      {"Stage": "Mongol Empire", "Years": [1206, 1368]},
+      {"Stage": "Reconquista", "Years": [718, 1377]},
+    ],
 
     "Ancient regions": ["Ifriqiya", "Maghreb", "Egypt", "Al-Andalus", "Arabia", "Persia", "Syria", "Iraq", "Yemen", 
       "Berber Kingdoms", "Byzantium", "Sudan", "Sicily", "Constantinople", "Khorasan", 
@@ -169,9 +201,20 @@ const dataset = [
   {
     "Index": 9,
     "Author/Text Title": "Isaac Newton",
-    "Sources": "The Chronology of Ancient Kingdoms Amended",
+    "Fundamental Works": {"Title":  "The Chronology of Ancient Kingdoms Amended",  "Date of Issue": "1728 CE"},
     "Timeline": [-2000, -500],
-    "Source Date": "1728 CE",
+    
+    
+    "Origin of history": "Genesis: story of Adam and Eve",
+    "Author's framework": "Christian, scientific",
+    "Stages of cycles": "-",
+    "Timeline Stages": [
+      {"Stage": "Early Biblical Events", "Years": [-4000, -2500]},
+      {"Stage": "Ancient Egypt", "Years": [-2000, -568]},
+      {"Stage": "Assyria", "Years": [-1500, -600]},
+      {"Stage": "Babylon", "Years": [-1500, -539]},
+      {"Stage": "Persia", "Years": [-550, -330]},     
+      {"Stage": "Trojan war, Greek period", "Years": [-950, -146]},],
 
     "Ancient regions": ["Egypt", "Assyria", "Babylon", "Greece", "Israel", "Judah", "Persia", "Scythia", 
       "Troy", "Thebes", "Phrygia"],
@@ -181,9 +224,15 @@ const dataset = [
   {
     "Index": 10,
     "Author/Text Title": "Edward Gibbon",
-    "Sources": "The History of the Decline and Fall of the Roman Empire",
+    "Fundamental Works": {"Title":  "The History of the Decline and Fall of the Roman Empire",  "Date of Issue": "1781 CE"},
     "Timeline": [98, 1453],
-    "Source Date": "1781 CE",
+    "Origin of history": "-",
+    "Author's framework": "Sociological, philosophical",
+    "Stages of cycles": ["Rise", "Fall"],
+    "Timeline Stages": [
+      {"Stage": "The Roman Empire from Trajan to the Fall of the Western Roman Empire ", "Years": [98, 476]},
+      {"Stage": "The Byzantine (Eastern Roman) Empire ", "Years": [476, 1204]},
+      {"Stage": "The Final Decline of the Byzantine Empire and the Fall of Constantinople", "Years": [1204, 1453]}],
     
     "Ancient regions": ["Rome", "Gaul", "Britannia", "Hispania", "Germania", "North Africa", "Constantinople", 
       "Asia Minor", "Greece", "Syria", "Palestine", "Egypt", "Visigothic Kingdom", "Ostrogothic Kingdom", 
@@ -198,12 +247,20 @@ const dataset = [
   {
     "Index": 11,
     "Author/Text Title": "Georg Wilhelm Friedrich Hegel",
-    "Sources": "Lectures on the Philosophy of History",
-    "Timeline": [-2000, 1800],
-    "Source Date": "1837 CE",
-
+    "Fundamental Works": {"Title":  "Philosophy of History",  "Date of Issue": "1837 CE"},
+    "Timeline": [-3000, 1800],
+    "Origin of history": "History begins with the emergence of self-consciousness",
+    "Author's framework": "Philosophical, teleological",    
+    "Stages of cycles": ["Thesis", "Antithesis", "Synthesis"],
+        
+    "Timeline Stages": [
+      {"Stage": "Oriental World", "Years": [-3000, -500]},
+      {"Stage": "Greek World", "Years": [-800, -300]},
+      {"Stage": "Roman World ", "Years": [-500, 476]},
+      {"Stage": "Germanic World ", "Years": [476, 1800]}   
+    ],
+ 
     "Ancient regions": ["China", "India", "Persia", "Egypt", "Greece", "Rome", "Germany"],
-
     "Geography": ["China", "India", "Iran", "Egypt", "Greece", "Italy", "Germany"]
   },
   {
