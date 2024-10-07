@@ -36,7 +36,7 @@ const dataset = [
     "Index": 2,
     "Author/Text Title": "Titus Livius (Livy)",
     "Fundamental Works": { "Title": "History of Rome", "Date of Issue": "around  27 - 9 BC" },
-    "Timeline": [-1200, -9],
+    "Timeline": [-1000, -9],
     "Origin of history": "Mythical Past: Trojan War",
    "Author's framework": "Ancient Roman",
     "Stages of cycles": "-",
@@ -61,7 +61,7 @@ const dataset = [
     "Index": 3,
     "Author/Text Title": "Tacitus",
     "Fundamental Works": { "Title": "Annals", "Date of Issue": "around  115 - 120 CE" },
-    "Timeline": [14, 68],
+    "Timeline": [0, 100],
     "Origin of history": "-",
     "Author's framework": "Secular, philosophical",
     "Stages of cycles": "-",
@@ -88,7 +88,7 @@ const dataset = [
     "Author/Text Title": "Flavius Josephus",
     "Fundamental Works": [{ "Title": "The Jewish War",  "Date of Issue": "around 93 CE" }, 
     {"Title": "Antiquities of the Jews",  "Date of Issue": "around 93 CE" }],
-     "Timeline": [-4000, 73],
+     "Timeline": [-5000, 100],
     "Origin of history": "Genesis: story of Adam and Eve",
     "Author's framework": "Judaism",
     "Stages of cycles": ["Faithfulness and Prosperity", "Rebellion and Punishment", "Hope for Restoration"],
@@ -266,79 +266,145 @@ const dataset = [
   {
     "Index": 12,
     "Author/Text Title": "Max Weber",
-    "Sources": "The Protestant Ethic and the Spirit of Capitalism, Economy and Society",
-    "Timeline": [1500, 2000],
-    "Source Date": "1905 CE",
+    "Fundamental Works": [{"Title":  "The Sociology of Religion",  "Date of Issue": "1920 CE"},
+                          {"Title":  "Economy and Society",  "Date of Issue": "1922 CE"}],
 
-    "Ancient regions": ["Germany", "England", "The Netherlands", "Switzerland", "France", "United States", 
-      "Scandinavia", "Western Europe", "Ancient Rome", "China", "India", "Islamic World", 
-      "Medieval Europe", "Byzantine Empire", "Ancient Israel", "Buddhist Asia"],
+    "Timeline": [-3000, 2000],
+    "Origin of history": "-",
+    "Author's framework": "Sociological: theological, historical, economic",    
+    "Stages of cycles": "Rationalization",
+        
+    "Timeline Stages": [
+      {"Stage": "Ancient Religions: Patrimonial and theocratic rule, kinship-based governance", "Years": [-3000, -500]},
+      {"Stage": "Axial Age Religions: Feudalism, charismatic authority, decentralized governance", "Years": [-600, 200]},
+      {"Stage": "Medieval Religions: Rise of centralized monarchies, early bureaucratic structures, absolutism", "Years": [400, 1500]},
+      {"Stage": "Modern Religions: Bureaucratization, rational-legal authority, industrial capitalism", "Years": [1500, 2000]}   
+    ],
+   
+    "Ancient regions": ["Persia", "Switzerland", "The Netherlands", "Eastern Europe", "Ancient Israel", "Western Europe", "France", "Ancient Greece", 
+      "Medieval Europe", "Germany", "Medieval Japan", "Ottoman Empire", "Islamic World", "Byzantine Empire", "Buddhist Asia", "Japan", "Mesopotamia", 
+      "China", "Ancient Egypt", "India", "United States", "Medieval Christendom", "England", "Ancient Rome"],
     
-    "Geography": ["Germany", "United Kingdom", "The Netherlands", "Switzerland", "France", "United States", 
-      "Sweden", "Denmark", "Norway", "Italy", "China", "India", "Turkey", "Saudi Arabia", 
-      "Iran", "Iraq", "Israel", "Palestine", "Japan", "Thailand", "Vietnam"]
+    "Geography": ["Switzerland", "Lebanon", "The Netherlands", "France", "Egypt", "Greece", "Palestine", "Myanmar", "Czech Republic", "Bangladesh", "Sri Lanka", "Germany", 
+      "Vietnam", "Pakistan", "Italy", "Poland", "Israel", "Syria", "Iran", "Turkey", "Iraq", "Japan", "United Kingdom", "Combodia", "Hungary", "Indonesia", "Europe", "Thailand",
+       "Malaysia", "China", "Yemen", "United States", "India", "Saudi Arabia", "Jordan", "Japan"]
   },
   {
     "Index": 13,
     "Author/Text Title": "Oswald Spengler",
-    "Sources": "The Decline of the West",
-    "Timeline": [-2000, 1900],
-    "Source Date": "1921 CE",
+    "Fundamental Works": {"Title":  "The Decline of the West",  "Date of Issue": "1921 CE"},
+    "Timeline": [-3000, 2000],
+    
+    "Origin of history": "-",
+    "Author's framework": "Philosophical, fatalistic",    
+    "Stages of cycles": ["Birth (Spring)", "Growth and Flourishing (Summer)", "Maturity and Rationalization (Autumn)", "Decline (Winter)"],
+        
+    "Timeline Stages": [
+      {"Stage": "Egyptian Civilization (early high culture)", "Years": [-3000, -300]},
+      {"Stage": "Mesopotamian/Babylonian Civilization (early high culture)", "Years": [-3000, -500]},
+      {"Stage": "Greek (Classical Civilization)", "Years": [-1100, -200]},
+      {"Stage": "Roman (Classical Civilization", "Years": [-500, 500]},  
+      {"Stage": "Arabian (Magian Civilization)", "Years": [300, 1500]},      
+      {"Stage": "Medieval Europe (Faustian Civilization)", "Years": [900, 1500]},
+      {"Stage": "Renaissance and Reformation (Faustian Civilization)", "Years": [1500, 1800]},  
+      {"Stage": "Industrialization and Modernity (Faustian Civilization)", "Years": [1800, 2000]},
+    ],
+   
+      "Ancient regions": ["Egypt", "Babylonia", "Greece", "Rome", "Mesopotamia", "Persia", "Byzantine Empire", 
+      "Arabia", "India", "China"],
 
-    "Ancient regions": ["Egypt", "Babylonia", "Greece", "Rome", "Mesopotamia", "Persia", "Byzantine Empire", 
-      "Arabia", "India", "China"],      
+    "Geography": ["Egypt", "Iraq", "Greece", "Italy", "Iraq", "Iran", "Turkey", 
+      "Saudi Arabia, Yemen, Oman, UAE, Qatar, Bahrain, Kuwait", "India, Pakistan, Bangladesh", "China"]
 
-    "Geography": ["Egypt", "Iraq", "Greece", "Italy", "Iraq", "Iran", "Turkey", "Saudi Arabia", "India", "China"]
   },
   {
     "Index": 14,
     "Author/Text Title": "Arnold J. Toynbee",
-    "Sources": "A Study of History",
+    "Fundamental Works": {"Title":  "A Study of History",  "Date of Issue": "1934 – 1961 CE"},
     "Timeline": [-2000, 1950],
-    "Source Date": "1934 – 1961 CE",
 
-    "Ancient regions": ["Egypt", "Babylonia", "Sumer", "Greece", "Rome", "Byzantium", "Syria", "Persia", "India", "China", "Islamic Caliphates", 
+    "Origin of history": "History starts when societies respond to significant challenges",
+    "Author's framework": "Spiritual, mystical, empirical",    
+    "Stages of cycles": ["Birth","Growth", "Breakdown", "Disintegration"],
+        
+    "Timeline Stages": [
+      {"Stage": "Egyptian Civilization", "Years": [-3000, -30]},
+      {"Stage": "Sumerian/Babylonian Civilization", "Years": [-3000, -500]},
+      {"Stage": "Minoan Civilization", "Years": [-2700, -1400]},
+      {"Stage": "Hittite Civilization", "Years": [-1600, -1200]},  
+      {"Stage": "Indus Valley Civilization", "Years": [-2600, -1900]},      
+      {"Stage": "Maya Civilization", "Years": [-1800, 900]},
+      {"Stage": "Classical Greek Civilization", "Years": [-800, -146]},  
+      {"Stage": "Persian Civilization", "Years": [-550, 651]},
+      {"Stage": "Western Roman Civilization", "Years": [-500, 476]},
+      {"Stage": "Chinese Civilization", "Years": [-1000, 220]},
+      {"Stage": "Byzantine Civilization", "Years": [330, 1453]},
+      {"Stage": "Islamic Civilization", "Years": [622, 2000]},
+      {"Stage": "Western Christian Civilization", "Years": [800, 2000]},
+      {"Stage": "Hindu Civilization", "Years": [-1500, 2000]},
+      {"Stage": "Russian Civilization", "Years": [900, 2000]},
+      {"Stage": "Japanese Civilization", "Years": [250, 2000]},
+      {"Stage": "Hindu Civilization", "Years": [-1500, 2000]},
+      
+      {"Stage": "Western Renaissance", "Years": [-1400, 1760]},
+      {"Stage": "Industrial Revolution", "Years": [1760, 1900]},
+      {"Stage": "World Wars and Globalization", "Years": [1900, 2000]},
+    ],
+
+    "Ancient regions": ["Egypt", "Mesopotamia", "Sumer", "Greece", "Rome", "Byzantium", "Syria", "Persia", "India", "China", "Islamic Caliphates", 
       "Mesoamerica (Aztec and Maya)", "Andean (Inca)"],
      
-    "Geography": ["Egypt", "Iraq", "Syria", "Greece", "Italy", "Turkey", "Syria", "Iran", "India", "China", "Saudi Arabia", "Mexico", "Peru"]
+    "Geography": ["Egypt", "Pakistan", "Bangladesh", "Iraq", "Syria", "Greece", "Italy", "Turkey", "Syria", "Iran", "India", "China",
+       "Saudi Arabia", "Mexico", "Peru", "Germany", "France", "Spain", ]
   },
   {
     "Index": 15,
     "Author/Text Title": "Karl Jaspers",
-    "Sources": "The Origin and Goal of History",
-    "Timeline": [-2000, 1950],
-    "Source Date": "1951 CE",
+    "Fundamental Works": {"Title":  "A Study of History",  "Date of Issue": "1951 CE"},
+    "Timeline": [-3000, 2000], //x
 
+    "Origin of history": "Axial Age",
+    "Author's framework": "Existentionalist, theological, philosophical",    
+    "Stages of cycles": "-",
+
+    "Timeline Stages": [
+      {"Stage": "Pre-Axial Period", "Years": [-3000, -800]}, //x
+      {"Stage": "Axial Age", "Years": [-800, -200]},
+      {"Stage": "Post-Axial Age", "Years": [-200, 2000]},
+    ],
+    
     "Ancient regions": ["Greece", "India", "China", "Israel", "Persia", "Mesopotamia", "Egypt", "Rome", "Western Europe", "Islamic World"],
 
-    "Geography": ["Greece", "India", "China", "Israel", "Iran", "Iraq", "Egypt", "Italy", "Western Europe", "Saudi Arabia", "Turkey", "Iran", "Iraq", "Syria", "Jordan"]
+    "Geography": ["Greece", "India", "China", "Israel", "Iran", "Iraq", "Egypt", "Italy", "Western Europe", "Saudi Arabia", "Turkey",
+       "Iran", "Iraq", "Syria", "Jordan"]
   },
   {
     "Index": 16,
     "Author/Text Title": "Peter Turchin",
-    "Sources": "Historical Dynamics, War and Peace and War, Secular Cycles",
+    "Fundamental Works": [{"Title":  "Historical Dynamics",  "Date of Issue": "2003 CE"},
+                           {"Title":  "War and Peace and War",  "Date of Issue": "2006 CE"},
+                           {"Title":  "Secular Cycles",  "Date of Issue": "2009 CE"}],
+
     "Timeline": [-2000, 2010],
-    "Source Date": "2003-2010 CE",
     
+    "Origin of history": "-",
+    "Author's framework": "Cliodynamics, empirical",    
+    "Stages of cycles": [["Growth: demographic, economic", "Stagflation: elite overproduction, malthusian stagnation", "Crisis: state breakdown, depopulation, economic collapse",
+       "Depression: economic recovery, rebuilding state institutions"], ["High Asabiya, Decline of Asabiya, Collapse"]],
+    
+    "Timeline Stages": [
+      {"Stage": "Medieval England", "Years": [1150, 1485]}, //x
+      {"Stage": "Pre-Revolution France", "Years": [1200, 1800]},
+      {"Stage": "Imperial Russia", "Years": [1460, 1917]},
+      {"Stage": "Ancient Rome", "Years": [-200, 600]},
+    ],
+
     "Ancient regions": ["Rome", "China", "Russia", "European Empires", "Islamic Caliphates", "Byzantium", "Ottoman Empire", "France", 
       "Britain", "Muscovite Russia", "Tang Dynasty", "Song Dynasty", "Ming Dynasty"],
 
     "Geography": ["Italy", "China", "Russia", "Western Europe", "Middle East", "Turkey", "France", "United Kingdom", "Germany", "Saudi Arabia", "Iraq", "Iran", "Syria"]
 
   },
-  {
-    "Index": 17,
-    "Author/Text Title": "Yuval Noah Harari",
-    "Sources": "Sapiens: A Brief History of Humankind",
-    "Timeline": [-2000, 2011],
-    "Source Date": "2011 CE",
-
-    "Ancient regions": ["East Africa", "Middle East", "Europe", "Asia", "Australia", "Americas", "Fertile Crescent", 
-      "China", "Mesoamerica", "Andes", "Sub-Saharan Africa", "Indus Valley", "Mesopotamia", "Egypt", "India", "China", "Mediterranean", "Islamic Caliphates"],
-
-    "Geography": ["Kenya", "Ethiopia", "Sudan", "Iraq", "Turkey", "Syria", "Greece", "Italy", "Mexico", "Peru", 
-      "United States", "China", "India", "Egypt", "Saudi Arabia", "France", "Spain", "Iran", "United Kingdom", "Russia", "South Africa"]
-  }
 ];
 
 function OtahhIntro() {
@@ -436,35 +502,41 @@ function OtahhIntro() {
     // Clear previous elements
     svg.selectAll("*").remove();
 
-    // Define the time scale: 6000 BC to 2025 CE
+    // Define the time scale dynamically based on the author's timeline
+    const startYear = selectedAuthor.Timeline[0];
+    const endYear = selectedAuthor.Timeline[1];
+
     const xScale = d3.scaleLinear()
-      .domain([-2600, 2025]) // 6000 BC to 2025 CE
+      .domain([startYear, endYear])
       .range([50, width - 50]); // Leave padding on both sides
 
     // Create the axis
     const xAxis = d3.axisBottom(xScale)
-      .ticks(10) // Show 10 major ticks
-      .tickFormat(d => (d < 0 ? `${Math.abs(d)} BC` : `${d} CE`)); // Format BC and CE dates
+      .ticks(20)
+      .tickFormat(d => (d < 0 ? `${Math.abs(d)} BC` : `${d} CE`));
 
     // Append the axis to the timeline
     svg.append("g")
-      .attr("transform", `translate(0, ${height - 20})`) // Position the axis at the bottom
+      .attr("transform", `translate(0, ${height - 20})`)
       .call(xAxis)
       .style('font-size', '14px')
       .selectAll('text')
       .style('font-family', 'Times New Roman, sans-serif');
 
-    // Highlight the selected period
-    const [startYear, endYear] = selectedAuthor.Timeline;
-
-    svg.append("rect")
-      .attr("x", xScale(startYear))
-      .attr("y", 10)
-      .attr("width", xScale(endYear) - xScale(startYear))
-      .attr("height", height - 30)
-      .attr("fill", "red")
-      .attr("opacity", 0.5);
+    // Loop through timeline stages and highlight each period
+    selectedAuthor["Timeline Stages"].forEach(stage => {
+      svg.append("rect")
+        .attr("x", xScale(stage.Years[0]))
+        .attr("y", 10)
+        .attr("width", xScale(stage.Years[1]) - xScale(stage.Years[0]))
+        .attr("height", height - 30)
+        .attr("fill", "red")
+        .attr("opacity", 0.5)
+        .append("title") // Tooltip for stage
+        .text(stage.Stage);
+    });
   }, [selectedAuthor]);
+
 
   // Function to highlight relevant geography on the globe
   const highlightGeography = useCallback(() => {
@@ -476,7 +548,7 @@ function OtahhIntro() {
   
         const land = topojson.feature(worldData, worldData.objects.countries);
   
-        // Highlight regions based on the selected author's Geography
+        // Highlight regions based on the selected author's Geography and Ancient Regions
         d3.select(svgRef.current).selectAll('path.land')
           .data(land.features)
           .join('path')
@@ -484,14 +556,18 @@ function OtahhIntro() {
           .attr('class', 'land')
           .attr('fill', d => {
             const countryName = d.properties.name;
-            const isHighlighted = selectedAuthor.Geography.includes(countryName);
-            return isHighlighted ? 'red' : '#d3d3d3'; // Highlight selected countries in red
+            if (selectedAuthor.Geography.includes(countryName)) {
+              return 'red'; // Modern countries highlighted in red
+            }
+            if (selectedAuthor["Ancient regions"].includes(countryName)) {
+              return 'blue'; // Ancient regions highlighted in blue
+            }
+            return '#d3d3d3'; // Default color for other countries
           })
           .raise(); // Bring highlighted countries to the front
       })
       .catch(error => console.error('Error loading world data:', error));
   }, [renderGlobe, selectedAuthor]);
-  
   
   
   
@@ -524,6 +600,40 @@ function OtahhIntro() {
             </option>
           ))}
         </select>
+      </div>
+
+      <div className="fundamental-works-container">
+        <h3>Fundamental Works:</h3>
+        {Array.isArray(selectedAuthor["Fundamental Works"]) ? (
+          selectedAuthor["Fundamental Works"].map((work, index) => (
+            <p key={index}>{work.Title} - {work["Date of Issue"]}</p>
+          ))
+        ) : (
+          <p>{selectedAuthor["Fundamental Works"].Title} - {selectedAuthor["Fundamental Works"]["Date of Issue"]}</p>
+        )}
+      </div>
+
+      <div className="framework-container">
+        <h3>The Framework:</h3>
+        <p>{selectedAuthor["Author's framework"]}</p>
+      </div>
+
+      <div className="stages-container">
+        <h3>Cyclical Stages:</h3>
+        {Array.isArray(selectedAuthor["Stages of cycles"]) && selectedAuthor["Stages of cycles"].length > 0 ? (
+          <ul>
+            {selectedAuthor["Stages of cycles"].map((stage, index) => (
+              <li key={index}>{stage}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>No specific cyclical stages provided.</p>
+        )}
+      </div>
+
+      <div className="territory-container">
+        <h3>Territory:</h3>
+        <p>{selectedAuthor["Ancient regions"].join(", ")}</p>
       </div>
 
       <div className="globe-container" style={{ position: 'relative' }}>

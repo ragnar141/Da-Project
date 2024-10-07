@@ -1,3 +1,5 @@
+/** Updated CSS for OtahhIntro component with new elements **/
+
 /* Ensure the globe stays aligned to the right and responsive */
 .globe-container {
   display: flex;
@@ -10,7 +12,7 @@
   position: relative; /* Ensure positioned elements are relative to this container */
   box-sizing: border-box; /* Include padding and borders in width/height calculations */
   overflow-x: hidden; /* Prevent horizontal overflow */
-  }
+}
 
 /* Dropdown container styling */
 .dropdown-container {
@@ -34,6 +36,98 @@
   border: 1px solid #ddd; /* Subtle border around dropdown */
   border-radius: 4px; /* Rounded corners */
   background-color: #ffffff; /* White background for the dropdown */
+}
+
+/* Fundamental works container styling */
+.fundamental-works-container {
+  position: fixed;
+  top: 140px; /* Positioned below the dropdown container */
+  left: 60px;
+  z-index: 9998;
+  background-color: #f9f9f9;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 750px;
+  display: flex;
+  align-items: center;
+}
+.fundamental-works-container h3 {
+  margin-right: 10px;
+  white-space: nowrap;
+}
+.fundamental-works-container p {
+  margin: 0;
+}
+
+/* Framework container styling */
+.framework-container {
+  position: fixed;
+  top: 260px; /* Positioned below the fundamental works container */
+  left: 60px;
+  z-index: 9998;
+  background-color: #f9f9f9;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 750px;
+  display: flex;
+  align-items: center;
+}
+.framework-container h3 {
+  margin-right: 10px;
+  white-space: nowrap;
+}
+.framework-container p {
+  margin: 0;
+}
+
+/* Stages container styling */
+.stages-container {
+  position: fixed;
+  top: 360px; /* Positioned below the framework container */
+  left: 60px;
+  z-index: 9998;
+  background-color: #f9f9f9;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 750px;
+  display: flex;
+  align-items: center;
+}
+.stages-container h3 {
+  margin-right: 10px;
+  white-space: nowrap;
+}
+.stages-container ul {
+  margin: 0;
+  padding-left: 20px;
+}
+.stages-container li {
+  list-style: none;
+}
+
+/* Territory container styling */
+.territory-container {
+  position: fixed;
+  top: 500px; /* Positioned below the stages container */
+  left: 60px;
+  z-index: 9998;
+  background-color: #f9f9f9;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 750px;
+  display: flex;
+  align-items: center;
+}
+.territory-container h3 {
+  margin-right: 10px;
+  white-space: nowrap;
+}
+.territory-container p {
+  margin: 0;
 }
 
 /* Styling for the globe */
@@ -62,7 +156,6 @@ svg:active {
   bottom: 40px; /* Position at the bottom of the screen */
   left: 0; /* Align to the left side */
   width: 96vw; /* Full width of the viewport */
-  
   background-color: #f9f9f9; /* Light background color for the timeline */
   border-top: 1px solid #ddd; /* Border to distinguish the timeline */
 }
@@ -89,6 +182,18 @@ svg:active {
     top: 10px; /* Adjust top spacing for smaller screens */
     left: 10px; /* Adjust left spacing for smaller screens */
     padding: 5px; /* Reduce padding */
+  }
+
+  .fundamental-works-container,
+  .framework-container,
+  .stages-container,
+  .territory-container {
+    top: auto;
+    left: 10px;
+    right: 10px;
+    width: calc(100% - 20px); /* Full width with padding */
+    padding: 8px; /* Reduce padding */
+    margin-bottom: 10px; /* Add some space between sections */
   }
 
   #author-select {
