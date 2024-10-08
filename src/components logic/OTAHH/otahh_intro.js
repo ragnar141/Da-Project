@@ -10,8 +10,8 @@ const dataset = [
     "Index": 1,
     "Author/Text Title": "Herodotus",
     "Fundamental Works": { "Title": "The Histories", "Date of Issue": "around 440 BC" },
-    "Timeline": [-2600, -425], 
-    "Origin of history": "Mythical Past: Ancient Civilizations",
+    "Timeline": [-5000, 2000], 
+    "Origin of history": "Mythological: Ancient Civilizations",
     "Author's framework": "Ancient Greek",
     "Stages of cycles": ["Growth and Expansion", "Success and Prosperity", "Hubris and Overreach", "Divine Justince and Decline", "Crisis and Collapse" ],
        
@@ -36,8 +36,8 @@ const dataset = [
     "Index": 2,
     "Author/Text Title": "Titus Livius (Livy)",
     "Fundamental Works": { "Title": "History of Rome", "Date of Issue": "around  27 - 9 BC" },
-    "Timeline": [-1000, -9],
-    "Origin of history": "Mythical Past: Trojan War",
+    "Timeline": [-5000, 2000], 
+    "Origin of history": "Mythological: Trojan War",
    "Author's framework": "Ancient Roman",
     "Stages of cycles": "-",
     
@@ -61,7 +61,7 @@ const dataset = [
     "Index": 3,
     "Author/Text Title": "Tacitus",
     "Fundamental Works": { "Title": "Annals", "Date of Issue": "around  115 - 120 CE" },
-    "Timeline": [0, 100],
+   "Timeline": [-5000, 2000],
     "Origin of history": "-",
     "Author's framework": "Secular, philosophical",
     "Stages of cycles": "-",
@@ -88,8 +88,8 @@ const dataset = [
     "Author/Text Title": "Flavius Josephus",
     "Fundamental Works": [{ "Title": "The Jewish War",  "Date of Issue": "around 93 CE" }, 
     {"Title": "Antiquities of the Jews",  "Date of Issue": "around 93 CE" }],
-     "Timeline": [-5000, 100],
-    "Origin of history": "Genesis: story of Adam and Eve",
+  "Timeline": [-5000, 2000],
+    "Origin of history": "Theological: Genesis",
     "Author's framework": "Judaism",
     "Stages of cycles": ["Faithfulness and Prosperity", "Rebellion and Punishment", "Hope for Restoration"],
 
@@ -114,8 +114,8 @@ const dataset = [
     "Index": 5,
     "Author/Text Title": "Kojiki",
     "Fundamental Works": { "Title": "Kojiki",  "Date of Issue": "712 CE" }, 
-    "Timeline": [-4000, 499], //x
-    "Origin of history": "Mythical past: out of primordial chaos, the first gods spontaneously emerged.",
+   "Timeline": [-5000, 2000], //x
+    "Origin of history": "Mythological: out of primordial chaos, the first gods spontaneously emerged.",
     "Author's framework": "Shinto",
     "Stages of cycles": "-",
     "Timeline Stages": [
@@ -130,9 +130,9 @@ const dataset = [
   {
     "Index": 6,
     "Author/Text Title": "Nihongi",
-    "Fundamental Works": { "Title": "Kojiki",  "Date of Issue": "720 CE" }, 
-    "Timeline": [-4000, 697], //x
-    "Origin of history": "Mythical past: out of primordial chaos, the first gods spontaneously emerged.",
+    "Fundamental Works": { "Title": "Nihongi",  "Date of Issue": "720 CE" }, 
+    "Timeline": [-5000, 2000], //x
+    "Origin of history": "Mythological: out of primordial chaos, the first gods spontaneously emerged.",
     "Author's framework": "Primarily Shinto, secondarily Buddhism",
     "Stages of cycles": "-",
     "Timeline Stages": [
@@ -149,8 +149,8 @@ const dataset = [
     "Index": 7,
     "Author/Text Title": "Ferdawsi",
     "Fundamental Works": {"Title": "Persian Book of Kings (Shahnameh)",  "Date of Issue": "1010 CE"}, 
-    "Timeline": [-4000, 651], //x
-    "Origin of history": "Mythical past: Ahura Mazda creates universe.",
+   "Timeline": [-5000, 2000], //x
+    "Origin of history": "Mythological: Ahura Mazda creates universe.",
     "Author's framework": "Primarily Zoroastrianism, secondarily Islam",
     "Stages of cycles": ["Truth and Justice  ->  Prosperity and Victory", "Tyranny, greed, and falsehood  ->  Death and Decline"],
     "Timeline Stages": [
@@ -170,11 +170,10 @@ const dataset = [
     "Index": 8,
     "Author/Text Title": "Ibn Khaldun",
     "Fundamental Works": {"Title": "Muqaddimah",  "Date of Issue": "1377 CE"},
-    "Timeline": [-2000, 1377],
+   "Timeline": [-5000, 2000],
     "Origin of history": "-",
     "Author's framework": "Rational, sociological",
-    "Stages of cycles": ["The Formation of a Dynasty (Gaining Asabiyyah)", "The Flourishing of the Dynasty", 
-      "The Decline of the Dynasty (Losing Asabiyyah)"],
+    "Stages of cycles": ["The Formation of a Dynasty (Gaining Asabiyyah)", "The Flourishing of the Dynasty", "The Decline of the Dynasty (Losing Asabiyyah)"],
     "Timeline Stages": [
       {"Stage": "Ancient Egypt", "Years": [-3100, -30]},
       {"Stage": "Mesopotamia", "Years": [-3000, -539]},
@@ -202,10 +201,10 @@ const dataset = [
     "Index": 9,
     "Author/Text Title": "Isaac Newton",
     "Fundamental Works": {"Title":  "The Chronology of Ancient Kingdoms Amended",  "Date of Issue": "1728 CE"},
-    "Timeline": [-2000, -500],
+   "Timeline": [-5000, 2000],
     
     
-    "Origin of history": "Genesis: story of Adam and Eve",
+    "Origin of history": "Theological: Genesis",
     "Author's framework": "Christian, scientific",
     "Stages of cycles": "-",
     "Timeline Stages": [
@@ -225,7 +224,7 @@ const dataset = [
     "Index": 10,
     "Author/Text Title": "Edward Gibbon",
     "Fundamental Works": {"Title":  "The History of the Decline and Fall of the Roman Empire",  "Date of Issue": "1781 CE"},
-    "Timeline": [98, 1453],
+   "Timeline": [-5000, 2000],
     "Origin of history": "-",
     "Author's framework": "Sociological, philosophical",
     "Stages of cycles": ["Rise", "Fall"],
@@ -248,7 +247,7 @@ const dataset = [
     "Index": 11,
     "Author/Text Title": "Georg Wilhelm Friedrich Hegel",
     "Fundamental Works": {"Title":  "Philosophy of History",  "Date of Issue": "1837 CE"},
-    "Timeline": [-3000, 1800],
+"Timeline": [-5000, 2000],
     "Origin of history": "History begins with the emergence of self-consciousness",
     "Author's framework": "Philosophical, teleological",    
     "Stages of cycles": ["Thesis", "Antithesis", "Synthesis"],
@@ -269,7 +268,7 @@ const dataset = [
     "Fundamental Works": [{"Title":  "The Sociology of Religion",  "Date of Issue": "1920 CE"},
                           {"Title":  "Economy and Society",  "Date of Issue": "1922 CE"}],
 
-    "Timeline": [-3000, 2000],
+ "Timeline": [-5000, 2000],
     "Origin of history": "-",
     "Author's framework": "Sociological: theological, historical, economic",    
     "Stages of cycles": "Rationalization",
@@ -293,7 +292,7 @@ const dataset = [
     "Index": 13,
     "Author/Text Title": "Oswald Spengler",
     "Fundamental Works": {"Title":  "The Decline of the West",  "Date of Issue": "1921 CE"},
-    "Timeline": [-3000, 2000],
+   "Timeline": [-5000, 2000],
     
     "Origin of history": "-",
     "Author's framework": "Philosophical, fatalistic",    
@@ -321,7 +320,7 @@ const dataset = [
     "Index": 14,
     "Author/Text Title": "Arnold J. Toynbee",
     "Fundamental Works": {"Title":  "A Study of History",  "Date of Issue": "1934 – 1961 CE"},
-    "Timeline": [-2000, 1950],
+   "Timeline": [-5000, 2000],
 
     "Origin of history": "History starts when societies respond to significant challenges",
     "Author's framework": "Spiritual, mystical, empirical",    
@@ -360,8 +359,8 @@ const dataset = [
   {
     "Index": 15,
     "Author/Text Title": "Karl Jaspers",
-    "Fundamental Works": {"Title":  "A Study of History",  "Date of Issue": "1951 CE"},
-    "Timeline": [-3000, 2000], //x
+    "Fundamental Works": {"Title":  "The Origin and Goal of History",  "Date of Issue": "1951 CE"},
+ "Timeline": [-5000, 2000], //x
 
     "Origin of history": "Axial Age",
     "Author's framework": "Existentionalist, theological, philosophical",    
@@ -385,12 +384,12 @@ const dataset = [
                            {"Title":  "War and Peace and War",  "Date of Issue": "2006 CE"},
                            {"Title":  "Secular Cycles",  "Date of Issue": "2009 CE"}],
 
-    "Timeline": [-2000, 2010],
+ "Timeline": [-5000, 2000],
     
     "Origin of history": "-",
     "Author's framework": "Cliodynamics, empirical",    
-    "Stages of cycles": [["Growth: demographic, economic", "Stagflation: elite overproduction, malthusian stagnation", "Crisis: state breakdown, depopulation, economic collapse",
-       "Depression: economic recovery, rebuilding state institutions"], ["High Asabiya, Decline of Asabiya, Collapse"]],
+    "Stages of cycles": ["Growth: demographic, economic", "Stagflation: elite overproduction, malthusian stagnation", "Crisis: state breakdown, depopulation, economic collapse",
+       "Depression: economic recovery, rebuilding state institutions"],
     
     "Timeline Stages": [
       {"Stage": "Medieval England", "Years": [1150, 1485]}, //x
@@ -519,7 +518,7 @@ function OtahhIntro() {
     svg.append("g")
       .attr("transform", `translate(0, ${height - 20})`)
       .call(xAxis)
-      .style('font-size', '14px')
+      .style('font-size', '16px')
       .selectAll('text')
       .style('font-family', 'Times New Roman, sans-serif');
 
@@ -602,38 +601,55 @@ function OtahhIntro() {
         </select>
       </div>
 
+      <div className="author-card-container">
       <div className="fundamental-works-container">
-        <h3>Fundamental Works:</h3>
-        {Array.isArray(selectedAuthor["Fundamental Works"]) ? (
-          selectedAuthor["Fundamental Works"].map((work, index) => (
-            <p key={index}>{work.Title} - {work["Date of Issue"]}</p>
-          ))
-        ) : (
-          <p>{selectedAuthor["Fundamental Works"].Title} - {selectedAuthor["Fundamental Works"]["Date of Issue"]}</p>
-        )}
-      </div>
+  {Array.isArray(selectedAuthor["Fundamental Works"]) ? (
+    <div className="fundamental-works-column">
+      {selectedAuthor["Fundamental Works"].map((work, index) => (
+        <div key={index} className="author-card-label">{work.Title} - {work["Date of Issue"]}</div>
+      ))}
+    </div>
+  ) : (
+    <div className="author-card-label">{selectedAuthor["Fundamental Works"].Title} - {selectedAuthor["Fundamental Works"]["Date of Issue"]}</div>
+  )}
+</div>
 
-      <div className="framework-container">
-        <h3>The Framework:</h3>
-        <p>{selectedAuthor["Author's framework"]}</p>
-      </div>
 
-      <div className="stages-container">
-        <h3>Cyclical Stages:</h3>
-        {Array.isArray(selectedAuthor["Stages of cycles"]) && selectedAuthor["Stages of cycles"].length > 0 ? (
-          <ul>
-            {selectedAuthor["Stages of cycles"].map((stage, index) => (
-              <li key={index}>{stage}</li>
-            ))}
-          </ul>
-        ) : (
-          <p>No specific cyclical stages provided.</p>
-        )}
-      </div>
+        <div className="framework-container">
+          <label>Framework: </label>
+          <p>{selectedAuthor["Author's framework"]}</p>
+        </div>
 
-      <div className="territory-container">
-        <h3>Territory:</h3>
-        <p>{selectedAuthor["Ancient regions"].join(", ")}</p>
+        
+        <div className="territory-container">
+          <label>Territory: </label>
+          <p>{selectedAuthor["Ancient regions"].join(", ")}</p>
+        </div>
+
+        <div className="origin-of-history-container">
+          <label>Origin of History: </label>
+          <p>{selectedAuthor["Origin of history"]}</p>
+        </div>
+
+
+
+
+       <div className="stages-container">
+  <div className="stages-label-container">
+    <label>Cyclical Stages:</label>
+    {selectedAuthor["Stages of cycles"] === "-" ? (
+      <p>-</p>
+    ) : (
+      <ul className="stages-list">
+        {selectedAuthor["Stages of cycles"].map((stage, index) => (
+          <li key={index}>{stage}</li>
+        ))}
+      </ul>
+    )}
+  </div>
+</div>
+
+
       </div>
 
       <div className="globe-container" style={{ position: 'relative' }}>

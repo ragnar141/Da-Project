@@ -38,96 +38,78 @@
   background-color: #ffffff; /* White background for the dropdown */
 }
 
-/* Fundamental works container styling */
-.fundamental-works-container {
+/* Author card container styling */
+.author-card-container {
   position: fixed;
   top: 140px; /* Positioned below the dropdown container */
   left: 60px;
   z-index: 9998;
   background-color: #f9f9f9;
-  padding: 12px;
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   width: 750px;
+  padding: 16px;
   display: flex;
-  align-items: center;
-}
-.fundamental-works-container h3 {
-  margin-right: 10px;
-  white-space: nowrap;
-}
-.fundamental-works-container p {
-  margin: 0;
+  flex-direction: column;
+  gap: 20px;
 }
 
-/* Framework container styling */
-.framework-container {
-  position: fixed;
-  top: 260px; /* Positioned below the fundamental works container */
-  left: 60px;
-  z-index: 9998;
-  background-color: #f9f9f9;
-  padding: 12px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  width: 750px;
-  display: flex;
-  align-items: center;
-}
-.framework-container h3 {
-  margin-right: 10px;
-  white-space: nowrap;
-}
-.framework-container p {
-  margin: 0;
+.author-card-label {
+  display: inline-block; /* Keep labels in-line */
+  margin-left: 10px; /* Space between label and its content */
+  font-size: 16px; /* Adjust as needed for better readability */
+  font-family: "Arial", sans-serif; /* Consistent font style */
 }
 
-/* Stages container styling */
-.stages-container {
-  position: fixed;
-  top: 360px; /* Positioned below the framework container */
-  left: 60px;
-  z-index: 9998;
-  background-color: #f9f9f9;
-  padding: 12px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  width: 750px;
+
+.stages-label-container {
   display: flex;
-  align-items: center;
+  align-items: center; /* Align label and first stage on the same line */
+  gap: 10px; /* Add spacing between the label and the first stage */
+  flex-wrap: wrap;
 }
-.stages-container h3 {
+
+.first-stage {
+  display: inline; /* Keep the first stage inline with the label */
+}
+
+.stages-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stages-list li {
+  margin-left: 20px; /* Add some indentation to separate the list from the first stage */
+}
+
+.fundamental-works-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Add space between each entry */
+}
+
+.territory-container {
+  padding-bottom: 40px; /* Adjust the padding as needed */
+}
+
+
+
+.author-card-container label {
   margin-right: 10px;
   white-space: nowrap;
+  font-weight: bold;
 }
-.stages-container ul {
+.author-card-container p {
+  margin: 0;
+  display: inline;
+}
+.author-card-container ul {
   margin: 0;
   padding-left: 20px;
 }
-.stages-container li {
+.author-card-container li {
   list-style: none;
-}
-
-/* Territory container styling */
-.territory-container {
-  position: fixed;
-  top: 500px; /* Positioned below the stages container */
-  left: 60px;
-  z-index: 9998;
-  background-color: #f9f9f9;
-  padding: 12px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  width: 750px;
-  display: flex;
-  align-items: center;
-}
-.territory-container h3 {
-  margin-right: 10px;
-  white-space: nowrap;
-}
-.territory-container p {
-  margin: 0;
 }
 
 /* Styling for the globe */
@@ -182,12 +164,10 @@ svg:active {
     top: 10px; /* Adjust top spacing for smaller screens */
     left: 10px; /* Adjust left spacing for smaller screens */
     padding: 5px; /* Reduce padding */
+    
   }
 
-  .fundamental-works-container,
-  .framework-container,
-  .stages-container,
-  .territory-container {
+  .author-card-container {
     top: auto;
     left: 10px;
     right: 10px;
