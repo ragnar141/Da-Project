@@ -3,17 +3,17 @@
 /* Ensure the globe stays aligned to the right and responsive */
 .globe-container {
   display: flex;
-  justify-content: flex-end; /* Align the globe to the right */
-  align-items: flex-start; /* Align items at the top */
-  flex-direction: column; /* Stack the globe and timeline vertically */
-  width: 98vw; /* Full width of the viewport */
-  height: 96vh; /* Full viewport height */
-  background-color: #ffffff; /* Set the background to white */
-  position: relative; /* Ensure positioned elements are relative to this container */
-  box-sizing: border-box; /* Include padding and borders in width/height calculations */
-  overflow-x: hidden; /* Prevent horizontal overflow */
+  justify-content: flex-end;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 98vw;
+  height: 80vh; /* Reduced height to make more space for the timeline */
+  background-color: #ffffff;
+  position: relative;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  margin-bottom: 0; /* Ensure no extra space between the globe and timeline */
 }
-
 /* Dropdown container styling */
 .dropdown-container {
   position: fixed; /* Ensure the dropdown stays fixed on the screen */
@@ -124,7 +124,7 @@
   box-sizing: border-box; /* Ensure padding and borders are accounted for */
   transform: translateY(-50px); /* Move the globe up by 50px */
   border: 1px solid #ddd; /* Add a subtle border around the globe */
-  margin-bottom: 30px;
+  margin-bottom: 60px;
 }
 
 /* Grabbing cursor when the SVG is active */
@@ -135,11 +135,13 @@ svg:active {
 /* Styling for the timeline */
 .timeline {
   position: absolute;
-  bottom: 40px; /* Position at the bottom of the screen */
-  left: 0; /* Align to the left side */
-  width: 96vw; /* Full width of the viewport */
-  background-color: #f9f9f9; /* Light background color for the timeline */
-  border-top: 1px solid #ddd; /* Border to distinguish the timeline */
+  bottom: 0; /* Move timeline closer to the bottom */
+  left: 0;
+  width: 96vw;
+  height: 140px; /* Increased height to make the timeline bigger */
+  background-color: #f9f9f9;
+  border-top: 1px solid #ddd;
+  padding-top: 20px; /* Add padding to create space for the timeline axis labels */
 }
 
 /* Style for the axis labels on the timeline */
@@ -151,6 +153,14 @@ svg:active {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  .globe-container {
+    height: 60vh; /* Reduce globe height further on smaller screens */
+  }
+
+  .timeline {
+    height: 100px; /* Adjust the timeline height on smaller screens */
+  }
+  
   .otahh-globe {
     width: 60vw; /* Increase globe width on smaller screens */
     margin-right: 10px; /* Adjust margin */

@@ -16,10 +16,22 @@ const dataset = [
     "Stages of cycles": ["Growth and Expansion", "Success and Prosperity", "Hubris and Overreach", "Divine Justince and Decline", "Crisis and Collapse" ],
        
     "Timeline Stages": [
-      {"Stage": "The Ancient Civilizations", "Years": [-2600, -700]},
-      {"Stage": "The Rise of the Persian Empire", "Years": [-600, -490]},
-      {"Stage": "The Greco-Persian Wars", "Years": [-499, -479]},
-      {"Stage": "The Post-War Period and the Rise of Greek Power", "Years": [-479, -425]}
+      {"Stage": "The Ancient Civilizations", "Years": [-2600, -700], "Labels": ["2600 BCE", "700 BCE"]},
+      {
+        "Stage": "The Rise of the Persian Empire",
+        "Years": [-600, -490],
+        "Labels": ["600 BCE", "490 BCE"]
+      },
+      {
+        "Stage": "The Greco-Persian Wars",
+        "Years": [-499, -479],
+        "Labels": ["499 BCE", "479 BCE"]
+      },
+      {
+        "Stage": "The Post-War Period and the Rise of Greek Power",
+        "Years": [-479, -425],
+        "Labels": ["479 BCE", "425 BCE"]
+      }
     ],
 
     "Ancient regions": ["Egypt", "Persia", "Media", "Babylon", "Lydia", "Scythia", "India", "Libya", 
@@ -42,11 +54,28 @@ const dataset = [
     "Stages of cycles": "-",
     
     "Timeline Stages": [
-      {"Stage": "Mythical and Monarchical Rome", "Years": [-753, -509]},
-      {"Stage": "Republican Rome and Internal Struggles", "Years": [-509, -264]},
-      {"Stage": "Rome's Wars and Expansion", "Years": [-264, -146]},
-      {"Stage": "Moral Decline in the Late Republic", "Years": [-146, -27]}
-    ],
+      {
+        "Stage": "Mythical and Monarchical Rome",
+        "Years": [-753, -509],
+        "Labels": ["753 BCE", "509 BCE"]
+      },
+      {
+        "Stage": "Republican Rome and Internal Struggles",
+        "Years": [-509, -264],
+        "Labels": ["509 BCE", "264 BCE"]
+      },
+      {
+        "Stage": "Rome's Wars and Expansion",
+        "Years": [-264, -146],
+        "Labels": ["264 BCE", "146 BCE"]
+      },
+      {
+        "Stage": "Moral Decline in the Late Republic",
+        "Years": [-146, -27],
+        "Labels": ["146 BCE", "27 BCE"]
+      }
+    ]
+    ,
     
     "Ancient regions": ["Rome", "Etruria", "Latium", "Samnium", "Magna Graecia", "Carthage", "Gaul", "Hispania", 
       "Macedonia", "Greece", "Sicily", "Sardinia", "Illyria", "Cisalpine Gaul", "Transalpine Gaul", 
@@ -67,11 +96,28 @@ const dataset = [
     "Stages of cycles": "-",
 
     "Timeline Stages": [
-      {"Stage": "The Reign of Tiberius", "Years": [14, 37]},
-      {"Stage": "Republican Rome and Internal Struggles", "Years": [37, 41]},
-      {"Stage": "Rome's Wars and Expansion", "Years": [41, 54]},
-      {"Stage": "Moral Decline in the Late Republic", "Years": [54, 68]}
-    ],    
+      {
+        "Stage": "The Reign of Tiberius",
+        "Years": [14, 37],
+        "Labels": ["14 CE", "37 CE"]
+      },
+      {
+        "Stage": "Republican Rome and Internal Struggles",
+        "Years": [37, 41],
+        "Labels": ["37 CE", "41 CE"]
+      },
+      {
+        "Stage": "Rome's Wars and Expansion",
+        "Years": [41, 54],
+        "Labels": ["41 CE", "54 CE"]
+      },
+      {
+        "Stage": "Moral Decline in the Late Republic",
+        "Years": [54, 68],
+        "Labels": ["54 CE", "68 CE"]
+      }
+    ]
+    ,    
     
     "Ancient regions": ["Rome", "Italia", "Germania", "Britannia", "Gaul", "Hispania", "Egypt", "Syria", "Judea", 
       "Armenia", "Parthia", "Pannonia", "Dalmatia", "Illyria", "Numidia", "Mauretania", 
@@ -94,13 +140,38 @@ const dataset = [
     "Stages of cycles": ["Faithfulness and Prosperity", "Rebellion and Punishment", "Hope for Restoration"],
 
     "Timeline Stages": [
-      {"Stage": "Creation to the Patriarchs (Genesis)", "Years": [-4000, -1300]},
-      {"Stage": "The Exodus and the Law", "Years": [-1300, -1200]},
-      {"Stage": "The Judges and the Kings of Israel", "Years": [-1200, -587]},
-      {"Stage": "The Babylonian Exile and Return", "Years": [-587, -539]},
-      {"Stage": "Post-Biblical History", "Years": [-539, 94]},
-      {"Stage": "The Jewish War", "Years": [66, 70]}
-    ],    
+      {
+        "Stage": "Creation to the Patriarchs (Genesis)",
+        "Years": [-4000, -1300],
+        "Labels": ["4000 BCE", "1300 BCE"]
+      },
+      {
+        "Stage": "The Exodus and the Law",
+        "Years": [-1300, -1200],
+        "Labels": ["1300 BCE", "1200 BCE"]
+      },
+      {
+        "Stage": "The Judges and the Kings of Israel",
+        "Years": [-1200, -587],
+        "Labels": ["1200 BCE", "587 BCE"]
+      },
+      {
+        "Stage": "The Babylonian Exile and Return",
+        "Years": [-587, -539],
+        "Labels": ["587 BCE", "539 BCE"]
+      },
+      {
+        "Stage": "Post-Biblical History",
+        "Years": [-539, 94],
+        "Labels": ["539 BCE", "94 CE"]
+      },
+      {
+        "Stage": "The Jewish War",
+        "Years": [66, 70],
+        "Labels": ["66 CE", "70 CE"]
+      }
+    ]
+    ,    
 
     "Ancient regions": ["Judea", "Galilee", "Samaria", "Idumea", "Jerusalem", "Perea", "Decapolis", "Syria", 
       "Alexandria", "Egypt", "Rome", "Parthia", "Babylonia", "Arabia", "Phoenicia", 
@@ -119,9 +190,18 @@ const dataset = [
     "Author's framework": "Shinto",
     "Stages of cycles": "-",
     "Timeline Stages": [
-      {"Stage": "Mythological Age (Time Before Human History)", "Years": [-4000, -660]},
-      {"Stage": "Historical Age (Legendary and Semi-Historical Period)", "Years": [-660, -499]},
-    ],  
+      {
+        "Stage": "Mythological Age (Time Before Human History)",
+        "Years": [-4000, -660],
+        "Labels": ["4000 BCE", "660 BCE"]
+      },
+      {
+        "Stage": "Historical Age (Legendary and Semi-Historical Period)",
+        "Years": [-660, -499],
+        "Labels": ["660 BCE", "499 BCE"]
+      }
+    ]
+    ,  
     "Ancient regions": ["Wa", "Yamato", "Izumo", "Tsukushi", "Takamagahara", "Ashihara no Nakatsukuni", "Koshi", 
       "Awaji", "Owari", "Hyuga", "Tsushima", "Hokkaido"],      
 
@@ -136,10 +216,23 @@ const dataset = [
     "Author's framework": "Primarily Shinto, secondarily Buddhism",
     "Stages of cycles": "-",
     "Timeline Stages": [
-      {"Stage": "Mythological Age (Kami no Yo) ", "Years": [-4000, -660]},
-      {"Stage": "Semi-Historical Age", "Years": [-660, 600]},
-      {"Stage": "Historical Age", "Years": [600, 720]}
-    ],  
+      {
+        "Stage": "Mythological Age (Kami no Yo)",
+        "Years": [-4000, -660],
+        "Labels": ["4000 BCE", "660 BCE"]
+      },
+      {
+        "Stage": "Semi-Historical Age",
+        "Years": [-660, 600],
+        "Labels": ["660 BCE", "600 CE"]
+      },
+      {
+        "Stage": "Historical Age",
+        "Years": [600, 720],
+        "Labels": ["600 CE", "720 CE"]
+      }
+    ]
+    ,  
     "Ancient regions": ["Wa", "Yamato", "Tsukushi", "Koshi", "Kibi", "Silla", "Baekje", "Goguryeo", "Kara", 
       "Paekche", "Tunguska", "Lelang", "China", "Yamatai", "Ryukyu Islands"],
       
@@ -154,10 +247,23 @@ const dataset = [
     "Author's framework": "Primarily Zoroastrianism, secondarily Islam",
     "Stages of cycles": ["Truth and Justice  ->  Prosperity and Victory", "Tyranny, greed, and falsehood  ->  Death and Decline"],
     "Timeline Stages": [
-      {"Stage": "Mythical Age", "Years": [-4000, -2000]},
-      {"Stage": "Legendary Age", "Years": [-2000, -330]},
-      {"Stage": "Historical Age", "Years": [-330, 651]}
-    ],
+      {
+        "Stage": "Mythical Age",
+        "Years": [-4000, -2000],
+        "Labels": ["4000 BCE", "2000 BCE"]
+      },
+      {
+        "Stage": "Legendary Age",
+        "Years": [-2000, -330],
+        "Labels": ["2000 BCE", "330 BCE"]
+      },
+      {
+        "Stage": "Historical Age",
+        "Years": [-330, 651],
+        "Labels": ["330 BCE", "651 CE"]
+      }
+    ]
+    ,
     "Ancient regions": ["Iran", "Turan", "Zabulistan", "Sistan", "Mazandaran", "Khwarazm", "India", "China", 
       "Rome", "Arabia", "Balkh", "Khorasan", "Ctesiphon", "Isfahan", "Herat", "Rey", "Armenia", 
       "Caucasus", "Bukhara", "Gorgan", "Syria", "Yemen", "Sogdiana", "Parthia", "Azerbaijan", 
@@ -175,18 +281,63 @@ const dataset = [
     "Author's framework": "Rational, sociological",
     "Stages of cycles": ["The Formation of a Dynasty (Gaining Asabiyyah)", "The Flourishing of the Dynasty", "The Decline of the Dynasty (Losing Asabiyyah)"],
     "Timeline Stages": [
-      {"Stage": "Ancient Egypt", "Years": [-3100, -30]},
-      {"Stage": "Mesopotamia", "Years": [-3000, -539]},
-      {"Stage": "Pre-Islamic Tribal Arabia", "Years": [-500, 622]},
-      {"Stage": "Life of the Prophet Muhammad", "Years": [570, 632]},
-      {"Stage": "Umayyad Caliphate", "Years": [661, 750]},
-      {"Stage": "Abbasid Caliphate", "Years": [750, 1258]},
-      {"Stage": "Almoravid Dynasty", "Years": [1040, 1147]},
-      {"Stage": "Almohad Dynasty", "Years": [1121, 1269]},
-      {"Stage": "Hafsids of Tunisia", "Years": [1229, 1574]},
-      {"Stage": "Mongol Empire", "Years": [1206, 1368]},
-      {"Stage": "Reconquista", "Years": [718, 1377]},
-    ],
+      {
+        "Stage": "Ancient Egypt",
+        "Years": [-3100, -30],
+        "Labels": ["3100 BCE", "30 BCE"]
+      },
+      {
+        "Stage": "Mesopotamia",
+        "Years": [-3000, -539],
+        "Labels": ["3000 BCE", "539 BCE"]
+      },
+      {
+        "Stage": "Pre-Islamic Tribal Arabia",
+        "Years": [-500, 622],
+        "Labels": ["500 BCE", "622 CE"]
+      },
+      {
+        "Stage": "Life of the Prophet Muhammad",
+        "Years": [570, 632],
+        "Labels": ["570 CE", "632 CE"]
+      },
+      {
+        "Stage": "Umayyad Caliphate",
+        "Years": [661, 750],
+        "Labels": ["661 CE", "750 CE"]
+      },
+      {
+        "Stage": "Abbasid Caliphate",
+        "Years": [750, 1258],
+        "Labels": ["750 CE", "1258 CE"]
+      },
+      {
+        "Stage": "Almoravid Dynasty",
+        "Years": [1040, 1147],
+        "Labels": ["1040 CE", "1147 CE"]
+      },
+      {
+        "Stage": "Almohad Dynasty",
+        "Years": [1121, 1269],
+        "Labels": ["1121 CE", "1269 CE"]
+      },
+      {
+        "Stage": "Hafsids of Tunisia",
+        "Years": [1229, 1574],
+        "Labels": ["1229 CE", "1574 CE"]
+      },
+      {
+        "Stage": "Mongol Empire",
+        "Years": [1206, 1368],
+        "Labels": ["1206 CE", "1368 CE"]
+      },
+      {
+        "Stage": "Reconquista",
+        "Years": [718, 1377],
+        "Labels": ["718 CE", "1377 CE"]
+      }
+    ]
+    ,
 
     "Ancient regions": ["Ifriqiya", "Maghreb", "Egypt", "Al-Andalus", "Arabia", "Persia", "Syria", "Iraq", "Yemen", 
       "Berber Kingdoms", "Byzantium", "Sudan", "Sicily", "Constantinople", "Khorasan", 
@@ -208,12 +359,38 @@ const dataset = [
     "Author's framework": "Christian, scientific",
     "Stages of cycles": "-",
     "Timeline Stages": [
-      {"Stage": "Early Biblical Events", "Years": [-4000, -2500]},
-      {"Stage": "Ancient Egypt", "Years": [-2000, -568]},
-      {"Stage": "Assyria", "Years": [-1500, -600]},
-      {"Stage": "Babylon", "Years": [-1500, -539]},
-      {"Stage": "Persia", "Years": [-550, -330]},     
-      {"Stage": "Trojan war, Greek period", "Years": [-950, -146]},],
+      {
+        "Stage": "Early Biblical Events",
+        "Years": [-4000, -2500],
+        "Labels": ["4000 BCE", "2500 BCE"]
+      },
+      {
+        "Stage": "Ancient Egypt",
+        "Years": [-2000, -568],
+        "Labels": ["2000 BCE", "568 BCE"]
+      },
+      {
+        "Stage": "Assyria",
+        "Years": [-1500, -600],
+        "Labels": ["1500 BCE", "600 BCE"]
+      },
+      {
+        "Stage": "Babylon",
+        "Years": [-1500, -539],
+        "Labels": ["1500 BCE", "539 BCE"]
+      },
+      {
+        "Stage": "Persia",
+        "Years": [-550, -330],
+        "Labels": ["550 BCE", "330 BCE"]
+      },
+      {
+        "Stage": "Trojan war, Greek period",
+        "Years": [-950, -146],
+        "Labels": ["950 BCE", "146 BCE"]
+      }
+    ]
+    ,
 
     "Ancient regions": ["Egypt", "Assyria", "Babylon", "Greece", "Israel", "Judah", "Persia", "Scythia", 
       "Troy", "Thebes", "Phrygia"],
@@ -229,9 +406,23 @@ const dataset = [
     "Author's framework": "Sociological, philosophical",
     "Stages of cycles": ["Rise", "Fall"],
     "Timeline Stages": [
-      {"Stage": "The Roman Empire from Trajan to the Fall of the Western Roman Empire ", "Years": [98, 476]},
-      {"Stage": "The Byzantine (Eastern Roman) Empire ", "Years": [476, 1204]},
-      {"Stage": "The Final Decline of the Byzantine Empire and the Fall of Constantinople", "Years": [1204, 1453]}],
+      {
+        "Stage": "The Roman Empire from Trajan to the Fall of the Western Roman Empire",
+        "Years": [98, 476],
+        "Labels": ["98 CE", "476 CE"]
+      },
+      {
+        "Stage": "The Byzantine (Eastern Roman) Empire",
+        "Years": [476, 1204],
+        "Labels": ["476 CE", "1204 CE"]
+      },
+      {
+        "Stage": "The Final Decline of the Byzantine Empire and the Fall of Constantinople",
+        "Years": [1204, 1453],
+        "Labels": ["1204 CE", "1453 CE"]
+      }
+    ]
+    ,
     
     "Ancient regions": ["Rome", "Gaul", "Britannia", "Hispania", "Germania", "North Africa", "Constantinople", 
       "Asia Minor", "Greece", "Syria", "Palestine", "Egypt", "Visigothic Kingdom", "Ostrogothic Kingdom", 
@@ -253,11 +444,28 @@ const dataset = [
     "Stages of cycles": ["Thesis", "Antithesis", "Synthesis"],
         
     "Timeline Stages": [
-      {"Stage": "Oriental World", "Years": [-3000, -500]},
-      {"Stage": "Greek World", "Years": [-800, -300]},
-      {"Stage": "Roman World ", "Years": [-500, 476]},
-      {"Stage": "Germanic World ", "Years": [476, 1800]}   
-    ],
+      {
+        "Stage": "Oriental World",
+        "Years": [-3000, -500],
+        "Labels": ["3000 BCE", "500 BCE"]
+      },
+      {
+        "Stage": "Greek World",
+        "Years": [-800, -300],
+        "Labels": ["800 BCE", "300 BCE"]
+      },
+      {
+        "Stage": "Roman World",
+        "Years": [-500, 476],
+        "Labels": ["500 BCE", "476 CE"]
+      },
+      {
+        "Stage": "Germanic World",
+        "Years": [476, 1800],
+        "Labels": ["476 CE", "1800 CE"]
+      }
+    ]
+    ,
  
     "Ancient regions": ["China", "India", "Persia", "Egypt", "Greece", "Rome", "Germany"],
     "Geography": ["China", "India", "Iran", "Egypt", "Greece", "Italy", "Germany"]
@@ -271,14 +479,31 @@ const dataset = [
  "Timeline": [-5000, 2000],
     "Origin of history": "-",
     "Author's framework": "Sociological: theological, historical, economic",    
-    "Stages of cycles": "Rationalization",
+    "Stages of cycles": ["Rationalization"],
         
     "Timeline Stages": [
-      {"Stage": "Ancient Religions: Patrimonial and theocratic rule, kinship-based governance", "Years": [-3000, -500]},
-      {"Stage": "Axial Age Religions: Feudalism, charismatic authority, decentralized governance", "Years": [-600, 200]},
-      {"Stage": "Medieval Religions: Rise of centralized monarchies, early bureaucratic structures, absolutism", "Years": [400, 1500]},
-      {"Stage": "Modern Religions: Bureaucratization, rational-legal authority, industrial capitalism", "Years": [1500, 2000]}   
-    ],
+      {
+        "Stage": "Ancient Religions: Patrimonial and theocratic rule, kinship-based governance",
+        "Years": [-3000, -500],
+        "Labels": ["3000 BCE", "500 BCE"]
+      },
+      {
+        "Stage": "Axial Age Religions: Feudalism, charismatic authority, decentralized governance",
+        "Years": [-600, 200],
+        "Labels": ["600 BCE", "200 CE"]
+      },
+      {
+        "Stage": "Medieval Religions: Rise of centralized monarchies, early bureaucratic structures, absolutism",
+        "Years": [400, 1500],
+        "Labels": ["400 CE", "1500 CE"]
+      },
+      {
+        "Stage": "Modern Religions: Bureaucratization, rational-legal authority, industrial capitalism",
+        "Years": [1500, 2000],
+        "Labels": ["1500 CE", "2000 CE"]
+      }
+    ]
+    ,
    
     "Ancient regions": ["Persia", "Switzerland", "The Netherlands", "Eastern Europe", "Ancient Israel", "Western Europe", "France", "Ancient Greece", 
       "Medieval Europe", "Germany", "Medieval Japan", "Ottoman Empire", "Islamic World", "Byzantine Empire", "Buddhist Asia", "Japan", "Mesopotamia", 
@@ -299,15 +524,48 @@ const dataset = [
     "Stages of cycles": ["Birth (Spring)", "Growth and Flourishing (Summer)", "Maturity and Rationalization (Autumn)", "Decline (Winter)"],
         
     "Timeline Stages": [
-      {"Stage": "Egyptian Civilization (early high culture)", "Years": [-3000, -300]},
-      {"Stage": "Mesopotamian/Babylonian Civilization (early high culture)", "Years": [-3000, -500]},
-      {"Stage": "Greek (Classical Civilization)", "Years": [-1100, -200]},
-      {"Stage": "Roman (Classical Civilization", "Years": [-500, 500]},  
-      {"Stage": "Arabian (Magian Civilization)", "Years": [300, 1500]},      
-      {"Stage": "Medieval Europe (Faustian Civilization)", "Years": [900, 1500]},
-      {"Stage": "Renaissance and Reformation (Faustian Civilization)", "Years": [1500, 1800]},  
-      {"Stage": "Industrialization and Modernity (Faustian Civilization)", "Years": [1800, 2000]},
-    ],
+      {
+        "Stage": "Egyptian Civilization (early high culture)",
+        "Years": [-3000, -300],
+        "Labels": ["3000 BCE", "300 BCE"]
+      },
+      {
+        "Stage": "Mesopotamian/Babylonian Civilization (early high culture)",
+        "Years": [-3000, -500],
+        "Labels": ["3000 BCE", "500 BCE"]
+      },
+      {
+        "Stage": "Greek (Classical Civilization)",
+        "Years": [-1100, -200],
+        "Labels": ["1100 BCE", "200 BCE"]
+      },
+      {
+        "Stage": "Roman (Classical Civilization",
+        "Years": [-500, 500],
+        "Labels": ["500 BCE", "500 CE"]
+      },
+      {
+        "Stage": "Arabian (Magian Civilization)",
+        "Years": [300, 1500],
+        "Labels": ["300 CE", "1500 CE"]
+      },
+      {
+        "Stage": "Medieval Europe (Faustian Civilization)",
+        "Years": [900, 1500],
+        "Labels": ["900 CE", "1500 CE"]
+      },
+      {
+        "Stage": "Renaissance and Reformation (Faustian Civilization)",
+        "Years": [1500, 1800],
+        "Labels": ["1500 CE", "1800 CE"]
+      },
+      {
+        "Stage": "Industrialization and Modernity (Faustian Civilization)",
+        "Years": [1800, 2000],
+        "Labels": ["1800 CE", "2000 CE"]
+      }
+    ]
+    ,
    
       "Ancient regions": ["Egypt", "Babylonia", "Greece", "Rome", "Mesopotamia", "Persia", "Byzantine Empire", 
       "Arabia", "India", "China"],
@@ -327,28 +585,108 @@ const dataset = [
     "Stages of cycles": ["Birth","Growth", "Breakdown", "Disintegration"],
         
     "Timeline Stages": [
-      {"Stage": "Egyptian Civilization", "Years": [-3000, -30]},
-      {"Stage": "Sumerian/Babylonian Civilization", "Years": [-3000, -500]},
-      {"Stage": "Minoan Civilization", "Years": [-2700, -1400]},
-      {"Stage": "Hittite Civilization", "Years": [-1600, -1200]},  
-      {"Stage": "Indus Valley Civilization", "Years": [-2600, -1900]},      
-      {"Stage": "Maya Civilization", "Years": [-1800, 900]},
-      {"Stage": "Classical Greek Civilization", "Years": [-800, -146]},  
-      {"Stage": "Persian Civilization", "Years": [-550, 651]},
-      {"Stage": "Western Roman Civilization", "Years": [-500, 476]},
-      {"Stage": "Chinese Civilization", "Years": [-1000, 220]},
-      {"Stage": "Byzantine Civilization", "Years": [330, 1453]},
-      {"Stage": "Islamic Civilization", "Years": [622, 2000]},
-      {"Stage": "Western Christian Civilization", "Years": [800, 2000]},
-      {"Stage": "Hindu Civilization", "Years": [-1500, 2000]},
-      {"Stage": "Russian Civilization", "Years": [900, 2000]},
-      {"Stage": "Japanese Civilization", "Years": [250, 2000]},
-      {"Stage": "Hindu Civilization", "Years": [-1500, 2000]},
-      
-      {"Stage": "Western Renaissance", "Years": [-1400, 1760]},
-      {"Stage": "Industrial Revolution", "Years": [1760, 1900]},
-      {"Stage": "World Wars and Globalization", "Years": [1900, 2000]},
-    ],
+      {
+        "Stage": "Egyptian Civilization",
+        "Years": [-3000, -30],
+        "Labels": ["3000 BCE", "30 BCE"]
+      },
+      {
+        "Stage": "Sumerian/Babylonian Civilization",
+        "Years": [-3000, -500],
+        "Labels": ["3000 BCE", "500 BCE"]
+      },
+      {
+        "Stage": "Minoan Civilization",
+        "Years": [-2700, -1400],
+        "Labels": ["2700 BCE", "1400 BCE"]
+      },
+      {
+        "Stage": "Hittite Civilization",
+        "Years": [-1600, -1200],
+        "Labels": ["1600 BCE", "1200 BCE"]
+      },
+      {
+        "Stage": "Indus Valley Civilization",
+        "Years": [-2600, -1900],
+        "Labels": ["2600 BCE", "1900 BCE"]
+      },
+      {
+        "Stage": "Maya Civilization",
+        "Years": [-1800, 900],
+        "Labels": ["1800 BCE", "900 CE"]
+      },
+      {
+        "Stage": "Classical Greek Civilization",
+        "Years": [-800, -146],
+        "Labels": ["800 BCE", "146 BCE"]
+      },
+      {
+        "Stage": "Persian Civilization",
+        "Years": [-550, 651],
+        "Labels": ["550 BCE", "651 CE"]
+      },
+      {
+        "Stage": "Western Roman Civilization",
+        "Years": [-500, 476],
+        "Labels": ["500 BCE", "476 CE"]
+      },
+      {
+        "Stage": "Chinese Civilization",
+        "Years": [-1000, 220],
+        "Labels": ["1000 BCE", "220 CE"]
+      },
+      {
+        "Stage": "Byzantine Civilization",
+        "Years": [330, 1453],
+        "Labels": ["330 CE", "1453 CE"]
+      },
+      {
+        "Stage": "Islamic Civilization",
+        "Years": [622, 2000],
+        "Labels": ["622 CE", "2000 CE"]
+      },
+      {
+        "Stage": "Western Christian Civilization",
+        "Years": [800, 2000],
+        "Labels": ["800 CE", "2000 CE"]
+      },
+      {
+        "Stage": "Hindu Civilization",
+        "Years": [-1500, 2000],
+        "Labels": ["1500 BCE", "2000 CE"]
+      },
+      {
+        "Stage": "Russian Civilization",
+        "Years": [900, 2000],
+        "Labels": ["900 CE", "2000 CE"]
+      },
+      {
+        "Stage": "Japanese Civilization",
+        "Years": [250, 2000],
+        "Labels": ["250 CE", "2000 CE"]
+      },
+      {
+        "Stage": "Hindu Civilization",
+        "Years": [-1500, 2000],
+        "Labels": ["1500 BCE", "2000 CE"]
+      },
+      {
+        "Stage": "Western Renaissance",
+        "Years": [-1400, 1760],
+        "Labels": ["1400 BCE", "1760 CE"]
+      },
+      {
+        "Stage": "Industrial Revolution",
+        "Years": [1760, 1900],
+        "Labels": ["1760 CE", "1900 CE"]
+      },
+      {
+        "Stage": "World Wars and Globalization",
+        "Years": [1900, 2000],
+        "Labels": ["1900 CE", "2000 CE"]
+      }
+    ]
+    ,
 
     "Ancient regions": ["Egypt", "Mesopotamia", "Sumer", "Greece", "Rome", "Byzantium", "Syria", "Persia", "India", "China", "Islamic Caliphates", 
       "Mesoamerica (Aztec and Maya)", "Andean (Inca)"],
@@ -366,11 +704,24 @@ const dataset = [
     "Author's framework": "Existentionalist, theological, philosophical",    
     "Stages of cycles": "-",
 
-    "Timeline Stages": [
-      {"Stage": "Pre-Axial Period", "Years": [-3000, -800]}, //x
-      {"Stage": "Axial Age", "Years": [-800, -200]},
-      {"Stage": "Post-Axial Age", "Years": [-200, 2000]},
-    ],
+    "Timeline Stages":[
+      {
+        "Stage": "Pre-Axial Period",
+        "Years": [-3000, -800],
+        "Labels": ["3000 BCE", "800 BCE"]
+      },
+      {
+        "Stage": "Axial Age",
+        "Years": [-800, -200],
+        "Labels": ["800 BCE", "200 BCE"]
+      },
+      {
+        "Stage": "Post-Axial Age",
+        "Years": [-200, 2000],
+        "Labels": ["200 BCE", "2000 CE"]
+      }
+    ]
+    ,
     
     "Ancient regions": ["Greece", "India", "China", "Israel", "Persia", "Mesopotamia", "Egypt", "Rome", "Western Europe", "Islamic World"],
 
@@ -392,11 +743,28 @@ const dataset = [
        "Depression: economic recovery, rebuilding state institutions"],
     
     "Timeline Stages": [
-      {"Stage": "Medieval England", "Years": [1150, 1485]}, //x
-      {"Stage": "Pre-Revolution France", "Years": [1200, 1800]},
-      {"Stage": "Imperial Russia", "Years": [1460, 1917]},
-      {"Stage": "Ancient Rome", "Years": [-200, 600]},
-    ],
+      {
+        "Stage": "Medieval England",
+        "Years": [1150, 1485],
+        "Labels": ["1150 CE", "1485 CE"]
+      },
+      {
+        "Stage": "Pre-Revolution France",
+        "Years": [1200, 1800],
+        "Labels": ["1200 CE", "1800 CE"]
+      },
+      {
+        "Stage": "Imperial Russia",
+        "Years": [1460, 1917],
+        "Labels": ["1460 CE", "1917 CE"]
+      },
+      {
+        "Stage": "Ancient Rome",
+        "Years": [-200, 600],
+        "Labels": ["200 BCE", "600 CE"]
+      }
+    ]
+    ,
 
     "Ancient regions": ["Rome", "China", "Russia", "European Empires", "Islamic Caliphates", "Byzantium", "Ottoman Empire", "France", 
       "Britain", "Muscovite Russia", "Tang Dynasty", "Song Dynasty", "Ming Dynasty"],
@@ -414,12 +782,12 @@ function OtahhIntro() {
 
   // Memoized function to set up the projection and path generator
   const renderGlobe = useMemo(() => {
-    const initialScale = 200;  // Default size of the globe
+    const initialScale = 170;  // Default size of the globe
     const initialRotation = [0, 0];  // Default rotation angle [longitude, latitude]
 
     const projection = geoOrthographic()
       .scale(initialScale * zoomScaleRef.current)
-      .translate([300, 300]) // Center the globe
+      .translate([300, 400]) // Center the globe
       .rotate(initialRotation); // Initial rotation [longitude, latitude]
 
     const path = geoPath(projection);
@@ -462,20 +830,6 @@ function OtahhIntro() {
   
   
 
-  const applyZoom = useCallback(() => {
-    const { projection, path } = renderGlobe;
-
-    const zoom = d3.zoom()
-      .scaleExtent([0.5, 8])  
-      .on('zoom', (event) => {
-        zoomScaleRef.current = event.transform.k;
-        projection.scale(event.transform.k * 250);
-        d3.select(svgRef.current).selectAll('path').attr('d', path);
-      });
-
-    d3.select(svgRef.current).call(zoom).on('mousedown.zoom', null);
-  }, [renderGlobe]);
-
   const applyDrag = useCallback(() => {
     const { projection, path } = renderGlobe;
 
@@ -493,50 +847,168 @@ function OtahhIntro() {
   const renderTimeline = useCallback(() => {
     const width = 1400;
     const height = 100;
-
+  
     const svg = d3.select(timelineRef.current)
       .attr("width", width)
       .attr("height", height);
-
+  
     // Clear previous elements
     svg.selectAll("*").remove();
-
+  
     // Define the time scale dynamically based on the author's timeline
     const startYear = selectedAuthor.Timeline[0];
     const endYear = selectedAuthor.Timeline[1];
-
+  
     const xScale = d3.scaleLinear()
       .domain([startYear, endYear])
       .range([50, width - 50]); // Leave padding on both sides
-
+  
     // Create the axis
     const xAxis = d3.axisBottom(xScale)
       .ticks(20)
       .tickFormat(d => (d < 0 ? `${Math.abs(d)} BC` : `${d} CE`));
-
+  
+    const g = svg.append("g");
+  
     // Append the axis to the timeline
-    svg.append("g")
+    g.append("g")
+      .attr("class", "x-axis")
       .attr("transform", `translate(0, ${height - 20})`)
       .call(xAxis)
       .style('font-size', '16px')
       .selectAll('text')
       .style('font-family', 'Times New Roman, sans-serif');
-
+  
+    // Keep track of used levels to avoid overlaps
+    const usedLevels = [];
+    
+    // Helper function to determine an available level for a stage
+    const findAvailableLevel = (start, end) => {
+      for (let level = 0; ; level++) {
+        const intersecting = usedLevels[level]?.some(stage => (
+          (start >= stage.start && start <= stage.end) || (end >= stage.start && end <= stage.end)
+        ));
+        if (!intersecting) {
+          return level;
+        }
+      }
+    };
+  
     // Loop through timeline stages and highlight each period
-    selectedAuthor["Timeline Stages"].forEach(stage => {
-      svg.append("rect")
-        .attr("x", xScale(stage.Years[0]))
-        .attr("y", 10)
-        .attr("width", xScale(stage.Years[1]) - xScale(stage.Years[0]))
-        .attr("height", height - 30)
-        .attr("fill", "red")
-        .attr("opacity", 0.5)
-        .append("title") // Tooltip for stage
-        .text(stage.Stage);
-    });
+    g.selectAll("rect")
+      .data(selectedAuthor["Timeline Stages"])
+      .enter()
+      .append("rect")
+      .attr("x", d => xScale(d.Years[0]))
+      .attr("y", function(d) {
+        const level = findAvailableLevel(d.Years[0], d.Years[1]);
+        if (!usedLevels[level]) usedLevels[level] = [];
+        usedLevels[level].push({ start: d.Years[0], end: d.Years[1] });
+        return 10 + level * 20; // Adjust `y` position based on level
+      })
+      .attr("width", d => xScale(d.Years[1]) - xScale(d.Years[0]))
+      .attr("height", height - 50)
+      .attr("fill", (d, index) => d3.schemeCategory10[index % 10]) // Use different colors for each stage
+      .attr("opacity", 0.5)
+      .append("title") // Tooltip for stage
+      .text(d => d.Stage);
+  
+    // Add a label for each stage using the "Labels" array instead of "Years"
+    g.selectAll(".stage-label")
+      .data(selectedAuthor["Timeline Stages"])
+      .enter()
+      .append("text")
+      .attr("class", "stage-label")
+      .attr("x", d => (xScale(d.Years[0]) + xScale(d.Years[1])) / 2)
+      .attr("y", function(d) {
+        const level = findAvailableLevel(d.Years[0], d.Years[1]);
+        return height - 60 - (level * 20); // Adjust `y` position based on level
+      })
+      .attr("text-anchor", "middle")
+      .style("font-size", "12px")
+      .style("font-family", "Arial, sans-serif")
+      .each(function(d) {
+        const textElement = d3.select(this);
+  
+        // First part of the stage label (split into two lines)
+        const stageParts = d.Stage.split(" ");
+        const firstPart = stageParts.slice(0, Math.floor(stageParts.length / 2)).join(" ");
+        const secondPart = stageParts.slice(Math.floor(stageParts.length / 2)).join(" ");
+  
+        // Append first line
+        textElement.append("tspan")
+          .attr("x", (xScale(d.Years[0]) + xScale(d.Years[1])) / 2)
+          .attr("dy", "-1.5em") // Move first line up
+          .text(firstPart);
+  
+        // Append second line
+        textElement.append("tspan")
+          .attr("x", (xScale(d.Years[0]) + xScale(d.Years[1])) / 2)
+          .attr("dy", "1.2em") // Move second line below the first
+          .text(secondPart);
+  
+        // Append third line for Labels (BCE/CE)
+        textElement.append("tspan")
+          .attr("x", (xScale(d.Years[0]) + xScale(d.Years[1])) / 2)
+          .attr("dy", "1.2em") // Further offset for the third line
+          .text(`(${d.Labels[0]} - ${d.Labels[1]})`);
+      });
+  
+    // Define the zoom behavior
+    const zoom = d3.zoom()
+      .scaleExtent([1, 10]) // Set the zoom range
+      .translateExtent([[0, 0], [width, height]]) // Restrict panning
+      .on("zoom", (event) => {
+        // Apply the zoom transformation
+        const newXScale = event.transform.rescaleX(xScale);
+  
+        g.selectAll("rect")
+          .attr("x", d => newXScale(d.Years[0]))
+          .attr("width", d => newXScale(d.Years[1]) - newXScale(d.Years[0]));
+  
+        g.select(".x-axis").call(xAxis.scale(newXScale));
+  
+        // Update labels with zoom and render as multiline with `tspan`
+        g.selectAll(".stage-label")
+          .each(function(d) {
+            const textElement = d3.select(this);
+  
+            // Recalculate x position based on newXScale
+            const newXPos = (newXScale(d.Years[0]) + newXScale(d.Years[1])) / 2;
+  
+            // Remove any existing `tspan` elements to prevent duplication
+            textElement.selectAll("tspan").remove();
+  
+            // First part of the stage label (split into two lines)
+            const stageParts = d.Stage.split(" ");
+            const firstPart = stageParts.slice(0, Math.floor(stageParts.length / 2)).join(" ");
+            const secondPart = stageParts.slice(Math.floor(stageParts.length / 2)).join(" ");
+  
+            // Append first line
+            textElement.append("tspan")
+              .attr("x", newXPos)
+              .attr("dy", "-1.5em") // Move first line up
+              .text(firstPart);
+  
+            // Append second line
+            textElement.append("tspan")
+              .attr("x", newXPos)
+              .attr("dy", "1.2em") // Move second line below the first
+              .text(secondPart);
+  
+            // Append third line for Labels (BCE/CE)
+            textElement.append("tspan")
+              .attr("x", newXPos)
+              .attr("dy", "1.2em") // Further offset for the third line
+              .text(`(${d.Labels[0]} - ${d.Labels[1]})`);
+          });
+      });
+  
+    // Apply the zoom behavior to the SVG
+    svg.call(zoom);
   }, [selectedAuthor]);
-
-
+  
+  
   // Function to highlight relevant geography on the globe
   const highlightGeography = useCallback(() => {
     const { projection, path } = renderGlobe;
@@ -579,9 +1051,8 @@ function OtahhIntro() {
 
   useEffect(() => {
     renderStaticElements();
-    applyZoom();
     applyDrag();
-  }, [renderStaticElements, applyZoom, applyDrag]);
+  }, [renderStaticElements, applyDrag]);
 
   useEffect(() => {
     renderTimeline(); // Re-render timeline when selectedAuthor changes
@@ -636,7 +1107,7 @@ function OtahhIntro() {
 
        <div className="stages-container">
   <div className="stages-label-container">
-    <label>Cyclical Stages:</label>
+    <label>States of History:</label>
     {selectedAuthor["Stages of cycles"] === "-" ? (
       <p>-</p>
     ) : (
@@ -658,7 +1129,7 @@ function OtahhIntro() {
       </div>
 
       {/* Timeline SVG (moved outside the globe container) */}
-      <div style={{ marginTop: '20px' }}>
+      <div style={{ marginTop: '10px' }}>
         <svg ref={timelineRef} className="timeline"></svg>
       </div>
     </div>
