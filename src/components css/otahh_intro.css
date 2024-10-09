@@ -16,21 +16,41 @@
 }
 /* Dropdown container styling */
 .dropdown-container {
+  display: flex;
+  justify-content: space-between; /* Space between label and dropdown */
+  align-items: center; /* Vertically center both label and dropdown */
   position: fixed; /* Ensure the dropdown stays fixed on the screen */
-  top: 60px; /* Position it 60px from the top */
-  left: 60px; /* Position it 60px from the left */
+  top: 50px; /* Position it 50px from the top */
+  left: 60px; /* Position the container 60px from the left */
   z-index: 9999; /* Ensure the dropdown stays on top of all elements */
   background-color: #f9f9f9; /* Slight gray background for clarity */
   padding: 12px; /* Padding around the dropdown for spacing */
   border-radius: 8px; /* Rounded corners for better appearance */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for a subtle elevation effect */
+  width: 750px; /* Fixed width for the container */
+  font-size: 17px;
+}
+
+.author-card-container {
+  position: fixed;
+  top: 120px; /* Positioned below the dropdown container */
+  left: 60px;
+  z-index: 9998;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 750px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 /* Styling for the dropdown */
 #author-select {
   font-size: 16px;
   padding: 8px;
-  margin-left: 10px;
+  margin-left: 0; /* Ensure no extra margin on the dropdown */
   font-family: "Arial", sans-serif;
   cursor: pointer; /* Add a pointer cursor for better UX */
   border: 1px solid #ddd; /* Subtle border around dropdown */
@@ -39,60 +59,33 @@
 }
 
 /* Author card container styling */
-.author-card-container {
-  position: fixed;
-  top: 140px; /* Positioned below the dropdown container */
-  left: 60px;
-  z-index: 9998;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  width: 750px;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
+
 
 .author-card-label {
-  display: inline-block; /* Keep labels in-line */
-  margin-left: 10px; /* Space between label and its content */
-  font-size: 16px; /* Adjust as needed for better readability */
-  font-family: "Arial", sans-serif; /* Consistent font style */
-}
-
-
-.stages-label-container {
-  display: flex;
-  align-items: center; /* Align label and first stage on the same line */
-  gap: 10px; /* Add spacing between the label and the first stage */
-  flex-wrap: wrap;
-}
-
-.first-stage {
-  display: inline; /* Keep the first stage inline with the label */
-}
-
-.stages-list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.stages-list li {
-  margin-left: 20px; /* Add some indentation to separate the list from the first stage */
+  padding-top: 10px;
+  display: flex; /* Use flexbox for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  margin: 0 auto; /* Optional: Center the whole label container */
+  font-size: 25px; /* Adjust as needed for better readability */
+  font-family: "Times New Roman", Times, serif; /* Consistent font style */
+  font-weight: 500;
 }
 
 .fundamental-works-column {
   display: flex;
   flex-direction: column;
   gap: 10px; /* Add space between each entry */
+  
 }
 
 .territory-container {
-  padding-bottom: 40px; /* Adjust the padding as needed */
+  padding-bottom: 5px; /* Adjust the padding as needed */
 }
 
+.framework-container {
+  padding-top: 20px;
+}
 
 
 .author-card-container label {
@@ -123,8 +116,7 @@
   cursor: grab; /* Indicate that the globe can be dragged */
   box-sizing: border-box; /* Ensure padding and borders are accounted for */
   transform: translateY(-50px); /* Move the globe up by 50px */
-  border: 1px solid #ddd; /* Add a subtle border around the globe */
-  margin-bottom: 60px;
+  margin-bottom: 70px;
 }
 
 /* Grabbing cursor when the SVG is active */
@@ -135,12 +127,11 @@ svg:active {
 /* Styling for the timeline */
 .timeline {
   position: absolute;
-  bottom: 0; /* Move timeline closer to the bottom */
+  bottom: 87px; /* Move timeline closer to the bottom */
   left: 0;
   width: 96vw;
   height: 140px; /* Increased height to make the timeline bigger */
-  background-color: #f9f9f9;
-  border-top: 1px solid #ddd;
+
   padding-top: 20px; /* Add padding to create space for the timeline axis labels */
 }
 

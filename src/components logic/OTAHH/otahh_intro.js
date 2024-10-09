@@ -16,21 +16,29 @@ const dataset = [
     "Stages of cycles": ["Growth and Expansion", "Success and Prosperity", "Hubris and Overreach", "Divine Justince and Decline", "Crisis and Collapse" ],
        
     "Timeline Stages": [
-      {"Stage": "The Ancient Civilizations", "Years": [-2600, -700], "Labels": ["2600 BCE", "700 BCE"]},
+      {
+        "Stage": "The Ancient Civilizations", 
+        "Years": [-2600, -700], 
+        "Labels": ["2600 BCE", "700 BCE"],
+        "Level" : 0
+      },
       {
         "Stage": "The Rise of the Persian Empire",
         "Years": [-600, -490],
-        "Labels": ["600 BCE", "490 BCE"]
+        "Labels": ["600 BCE", "490 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "The Greco-Persian Wars",
         "Years": [-499, -479],
-        "Labels": ["499 BCE", "479 BCE"]
+        "Labels": ["499 BCE", "479 BCE"],
+        "Level" : 1
       },
       {
         "Stage": "The Post-War Period and the Rise of Greek Power",
         "Years": [-479, -425],
-        "Labels": ["479 BCE", "425 BCE"]
+        "Labels": ["479 BCE", "425 BCE"],
+        "Level" : 0
       }
     ],
 
@@ -57,22 +65,26 @@ const dataset = [
       {
         "Stage": "Mythical and Monarchical Rome",
         "Years": [-753, -509],
-        "Labels": ["753 BCE", "509 BCE"]
+        "Labels": ["753 BCE", "509 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "Republican Rome and Internal Struggles",
         "Years": [-509, -264],
-        "Labels": ["509 BCE", "264 BCE"]
+        "Labels": ["509 BCE", "264 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "Rome's Wars and Expansion",
         "Years": [-264, -146],
-        "Labels": ["264 BCE", "146 BCE"]
+        "Labels": ["264 BCE", "146 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "Moral Decline in the Late Republic",
         "Years": [-146, -27],
-        "Labels": ["146 BCE", "27 BCE"]
+        "Labels": ["146 BCE", "27 BCE"],
+        "Level" : 0
       }
     ]
     ,
@@ -99,22 +111,26 @@ const dataset = [
       {
         "Stage": "The Reign of Tiberius",
         "Years": [14, 37],
-        "Labels": ["14 CE", "37 CE"]
+        "Labels": ["14 CE", "37 CE"],
+        "Level" : 0
       },
       {
         "Stage": "Republican Rome and Internal Struggles",
         "Years": [37, 41],
-        "Labels": ["37 CE", "41 CE"]
+        "Labels": ["37 CE", "41 CE"],
+        "Level" : 0
       },
       {
         "Stage": "Rome's Wars and Expansion",
         "Years": [41, 54],
-        "Labels": ["41 CE", "54 CE"]
+        "Labels": ["41 CE", "54 CE"],
+        "Level" : 0
       },
       {
         "Stage": "Moral Decline in the Late Republic",
         "Years": [54, 68],
-        "Labels": ["54 CE", "68 CE"]
+        "Labels": ["54 CE", "68 CE"],
+        "Level" : 0
       }
     ]
     ,    
@@ -143,32 +159,38 @@ const dataset = [
       {
         "Stage": "Creation to the Patriarchs (Genesis)",
         "Years": [-4000, -1300],
-        "Labels": ["4000 BCE", "1300 BCE"]
+        "Labels": ["4000 BCE", "1300 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "The Exodus and the Law",
         "Years": [-1300, -1200],
-        "Labels": ["1300 BCE", "1200 BCE"]
+        "Labels": ["1300 BCE", "1200 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "The Judges and the Kings of Israel",
         "Years": [-1200, -587],
-        "Labels": ["1200 BCE", "587 BCE"]
+        "Labels": ["1200 BCE", "587 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "The Babylonian Exile and Return",
         "Years": [-587, -539],
-        "Labels": ["587 BCE", "539 BCE"]
+        "Labels": ["587 BCE", "539 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "Post-Biblical History",
         "Years": [-539, 94],
-        "Labels": ["539 BCE", "94 CE"]
+        "Labels": ["539 BCE", "94 CE"],
+        "Level" : 0
       },
       {
         "Stage": "The Jewish War",
         "Years": [66, 70],
-        "Labels": ["66 CE", "70 CE"]
+        "Labels": ["66 CE", "70 CE"],
+        "Level" : 1
       }
     ]
     ,    
@@ -193,12 +215,14 @@ const dataset = [
       {
         "Stage": "Mythological Age (Time Before Human History)",
         "Years": [-4000, -660],
-        "Labels": ["4000 BCE", "660 BCE"]
+        "Labels": ["4000 BCE", "660 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "Historical Age (Legendary and Semi-Historical Period)",
         "Years": [-660, -499],
-        "Labels": ["660 BCE", "499 BCE"]
+        "Labels": ["660 BCE", "499 BCE"],
+        "Level" : 0
       }
     ]
     ,  
@@ -219,17 +243,20 @@ const dataset = [
       {
         "Stage": "Mythological Age (Kami no Yo)",
         "Years": [-4000, -660],
-        "Labels": ["4000 BCE", "660 BCE"]
+        "Labels": ["4000 BCE", "660 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "Semi-Historical Age",
         "Years": [-660, 600],
-        "Labels": ["660 BCE", "600 CE"]
+        "Labels": ["660 BCE", "600 CE"],
+        "Level" : 0
       },
       {
         "Stage": "Historical Age",
         "Years": [600, 720],
-        "Labels": ["600 CE", "720 CE"]
+        "Labels": ["600 CE", "720 CE"],
+        "Level" : 0
       }
     ]
     ,  
@@ -250,17 +277,20 @@ const dataset = [
       {
         "Stage": "Mythical Age",
         "Years": [-4000, -2000],
-        "Labels": ["4000 BCE", "2000 BCE"]
+        "Labels": ["4000 BCE", "2000 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "Legendary Age",
         "Years": [-2000, -330],
-        "Labels": ["2000 BCE", "330 BCE"]
+        "Labels": ["2000 BCE", "330 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "Historical Age",
         "Years": [-330, 651],
-        "Labels": ["330 BCE", "651 CE"]
+        "Labels": ["330 BCE", "651 CE"],
+        "Level" : 0
       }
     ]
     ,
@@ -284,57 +314,68 @@ const dataset = [
       {
         "Stage": "Ancient Egypt",
         "Years": [-3100, -30],
-        "Labels": ["3100 BCE", "30 BCE"]
+        "Labels": ["3100 BCE", "30 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "Mesopotamia",
         "Years": [-3000, -539],
-        "Labels": ["3000 BCE", "539 BCE"]
+        "Labels": ["3000 BCE", "539 BCE"],
+        "Level" : 1
       },
       {
         "Stage": "Pre-Islamic Tribal Arabia",
         "Years": [-500, 622],
-        "Labels": ["500 BCE", "622 CE"]
+        "Labels": ["500 BCE", "622 CE"],
+        "Level" : 1
       },
       {
         "Stage": "Life of the Prophet Muhammad",
         "Years": [570, 632],
-        "Labels": ["570 CE", "632 CE"]
+        "Labels": ["570 CE", "632 CE"],
+        "Level" : 0
       },
       {
         "Stage": "Umayyad Caliphate",
         "Years": [661, 750],
-        "Labels": ["661 CE", "750 CE"]
+        "Labels": ["661 CE", "750 CE"],
+        "Level" : 1
       },
       {
         "Stage": "Abbasid Caliphate",
         "Years": [750, 1258],
-        "Labels": ["750 CE", "1258 CE"]
+        "Labels": ["750 CE", "1258 CE"],
+        "Level" : 1
       },
       {
         "Stage": "Almoravid Dynasty",
         "Years": [1040, 1147],
-        "Labels": ["1040 CE", "1147 CE"]
+        "Labels": ["1040 CE", "1147 CE"],
+        "Level" : 2
       },
       {
         "Stage": "Almohad Dynasty",
         "Years": [1121, 1269],
-        "Labels": ["1121 CE", "1269 CE"]
+        "Labels": ["1121 CE", "1269 CE"],
+        "Level" : 3
       },
       {
         "Stage": "Hafsids of Tunisia",
         "Years": [1229, 1574],
-        "Labels": ["1229 CE", "1574 CE"]
+        "Labels": ["1229 CE", "1574 CE"],
+        "Level" : 2
       },
       {
         "Stage": "Mongol Empire",
         "Years": [1206, 1368],
-        "Labels": ["1206 CE", "1368 CE"]
+        "Labels": ["1206 CE", "1368 CE"],
+        "Level" : 4
       },
       {
         "Stage": "Reconquista",
         "Years": [718, 1377],
-        "Labels": ["718 CE", "1377 CE"]
+        "Labels": ["718 CE", "1377 CE"],
+        "Level" : 0
       }
     ]
     ,
@@ -362,32 +403,38 @@ const dataset = [
       {
         "Stage": "Early Biblical Events",
         "Years": [-4000, -2500],
-        "Labels": ["4000 BCE", "2500 BCE"]
+        "Labels": ["4000 BCE", "2500 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "Ancient Egypt",
         "Years": [-2000, -568],
-        "Labels": ["2000 BCE", "568 BCE"]
+        "Labels": ["2000 BCE", "568 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "Assyria",
         "Years": [-1500, -600],
-        "Labels": ["1500 BCE", "600 BCE"]
+        "Labels": ["1500 BCE", "600 BCE"],
+        "Level" : 1
       },
       {
         "Stage": "Babylon",
         "Years": [-1500, -539],
-        "Labels": ["1500 BCE", "539 BCE"]
+        "Labels": ["1500 BCE", "539 BCE"],
+        "Level" : 2
       },
       {
         "Stage": "Persia",
         "Years": [-550, -330],
-        "Labels": ["550 BCE", "330 BCE"]
+        "Labels": ["550 BCE", "330 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "Trojan war, Greek period",
         "Years": [-950, -146],
-        "Labels": ["950 BCE", "146 BCE"]
+        "Labels": ["950 BCE", "146 BCE"],
+        "Level" : 3
       }
     ]
     ,
@@ -409,17 +456,20 @@ const dataset = [
       {
         "Stage": "The Roman Empire from Trajan to the Fall of the Western Roman Empire",
         "Years": [98, 476],
-        "Labels": ["98 CE", "476 CE"]
+        "Labels": ["98 CE", "476 CE"],
+        "Level" : 0
       },
       {
         "Stage": "The Byzantine (Eastern Roman) Empire",
         "Years": [476, 1204],
-        "Labels": ["476 CE", "1204 CE"]
+        "Labels": ["476 CE", "1204 CE"],
+        "Level" : 0
       },
       {
         "Stage": "The Final Decline of the Byzantine Empire and the Fall of Constantinople",
         "Years": [1204, 1453],
-        "Labels": ["1204 CE", "1453 CE"]
+        "Labels": ["1204 CE", "1453 CE"],
+        "Level" : 0
       }
     ]
     ,
@@ -447,22 +497,26 @@ const dataset = [
       {
         "Stage": "Oriental World",
         "Years": [-3000, -500],
-        "Labels": ["3000 BCE", "500 BCE"]
+        "Labels": ["3000 BCE", "500 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "Greek World",
         "Years": [-800, -300],
-        "Labels": ["800 BCE", "300 BCE"]
+        "Labels": ["800 BCE", "300 BCE"],
+        "Level" : 1
       },
       {
         "Stage": "Roman World",
         "Years": [-500, 476],
-        "Labels": ["500 BCE", "476 CE"]
+        "Labels": ["500 BCE", "476 CE"],
+        "Level" : 0
       },
       {
         "Stage": "Germanic World",
         "Years": [476, 1800],
-        "Labels": ["476 CE", "1800 CE"]
+        "Labels": ["476 CE", "1800 CE"],
+        "Level" : 0
       }
     ]
     ,
@@ -485,22 +539,26 @@ const dataset = [
       {
         "Stage": "Ancient Religions: Patrimonial and theocratic rule, kinship-based governance",
         "Years": [-3000, -500],
-        "Labels": ["3000 BCE", "500 BCE"]
+        "Labels": ["3000 BCE", "500 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "Axial Age Religions: Feudalism, charismatic authority, decentralized governance",
         "Years": [-600, 200],
-        "Labels": ["600 BCE", "200 CE"]
+        "Labels": ["600 BCE", "200 CE"],
+        "Level" : 1
       },
       {
         "Stage": "Medieval Religions: Rise of centralized monarchies, early bureaucratic structures, absolutism",
         "Years": [400, 1500],
-        "Labels": ["400 CE", "1500 CE"]
+        "Labels": ["400 CE", "1500 CE"],
+        "Level" : 0
       },
       {
         "Stage": "Modern Religions: Bureaucratization, rational-legal authority, industrial capitalism",
         "Years": [1500, 2000],
-        "Labels": ["1500 CE", "2000 CE"]
+        "Labels": ["1500 CE", "2000 CE"],
+        "Level" : 0
       }
     ]
     ,
@@ -527,42 +585,50 @@ const dataset = [
       {
         "Stage": "Egyptian Civilization (early high culture)",
         "Years": [-3000, -300],
-        "Labels": ["3000 BCE", "300 BCE"]
+        "Labels": ["3000 BCE", "300 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "Mesopotamian/Babylonian Civilization (early high culture)",
         "Years": [-3000, -500],
-        "Labels": ["3000 BCE", "500 BCE"]
+        "Labels": ["3000 BCE", "500 BCE"],
+        "Level" : 1
       },
       {
         "Stage": "Greek (Classical Civilization)",
         "Years": [-1100, -200],
-        "Labels": ["1100 BCE", "200 BCE"]
+        "Labels": ["1100 BCE", "200 BCE"],
+        "Level" : 2
       },
       {
         "Stage": "Roman (Classical Civilization",
         "Years": [-500, 500],
-        "Labels": ["500 BCE", "500 CE"]
+        "Labels": ["500 BCE", "500 CE"],
+        "Level" : 1
       },
       {
         "Stage": "Arabian (Magian Civilization)",
         "Years": [300, 1500],
-        "Labels": ["300 CE", "1500 CE"]
+        "Labels": ["300 CE", "1500 CE"],
+        "Level" : 0
       },
       {
         "Stage": "Medieval Europe (Faustian Civilization)",
         "Years": [900, 1500],
-        "Labels": ["900 CE", "1500 CE"]
+        "Labels": ["900 CE", "1500 CE"],
+        "Level" : 1
       },
       {
         "Stage": "Renaissance and Reformation (Faustian Civilization)",
         "Years": [1500, 1800],
-        "Labels": ["1500 CE", "1800 CE"]
+        "Labels": ["1500 CE", "1800 CE"],
+        "Level" : 0
       },
       {
         "Stage": "Industrialization and Modernity (Faustian Civilization)",
         "Years": [1800, 2000],
-        "Labels": ["1800 CE", "2000 CE"]
+        "Labels": ["1800 CE", "2000 CE"],
+        "Level" : 0
       }
     ]
     ,
@@ -588,103 +654,105 @@ const dataset = [
       {
         "Stage": "Egyptian Civilization",
         "Years": [-3000, -30],
-        "Labels": ["3000 BCE", "30 BCE"]
+        "Labels": ["3000 BCE", "30 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "Sumerian/Babylonian Civilization",
         "Years": [-3000, -500],
-        "Labels": ["3000 BCE", "500 BCE"]
+        "Labels": ["3000 BCE", "500 BCE"],
+        "Level" : 1
       },
       {
         "Stage": "Minoan Civilization",
         "Years": [-2700, -1400],
-        "Labels": ["2700 BCE", "1400 BCE"]
+        "Labels": ["2700 BCE", "1400 BCE"],
+        "Level" : 2
       },
       {
         "Stage": "Hittite Civilization",
         "Years": [-1600, -1200],
-        "Labels": ["1600 BCE", "1200 BCE"]
+        "Labels": ["1600 BCE", "1200 BCE"],
+        "Level" : 4
       },
       {
         "Stage": "Indus Valley Civilization",
         "Years": [-2600, -1900],
-        "Labels": ["2600 BCE", "1900 BCE"]
+        "Labels": ["2600 BCE", "1900 BCE"],
+        "Level" : 3
       },
       {
         "Stage": "Maya Civilization",
         "Years": [-1800, 900],
-        "Labels": ["1800 BCE", "900 CE"]
+        "Labels": ["1800 BCE", "900 CE"],
+        "Level" : 3
       },
       {
         "Stage": "Classical Greek Civilization",
         "Years": [-800, -146],
-        "Labels": ["800 BCE", "146 BCE"]
+        "Labels": ["800 BCE", "146 BCE"],
+        "Level" : 2
       },
       {
         "Stage": "Persian Civilization",
         "Years": [-550, 651],
-        "Labels": ["550 BCE", "651 CE"]
+        "Labels": ["550 BCE", "651 CE"],
+        "Level" : 4
       },
       {
         "Stage": "Western Roman Civilization",
         "Years": [-500, 476],
-        "Labels": ["500 BCE", "476 CE"]
+        "Labels": ["500 BCE", "476 CE"],
+        "Level" : 1
       },
       {
         "Stage": "Chinese Civilization",
         "Years": [-1000, 220],
-        "Labels": ["1000 BCE", "220 CE"]
+        "Labels": ["1000 BCE", "220 CE"],
+        "Level" : 5
       },
       {
         "Stage": "Byzantine Civilization",
         "Years": [330, 1453],
-        "Labels": ["330 CE", "1453 CE"]
+        "Labels": ["330 CE", "1453 CE"],
+        "Level" : 5
       },
       {
         "Stage": "Islamic Civilization",
         "Years": [622, 2000],
-        "Labels": ["622 CE", "2000 CE"]
+        "Labels": ["622 CE", "2000 CE"],
+        "Level" : 0
       },
       {
         "Stage": "Western Christian Civilization",
         "Years": [800, 2000],
-        "Labels": ["800 CE", "2000 CE"]
+        "Labels": ["800 CE", "2000 CE"],
+        "Level" : 4
       },
       {
         "Stage": "Hindu Civilization",
         "Years": [-1500, 2000],
-        "Labels": ["1500 BCE", "2000 CE"]
+        "Labels": ["1500 BCE", "2000 CE"],
+        "Level" : 6
       },
       {
         "Stage": "Russian Civilization",
         "Years": [900, 2000],
-        "Labels": ["900 CE", "2000 CE"]
+        "Labels": ["900 CE", "2000 CE"],
+        "Level" : 3
       },
       {
         "Stage": "Japanese Civilization",
         "Years": [250, 2000],
-        "Labels": ["250 CE", "2000 CE"]
+        "Labels": ["250 CE", "2000 CE"],
+        "Level" : 2
       },
       {
         "Stage": "Hindu Civilization",
         "Years": [-1500, 2000],
-        "Labels": ["1500 BCE", "2000 CE"]
+        "Labels": ["1500 BCE", "2000 CE"],
+        "Level" : 6
       },
-      {
-        "Stage": "Western Renaissance",
-        "Years": [-1400, 1760],
-        "Labels": ["1400 BCE", "1760 CE"]
-      },
-      {
-        "Stage": "Industrial Revolution",
-        "Years": [1760, 1900],
-        "Labels": ["1760 CE", "1900 CE"]
-      },
-      {
-        "Stage": "World Wars and Globalization",
-        "Years": [1900, 2000],
-        "Labels": ["1900 CE", "2000 CE"]
-      }
     ]
     ,
 
@@ -708,17 +776,20 @@ const dataset = [
       {
         "Stage": "Pre-Axial Period",
         "Years": [-3000, -800],
-        "Labels": ["3000 BCE", "800 BCE"]
+        "Labels": ["3000 BCE", "800 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "Axial Age",
         "Years": [-800, -200],
-        "Labels": ["800 BCE", "200 BCE"]
+        "Labels": ["800 BCE", "200 BCE"],
+        "Level" : 0
       },
       {
         "Stage": "Post-Axial Age",
         "Years": [-200, 2000],
-        "Labels": ["200 BCE", "2000 CE"]
+        "Labels": ["200 BCE", "2000 CE"],
+        "Level" : 0
       }
     ]
     ,
@@ -746,22 +817,26 @@ const dataset = [
       {
         "Stage": "Medieval England",
         "Years": [1150, 1485],
-        "Labels": ["1150 CE", "1485 CE"]
+        "Labels": ["1150 CE", "1485 CE"],
+        "Level" : 0
       },
       {
         "Stage": "Pre-Revolution France",
         "Years": [1200, 1800],
-        "Labels": ["1200 CE", "1800 CE"]
+        "Labels": ["1200 CE", "1800 CE"],
+        "Level" : 1
       },
       {
         "Stage": "Imperial Russia",
         "Years": [1460, 1917],
-        "Labels": ["1460 CE", "1917 CE"]
+        "Labels": ["1460 CE", "1917 CE"],
+        "Level" : 2
       },
       {
         "Stage": "Ancient Rome",
         "Years": [-200, 600],
-        "Labels": ["200 BCE", "600 CE"]
+        "Labels": ["200 BCE", "600 CE"],
+        "Level" : 0
       }
     ]
     ,
@@ -846,7 +921,7 @@ function OtahhIntro() {
   // Function to render the timeline with highlighted period
   const renderTimeline = useCallback(() => {
     const width = 1400;
-    const height = 100;
+    const height = 200;
   
     const svg = d3.select(timelineRef.current)
       .attr("width", width)
@@ -879,19 +954,37 @@ function OtahhIntro() {
       .selectAll('text')
       .style('font-family', 'Times New Roman, sans-serif');
   
-    // Keep track of used levels to avoid overlaps
-    const usedLevels = [];
-    
-    // Helper function to determine an available level for a stage
-    const findAvailableLevel = (start, end) => {
-      for (let level = 0; ; level++) {
-        const intersecting = usedLevels[level]?.some(stage => (
-          (start >= stage.start && start <= stage.end) || (end >= stage.start && end <= stage.end)
-        ));
-        if (!intersecting) {
-          return level;
-        }
-      }
+    // Helper function to add multiline labels to stages
+    const addMultilineLabel = (selection, d, newXScale) => {
+      const xPosition = newXScale
+        ? (newXScale(d.Years[0]) + newXScale(d.Years[1])) / 2
+        : (xScale(d.Years[0]) + xScale(d.Years[1])) / 2;
+  
+      const textElement = d3.select(selection);
+      textElement.selectAll("tspan").remove(); // Remove existing tspans
+  
+      // Split stage label into two parts
+      const stageParts = d.Stage.split(" ");
+      const firstPart = stageParts.slice(0, Math.floor(stageParts.length / 2)).join(" ");
+      const secondPart = stageParts.slice(Math.floor(stageParts.length / 2)).join(" ");
+  
+      // Append first line
+      textElement.append("tspan")
+        .attr("x", xPosition)
+        .attr("dy", "-1.5em") // Move first line up
+        .text(firstPart);
+  
+      // Append second line
+      textElement.append("tspan")
+        .attr("x", xPosition)
+        .attr("dy", "1.2em") // Move second line below the first
+        .text(secondPart);
+  
+      // Append third line for Labels (BCE/CE)
+      textElement.append("tspan")
+        .attr("x", xPosition)
+        .attr("dy", "1.2em") // Further offset for the third line
+        .text(`(${d.Labels[0]} - ${d.Labels[1]})`);
     };
   
     // Loop through timeline stages and highlight each period
@@ -900,60 +993,16 @@ function OtahhIntro() {
       .enter()
       .append("rect")
       .attr("x", d => xScale(d.Years[0]))
-      .attr("y", function(d) {
-        const level = findAvailableLevel(d.Years[0], d.Years[1]);
-        if (!usedLevels[level]) usedLevels[level] = [];
-        usedLevels[level].push({ start: d.Years[0], end: d.Years[1] });
-        return 10 + level * 20; // Adjust `y` position based on level
-      })
+      .attr("y", d => 150 - d.Level * (30)) // Position based on the level
       .attr("width", d => xScale(d.Years[1]) - xScale(d.Years[0]))
-      .attr("height", height - 50)
+      .attr("height", 30)
       .attr("fill", (d, index) => d3.schemeCategory10[index % 10]) // Use different colors for each stage
       .attr("opacity", 0.5)
       .append("title") // Tooltip for stage
       .text(d => d.Stage);
   
-    // Add a label for each stage using the "Labels" array instead of "Years"
-    g.selectAll(".stage-label")
-      .data(selectedAuthor["Timeline Stages"])
-      .enter()
-      .append("text")
-      .attr("class", "stage-label")
-      .attr("x", d => (xScale(d.Years[0]) + xScale(d.Years[1])) / 2)
-      .attr("y", function(d) {
-        const level = findAvailableLevel(d.Years[0], d.Years[1]);
-        return height - 60 - (level * 20); // Adjust `y` position based on level
-      })
-      .attr("text-anchor", "middle")
-      .style("font-size", "12px")
-      .style("font-family", "Arial, sans-serif")
-      .each(function(d) {
-        const textElement = d3.select(this);
   
-        // First part of the stage label (split into two lines)
-        const stageParts = d.Stage.split(" ");
-        const firstPart = stageParts.slice(0, Math.floor(stageParts.length / 2)).join(" ");
-        const secondPart = stageParts.slice(Math.floor(stageParts.length / 2)).join(" ");
-  
-        // Append first line
-        textElement.append("tspan")
-          .attr("x", (xScale(d.Years[0]) + xScale(d.Years[1])) / 2)
-          .attr("dy", "-1.5em") // Move first line up
-          .text(firstPart);
-  
-        // Append second line
-        textElement.append("tspan")
-          .attr("x", (xScale(d.Years[0]) + xScale(d.Years[1])) / 2)
-          .attr("dy", "1.2em") // Move second line below the first
-          .text(secondPart);
-  
-        // Append third line for Labels (BCE/CE)
-        textElement.append("tspan")
-          .attr("x", (xScale(d.Years[0]) + xScale(d.Years[1])) / 2)
-          .attr("dy", "1.2em") // Further offset for the third line
-          .text(`(${d.Labels[0]} - ${d.Labels[1]})`);
-      });
-  
+    
     // Define the zoom behavior
     const zoom = d3.zoom()
       .scaleExtent([1, 10]) // Set the zoom range
