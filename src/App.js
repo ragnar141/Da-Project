@@ -62,7 +62,7 @@ function Home() {
           Welcome to
         </div>
         <div className="big_UNI">
-          OPEN SOURCE INTELLIGENCE HUB
+          OPEN EDUCATION
         </div>
       </div>
       <div className="description">

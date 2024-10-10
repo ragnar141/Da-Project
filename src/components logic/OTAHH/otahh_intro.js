@@ -4,6 +4,10 @@ import { geoOrthographic, geoPath } from 'd3-geo';
 import * as topojson from 'topojson-client';
 import '../../components css/otahh_intro.css';
 
+const persianEmpireColor = '#f61575';
+const ancientCivilizationsColor = '#213b62';
+const grecoPersianWarsColor = '#6011b6';
+const greekPowerColor = '#46b588';
 // Sample JSON dataset
 const dataset = [
   {
@@ -20,25 +24,29 @@ const dataset = [
         "Stage": "The Ancient Civilizations", 
         "Years": [-2600, -700], 
         "Labels": ["2600 BCE", "700 BCE"],
-        "Level" : 0
+        "Level" : 0, 
+        "Color" : ancientCivilizationsColor,
       },
       {
         "Stage": "The Rise of the Persian Empire",
         "Years": [-600, -490],
         "Labels": ["600 BCE", "490 BCE"],
-        "Level" : 0
+        "Level" : 0,
+        "Color" : persianEmpireColor,
       },
       {
         "Stage": "The Greco-Persian Wars",
         "Years": [-499, -479],
         "Labels": ["499 BCE", "479 BCE"],
-        "Level" : 1
+        "Level" : 1,
+        "Color" : grecoPersianWarsColor
       },
       {
         "Stage": "The Post-War Period and the Rise of Greek Power",
         "Years": [-479, -425],
         "Labels": ["479 BCE", "425 BCE"],
-        "Level" : 0
+        "Level" : 0,
+        "Color" : greekPowerColor,
       }
     ],
 
@@ -46,10 +54,38 @@ const dataset = [
       "Phoenicia", "Cilicia", "Thrace", "Sogdiana", "Macedonia", "Colchis", "Ionia", 
       "Syria", "Ethiopia", "Arabia", "Bactria"],
 
-    "Geography":   ["Greece", "Turkey", "Iran", "Iraq", "Lebanon", "Syria", "Israel", "Palestine", "Jordan", 
-      "Egypt", "Libya", "Ukraine", "Kazakhstan", "Bulgaria", "India", 
-      "Saudi Arabia", "Georgia", "Armenia", "Azerbaijan", "Ethiopia", "Uzbekistan", "Tajikistan", 
-      "Afghanistan", "Sudan", "Pakistan", "Turkmenistan"]
+    "Geography":   [
+    { "Country": "Greece", "Color": "#6011b6" },
+    { "Country": "Turkey", "Color": ["#213b62", "#6011b6"] },
+    { "Country": "Iran", "Color": ["#213b62", "#6011b6"] },
+    { "Country": "Iraq", "Color": "#213b62" },
+      { "Country": "Lebanon", "Color": ["#213b62", "#6011b6"] },
+      { "Country": "Syria", "Color": ["#213b62", "#6011b6"] },
+      { "Country": "Israel", "Color": ["#213b62", "#6011b6"] },
+      { "Country": "Palestine", "Color": "#213b62" },
+      { "Country": "Jordan", "Color": "" },
+      { "Country": "Egypt", "Color": ["#213b62", "#6011b6"]},
+      { "Country": "Libya", "Color": "#213b62" },
+      { "Country": "Ukraine", "Color": "#213b62" },
+      { "Country": "Kazakhstan", "Color": "#213b62" },
+      { "Country": "Bulgaria", "Color": ["#213b62", "#6011b6"] },
+      { "Country": "India", "Color": "" },
+      { "Country": "Saudi Arabia", "Color": "" },
+      { "Country": "Georgia", "Color": "" },
+      { "Country": "Armenia", "Color": "" },
+      { "Country": "Azerbaijan", "Color": "" },
+      { "Country": "Ethiopia", "Color": "" },
+      { "Country": "Uzbekistan", "Color": "" },
+      { "Country": "Tajikistan", "Color": "" },
+      { "Country": "Afghanistan", "Color": "" },
+      { "Country": "Sudan", "Color": "" },
+      { "Country": "Pakistan", "Color": "" },
+      { "Country": "Turkmenistan", "Color": "" },
+      { "Country": "Tunisia", "Color": "#213b62" },
+      { "Country": "Cyprus", "Color": ["#213b62", "#6011b6"] },
+      { "Country": "Macedonia", "Color": "#6011b6" }
+    ]
+    
   },
 
   {
@@ -862,7 +898,7 @@ function OtahhIntro() {
 
     const projection = geoOrthographic()
       .scale(initialScale * zoomScaleRef.current)
-      .translate([300, 400]) // Center the globe
+      .translate([420, 400]) // Center the globe
       .rotate(initialRotation); // Initial rotation [longitude, latitude]
 
     const path = geoPath(projection);
@@ -920,7 +956,7 @@ function OtahhIntro() {
 
   // Function to render the timeline with highlighted period
   const renderTimeline = useCallback(() => {
-    const width = 1400;
+    const width = 1500;
     const height = 200;
   
     const svg = d3.select(timelineRef.current)
@@ -955,57 +991,90 @@ function OtahhIntro() {
       .style('font-family', 'Times New Roman, sans-serif');
   
     // Helper function to add multiline labels to stages
-    const addMultilineLabel = (selection, d, newXScale) => {
-      const xPosition = newXScale
-        ? (newXScale(d.Years[0]) + newXScale(d.Years[1])) / 2
-        : (xScale(d.Years[0]) + xScale(d.Years[1])) / 2;
+ 
   
-      const textElement = d3.select(selection);
-      textElement.selectAll("tspan").remove(); // Remove existing tspans
-  
-      // Split stage label into two parts
-      const stageParts = d.Stage.split(" ");
-      const firstPart = stageParts.slice(0, Math.floor(stageParts.length / 2)).join(" ");
-      const secondPart = stageParts.slice(Math.floor(stageParts.length / 2)).join(" ");
-  
-      // Append first line
-      textElement.append("tspan")
-        .attr("x", xPosition)
-        .attr("dy", "-1.5em") // Move first line up
-        .text(firstPart);
-  
-      // Append second line
-      textElement.append("tspan")
-        .attr("x", xPosition)
-        .attr("dy", "1.2em") // Move second line below the first
-        .text(secondPart);
-  
-      // Append third line for Labels (BCE/CE)
-      textElement.append("tspan")
-        .attr("x", xPosition)
-        .attr("dy", "1.2em") // Further offset for the third line
-        .text(`(${d.Labels[0]} - ${d.Labels[1]})`);
-    };
-  
-    // Loop through timeline stages and highlight each period
     g.selectAll("rect")
-      .data(selectedAuthor["Timeline Stages"])
-      .enter()
-      .append("rect")
-      .attr("x", d => xScale(d.Years[0]))
-      .attr("y", d => 150 - d.Level * (30)) // Position based on the level
-      .attr("width", d => xScale(d.Years[1]) - xScale(d.Years[0]))
-      .attr("height", 30)
-      .attr("fill", (d, index) => d3.schemeCategory10[index % 10]) // Use different colors for each stage
-      .attr("opacity", 0.5)
-      .append("title") // Tooltip for stage
-      .text(d => d.Stage);
+    .data(selectedAuthor["Timeline Stages"])
+    .enter()
+    .append("rect")
+    .attr("x", d => xScale(d.Years[0]))
+    .attr("y", d => 150 - d.Level * 30) // Position based on the level
+    .attr("width", d => xScale(d.Years[1]) - xScale(d.Years[0]))
+    .attr("height", 30)
+    .attr("fill", (d, index) => d3.schemeCategory10[index % 10]) // Use different colors for each stage
+    .attr("opacity", 0.5)
+    .on("mouseover", function (event, d) {
+      const segmentCard = d3.select(".segment-card");
   
+      // Increase border opacity and show segment-card
+      d3.select(this)
+        .interrupt() // Stop any ongoing transition to prevent hiding too quickly
+        .transition()
+        .duration(200)
+        .attr("stroke", d3.select(this).attr("fill")) // Use the same fill color for the border
+        .attr("stroke-width", 2)
+        .attr("opacity", 1); // Increase opacity of the segment on hover
+  
+      // Get the bounding box of the hovered rect
+      const rectBounds = this.getBoundingClientRect();
+      const authorCardBounds = document.querySelector('.author-card-container').getBoundingClientRect();
+  
+      // Show the segment-card with details and position it centered above the rect
+      segmentCard
+        .interrupt() // Stop any ongoing transition to prevent hiding too quickly
+        .style("display", "block")
+        .style("border-color", d3.select(this).attr("fill")) // Use the same fill color for the border
+        .style("opacity", 0.9)
+        .html(`<strong>${d.Stage}</strong><br>${d.Labels[0] || 'N/A'} - ${d.Labels[1] || 'N/A'}`) // Add content for the card
+        .style("left", `${rectBounds.left + window.scrollX + rectBounds.width / 2 - segmentCard.node().offsetWidth / 2}px`) // Center card horizontally above the rect
+        .style("top", `${rectBounds.top - segmentCard.node().offsetHeight - 10 + window.scrollY}px`); // Position card slightly above the rect
+  
+      // Check for overlap with the author card
+      const segmentCardBounds = segmentCard.node().getBoundingClientRect();
+      if (
+        segmentCardBounds.right > authorCardBounds.left &&
+        segmentCardBounds.left < authorCardBounds.right &&
+        segmentCardBounds.bottom > authorCardBounds.top &&
+        segmentCardBounds.top < authorCardBounds.bottom
+      ) {
+        // If overlapping, move the segment-card above the author-card
+        segmentCard
+          .style("top", `${rectBounds.top - segmentCardBounds.height - 20 + window.scrollY}px`);
+      }
+    })
+    .on("mousemove", function (event) {
+      const segmentCard = d3.select(".segment-card");
+      const rectBounds = this.getBoundingClientRect();
+  
+      // Update position of segment-card to keep it centered above the rect
+      segmentCard
+        .style("left", `${rectBounds.left + window.scrollX + rectBounds.width / 2 - segmentCard.node().offsetWidth / 2}px`)
+        .style("top", `${rectBounds.top - segmentCard.node().offsetHeight - 10 + window.scrollY}px`)
+        .style("display", "block"); // Ensure segment card remains visible during mousemove
+    })
+    .on("mouseout", function () {
+      // Reset border opacity and hide segment-card
+      d3.select(this)
+        .transition()
+        .duration(200)
+        .attr("stroke", "none")
+        .attr("opacity", 0.5); // Restore original opacity
+  
+      // Hide the segment-card
+      d3.select(".segment-card")
+        .interrupt() // Stop any ongoing transition to prevent hiding too quickly
+        .transition()
+        .duration(200)
+        .style("opacity", 0) // Fade out before hiding
+        .on("end", function () {
+          d3.select(this).style("display", "none");
+        });
+    });
   
     
     // Define the zoom behavior
     const zoom = d3.zoom()
-      .scaleExtent([1, 10]) // Set the zoom range
+      .scaleExtent([1, 14]) // Set the zoom range
       .translateExtent([[0, 0], [width, height]]) // Restrict panning
       .on("zoom", (event) => {
         // Apply the zoom transformation
@@ -1120,69 +1189,70 @@ function OtahhIntro() {
           ))}
         </select>
       </div>
-
+  
       <div className="author-card-container">
-      <div className="fundamental-works-container">
-  {Array.isArray(selectedAuthor["Fundamental Works"]) ? (
-    <div className="fundamental-works-column">
-      {selectedAuthor["Fundamental Works"].map((work, index) => (
-        <div key={index} className="author-card-label">{work.Title} - {work["Date of Issue"]}</div>
-      ))}
-    </div>
-  ) : (
-    <div className="author-card-label">{selectedAuthor["Fundamental Works"].Title} - {selectedAuthor["Fundamental Works"]["Date of Issue"]}</div>
-  )}
-</div>
-
-
+        <div className="fundamental-works-container">
+          {Array.isArray(selectedAuthor["Fundamental Works"]) ? (
+            <div className="fundamental-works-column">
+              {selectedAuthor["Fundamental Works"].map((work, index) => (
+                <div key={index} className="author-card-label">
+                  {work.Title} - {work["Date of Issue"]}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="author-card-label">
+              {selectedAuthor["Fundamental Works"].Title} - {selectedAuthor["Fundamental Works"]["Date of Issue"]}
+            </div>
+          )}
+        </div>
+  
         <div className="framework-container">
           <label>Framework: </label>
           <p>{selectedAuthor["Author's framework"]}</p>
         </div>
-
-        
+  
         <div className="territory-container">
           <label>Territory: </label>
           <p>{selectedAuthor["Ancient regions"].join(", ")}</p>
         </div>
-
+  
         <div className="origin-of-history-container">
           <label>Origin of History: </label>
           <p>{selectedAuthor["Origin of history"]}</p>
         </div>
-
-
-
-
-       <div className="stages-container">
-  <div className="stages-label-container">
-    <label>States of History:</label>
-    {selectedAuthor["Stages of cycles"] === "-" ? (
-      <p>-</p>
-    ) : (
-      <ul className="stages-list">
-        {selectedAuthor["Stages of cycles"].map((stage, index) => (
-          <li key={index}>{stage}</li>
-        ))}
-      </ul>
-    )}
-  </div>
-</div>
-
-
+  
+        <div className="stages-container">
+          <div className="stages-label-container">
+            <label>States of History:</label>
+            {selectedAuthor["Stages of cycles"] === "-" ? (
+              <p>-</p>
+            ) : (
+              <ul className="stages-list">
+                {selectedAuthor["Stages of cycles"].map((stage, index) => (
+                  <li key={index}>{stage}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
       </div>
-
+  
       <div className="globe-container" style={{ position: 'relative' }}>
         {/* Globe SVG */}
         <svg ref={svgRef} className="otahh-globe" width="600" height="600"></svg>
       </div>
-
+  
       {/* Timeline SVG (moved outside the globe container) */}
       <div style={{ marginTop: '10px' }}>
         <svg ref={timelineRef} className="timeline"></svg>
       </div>
+  
+      {/* Segment card element for hover effect */}
+      <div className="segment-card"></div>
     </div>
   );
+  
 }
 
 export default OtahhIntro;

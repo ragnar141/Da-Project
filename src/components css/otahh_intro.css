@@ -1,4 +1,29 @@
-/** Updated CSS for OtahhIntro component with new elements **/
+/* Styling for the segment-card */
+/* Styling for the segment-card */
+.segment-card {
+  position: absolute;
+  display: none; /* Hidden by default, shown on hover */
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: "Times New Roman", serif;
+  font-size: 14px;
+  border: 2px solid transparent; /* Border color will change on hover */
+  z-index: 2000; /* Higher than author card to ensure it appears on top */
+  opacity: 0.9; /* Slight transparency */
+  pointer-events: none; /* Ensure it doesn’t interfere with mouse events */
+  white-space: normal; /* Allow text wrapping inside the card */
+  max-width: 230px; /* Set maximum width for the card */
+  overflow-wrap: break-word; /* Ensure long words wrap */
+}
+
+
+/* Hover effects for segment-card */
+.segment-card:hover {
+  opacity: 1;
+}
+
 
 /* Ensure the globe stays aligned to the right and responsive */
 .globe-container {
@@ -27,7 +52,7 @@
   padding: 12px; /* Padding around the dropdown for spacing */
   border-radius: 8px; /* Rounded corners for better appearance */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for a subtle elevation effect */
-  width: 750px; /* Fixed width for the container */
+  width: 1000px; /* Fixed width for the container */
   font-size: 17px;
 }
 
@@ -35,17 +60,16 @@
   position: fixed;
   top: 120px; /* Positioned below the dropdown container */
   left: 60px;
-  z-index: 9998;
+  z-index: 999; /* Ensure author card is lower than segment card */
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  width: 750px;
+  width: 1000px;
   padding: 12px;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-
 /* Styling for the dropdown */
 #author-select {
   font-size: 16px;
@@ -128,7 +152,7 @@ svg:active {
 .timeline {
   position: absolute;
   bottom: 87px; /* Move timeline closer to the bottom */
-  left: 0;
+  left: -15px;
   width: 96vw;
   height: 140px; /* Increased height to make the timeline bigger */
 
