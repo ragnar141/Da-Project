@@ -1,5 +1,4 @@
 /* Styling for the segment-card */
-/* Styling for the segment-card */
 .segment-card {
   position: absolute;
   display: none; /* Hidden by default, shown on hover */
@@ -18,12 +17,10 @@
   overflow-wrap: break-word; /* Ensure long words wrap */
 }
 
-
 /* Hover effects for segment-card */
 .segment-card:hover {
   opacity: 1;
 }
-
 
 /* Ensure the globe stays aligned to the right and responsive */
 .globe-container {
@@ -39,6 +36,7 @@
   overflow-x: hidden;
   margin-bottom: 0; /* Ensure no extra space between the globe and timeline */
 }
+
 /* Dropdown container styling */
 .dropdown-container {
   display: flex;
@@ -70,6 +68,7 @@
   flex-direction: column;
   gap: 20px;
 }
+
 /* Styling for the dropdown */
 #author-select {
   font-size: 16px;
@@ -82,9 +81,7 @@
   background-color: #ffffff; /* White background for the dropdown */
 }
 
-/* Author card container styling */
-
-
+/* Author card label styling */
 .author-card-label {
   padding-top: 10px;
   display: flex; /* Use flexbox for centering */
@@ -100,7 +97,6 @@
   display: flex;
   flex-direction: column;
   gap: 10px; /* Add space between each entry */
-  
 }
 
 .territory-container {
@@ -111,20 +107,49 @@
   padding-top: 20px;
 }
 
+/* Layout for the lower author card container */
+.lower-author-card-container {
+  display: flex;
+  justify-content: space-between; /* Space between the left and right columns */
+  margin-top: 20px;
+  gap: 60px;
+}
+
+.timeline-stages-column {
+  flex: 1; /* Take up available space on the left */
+  padding-right: 20px; /* Add some space between the two columns */
+}
+
+.right-column {
+  flex: 1; /* Take up available space on the right */
+  padding: 0; /* Remove unnecessary padding */
+}
+
+/* Timeline container */
+.stages-container {
+  margin-top: 20px;
+}
+
+.stages-list li {
+  margin-bottom: 5px; /* Reduce space between items in the right column (stages of history) */
+}
 
 .author-card-container label {
   margin-right: 10px;
   white-space: nowrap;
   font-weight: bold;
 }
+
 .author-card-container p {
   margin: 0;
   display: inline;
 }
+
 .author-card-container ul {
   margin: 0;
   padding-left: 20px;
 }
+
 .author-card-container li {
   list-style: none;
 }
@@ -148,6 +173,11 @@ svg:active {
   cursor: grabbing;
 }
 
+svg {
+  overflow: visible;
+  width: 100%;
+  height: auto;
+}
 /* Styling for the timeline */
 .timeline {
   position: absolute;
@@ -159,12 +189,32 @@ svg:active {
   padding-top: 20px; /* Add padding to create space for the timeline axis labels */
 }
 
+.x-axis text {
+  fill: black !important;
+  font-size: 16px !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+.x-axis {
+  overflow: visible !important;
+  clip: auto !important;
+}
+
 /* Style for the axis labels on the timeline */
 .timeline text {
   font-size: 12px;
   font-family: "Times New Roman", serif;
   fill: #000;
 }
+
+.timeline-stage {
+  display: flex; /* Use flexbox to position elements */
+  justify-content: space-between; /* Ensure the first element is on the left and the second is on the right */
+  align-items: center; /* Vertically center the elements */
+  margin-bottom: 0px; /* Add some margin below each stage for spacing */
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
