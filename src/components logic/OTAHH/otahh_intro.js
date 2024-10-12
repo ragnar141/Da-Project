@@ -4,11 +4,27 @@ import { geoOrthographic, geoPath } from 'd3-geo';
 import * as topojson from 'topojson-client';
 import '../../components css/otahh_intro.css';
 
+
+
 const initialColor = '#ffd17e';
 const firstColor = '#ff6c00';
 const secondColor = '#219100';
 const thirdColor = '#ff0000';
 const fourthColor = '#4169E1';
+const fifthColor = '#ecdcad';
+const sixthColor = '#9cef50';
+const seventhColor = '#b90628';
+const eighthColor = '#b8a8ca';
+const ninthColor = '#7e6771';
+const tenthColor = '#d9ef9d';
+const eleventhColor = '#8f4b0d';
+const twelvethColor = '#3e82d9';
+const thirteenthColor = '#cd6886';
+const fourteenthColor = '#6c9cea';
+const fifteenthColor = '#b2efdd';
+const sixteenthColor = '#e81590';
+const seventeenthColor = '#1f9fab';
+
 
 // Sample JSON dataset
 const dataset = [
@@ -57,8 +73,8 @@ const dataset = [
       "Syria", "Ethiopia", "Arabia", "Bactria"],
 
     "Geography": [
-    { "Country": "Greece", "Color": [initialColor, secondColor, thirdColor, fourthColor] },
-    { "Country": "Turkey", "Color": [initialColor, secondColor, thirdColor, fourthColor] },
+    { "Country": "Greece", "Color": [initialColor, firstColor, secondColor, thirdColor, fourthColor] },
+    { "Country": "Turkey", "Color": [initialColor, firstColor, secondColor, thirdColor, fourthColor] },
     { "Country": "Iran", "Color": [initialColor, secondColor, thirdColor] },
     { "Country": "Iraq", "Color": [initialColor, firstColor, secondColor] },
     { "Country": "Lebanon", "Color": [initialColor, firstColor, secondColor] },
@@ -184,756 +200,1013 @@ const dataset = [
 ]
 
   },
-//   {
-//     "Index": 3,
-//     "Author/Text Title": "Tacitus",
-//     "Fundamental Works": { "Title": "Annals", "Date of Issue": "around  115 - 120 CE" },
-//    "Timeline": [-5000, 2000],
-//     "Origin of history": "-",
-//     "Author's framework": "Secular, philosophical",
-//     "Stages of cycles": "-",
+  {
+    "Index": 3,
+    "Author/Text Title": "Tacitus",
+    "Fundamental Works": { "Title": "Annals", "Date of Issue": "around  115 - 120 CE" },
+   "Timeline": [-5000, 2000],
+    "Origin of history": "-",
+    "Author's framework": "Secular, philosophical",
+    "Stages of cycles": "-",
 
-//     "Timeline Stages": [
-//       {
-//         "Stage": "The Reign of Tiberius",
-//         "Years": [14, 37],
-//         "Labels": ["14 CE", "37 CE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Republican Rome and Internal Struggles",
-//         "Years": [37, 41],
-//         "Labels": ["37 CE", "41 CE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Rome's Wars and Expansion",
-//         "Years": [41, 54],
-//         "Labels": ["41 CE", "54 CE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Moral Decline in the Late Republic",
-//         "Years": [54, 68],
-//         "Labels": ["54 CE", "68 CE"],
-//         "Level" : 0
-//       }
-//     ]
-//     ,    
-    
-//     "Ancient regions": ["Rome", "Italia", "Germania", "Britannia", "Gaul", "Hispania", "Egypt", "Syria", "Judea", 
-//       "Armenia", "Parthia", "Pannonia", "Dalmatia", "Illyria", "Numidia", "Mauretania", 
-//       "Thrace", "Asia Minor", "Achaea", "Cappadocia", "Pontus", "Dacia", "Mesopotamia", 
-//       "Africa Proconsularis", "Sicily"],
-      
-//     "Geography": ["Italy", "Germany", "UK", "France", "Spain", "Portugal", "Egypt", "Syria", "Israel", 
-//       "Palestine", "Armenia", "Iran", "Iraq", "Hungary", "Croatia", "Bosnia", "Albania", 
-//       "Algeria", "Morocco", "Bulgaria", "Greece", "Turkey", "Romania", "Iraq", "Tunisia", 
-//       "Libya"]
-//   },
-//   {
-//     "Index": 4,
-//     "Author/Text Title": "Flavius Josephus",
-//     "Fundamental Works": [{ "Title": "The Jewish War",  "Date of Issue": "around 93 CE" }, 
-//     {"Title": "Antiquities of the Jews",  "Date of Issue": "around 93 CE" }],
-//   "Timeline": [-5000, 2000],
-//     "Origin of history": "Theological: Genesis",
-//     "Author's framework": "Judaism",
-//     "Stages of cycles": ["Faithfulness and Prosperity", "Rebellion and Punishment", "Hope for Restoration"],
+    "Timeline Stages": [
+      {
+        "Stage": "The Reign of Tiberius",
+        "Years": [14, 37],
+        "Labels": ["14 CE", "37 CE"],
+        "Level" : 0,
+        "Color" : firstColor,
 
-//     "Timeline Stages": [
-//       {
-//         "Stage": "Creation to the Patriarchs (Genesis)",
-//         "Years": [-4000, -1300],
-//         "Labels": ["4000 BCE", "1300 BCE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "The Exodus and the Law",
-//         "Years": [-1300, -1200],
-//         "Labels": ["1300 BCE", "1200 BCE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "The Judges and the Kings of Israel",
-//         "Years": [-1200, -587],
-//         "Labels": ["1200 BCE", "587 BCE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "The Babylonian Exile and Return",
-//         "Years": [-587, -539],
-//         "Labels": ["587 BCE", "539 BCE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Post-Biblical History",
-//         "Years": [-539, 94],
-//         "Labels": ["539 BCE", "94 CE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "The Jewish War",
-//         "Years": [66, 70],
-//         "Labels": ["66 CE", "70 CE"],
-//         "Level" : 1
-//       }
-//     ]
-//     ,    
-
-//     "Ancient regions": ["Judea", "Galilee", "Samaria", "Idumea", "Jerusalem", "Perea", "Decapolis", "Syria", 
-//       "Alexandria", "Egypt", "Rome", "Parthia", "Babylonia", "Arabia", "Phoenicia", 
-//       "Mesopotamia", "Cyprus", "Persia", "Galatia", "Asia Minor"],      
-
-//     "Geography": ["Israel", "Palestine", "Jordan", "Lebanon", "Egypt", "Syria", "Iraq", "Saudi Arabia", 
-//       "Turkey", "Cyprus", "Italy", "Iran"]
-      
-//   },
-//   {
-//     "Index": 5,
-//     "Author/Text Title": "Kojiki",
-//     "Fundamental Works": { "Title": "Kojiki",  "Date of Issue": "712 CE" }, 
-//    "Timeline": [-5000, 2000], //x
-//     "Origin of history": "Mythological: out of primordial chaos, the first gods spontaneously emerged.",
-//     "Author's framework": "Shinto",
-//     "Stages of cycles": "-",
-//     "Timeline Stages": [
-//       {
-//         "Stage": "Mythological Age (Time Before Human History)",
-//         "Years": [-4000, -660],
-//         "Labels": ["4000 BCE", "660 BCE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Historical Age (Legendary and Semi-Historical Period)",
-//         "Years": [-660, -499],
-//         "Labels": ["660 BCE", "499 BCE"],
-//         "Level" : 0
-//       }
-//     ]
-//     ,  
-//     "Ancient regions": ["Wa", "Yamato", "Izumo", "Tsukushi", "Takamagahara", "Ashihara no Nakatsukuni", "Koshi", 
-//       "Awaji", "Owari", "Hyuga", "Tsushima", "Hokkaido"],      
-
-//     "Geography": "Japan"
-//   },
-//   {
-//     "Index": 6,
-//     "Author/Text Title": "Nihongi",
-//     "Fundamental Works": { "Title": "Nihongi",  "Date of Issue": "720 CE" }, 
-//     "Timeline": [-5000, 2000], //x
-//     "Origin of history": "Mythological: out of primordial chaos, the first gods spontaneously emerged.",
-//     "Author's framework": "Primarily Shinto, secondarily Buddhism",
-//     "Stages of cycles": "-",
-//     "Timeline Stages": [
-//       {
-//         "Stage": "Mythological Age (Kami no Yo)",
-//         "Years": [-4000, -660],
-//         "Labels": ["4000 BCE", "660 BCE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Semi-Historical Age",
-//         "Years": [-660, 600],
-//         "Labels": ["660 BCE", "600 CE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Historical Age",
-//         "Years": [600, 720],
-//         "Labels": ["600 CE", "720 CE"],
-//         "Level" : 0
-//       }
-//     ]
-//     ,  
-//     "Ancient regions": ["Wa", "Yamato", "Tsukushi", "Koshi", "Kibi", "Silla", "Baekje", "Goguryeo", "Kara", 
-//       "Paekche", "Tunguska", "Lelang", "China", "Yamatai", "Ryukyu Islands"],
-      
-//     "Geography": ["Japan", "South Korea", "North Korea", "China", "Russia (Manchuria)", "Ryukyu Islands"]
-//   },
-//   {
-//     "Index": 7,
-//     "Author/Text Title": "Ferdawsi",
-//     "Fundamental Works": {"Title": "Persian Book of Kings (Shahnameh)",  "Date of Issue": "1010 CE"}, 
-//    "Timeline": [-5000, 2000], //x
-//     "Origin of history": "Mythological: Ahura Mazda creates universe.",
-//     "Author's framework": "Primarily Zoroastrianism, secondarily Islam",
-//     "Stages of cycles": ["Truth and Justice  ->  Prosperity and Victory", "Tyranny, greed, and falsehood  ->  Death and Decline"],
-//     "Timeline Stages": [
-//       {
-//         "Stage": "Mythical Age",
-//         "Years": [-4000, -2000],
-//         "Labels": ["4000 BCE", "2000 BCE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Legendary Age",
-//         "Years": [-2000, -330],
-//         "Labels": ["2000 BCE", "330 BCE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Historical Age",
-//         "Years": [-330, 651],
-//         "Labels": ["330 BCE", "651 CE"],
-//         "Level" : 0
-//       }
-//     ]
-//     ,
-//     "Ancient regions": ["Iran", "Turan", "Zabulistan", "Sistan", "Mazandaran", "Khwarazm", "India", "China", 
-//       "Rome", "Arabia", "Balkh", "Khorasan", "Ctesiphon", "Isfahan", "Herat", "Rey", "Armenia", 
-//       "Caucasus", "Bukhara", "Gorgan", "Syria", "Yemen", "Sogdiana", "Parthia", "Azerbaijan", 
-//       "Tabaristan", "Georgia"],
   
-//     "Geography": ["Iran", "Central Asia", "Afghanistan", "Uzbekistan", "Turkmenistan", "India", "China", 
-//       "Turkey", "Iraq", "Syria", "Armenia", "Georgia", "Azerbaijan", "Yemen", "Tajikistan"]
-//   },
-//   {
-//     "Index": 8,
-//     "Author/Text Title": "Ibn Khaldun",
-//     "Fundamental Works": {"Title": "Muqaddimah",  "Date of Issue": "1377 CE"},
-//    "Timeline": [-5000, 2000],
-//     "Origin of history": "-",
-//     "Author's framework": "Rational, sociological",
-//     "Stages of cycles": ["The Formation of a Dynasty (Gaining Asabiyyah)", "The Flourishing of the Dynasty", "The Decline of the Dynasty (Losing Asabiyyah)"],
-//     "Timeline Stages": [
-//       {
-//         "Stage": "Ancient Egypt",
-//         "Years": [-3100, -30],
-//         "Labels": ["3100 BCE", "30 BCE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Mesopotamia",
-//         "Years": [-3000, -539],
-//         "Labels": ["3000 BCE", "539 BCE"],
-//         "Level" : 1
-//       },
-//       {
-//         "Stage": "Pre-Islamic Tribal Arabia",
-//         "Years": [-500, 622],
-//         "Labels": ["500 BCE", "622 CE"],
-//         "Level" : 1
-//       },
-//       {
-//         "Stage": "Life of the Prophet Muhammad",
-//         "Years": [570, 632],
-//         "Labels": ["570 CE", "632 CE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Umayyad Caliphate",
-//         "Years": [661, 750],
-//         "Labels": ["661 CE", "750 CE"],
-//         "Level" : 1
-//       },
-//       {
-//         "Stage": "Abbasid Caliphate",
-//         "Years": [750, 1258],
-//         "Labels": ["750 CE", "1258 CE"],
-//         "Level" : 1
-//       },
-//       {
-//         "Stage": "Almoravid Dynasty",
-//         "Years": [1040, 1147],
-//         "Labels": ["1040 CE", "1147 CE"],
-//         "Level" : 2
-//       },
-//       {
-//         "Stage": "Almohad Dynasty",
-//         "Years": [1121, 1269],
-//         "Labels": ["1121 CE", "1269 CE"],
-//         "Level" : 3
-//       },
-//       {
-//         "Stage": "Hafsids of Tunisia",
-//         "Years": [1229, 1574],
-//         "Labels": ["1229 CE", "1574 CE"],
-//         "Level" : 2
-//       },
-//       {
-//         "Stage": "Mongol Empire",
-//         "Years": [1206, 1368],
-//         "Labels": ["1206 CE", "1368 CE"],
-//         "Level" : 4
-//       },
-//       {
-//         "Stage": "Reconquista",
-//         "Years": [718, 1377],
-//         "Labels": ["718 CE", "1377 CE"],
-//         "Level" : 0
-//       }
-//     ]
-//     ,
-
-//     "Ancient regions": ["Ifriqiya", "Maghreb", "Egypt", "Al-Andalus", "Arabia", "Persia", "Syria", "Iraq", "Yemen", 
-//       "Berber Kingdoms", "Byzantium", "Sudan", "Sicily", "Constantinople", "Khorasan", 
-//       "Transoxiana", "Sassanid Empire"],      
-
-//     "Geography": ["Tunisia", "Algeria", "Libya", "Morocco", "Egypt", "Spain", "Portugal", "Saudi Arabia", 
-//       "Iran", "Syria", "Iraq", "Yemen", "Turkey", "Sudan", "Italy", "Uzbekistan", "Tajikistan", 
-//       "Turkmenistan"]      
-//   },
-  
-//   {
-//     "Index": 9,
-//     "Author/Text Title": "Isaac Newton",
-//     "Fundamental Works": {"Title":  "The Chronology of Ancient Kingdoms Amended",  "Date of Issue": "1728 CE"},
-//    "Timeline": [-5000, 2000],
+      },
+      {
+        "Stage": "Republican Rome and Internal Struggles",
+        "Years": [37, 41],
+        "Labels": ["37 CE", "41 CE"],
+        "Level" : 0,
+        "Color" : secondColor,
+      },
+      {
+        "Stage": "Rome's Wars and Expansion",
+        "Years": [41, 54],
+        "Labels": ["41 CE", "54 CE"],
+        "Level" : 0,
+        "Color" : thirdColor,
+      },
+      {
+        "Stage": "Moral Decline in the Late Republic",
+        "Years": [54, 68],
+        "Labels": ["54 CE", "68 CE"],
+        "Level" : 0,
+        "Color" : fourthColor,
+      }
+    ]
+    ,    
     
-    
-//     "Origin of history": "Theological: Genesis",
-//     "Author's framework": "Christian, scientific",
-//     "Stages of cycles": "-",
-//     "Timeline Stages": [
-//       {
-//         "Stage": "Early Biblical Events",
-//         "Years": [-4000, -2500],
-//         "Labels": ["4000 BCE", "2500 BCE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Ancient Egypt",
-//         "Years": [-2000, -568],
-//         "Labels": ["2000 BCE", "568 BCE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Assyria",
-//         "Years": [-1500, -600],
-//         "Labels": ["1500 BCE", "600 BCE"],
-//         "Level" : 1
-//       },
-//       {
-//         "Stage": "Babylon",
-//         "Years": [-1500, -539],
-//         "Labels": ["1500 BCE", "539 BCE"],
-//         "Level" : 2
-//       },
-//       {
-//         "Stage": "Persia",
-//         "Years": [-550, -330],
-//         "Labels": ["550 BCE", "330 BCE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Trojan war, Greek period",
-//         "Years": [-950, -146],
-//         "Labels": ["950 BCE", "146 BCE"],
-//         "Level" : 3
-//       }
-//     ]
-//     ,
-
-//     "Ancient regions": ["Egypt", "Assyria", "Babylon", "Greece", "Israel", "Judah", "Persia", "Scythia", 
-//       "Troy", "Thebes", "Phrygia"],
+    "Ancient regions": ["Rome", "Italia", "Germania", "Britannia", "Gaul", "Hispania", "Egypt", "Syria", "Judea", 
+      "Armenia", "Parthia", "Pannonia", "Dalmatia", "Illyria", "Numidia", "Mauretania", 
+      "Thrace", "Asia Minor", "Achaea", "Cappadocia", "Pontus", "Dacia", "Mesopotamia", 
+      "Africa Proconsularis", "Sicily"],
       
-//     "Geography": ["Egypt", "Iraq", "Syria", "Greece", "Israel", "Turkey", "Iran", "Georgia", "Ukraine", "Lebanon", "Jordan"]
-//   },
-//   {
-//     "Index": 10,
-//     "Author/Text Title": "Edward Gibbon",
-//     "Fundamental Works": {"Title":  "The History of the Decline and Fall of the Roman Empire",  "Date of Issue": "1781 CE"},
-//    "Timeline": [-5000, 2000],
-//     "Origin of history": "-",
-//     "Author's framework": "Sociological, philosophical",
-//     "Stages of cycles": ["Rise", "Fall"],
-//     "Timeline Stages": [
-//       {
-//         "Stage": "The Roman Empire from Trajan to the Fall of the Western Roman Empire",
-//         "Years": [98, 476],
-//         "Labels": ["98 CE", "476 CE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "The Byzantine (Eastern Roman) Empire",
-//         "Years": [476, 1204],
-//         "Labels": ["476 CE", "1204 CE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "The Final Decline of the Byzantine Empire and the Fall of Constantinople",
-//         "Years": [1204, 1453],
-//         "Labels": ["1204 CE", "1453 CE"],
-//         "Level" : 0
-//       }
-//     ]
-//     ,
-    
-//     "Ancient regions": ["Rome", "Gaul", "Britannia", "Hispania", "Germania", "North Africa", "Constantinople", 
-//       "Asia Minor", "Greece", "Syria", "Palestine", "Egypt", "Visigothic Kingdom", "Ostrogothic Kingdom", 
-//       "Vandal Kingdom", "Francia", "Persia", "Arabia", "Slavic Tribes", "Avar Kingdom", "Lombard Kingdom", 
-//       "Balkans", "Turkey", "Ottoman Empire"],
+      "Geography": [
+        { "Country": "Italy", "Color": [initialColor] },
+        { "Country": "Tunisia", "Color": [initialColor] },
+        { "Country": "France", "Color": [initialColor] },
+        { "Country": "Spain", "Color": [initialColor] },
+        { "Country": "Portugal", "Color": [initialColor] },
+        { "Country": "Greece", "Color": [initialColor] },
+        { "Country": "Turkey", "Color": [initialColor] },
+        { "Country": "Egypt", "Color": [initialColor] },
+        { "Country": "Libya", "Color": [initialColor] },
+        { "Country": "Syria", "Color": [initialColor] },
+        { "Country": "Albania", "Color": [initialColor] },
+        { "Country": "Croatia", "Color": [initialColor] },
+        { "Country": "Bosnia", "Color": [initialColor] },
+        { "Country": "North Macedonia", "Color": [initialColor] },
+        { "Country": "Serbia", "Color": [initialColor] },
+        { "Country": "Bulgaria", "Color": [initialColor] },
+        { "Country": "Hungary", "Color": [initialColor] },
+        { "Country": "Romania", "Color": [initialColor] },
+        { "Country": "Georgia", "Color": [initialColor] },
+        { "Country": "Armenia", "Color": [initialColor] },
+        { "Country": "UK", "Color": [initialColor] },
+        { "Country": "Iraq", "Color": [initialColor] },
+        { "Country": "Iran", "Color": [initialColor] },
+        { "Country": "Morocco", "Color": [initialColor] },
+        { "Country": "Montenegro", "Color": [initialColor] },
+        { "Country": "Luxembourg", "Color": [initialColor] },
+        { "Country": "Belgium", "Color": [initialColor] },
+        { "Country": "Switzerland", "Color": [initialColor] },
+        { "Country": "Algeria", "Color": [initialColor] },
+        { "Country": "Slovenia", "Color": [initialColor] },
+        { "Country": "Lebanon", "Color": [initialColor] },
+        { "Country": "Israel", "Color": [initialColor] },
+        { "Country": "Palestine", "Color": [initialColor] },
+        { "Country": "Jordan", "Color": [initialColor] },
+        { "Country": "Netherlands", "Color": [initialColor] },
+        { "Country": "Moldova", "Color": [initialColor] },
+        { "Country": "Austria", "Color": [initialColor] }
+      ]
+    },
+    {
+      "Index": 4,
+      "Author/Text Title": "Flavius Josephus",
+      "Fundamental Works": [
+        { "Title": "The Jewish War", "Date of Issue": "around 93 CE" },
+        { "Title": "Antiquities of the Jews", "Date of Issue": "around 93 CE" }
+      ],
+      "Timeline": [-5000, 2000],
+      "Origin of history": "Theological: Genesis",
+      "Author's framework": "Judaism",
+      "Stages of cycles": ["Faithfulness and Prosperity", "Rebellion and Punishment", "Hope for Restoration"],
+      "Timeline Stages": [
+        {
+          "Stage": "Creation to the Patriarchs (Genesis)",
+          "Years": [-4000, -1300],
+          "Labels": ["4000 BCE", "1300 BCE"],
+          "Level": 0,
+          "Color": firstColor
+        },
+        {
+          "Stage": "The Exodus and the Law",
+          "Years": [-1300, -1200],
+          "Labels": ["1300 BCE", "1200 BCE"],
+          "Level": 0,
+          "Color": secondColor
+        },
+        {
+          "Stage": "The Judges and the Kings of Israel",
+          "Years": [-1200, -587],
+          "Labels": ["1200 BCE", "587 BCE"],
+          "Level": 0,
+          "Color": thirdColor
+        },
+        {
+          "Stage": "The Babylonian Exile and Return",
+          "Years": [-587, -539],
+          "Labels": ["587 BCE", "539 BCE"],
+          "Level": 0,
+          "Color": fourthColor
+        },
+        {
+          "Stage": "Post-Biblical History",
+          "Years": [-539, 94],
+          "Labels": ["539 BCE", "94 CE"],
+          "Level": 0,
+          "Color": fifthColor
+        },
+        {
+          "Stage": "The Jewish War",
+          "Years": [66, 70],
+          "Labels": ["66 CE", "70 CE"],
+          "Level": 1,
+          "Color": sixthColor
+        }
+      ],
+      "Ancient regions": ["Judea", "Galilee", "Samaria", "Idumea", "Jerusalem", "Perea", "Decapolis", "Syria", "Alexandria", "Egypt", "Rome", "Parthia", "Babylonia", "Arabia", "Phoenicia", "Mesopotamia", "Cyprus", "Persia", "Galatia", "Asia Minor"],
+      "Geography": [
+        { "Country": "Israel", "Color": [initialColor] },
+        { "Country": "Palestine", "Color": [initialColor] },
+        { "Country": "Jordan", "Color": [initialColor] },
+        { "Country": "Lebanon", "Color": [initialColor] },
+        { "Country": "Egypt", "Color": [initialColor] },
+        { "Country": "Syria", "Color": [initialColor] },
+        { "Country": "Iraq", "Color": [initialColor] },
+        { "Country": "Saudi Arabia", "Color": [initialColor] },
+        { "Country": "Turkey", "Color": [initialColor] },
+        { "Country": "Cyprus", "Color": [initialColor] },
+        { "Country": "Italy", "Color": [initialColor] },
+        { "Country": "Iran", "Color": [initialColor] }
+      ]
+    },
+    {
+      "Index": 5,
+      "Author/Text Title": "Kojiki",
+      "Fundamental Works": { "Title": "Kojiki", "Date of Issue": "712 CE" },
+      "Timeline": [-5000, 2000],
+      "Origin of history": "Mythological: out of primordial chaos, the first gods spontaneously emerged.",
+      "Author's framework": "Shinto",
+      "Stages of cycles": "-",
+      "Timeline Stages": [
+        {
+          "Stage": "Mythological Age (Time Before Human History)",
+          "Years": [-4000, -660],
+          "Labels": ["4000 BCE", "660 BCE"],
+          "Level": 0,
+          "Color": firstColor
+        },
+        {
+          "Stage": "Historical Age (Legendary and Semi-Historical Period)",
+          "Years": [-660, -499],
+          "Labels": ["660 BCE", "499 BCE"],
+          "Level": 0,
+          "Color": secondColor
+        }
+      ],
+      "Ancient regions": ["Wa", "Yamato", "Izumo", "Tsukushi", "Takamagahara", "Ashihara no Nakatsukuni", "Koshi", "Awaji", "Owari", "Hyuga", "Tsushima", "Hokkaido"],
+      
+      "Geography": [{ "Country": "Japan", "Color": [initialColor] }]
+    },
+    {
+      "Index": 6,
+      "Author/Text Title": "Nihongi",
+      "Fundamental Works": { "Title": "Nihongi", "Date of Issue": "720 CE" },
+      "Timeline": [-5000, 2000],
+      "Origin of history": "Mythological: out of primordial chaos, the first gods spontaneously emerged.",
+      "Author's framework": "Primarily Shinto, secondarily Buddhism",
+      "Stages of cycles": "-",
+      "Timeline Stages": [
+        {
+          "Stage": "Mythological Age (Kami no Yo)",
+          "Years": [-4000, -660],
+          "Labels": ["4000 BCE", "660 BCE"],
+          "Level": 0,
+          "Color": firstColor
+        },
+        {
+          "Stage": "Semi-Historical Age",
+          "Years": [-660, 600],
+          "Labels": ["660 BCE", "600 CE"],
+          "Level": 0,
+          "Color": secondColor
+        },
+        {
+          "Stage": "Historical Age",
+          "Years": [600, 720],
+          "Labels": ["600 CE", "720 CE"],
+          "Level": 0,
+          "Color": thirdColor
+        }
+      ],
+      "Ancient regions": ["Wa", "Yamato", "Tsukushi", "Koshi", "Kibi", "Silla", "Baekje", "Goguryeo", "Kara", "Paekche", "Tunguska", "Lelang", "China", "Yamatai", "Ryukyu Islands"],
+      
+      "Geography": [
+        { "Country": "Japan", "Color": [initialColor] },
+        { "Country": "South Korea", "Color": [initialColor] },
+        { "Country": "North Korea", "Color": [initialColor] },
+        { "Country": "China", "Color": [initialColor] },
+        { "Country": "Russia (Manchuria)", "Color": [initialColor] },
+        { "Country": "Ryukyu Islands", "Color": [initialColor] }
+      ]
+    },
 
-//     "Geography": ["Italy", "France", "United Kingdom", "Spain", "Germany", "Tunisia", "Algeria", "Libya", "Turkey", 
-//       "Greece", "Syria", "Israel", "Palestine", "Egypt", "Iraq", "Iran", "Saudi Arabia", "Jordan", 
-//       "Portugal", "Hungary", "Bulgaria", "Serbia"]
-//   },
+    {
+      "Index": 7,
+      "Author/Text Title": "Ferdawsi",
+      "Fundamental Works": { "Title": "Persian Book of Kings (Shahnameh)", "Date of Issue": "1010 CE" },
+      "Timeline": [-5000, 2000],
+      "Origin of history": "Mythological: Ahura Mazda creates universe.",
+      "Author's framework": "Primarily Zoroastrianism, secondarily Islam",
+      "Stages of cycles": ["Truth and Justice -> Prosperity and Victory", "Tyranny, greed, and falsehood -> Death and Decline"],
+      "Timeline Stages": [
+        {
+          "Stage": "Mythical Age",
+          "Years": [-4000, -2000],
+          "Labels": ["4000 BCE", "2000 BCE"],
+          "Level": 0,
+          "Color": firstColor
+        },
+        {
+          "Stage": "Legendary Age",
+          "Years": [-2000, -330],
+          "Labels": ["2000 BCE", "330 BCE"],
+          "Level": 0,
+          "Color": secondColor
+        },
+        {
+          "Stage": "Historical Age",
+          "Years": [-330, 651],
+          "Labels": ["330 BCE", "651 CE"],
+          "Level": 0,
+          "Color": thirdColor
+        }
+      ],
+      "Ancient regions": ["Iran", "Turan", "Zabulistan", "Sistan", "Mazandaran", "Khwarazm", "India", "China", "Rome", "Arabia", "Balkh", "Khorasan", "Ctesiphon", "Isfahan", "Herat", "Rey", "Armenia", "Caucasus", "Bukhara", "Gorgan", "Syria", "Yemen", "Sogdiana", "Parthia", "Azerbaijan", "Tabaristan", "Georgia"],
+      
+      "Geography": [
+        { "Country": "Iran", "Color": [initialColor] },
+        { "Country": "Central Asia", "Color": [initialColor] },
+        { "Country": "Afghanistan", "Color": [initialColor] },
+        { "Country": "Uzbekistan", "Color": [initialColor] },
+        { "Country": "Turkmenistan", "Color": [initialColor] },
+        { "Country": "India", "Color": [initialColor] },
+        { "Country": "China", "Color": [initialColor] },
+        { "Country": "Turkey", "Color": [initialColor] },
+        { "Country": "Iraq", "Color": [initialColor] },
+        { "Country": "Syria", "Color": [initialColor] },
+        { "Country": "Armenia", "Color": [initialColor] },
+        { "Country": "Georgia", "Color": [initialColor] },
+        { "Country": "Azerbaijan", "Color": [initialColor] },
+        { "Country": "Yemen", "Color": [initialColor] },
+        { "Country": "Tajikistan", "Color": [initialColor] }
+      ]
+    },
+    {
+      "Index": 8,
+      "Author/Text Title": "Ibn Khaldun",
+      "Fundamental Works": { "Title": "Muqaddimah", "Date of Issue": "1377 CE" },
+      "Timeline": [-5000, 2000],
+      "Origin of history": "-",
+      "Author's framework": "Rational, sociological",
+      "Stages of cycles": ["The Formation of a Dynasty (Gaining Asabiyyah)", "The Flourishing of the Dynasty", "The Decline of the Dynasty (Losing Asabiyyah)"],
+      "Timeline Stages": [
+        {
+          "Stage": "Ancient Egypt",
+          "Years": [-3100, -30],
+          "Labels": ["3100 BCE", "30 BCE"],
+          "Level": 0,
+          "Color": firstColor
+        },
+        {
+          "Stage": "Mesopotamia",
+          "Years": [-3000, -539],
+          "Labels": ["3000 BCE", "539 BCE"],
+          "Level": 1,
+          "Color": secondColor
+        },
+        {
+          "Stage": "Pre-Islamic Tribal Arabia",
+          "Years": [-500, 622],
+          "Labels": ["500 BCE", "622 CE"],
+          "Level": 1,
+          "Color": thirdColor
+        },
+        {
+          "Stage": "Life of the Prophet Muhammad",
+          "Years": [570, 632],
+          "Labels": ["570 CE", "632 CE"],
+          "Level": 0,
+          "Color": fourthColor
+        },
+        {
+          "Stage": "Umayyad Caliphate",
+          "Years": [661, 750],
+          "Labels": ["661 CE", "750 CE"],
+          "Level": 1,
+          "Color": fifthColor
+        },
+        {
+                  "Stage": "Abbasid Caliphate",
+                  "Years": [750, 1258],
+                  "Labels": ["750 CE", "1258 CE"],
+                  "Level" : 1,
+                  "Color" : sixthColor
+                },
+                {
+                  "Stage": "Almoravid Dynasty",
+                  "Years": [1040, 1147],
+                  "Labels": ["1040 CE", "1147 CE"],
+                  "Level" : 2,
+                  "Color" : seventhColor
+                },
+                {
+                  "Stage": "Almohad Dynasty",
+                  "Years": [1121, 1269],
+                  "Labels": ["1121 CE", "1269 CE"],
+                  "Level" : 3,
+                  "Color" : eighthColor
+                },
+                {
+                  "Stage": "Hafsids of Tunisia",
+                  "Years": [1229, 1574],
+                  "Labels": ["1229 CE", "1574 CE"],
+                  "Level" : 2,
+                  "Color" : ninthColor
+                },
+                {
+                  "Stage": "Mongol Empire",
+                  "Years": [1206, 1368],
+                  "Labels": ["1206 CE", "1368 CE"],
+                  "Level" : 4,
+                  "Color" : tenthColor
+                },
+                {
+                  "Stage": "Reconquista",
+                  "Years": [718, 1377],
+                  "Labels": ["718 CE", "1377 CE"],
+                  "Level" : 0,
+                  "Color" : eleventhColor
+                }
+      ],
+      "Ancient regions": ["Ifriqiya", "Maghreb", "Egypt", "Al-Andalus", "Arabia", "Persia", "Syria", "Iraq", "Yemen", "Berber Kingdoms", "Byzantium", "Sudan", "Sicily", "Constantinople", "Khorasan", "Transoxiana", "Sassanid Empire"],
+      
+      "Geography": [
+        { "Country": "Tunisia", "Color": [initialColor] },
+        { "Country": "Algeria", "Color": [initialColor] },
+        { "Country": "Libya", "Color": [initialColor] },
+        { "Country": "Morocco", "Color": [initialColor] },
+        { "Country": "Egypt", "Color": [initialColor] },
+        { "Country": "Spain", "Color": [initialColor] },
+        { "Country": "Portugal", "Color": [initialColor] },
+        { "Country": "Saudi Arabia", "Color": [initialColor] },
+        { "Country": "Iran", "Color": [initialColor] },
+        { "Country": "Syria", "Color": [initialColor] },
+        { "Country": "Iraq", "Color": [initialColor] },
+        { "Country": "Yemen", "Color": [initialColor] },
+        { "Country": "Turkey", "Color": [initialColor] },
+        { "Country": "Sudan", "Color": [initialColor] },
+        { "Country": "Italy", "Color": [initialColor] },
+        { "Country": "Uzbekistan", "Color": [initialColor] },
+        { "Country": "Tajikistan", "Color": [initialColor] },
+        { "Country": "Turkmenistan", "Color": [initialColor] }
+      ]
+    },
+    {
+      "Index": 9,
+      "Author/Text Title": "Isaac Newton",
+      "Fundamental Works": { "Title": "The Chronology of Ancient Kingdoms Amended", "Date of Issue": "1728 CE" },
+      "Timeline": [-5000, 2000],
+      "Origin of history": "Theological: Genesis",
+      "Author's framework": "Christian, scientific",
+      "Stages of cycles": "-",
+      "Timeline Stages": [
+        {
+          "Stage": "Early Biblical Events",
+          "Years": [-4000, -2500],
+          "Labels": ["4000 BCE", "2500 BCE"],
+          "Level": 0,
+          "Color": firstColor
+        },
+        {
+          "Stage": "Ancient Egypt",
+          "Years": [-2000, -568],
+          "Labels": ["2000 BCE", "568 BCE"],
+          "Level": 0,
+          "Color": secondColor
+        },
+        {
+          "Stage": "Assyria",
+          "Years": [-1500, -600],
+          "Labels": ["1500 BCE", "600 BCE"],
+          "Level": 1,
+          "Color": thirdColor
+        },
+        {
+          "Stage": "Babylon",
+          "Years": [-1500, -539],
+          "Labels": ["1500 BCE", "539 BCE"],
+          "Level": 2,
+          "Color": fourthColor
+        },
+        {
+                  "Stage": "Persia",
+                  "Years": [-550, -330],
+                  "Labels": ["550 BCE", "330 BCE"],
+                  "Level" : 0,
+                  "Color": fifthColor
+                },
+                {
+                  "Stage": "Trojan war, Greek period",
+                  "Years": [-950, -146],
+                  "Labels": ["950 BCE", "146 BCE"],
+                  "Level" : 3,
+                  "Color": sixthColor
+                }
+      ],
+      "Ancient regions": ["Egypt", "Assyria", "Babylon", "Greece", "Israel", "Judah", "Persia", "Scythia", "Troy", "Thebes", "Phrygia"],
+      
+      "Geography": [
+        { "Country": "Egypt", "Color": [initialColor] },
+        { "Country": "Iraq", "Color": [initialColor] },
+        { "Country": "Syria", "Color": [initialColor] },
+        { "Country": "Greece", "Color": [initialColor] },
+        { "Country": "Israel", "Color": [initialColor] },
+        { "Country": "Turkey", "Color": [initialColor] },
+        { "Country": "Iran", "Color": [initialColor] },
+        { "Country": "Georgia", "Color": [initialColor] },
+        { "Country": "Ukraine", "Color": [initialColor] },
+        { "Country": "Lebanon", "Color": [initialColor] },
+        { "Country": "Jordan", "Color": [initialColor] }
+      ]
+    },
+    {
+      "Index": 10,
+      "Author/Text Title": "Edward Gibbon",
+      "Fundamental Works": { "Title": "The History of the Decline and Fall of the Roman Empire", "Date of Issue": "1781 CE" },
+      "Timeline": [-5000, 2000],
+      "Origin of history": "-",
+      "Author's framework": "Sociological, philosophical",
+      "Stages of cycles": ["Rise", "Fall"],
+      "Timeline Stages": [
+        {
+          "Stage": "The Roman Empire from Trajan to the Fall of the Western Roman Empire",
+          "Years": [98, 476],
+          "Labels": ["98 CE", "476 CE"],
+          "Level": 0,
+          "Color": firstColor
+        },
+        {
+          "Stage": "The Byzantine (Eastern Roman) Empire",
+          "Years": [476, 1204],
+          "Labels": ["476 CE", "1204 CE"],
+          "Level": 0,
+          "Color": secondColor
+        },
+        {
+          "Stage": "The Final Decline of the Byzantine Empire and the Fall of Constantinople",
+          "Years": [1204, 1453],
+          "Labels": ["1204 CE", "1453 CE"],
+          "Level": 0,
+          "Color": thirdColor
+        }
+      ],
+      "Ancient regions": ["Rome", "Gaul", "Britannia", "Hispania", "Germania", "North Africa", "Constantinople", "Asia Minor", "Greece", "Syria", "Palestine", "Egypt", "Visigothic Kingdom", "Ostrogothic Kingdom", "Vandal Kingdom", "Francia", "Persia", "Arabia"],
+      
+      "Geography": [
+        { "Country": "Italy", "Color": [initialColor] },
+        { "Country": "France", "Color": [initialColor] },
+        { "Country": "United Kingdom", "Color": [initialColor] },
+        { "Country": "Spain", "Color": [initialColor] },
+        { "Country": "Germany", "Color": [initialColor] },
+        { "Country": "Tunisia", "Color": [initialColor] },
+        { "Country": "Algeria", "Color": [initialColor] },
+        { "Country": "Libya", "Color": [initialColor] },
+        { "Country": "Turkey", "Color": [initialColor] },
+        { "Country": "Greece", "Color": [initialColor] },
+        { "Country": "Syria", "Color": [initialColor] },
+        { "Country": "Israel", "Color": [initialColor] },
+        { "Country": "Palestine", "Color": [initialColor] },
+        { "Country": "Egypt", "Color": [initialColor] },
+        { "Country": "Iraq", "Color": [initialColor] },
+        { "Country": "Iran", "Color": [initialColor] },
+        { "Country": "Saudi Arabia", "Color": [initialColor] },
+        { "Country": "Jordan", "Color": [initialColor] },
+        { "Country": "Portugal", "Color": [initialColor] },
+        { "Country": "Hungary", "Color": [initialColor] },
+        { "Country": "Bulgaria", "Color": [initialColor] },
+        { "Country": "Serbia", "Color": [initialColor] },
+      ]
+    },
+    {
+      "Index": 11,
+      "Author/Text Title": "Georg Wilhelm Friedrich Hegel",
+      "Fundamental Works": { "Title": "Philosophy of History", "Date of Issue": "1837 CE" },
+      "Timeline": [-5000, 2000],
+      "Origin of history": "History begins with the emergence of self-consciousness",
+      "Author's framework": "Philosophical, teleological",
+      "Stages of cycles": ["Thesis", "Antithesis", "Synthesis"],
+      "Timeline Stages": [
+        {
+          "Stage": "Oriental World",
+          "Years": [-3000, -500],
+          "Labels": ["3000 BCE", "500 BCE"],
+          "Level": 0,
+          "Color": firstColor
+        },
+        {
+          "Stage": "Greek World",
+          "Years": [-800, -300],
+          "Labels": ["800 BCE", "300 BCE"],
+          "Level": 1,
+          "Color": secondColor
+        },
+        {
+          "Stage": "Roman World",
+          "Years": [-500, 476],
+          "Labels": ["500 BCE", "476 CE"],
+          "Level": 0,
+          "Color": thirdColor
+        },
+        {
+          "Stage": "Germanic World",
+          "Years": [476, 1800],
+          "Labels": ["476 CE", "1800 CE"],
+          "Level": 0,
+          "Color": fourthColor
+        }
+      ],
+      "Ancient regions": ["China", "India", "Persia", "Egypt", "Greece", "Rome", "Germany"],
 
-//   {
-//     "Index": 11,
-//     "Author/Text Title": "Georg Wilhelm Friedrich Hegel",
-//     "Fundamental Works": {"Title":  "Philosophy of History",  "Date of Issue": "1837 CE"},
-// "Timeline": [-5000, 2000],
-//     "Origin of history": "History begins with the emergence of self-consciousness",
-//     "Author's framework": "Philosophical, teleological",    
-//     "Stages of cycles": ["Thesis", "Antithesis", "Synthesis"],
-        
-//     "Timeline Stages": [
-//       {
-//         "Stage": "Oriental World",
-//         "Years": [-3000, -500],
-//         "Labels": ["3000 BCE", "500 BCE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Greek World",
-//         "Years": [-800, -300],
-//         "Labels": ["800 BCE", "300 BCE"],
-//         "Level" : 1
-//       },
-//       {
-//         "Stage": "Roman World",
-//         "Years": [-500, 476],
-//         "Labels": ["500 BCE", "476 CE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Germanic World",
-//         "Years": [476, 1800],
-//         "Labels": ["476 CE", "1800 CE"],
-//         "Level" : 0
-//       }
-//     ]
-//     ,
- 
-//     "Ancient regions": ["China", "India", "Persia", "Egypt", "Greece", "Rome", "Germany"],
-//     "Geography": ["China", "India", "Iran", "Egypt", "Greece", "Italy", "Germany"]
-//   },
-//   {
-//     "Index": 12,
-//     "Author/Text Title": "Max Weber",
-//     "Fundamental Works": [{"Title":  "The Sociology of Religion",  "Date of Issue": "1920 CE"},
-//                           {"Title":  "Economy and Society",  "Date of Issue": "1922 CE"}],
+      "Geography": [
+        { "Country": "China", "Color": [initialColor] },
+        { "Country": "India", "Color": [initialColor] },
+        { "Country": "Iran", "Color": [initialColor] },
+        { "Country": "Egypt", "Color": [initialColor] },
+        { "Country": "Greece", "Color": [initialColor] },
+        { "Country": "Italy", "Color": [initialColor] },
+        { "Country": "Germany", "Color": [initialColor] }
+      ]
+    },
+    {
+      "Index": 12,
+      "Author/Text Title": "Max Weber",
+      "Fundamental Works": [
+        { "Title": "The Sociology of Religion", "Date of Issue": "1920 CE" },
+        { "Title": "Economy and Society", "Date of Issue": "1922 CE" }
+      ],
+      "Timeline": [-5000, 2000],
+      "Origin of history": "-",
+      "Author's framework": "Sociological: theological, historical, economic",
+      "Stages of cycles": ["Rationalization"],
+      "Timeline Stages": [
+        {
+          "Stage": "Ancient Religions: Patrimonial and theocratic rule, kinship-based governance",
+          "Years": [-3000, -500],
+          "Labels": ["3000 BCE", "500 BCE"],
+          "Level": 0,
+          "Color": firstColor
+        },
+        {
+          "Stage": "Axial Age Religions: Feudalism, charismatic authority, decentralized governance",
+          "Years": [-600, 200],
+          "Labels": ["600 BCE", "200 CE"],
+          "Level": 1,
+          "Color": secondColor
+        },
+        {
+          "Stage": "Medieval Religions: Rise of centralized monarchies, early bureaucratic structures, absolutism",
+          "Years": [400, 1500],
+          "Labels": ["400 CE", "1500 CE"],
+          "Level": 0,
+          "Color": thirdColor
+        },
+        {
+          "Stage": "Modern Religions: Bureaucratization, rational-legal authority, industrial capitalism",
+          "Years": [1500, 2000],
+          "Labels": ["1500 CE", "2000 CE"],
+          "Level": 0,
+          "Color": fourthColor
+        }
+      ],
+      "Ancient regions": [
+        "Persia", "Switzerland", "The Netherlands", "Eastern Europe", "Ancient Israel", "Western Europe", "France", 
+        "Ancient Greece", "Medieval Europe", "Germany", "Medieval Japan", "Ottoman Empire", "Islamic World", "Byzantine Empire", 
+        "Buddhist Asia", "Japan", "Mesopotamia", "China", "Ancient Egypt", "India", "United States", "Medieval Christendom", 
+        "England", "Ancient Rome"
+      ],
+      "Geography": [
+        { "Country": "Switzerland", "Color": [initialColor] },
+        { "Country": "Lebanon", "Color": [initialColor] },
+        { "Country": "The Netherlands", "Color": [initialColor] },
+        { "Country": "France", "Color": [initialColor] },
+        { "Country": "Egypt", "Color": [initialColor] },
+        { "Country": "Greece", "Color": [initialColor] },
+        { "Country": "Palestine", "Color": [initialColor] },
+        { "Country": "Myanmar", "Color": [initialColor] },
+        { "Country": "Czech Republic", "Color": [initialColor] },
+        { "Country": "Bangladesh", "Color": [initialColor] },
+        { "Country": "Sri Lanka", "Color": [initialColor] },
+        { "Country": "Germany", "Color": [initialColor] },
+        { "Country": "Vietnam", "Color": [initialColor] },
+        { "Country": "Pakistan", "Color": [initialColor] },
+        { "Country": "Italy", "Color": [initialColor] },
+        { "Country": "Poland", "Color": [initialColor] },
+        { "Country": "Israel", "Color": [initialColor] },
+        { "Country": "Syria", "Color": [initialColor] },
+        { "Country": "Iran", "Color": [initialColor] },
+        { "Country": "Turkey", "Color": [initialColor] },
+        { "Country": "Iraq", "Color": [initialColor] },
+        { "Country": "Japan", "Color": [initialColor] },
+        { "Country": "United Kingdom", "Color": [initialColor] },
+        { "Country": "Cambodia", "Color": [initialColor] },
+        { "Country": "Hungary", "Color": [initialColor] },
+        { "Country": "Indonesia", "Color": [initialColor] },
+        { "Country": "Europe", "Color": [initialColor] },
+        { "Country": "Thailand", "Color": [initialColor] },
+        { "Country": "Malaysia", "Color": [initialColor] },
+        { "Country": "China", "Color": [initialColor] },
+        { "Country": "Yemen", "Color": [initialColor] },
+        { "Country": "United States", "Color": [initialColor] },
+        { "Country": "India", "Color": [initialColor] },
+        { "Country": "Saudi Arabia", "Color": [initialColor] },
+        { "Country": "Jordan", "Color": [initialColor] },
+        { "Country": "Japan", "Color": [initialColor] }
+      ]
+    },
+    {
+      "Index": 13,
+      "Author/Text Title": "Oswald Spengler",
+      "Fundamental Works": { "Title": "The Decline of the West", "Date of Issue": "1921 CE" },
+      "Timeline": [-5000, 2000],
+      "Origin of history": "-",
+      "Author's framework": "Philosophical, fatalistic",
+      "Stages of cycles": ["Birth (Spring)", "Growth and Flourishing (Summer)", "Maturity and Rationalization (Autumn)", "Decline (Winter)"],
+      "Timeline Stages": [
+        {
+          "Stage": "Egyptian Civilization (early high culture)",
+          "Years": [-3000, -300],
+          "Labels": ["3000 BCE", "300 BCE"],
+          "Level": 0,
+          "Color": firstColor
+        },
+        {
+          "Stage": "Mesopotamian/Babylonian Civilization (early high culture)",
+          "Years": [-3000, -500],
+          "Labels": ["3000 BCE", "500 BCE"],
+          "Level": 1,
+          "Color": secondColor
+        },
+        {
+          "Stage": "Greek (Classical Civilization)",
+          "Years": [-1100, -200],
+          "Labels": ["1100 BCE", "200 BCE"],
+          "Level": 2,
+          "Color": thirdColor
+        },
+        {
+          "Stage": "Roman (Classical Civilization)",
+          "Years": [-500, 500],
+          "Labels": ["500 BCE", "500 CE"],
+          "Level": 1,
+          "Color": fourthColor
+        },
+        {
+                  "Stage": "Arabian (Magian Civilization)",
+                  "Years": [300, 1500],
+                  "Labels": ["300 CE", "1500 CE"],
+                  "Level" : 0,
+                  "Color": fifthColor
+                },
+                {
+                  "Stage": "Medieval Europe (Faustian Civilization)",
+                  "Years": [900, 1500],
+                  "Labels": ["900 CE", "1500 CE"],
+                  "Level" : 1,
+                  "Color": sixthColor
+                },
+                {
+                  "Stage": "Renaissance and Reformation (Faustian Civilization)",
+                  "Years": [1500, 1800],
+                  "Labels": ["1500 CE", "1800 CE"],
+                  "Level" : 0,
+                  "Color": seventhColor
+                },
+                {
+                  "Stage": "Industrialization and Modernity (Faustian Civilization)",
+                  "Years": [1800, 2000],
+                  "Labels": ["1800 CE", "2000 CE"],
+                  "Level" : 0,
+                  "Color": eighthColor
+                }
+      ],
+      "Ancient regions": ["Egypt", "Babylonia", "Greece", "Rome", "Mesopotamia", "Persia", "Byzantine Empire", "Arabia", "India", "China"],
+      "Geography": [
+        { "Country": "Egypt", "Color": [initialColor] },
+        { "Country": "Iraq", "Color": [initialColor] },
+        { "Country": "Greece", "Color": [initialColor] },
+        { "Country": "Italy", "Color": [initialColor] },
+        { "Country": "Iran", "Color": [initialColor] },
+        { "Country": "Turkey", "Color": [initialColor] }, 
+        { "Country": "Saudi Arabia", "Color": [initialColor] },    
+        { "Country": "India", "Color": [initialColor] },
+        { "Country": "China", "Color": [initialColor] },
+        { "Country": "Yemen", "Color": [initialColor] },
+        { "Country": "Oman", "Color": [initialColor] },
+        { "Country": "UAE", "Color": [initialColor] },
+        { "Country": "Qatar", "Color": [initialColor] },
+        { "Country": "Bahrain", "Color": [initialColor] },
+        { "Country": "Kuwait", "Color": [initialColor] },
+        { "Country": "Pakistan", "Color": [initialColor] },
+        { "Country": "Bangladesh", "Color": [initialColor] }
 
-//  "Timeline": [-5000, 2000],
-//     "Origin of history": "-",
-//     "Author's framework": "Sociological: theological, historical, economic",    
-//     "Stages of cycles": ["Rationalization"],
-        
-//     "Timeline Stages": [
-//       {
-//         "Stage": "Ancient Religions: Patrimonial and theocratic rule, kinship-based governance",
-//         "Years": [-3000, -500],
-//         "Labels": ["3000 BCE", "500 BCE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Axial Age Religions: Feudalism, charismatic authority, decentralized governance",
-//         "Years": [-600, 200],
-//         "Labels": ["600 BCE", "200 CE"],
-//         "Level" : 1
-//       },
-//       {
-//         "Stage": "Medieval Religions: Rise of centralized monarchies, early bureaucratic structures, absolutism",
-//         "Years": [400, 1500],
-//         "Labels": ["400 CE", "1500 CE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Modern Religions: Bureaucratization, rational-legal authority, industrial capitalism",
-//         "Years": [1500, 2000],
-//         "Labels": ["1500 CE", "2000 CE"],
-//         "Level" : 0
-//       }
-//     ]
-//     ,
-   
-//     "Ancient regions": ["Persia", "Switzerland", "The Netherlands", "Eastern Europe", "Ancient Israel", "Western Europe", "France", "Ancient Greece", 
-//       "Medieval Europe", "Germany", "Medieval Japan", "Ottoman Empire", "Islamic World", "Byzantine Empire", "Buddhist Asia", "Japan", "Mesopotamia", 
-//       "China", "Ancient Egypt", "India", "United States", "Medieval Christendom", "England", "Ancient Rome"],
-    
-//     "Geography": ["Switzerland", "Lebanon", "The Netherlands", "France", "Egypt", "Greece", "Palestine", "Myanmar", "Czech Republic", "Bangladesh", "Sri Lanka", "Germany", 
-//       "Vietnam", "Pakistan", "Italy", "Poland", "Israel", "Syria", "Iran", "Turkey", "Iraq", "Japan", "United Kingdom", "Combodia", "Hungary", "Indonesia", "Europe", "Thailand",
-//        "Malaysia", "China", "Yemen", "United States", "India", "Saudi Arabia", "Jordan", "Japan"]
-//   },
-//   {
-//     "Index": 13,
-//     "Author/Text Title": "Oswald Spengler",
-//     "Fundamental Works": {"Title":  "The Decline of the West",  "Date of Issue": "1921 CE"},
-//    "Timeline": [-5000, 2000],
-    
-//     "Origin of history": "-",
-//     "Author's framework": "Philosophical, fatalistic",    
-//     "Stages of cycles": ["Birth (Spring)", "Growth and Flourishing (Summer)", "Maturity and Rationalization (Autumn)", "Decline (Winter)"],
-        
-//     "Timeline Stages": [
-//       {
-//         "Stage": "Egyptian Civilization (early high culture)",
-//         "Years": [-3000, -300],
-//         "Labels": ["3000 BCE", "300 BCE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Mesopotamian/Babylonian Civilization (early high culture)",
-//         "Years": [-3000, -500],
-//         "Labels": ["3000 BCE", "500 BCE"],
-//         "Level" : 1
-//       },
-//       {
-//         "Stage": "Greek (Classical Civilization)",
-//         "Years": [-1100, -200],
-//         "Labels": ["1100 BCE", "200 BCE"],
-//         "Level" : 2
-//       },
-//       {
-//         "Stage": "Roman (Classical Civilization",
-//         "Years": [-500, 500],
-//         "Labels": ["500 BCE", "500 CE"],
-//         "Level" : 1
-//       },
-//       {
-//         "Stage": "Arabian (Magian Civilization)",
-//         "Years": [300, 1500],
-//         "Labels": ["300 CE", "1500 CE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Medieval Europe (Faustian Civilization)",
-//         "Years": [900, 1500],
-//         "Labels": ["900 CE", "1500 CE"],
-//         "Level" : 1
-//       },
-//       {
-//         "Stage": "Renaissance and Reformation (Faustian Civilization)",
-//         "Years": [1500, 1800],
-//         "Labels": ["1500 CE", "1800 CE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Industrialization and Modernity (Faustian Civilization)",
-//         "Years": [1800, 2000],
-//         "Labels": ["1800 CE", "2000 CE"],
-//         "Level" : 0
-//       }
-//     ]
-//     ,
-   
-//       "Ancient regions": ["Egypt", "Babylonia", "Greece", "Rome", "Mesopotamia", "Persia", "Byzantine Empire", 
-//       "Arabia", "India", "China"],
-
-//     "Geography": ["Egypt", "Iraq", "Greece", "Italy", "Iraq", "Iran", "Turkey", 
-//       "Saudi Arabia, Yemen, Oman, UAE, Qatar, Bahrain, Kuwait", "India, Pakistan, Bangladesh", "China"]
-
-//   },
-//   {
-//     "Index": 14,
-//     "Author/Text Title": "Arnold J. Toynbee",
-//     "Fundamental Works": {"Title":  "A Study of History",  "Date of Issue": "1934 – 1961 CE"},
-//    "Timeline": [-5000, 2000],
-
-//     "Origin of history": "History starts when societies respond to significant challenges",
-//     "Author's framework": "Spiritual, mystical, empirical",    
-//     "Stages of cycles": ["Birth","Growth", "Breakdown", "Disintegration"],
-        
-//     "Timeline Stages": [
-//       {
-//         "Stage": "Egyptian Civilization",
-//         "Years": [-3000, -30],
-//         "Labels": ["3000 BCE", "30 BCE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Sumerian/Babylonian Civilization",
-//         "Years": [-3000, -500],
-//         "Labels": ["3000 BCE", "500 BCE"],
-//         "Level" : 1
-//       },
-//       {
-//         "Stage": "Minoan Civilization",
-//         "Years": [-2700, -1400],
-//         "Labels": ["2700 BCE", "1400 BCE"],
-//         "Level" : 2
-//       },
-//       {
-//         "Stage": "Hittite Civilization",
-//         "Years": [-1600, -1200],
-//         "Labels": ["1600 BCE", "1200 BCE"],
-//         "Level" : 4
-//       },
-//       {
-//         "Stage": "Indus Valley Civilization",
-//         "Years": [-2600, -1900],
-//         "Labels": ["2600 BCE", "1900 BCE"],
-//         "Level" : 3
-//       },
-//       {
-//         "Stage": "Maya Civilization",
-//         "Years": [-1800, 900],
-//         "Labels": ["1800 BCE", "900 CE"],
-//         "Level" : 3
-//       },
-//       {
-//         "Stage": "Classical Greek Civilization",
-//         "Years": [-800, -146],
-//         "Labels": ["800 BCE", "146 BCE"],
-//         "Level" : 2
-//       },
-//       {
-//         "Stage": "Persian Civilization",
-//         "Years": [-550, 651],
-//         "Labels": ["550 BCE", "651 CE"],
-//         "Level" : 4
-//       },
-//       {
-//         "Stage": "Western Roman Civilization",
-//         "Years": [-500, 476],
-//         "Labels": ["500 BCE", "476 CE"],
-//         "Level" : 1
-//       },
-//       {
-//         "Stage": "Chinese Civilization",
-//         "Years": [-1000, 220],
-//         "Labels": ["1000 BCE", "220 CE"],
-//         "Level" : 5
-//       },
-//       {
-//         "Stage": "Byzantine Civilization",
-//         "Years": [330, 1453],
-//         "Labels": ["330 CE", "1453 CE"],
-//         "Level" : 5
-//       },
-//       {
-//         "Stage": "Islamic Civilization",
-//         "Years": [622, 2000],
-//         "Labels": ["622 CE", "2000 CE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Western Christian Civilization",
-//         "Years": [800, 2000],
-//         "Labels": ["800 CE", "2000 CE"],
-//         "Level" : 4
-//       },
-//       {
-//         "Stage": "Hindu Civilization",
-//         "Years": [-1500, 2000],
-//         "Labels": ["1500 BCE", "2000 CE"],
-//         "Level" : 6
-//       },
-//       {
-//         "Stage": "Russian Civilization",
-//         "Years": [900, 2000],
-//         "Labels": ["900 CE", "2000 CE"],
-//         "Level" : 3
-//       },
-//       {
-//         "Stage": "Japanese Civilization",
-//         "Years": [250, 2000],
-//         "Labels": ["250 CE", "2000 CE"],
-//         "Level" : 2
-//       },
-//       {
-//         "Stage": "Hindu Civilization",
-//         "Years": [-1500, 2000],
-//         "Labels": ["1500 BCE", "2000 CE"],
-//         "Level" : 6
-//       },
-//     ]
-//     ,
-
-//     "Ancient regions": ["Egypt", "Mesopotamia", "Sumer", "Greece", "Rome", "Byzantium", "Syria", "Persia", "India", "China", "Islamic Caliphates", 
-//       "Mesoamerica (Aztec and Maya)", "Andean (Inca)"],
+      ]
+    },
+    {
+      "Index": 14,
+      "Author/Text Title": "Arnold J. Toynbee",
+      "Fundamental Works": { "Title": "A Study of History", "Date of Issue": "1934–1961 CE" },
+      "Timeline": [-5000, 2000],
+      "Origin of history": "History starts when societies respond to significant challenges",
+      "Author's framework": "Spiritual, mystical, empirical",
+      "Stages of cycles": ["Birth", "Growth", "Breakdown", "Disintegration"],
+      "Timeline Stages": [
+        {
+          "Stage": "Egyptian Civilization",
+          "Years": [-3000, -30],
+          "Labels": ["3000 BCE", "30 BCE"],
+          "Level": 0,
+          "Color": firstColor
+        },
+        {
+          "Stage": "Sumerian/Babylonian Civilization",
+          "Years": [-3000, -500],
+          "Labels": ["3000 BCE", "500 BCE"],
+          "Level": 1,
+          "Color": secondColor
+        },
+        {
+          "Stage": "Minoan Civilization",
+          "Years": [-2700, -1400],
+          "Labels": ["2700 BCE", "1400 BCE"],
+          "Level": 2,
+          "Color": thirdColor
+        },
+        {
+          "Stage": "Hittite Civilization",
+          "Years": [-1600, -1200],
+          "Labels": ["1600 BCE", "1200 BCE"],
+          "Level": 4,
+          "Color": fourthColor
+        },
+        {
+                  "Stage": "Indus Valley Civilization",
+                  "Years": [-2600, -1900],
+                  "Labels": ["2600 BCE", "1900 BCE"],
+                  "Level" : 3,
+                  "Color": fifthColor
+                },
+                {
+                  "Stage": "Maya Civilization",
+                  "Years": [-1800, 900],
+                  "Labels": ["1800 BCE", "900 CE"],
+                  "Level" : 3,
+                  "Color": sixthColor
+                },
+                {
+                  "Stage": "Classical Greek Civilization",
+                  "Years": [-800, -146],
+                  "Labels": ["800 BCE", "146 BCE"],
+                  "Level" : 2,
+                  "Color": seventhColor
+                },
+                {
+                  "Stage": "Persian Civilization",
+                  "Years": [-550, 651],
+                  "Labels": ["550 BCE", "651 CE"],
+                  "Level" : 4,
+                  "Color": eighthColor
+                },
+                {
+                  "Stage": "Western Roman Civilization",
+                  "Years": [-500, 476],
+                  "Labels": ["500 BCE", "476 CE"],
+                  "Level" : 1,
+                  "Color": ninthColor
+                },
+                {
+                  "Stage": "Chinese Civilization",
+                  "Years": [-1000, 220],
+                  "Labels": ["1000 BCE", "220 CE"],
+                  "Level" : 5,
+                  "Color": tenthColor
+                },
+                {
+                  "Stage": "Byzantine Civilization",
+                  "Years": [330, 1453],
+                  "Labels": ["330 CE", "1453 CE"],
+                  "Level" : 5,
+                  "Color": eleventhColor
+                },
+                {
+                  "Stage": "Islamic Civilization",
+                  "Years": [622, 2000],
+                  "Labels": ["622 CE", "2000 CE"],
+                  "Level" : 0,
+                  "Color": twelvethColor
+                },
+                {
+                  "Stage": "Western Christian Civilization",
+                  "Years": [800, 2000],
+                  "Labels": ["800 CE", "2000 CE"],
+                  "Level" : 4,
+                  "Color": thirteenthColor
+                },
+                {
+                  "Stage": "Hindu Civilization",
+                  "Years": [-1500, 2000],
+                  "Labels": ["1500 BCE", "2000 CE"],
+                  "Level" : 6,
+                  "Color": fourteenthColor
+                },
+                {
+                  "Stage": "Russian Civilization",
+                  "Years": [900, 2000],
+                  "Labels": ["900 CE", "2000 CE"],
+                  "Level" : 3,
+                  "Color": fifteenthColor,
+                },
+                {
+                  "Stage": "Japanese Civilization",
+                  "Years": [250, 2000],
+                  "Labels": ["250 CE", "2000 CE"],
+                  "Level" : 2,
+                  "Color": sixteenthColor,
+                },
+                {
+                  "Stage": "Hindu Civilization",
+                  "Years": [-1500, 2000],
+                  "Labels": ["1500 BCE", "2000 CE"],
+                  "Level" : 6,
+                  "Color": seventeenthColor,
+                }
+      ],
+      "Ancient regions": [
+        "Egypt", "Mesopotamia", "Sumer", "Greece", "Rome", "Byzantium", "Syria", "Persia", "India", "China", 
+        "Islamic Caliphates", "Mesoamerica (Aztec and Maya)", "Andean (Inca)"
+      ],
+      "Geography": [
+        { "Country": "Egypt", "Color": [initialColor] },
+        { "Country": "Pakistan", "Color": [initialColor] },
+        { "Country": "Bangladesh", "Color": [initialColor] },
+        { "Country": "Iraq", "Color": [initialColor] },
+        { "Country": "Syria", "Color": [initialColor] },
+        { "Country": "Greece", "Color": [initialColor] },
+        { "Country": "Italy", "Color": [initialColor] },
+        { "Country": "Turkey", "Color": [initialColor] },
+        { "Country": "Iran", "Color": [initialColor] },
+        { "Country": "India", "Color": [initialColor] },
+        { "Country": "China", "Color": [initialColor] },
+        { "Country": "Saudi Arabia", "Color": [initialColor] },
+        { "Country": "Mexico", "Color": [initialColor] },
+        { "Country": "Peru", "Color": [initialColor] },
+        { "Country": "Germany", "Color": [initialColor] },
+        { "Country": "France", "Color": [initialColor] },
+        { "Country": "Spain", "Color": [initialColor] }
+      ]
+    },
+    {
+      "Index": 15,
+      "Author/Text Title": "Karl Jaspers",
+      "Fundamental Works": { "Title": "The Origin and Goal of History", "Date of Issue": "1951 CE" },
+      "Timeline": [-5000, 2000],
+      "Origin of history": "Axial Age",
+      "Author's framework": "Existentialist, theological, philosophical",
+      "Stages of cycles": "-",
+      "Timeline Stages": [
+        {
+          "Stage": "Pre-Axial Period",
+          "Years": [-3000, -800],
+          "Labels": ["3000 BCE", "800 BCE"],
+          "Level": 0,
+          "Color": firstColor
+        },
+        {
+          "Stage": "Axial Age",
+          "Years": [-800, -200],
+          "Labels": ["800 BCE", "200 BCE"],
+          "Level": 0,
+          "Color": secondColor
+        },
+        {
+          "Stage": "Post-Axial Age",
+          "Years": [-200, 2000],
+          "Labels": ["200 BCE", "2000 CE"],
+          "Level": 0,
+          "Color": thirdColor
+        }
+      ],
+      "Ancient regions": ["Greece", "India", "China", "Israel", "Persia", "Mesopotamia", "Egypt", "Rome", "Western Europe", "Islamic World"],
      
-//     "Geography": ["Egypt", "Pakistan", "Bangladesh", "Iraq", "Syria", "Greece", "Italy", "Turkey", "Syria", "Iran", "India", "China",
-//        "Saudi Arabia", "Mexico", "Peru", "Germany", "France", "Spain", ]
-//   },
-//   {
-//     "Index": 15,
-//     "Author/Text Title": "Karl Jaspers",
-//     "Fundamental Works": {"Title":  "The Origin and Goal of History",  "Date of Issue": "1951 CE"},
-//  "Timeline": [-5000, 2000], //x
-
-//     "Origin of history": "Axial Age",
-//     "Author's framework": "Existentionalist, theological, philosophical",    
-//     "Stages of cycles": "-",
-
-//     "Timeline Stages":[
-//       {
-//         "Stage": "Pre-Axial Period",
-//         "Years": [-3000, -800],
-//         "Labels": ["3000 BCE", "800 BCE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Axial Age",
-//         "Years": [-800, -200],
-//         "Labels": ["800 BCE", "200 BCE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Post-Axial Age",
-//         "Years": [-200, 2000],
-//         "Labels": ["200 BCE", "2000 CE"],
-//         "Level" : 0
-//       }
-//     ]
-//     ,
+      "Geography": [
+        { "Country": "Greece", "Color": [initialColor] },
+        { "Country": "India", "Color": [initialColor] },
+        { "Country": "China", "Color": [initialColor] },
+        { "Country": "Israel", "Color": [initialColor] },
+        { "Country": "Iran", "Color": [initialColor] },
+        { "Country": "Iraq", "Color": [initialColor] },
+        { "Country": "Egypt", "Color": [initialColor] },
+        { "Country": "Italy", "Color": [initialColor] },
+        { "Country": "Western Europe", "Color": [initialColor] },
+        { "Country": "Saudi Arabia", "Color": [initialColor] },
+        { "Country": "Turkey", "Color": [initialColor] },
+        { "Country": "Syria", "Color": [initialColor] },
+        { "Country": "Jordan", "Color": [initialColor] }
+      ]
+    },
+    {
+      "Index": 16,
+      "Author/Text Title": "Peter Turchin",
+      "Fundamental Works": [
+        { "Title": "Historical Dynamics", "Date of Issue": "2003 CE" },
+        { "Title": "War and Peace and War", "Date of Issue": "2006 CE" },
+        { "Title": "Secular Cycles", "Date of Issue": "2009 CE" }
+      ],
+      "Timeline": [-5000, 2000],
+      "Origin of history": "-",
+      "Author's framework": "Cliodynamics, empirical",
+      "Stages of cycles": ["Growth: demographic, economic", "Stagflation: elite overproduction, malthusian stagnation", "Crisis: state breakdown, depopulation, economic collapse", "Depression: economic recovery, rebuilding state institutions"],
+      "Timeline Stages": [
+        {
+          "Stage": "Medieval England",
+          "Years": [1150, 1485],
+          "Labels": ["1150 CE", "1485 CE"],
+          "Level": 0,
+          "Color": firstColor
+        },
+        {
+          "Stage": "Pre-Revolution France",
+          "Years": [1200, 1800],
+          "Labels": ["1200 CE", "1800 CE"],
+          "Level": 1,
+          "Color": secondColor
+        },
+        {
+          "Stage": "Imperial Russia",
+          "Years": [1460, 1917],
+          "Labels": ["1460 CE", "1917 CE"],
+          "Level": 2,
+          "Color": thirdColor
+        },
+        {
+          "Stage": "Ancient Rome",
+          "Years": [-200, 600],
+          "Labels": ["200 BCE", "600 CE"],
+          "Level": 0,
+          "Color": fourthColor
+        }
+      ],
+      "Ancient regions": ["Rome", "China", "Russia", "European Empires", "Islamic Caliphates", "Byzantium", "Ottoman Empire", "France", "Britain", "Muscovite Russia", "Tang Dynasty", "Song Dynasty", "Ming Dynasty"],
+      
+      "Geography": [
+        { "Country": "Italy", "Color": [initialColor] },
+        { "Country": "China", "Color": [initialColor] },
+        { "Country": "Russia", "Color": [initialColor] },
+        { "Country": "Western Europe", "Color": [initialColor] },
+        { "Country": "Middle East", "Color": [initialColor] },
+        { "Country": "Turkey", "Color": [initialColor] },
+        { "Country": "France", "Color": [initialColor] },
+        { "Country": "United Kingdom", "Color": [initialColor] },
+        { "Country": "Germany", "Color": [initialColor] },
+        { "Country": "Saudi Arabia", "Color": [initialColor] },
+        { "Country": "Iraq", "Color": [initialColor] },
+        { "Country": "Iran", "Color": [initialColor] },
+        { "Country": "Syria", "Color": [initialColor] }
+      ]
+    }
     
-//     "Ancient regions": ["Greece", "India", "China", "Israel", "Persia", "Mesopotamia", "Egypt", "Rome", "Western Europe", "Islamic World"],
-
-//     "Geography": ["Greece", "India", "China", "Israel", "Iran", "Iraq", "Egypt", "Italy", "Western Europe", "Saudi Arabia", "Turkey",
-//        "Iran", "Iraq", "Syria", "Jordan"]
-//   },
-//   {
-//     "Index": 16,
-//     "Author/Text Title": "Peter Turchin",
-//     "Fundamental Works": [{"Title":  "Historical Dynamics",  "Date of Issue": "2003 CE"},
-//                            {"Title":  "War and Peace and War",  "Date of Issue": "2006 CE"},
-//                            {"Title":  "Secular Cycles",  "Date of Issue": "2009 CE"}],
-
-//  "Timeline": [-5000, 2000],
     
-//     "Origin of history": "-",
-//     "Author's framework": "Cliodynamics, empirical",    
-//     "Stages of cycles": ["Growth: demographic, economic", "Stagflation: elite overproduction, malthusian stagnation", "Crisis: state breakdown, depopulation, economic collapse",
-//        "Depression: economic recovery, rebuilding state institutions"],
-    
-//     "Timeline Stages": [
-//       {
-//         "Stage": "Medieval England",
-//         "Years": [1150, 1485],
-//         "Labels": ["1150 CE", "1485 CE"],
-//         "Level" : 0
-//       },
-//       {
-//         "Stage": "Pre-Revolution France",
-//         "Years": [1200, 1800],
-//         "Labels": ["1200 CE", "1800 CE"],
-//         "Level" : 1
-//       },
-//       {
-//         "Stage": "Imperial Russia",
-//         "Years": [1460, 1917],
-//         "Labels": ["1460 CE", "1917 CE"],
-//         "Level" : 2
-//       },
-//       {
-//         "Stage": "Ancient Rome",
-//         "Years": [-200, 600],
-//         "Labels": ["200 BCE", "600 CE"],
-//         "Level" : 0
-//       }
-//     ]
-//     ,
-
-//     "Ancient regions": ["Rome", "China", "Russia", "European Empires", "Islamic Caliphates", "Byzantium", "Ottoman Empire", "France", 
-//       "Britain", "Muscovite Russia", "Tang Dynasty", "Song Dynasty", "Ming Dynasty"],
-
-//     "Geography": ["Italy", "China", "Russia", "Western Europe", "Middle East", "Turkey", "France", "United Kingdom", "Germany", "Saudi Arabia", "Iraq", "Iran", "Syria"]
-
-//   },
-];
+   
+  ];
 
 function OtahhIntro() {
   const [selectedAuthor, setSelectedAuthor] = useState(dataset[0]); // Set the initial author/text

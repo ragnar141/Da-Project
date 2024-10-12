@@ -29,7 +29,6 @@
               "name": "Tanzania"
             }
           },
-          
           {
             "type": "Polygon",
             "arcs": [
@@ -412,7 +411,6 @@
               "name": "Russia"
             }
           },
-          
           {
             "type": "MultiPolygon",
             "arcs": [
@@ -1516,7 +1514,6 @@
               "name": "Greece"
             }
           },
-          
           {
             "type": "MultiPolygon",
             "arcs": [
@@ -1834,6 +1831,8 @@
               "name": "Philippines"
             }
           },
+        
+
           {
             "type": "MultiPolygon",
             "arcs": [
@@ -1990,7 +1989,6 @@
               "name": "Antarctica"
             }
           },
-          
           {
             "type": "Polygon",
             "arcs": [
