@@ -1121,7 +1121,7 @@ const dataset = [
   
       const projection = geoOrthographic()
         .scale(initialScale * zoomScaleRef.current)
-        .translate([420, 400]) // Center the globe
+        .translate([420, 380]) // Center the globe
         .rotate(initialRotation); // Initial rotation [longitude, latitude]
   
       const path = geoPath(projection);
@@ -1210,7 +1210,7 @@ const dataset = [
               const initialGeography = selectedAuthor["Initial Geography"];
   
               if (initialGeography && initialGeography.includes(countryName)) {
-                console.log(`Country ${countryName} is in Initial Geography. Applying initialColor:`, initialColor);
+                
                 return initialColor;
               }
   
@@ -1224,12 +1224,13 @@ const dataset = [
     // Function to highlight relevant geography on hover
     const highlightGeographyOnHover = useCallback(() => {
       const { path } = renderGlobe;
-  
+    
       d3.json('/datasets/110m.json')
         .then(worldData => {
           const land = topojson.feature(worldData, worldData.objects.countries);
           d3.select(svgRef.current).selectAll('path.land-hover').remove();
-  
+    
+          // Update countries during hover
           d3.select(svgRef.current).selectAll('path.land-hover')
             .data(land.features)
             .join('path')
@@ -1237,25 +1238,28 @@ const dataset = [
             .attr('class', 'land-hover')
             .attr('fill', d => {
               const countryName = d.properties.name;
-  
+    
+              // If no countries are being hovered, render the initial geography
               if (!hoveredStageCountries || hoveredStageCountries.length === 0) {
                 if (selectedAuthor["Initial Geography"] && selectedAuthor["Initial Geography"].includes(countryName)) {
                   return initialColor;
                 }
-                return '#d3d3d3';
+                return '#d3d3d3'; // Default color
               }
-  
+    
+              // If countries are hovered, use the stage color for the hovered countries
               if (hoveredStageCountries.includes(countryName)) {
                 return hoveredStageColor;
               }
-  
-              return 'none';
+    
+              return '#d3d3d3'; // Default color for non-hovered countries
             })
             .attr('opacity', 0.7)
             .raise();
         })
         .catch(error => console.error('Error loading world data:', error));
     }, [renderGlobe, hoveredStageCountries, hoveredStageColor, selectedAuthor, initialColor]);
+    
   
     // Highlight countries on hover
     useEffect(() => {
@@ -1284,6 +1288,13 @@ const dataset = [
     const renderTimeline = useCallback(() => {
       const width = 1500;
       const height = 200;
+      const rectHeight = 30; // Height of each timeline rect element
+
+    // Calculate numSegments as the maximum "Level" value from "Timeline Stages" + 1
+    const numSegments = Math.max(...selectedAuthor["Timeline Stages"].map(stage => stage.Level)) + 1;
+
+    const zoomAreaHeight = (numSegments * rectHeight) + (2 * rectHeight); // Stretch upward and downward
+
   
       const svg = d3.select(timelineRef.current)
         .attr("width", width)
@@ -1392,6 +1403,7 @@ const dataset = [
           // Reset the hovered stage color and countries when mouse is out
           setHoveredStageColor(null);
           setHoveredStageCountries([]);
+          highlightGeography(); // This will repaint the map with the initialColor
         })
   
       const timelineCircles = g.selectAll("circle")
@@ -1414,39 +1426,69 @@ const dataset = [
             .style("fill", "white") // Revert color
             .attr("r", d => getRadius(zoomScaleRef.current)); // Revert size using zoom scale factor
         });
+
+        const verticalLines = g.selectAll("line")
+    .data(dataset)
+    .enter()
+    .append("line")
+    .attr("x1", d => xScale(d["Date for timeline"])) // X position is the same as the circles
+    .attr("x2", d => xScale(d["Date for timeline"])) // Same X for both ends of the line
+    .attr("y1", height - 20) // Start from the timeline axis
+    .attr("y2", height + 30) // End at the bottom of the circle
+    .attr("stroke", "black")
+    .attr("stroke-width", 1)
+    .attr("stroke-dasharray", "4 2") // Dotted line
+    .attr("opacity", 0.7);
   
       // Define the zoom behavior
       const zoom = d3.zoom()
-        .scaleExtent([1, 5])
-        .translateExtent([[0, 0], [width, height]])
-        .on("zoom", (event) => {
-          const currentZoomState = event.transform;
-          zoomScaleRef.current = currentZoomState.k; // Update the current zoom scale
-          const newXScale = currentZoomState.rescaleX(xScale);
-          const zoomScaleFactor = Math.max(currentZoomState.k, 1); // Ensure zoomScaleFactor is >= 1
-          const newOpacity = getBorderOpacity(zoomScaleFactor);
-  
-          // Update rectangles and circles with the zoom scale
-          timelineRects
-            .attr("x", d => newXScale(d.Years[0]))
-            .attr("width", d => newXScale(d.Years[1]) - newXScale(d.Years[0]));
-  
-          timelineCircles
-            .attr("cx", d => newXScale(d["Date for timeline"]))
-            .attr('r', d => getRadius(zoomScaleFactor)) // Update radius based on zoom
-            .style('stroke-opacity', d => newOpacity); // Update stroke opacity based on zoom
-  
-          // Update axis with the new scale
-          xAxisGroup.call(
-            d3.axisBottom(newXScale)
-              .ticks(10)
-              .tickFormat(d => (d < 0 ? `${Math.abs(d)} BC` : `${d} CE`))
-          );
-        });
-  
-      // Apply the zoom behavior to the SVG
-      svg.call(zoom);
-    }, [selectedAuthor]);
+      .scaleExtent([1, 5]) // Set the zoom range
+      .translateExtent([[0, 0], [width, height]]) // Restrict panning to the SVG area
+      .on("zoom", (event) => {
+        const currentZoomState = event.transform;
+        zoomScaleRef.current = currentZoomState.k; // Update the current zoom scale
+        const newXScale = currentZoomState.rescaleX(xScale);
+        const zoomScaleFactor = Math.max(currentZoomState.k, 1); // Ensure zoomScaleFactor is >= 1
+        const newOpacity = getBorderOpacity(zoomScaleFactor);
+
+        // Update rectangles and circles with the zoom scale
+        timelineRects
+          .attr("x", d => newXScale(d.Years[0]))
+          .attr("width", d => newXScale(d.Years[1]) - newXScale(d.Years[0]));
+
+        timelineCircles
+          .attr("cx", d => newXScale(d["Date for timeline"]))
+          .attr('r', d => getRadius(zoomScaleFactor)) // Update radius based on zoom
+          .style('stroke-opacity', d => newOpacity); // Update stroke opacity based on zoom
+
+          verticalLines
+          .attr("x1", d => newXScale(d["Date for timeline"]))
+          .attr("x2", d => newXScale(d["Date for timeline"]));
+          
+        // Update axis with the new scale
+        xAxisGroup.call(
+          d3.axisBottom(newXScale)
+            .ticks(10)
+            .tickFormat(d => (d < 0 ? `${Math.abs(d)} BC` : `${d} CE`))
+        );
+      });
+
+    
+    // Apply the zoom behavior to the group (g) element
+    svg.append("rect")
+    .attr("x", 0)
+    .attr("y", 180) // Start at the y position of the timeline rects (no upward stretch)
+    .attr("width", width)
+    .attr("height", 45) // Stretch downward based on number of segments
+      .attr("fill", "transparent") // Invisible rectangle
+      .on("mouseenter", () => {
+        svg.call(zoom); // Apply zoom behavior when the mouse enters the invisible zoom area
+      })
+      .on("mouseleave", () => {
+        svg.on(".zoom", null); // Remove zoom behavior when the mouse leaves the invisible zoom area
+      });
+  }, [selectedAuthor, dataset]);
+    
   
     useEffect(() => {
       renderTimeline();
