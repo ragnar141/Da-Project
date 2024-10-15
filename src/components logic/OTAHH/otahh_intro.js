@@ -6,7 +6,7 @@ import '../../components css/otahh_intro.css';
 
 
 
-const initialColor = '#ffd17e';
+
 const firstColor = '#ff6c00';
 const secondColor = '#219100';
 const thirdColor = '#ff0000';
@@ -30,6 +30,7 @@ const dataset = [
   {
     "Index": 1,
     "Author/Text Title": "Herodotus",
+    "Date for timeline": -440,
     "Fundamental Works": { "Title": "The Histories", "Date of Issue": "around 440 BC" },
     "Timeline": [-5000, 2000], 
     "Origin of history": "Mythological: Ancient Civilizations",
@@ -87,6 +88,7 @@ const dataset = [
   {
     "Index": 2,
     "Author/Text Title": "Titus Livius (Livy)",
+    "Date for timeline": -9,
     "Fundamental Works": { "Title": "History of Rome", "Date of Issue": "around  27 - 9 BC" },
     "Timeline": [-5000, 2000], 
     "Origin of history": "Mythological: Trojan War",
@@ -148,6 +150,7 @@ const dataset = [
   {
     "Index": 3,
     "Author/Text Title": "Tacitus",
+    "Date for timeline": 120,
     "Fundamental Works": { "Title": "Annals", "Date of Issue": "around  115 - 120 CE" },
    "Timeline": [-5000, 2000],
     "Origin of history": "-",
@@ -216,6 +219,7 @@ const dataset = [
     {
       "Index": 4,
       "Author/Text Title": "Flavius Josephus",
+      "Date for timeline": 93,
       "Fundamental Works": [
         { "Title": "The Jewish War", "Date of Issue": "around 93 CE" },
         { "Title": "Antiquities of the Jews", "Date of Issue": "around 93 CE" }
@@ -285,6 +289,7 @@ const dataset = [
     {
       "Index": 5,
       "Author/Text Title": "Kojiki",
+      "Date for timeline": 712,
       "Fundamental Works": { "Title": "Kojiki", "Date of Issue": "712 CE" },
       "Timeline": [-5000, 2000],
       "Origin of history": "Mythological: out of primordial chaos, the first gods spontaneously emerged.",
@@ -315,6 +320,7 @@ const dataset = [
     {
       "Index": 6,
       "Author/Text Title": "Nihongi",
+      "Date for timeline": 720,
       "Fundamental Works": { "Title": "Nihongi", "Date of Issue": "720 CE" },
       "Timeline": [-5000, 2000],
       "Origin of history": "Mythological: out of primordial chaos, the first gods spontaneously emerged.",
@@ -355,6 +361,7 @@ const dataset = [
     {
       "Index": 7,
       "Author/Text Title": "Ferdawsi",
+      "Date for timeline": 1010,
       "Fundamental Works": { "Title": "Persian Book of Kings (Shahnameh)", "Date of Issue": "1010 CE" },
       "Timeline": [-5000, 2000],
       "Origin of history": "Mythological: Ahura Mazda creates universe.",
@@ -397,6 +404,7 @@ const dataset = [
     {
       "Index": 8,
       "Author/Text Title": "Ibn Khaldun",
+      "Date for timeline": 1377,
       "Fundamental Works": { "Title": "Muqaddimah", "Date of Issue": "1377 CE" },
       "Timeline": [-5000, 2000],
       "Origin of history": "-",
@@ -508,6 +516,7 @@ const dataset = [
     {
       "Index": 9,
       "Author/Text Title": "Isaac Newton",
+      "Date for timeline": 1728,
       "Fundamental Works": { "Title": "The Chronology of Ancient Kingdoms Amended", "Date of Issue": "1728 CE" },
       "Timeline": [-5000, 2000],
       "Origin of history": "Theological: Genesis",
@@ -573,6 +582,7 @@ const dataset = [
     {
       "Index": 10,
       "Author/Text Title": "Edward Gibbon",
+      "Date for timeline": 1781,
       "Fundamental Works": { "Title": "The History of the Decline and Fall of the Roman Empire", "Date of Issue": "1781 CE" },
       "Timeline": [-5000, 2000],
       "Origin of history": "-",
@@ -618,6 +628,7 @@ const dataset = [
     {
       "Index": 11,
       "Author/Text Title": "Georg Wilhelm Friedrich Hegel",
+      "Date for timeline": 1837,
       "Fundamental Works": { "Title": "Philosophy of History", "Date of Issue": "1837 CE" },
       "Timeline": [-5000, 2000],
       "Origin of history": "History begins with the emergence of self-consciousness",
@@ -671,6 +682,7 @@ const dataset = [
     {
       "Index": 12,
       "Author/Text Title": "Max Weber",
+      "Date for timeline": 1920,
       "Fundamental Works": [
         { "Title": "The Sociology of Religion", "Date of Issue": "1920 CE" },
         { "Title": "Economy and Society", "Date of Issue": "1922 CE" }
@@ -739,6 +751,7 @@ const dataset = [
     {
       "Index": 13,
       "Author/Text Title": "Oswald Spengler",
+      "Date for timeline": 1921,
       "Fundamental Works": { "Title": "The Decline of the West", "Date of Issue": "1921 CE" },
       "Timeline": [-5000, 2000],
       "Origin of history": "-",
@@ -823,6 +836,7 @@ const dataset = [
     {
       "Index": 14,
       "Author/Text Title": "Arnold J. Toynbee",
+      "Date for timeline": 1950,
       "Fundamental Works": { "Title": "A Study of History", "Date of Issue": "1934–1961 CE" },
       "Timeline": [-5000, 2000],
       "Origin of history": "History starts when societies respond to significant challenges",
@@ -980,6 +994,7 @@ const dataset = [
     },
     {
       "Index": 15,
+      "Date for timeline": 1951,
       "Author/Text Title": "Karl Jaspers",
       "Fundamental Works": { "Title": "The Origin and Goal of History", "Date of Issue": "1951 CE" },
       "Timeline": [-5000, 2000],
@@ -1023,6 +1038,7 @@ const dataset = [
     {
       "Index": 16,
       "Author/Text Title": "Peter Turchin",
+      "Date for timeline": 2006,
       "Fundamental Works": [
         { "Title": "Historical Dynamics", "Date of Issue": "2003 CE" },
         { "Title": "War and Peace and War", "Date of Issue": "2006 CE" },
@@ -1082,13 +1098,21 @@ const dataset = [
 
   function OtahhIntro() {
     const [selectedAuthor, setSelectedAuthor] = useState(dataset[0]); // Set the initial author/text
-    const [hoveredColor, setHoveredColor] = useState(null); // Store the color of the hovered segment
     const [hoveredStageColor, setHoveredStageColor] = useState(null); // Store the hovered stage color
     const [hoveredStageCountries, setHoveredStageCountries] = useState([]); // Store the hovered stage countries
     const [initialColor, setInitialColor] = useState(null); // Store the initial base color
     const svgRef = useRef();
     const zoomScaleRef = useRef(1); // Initialize zoom scale at 1
     const timelineRef = useRef(); // Reference for the timeline SVG
+
+     const getRadius = (zoomScaleFactor) => {
+    return Math.min(5, 2 * zoomScaleFactor);
+  };
+
+  // Function to calculate stroke opacity based on zoom scale factor
+  const getBorderOpacity = (zoomScaleFactor) => {
+    return Math.min(1, 0.6 * zoomScaleFactor);
+  };
   
     // Memoized function to set up the projection and path generator
     const renderGlobe = useMemo(() => {
@@ -1111,7 +1135,7 @@ const dataset = [
   
       d3.json('/datasets/110m.json')
         .then(worldData => {
-          console.log('World Data Loaded:', worldData); // Log the fetched data
+          console.log('World Data Loaded:', worldData);
           if (!worldData || !worldData.objects || !worldData.objects.countries) {
             console.error('Invalid world data structure:', worldData);
             return;
@@ -1127,13 +1151,12 @@ const dataset = [
             .attr('fill', '#ffffff')
             .attr('stroke', '#d3d3d3')  // Grey outline
             .attr('stroke-width', 2);    // Set stroke width for globe outline
-  
           // Append the landmasses without stroke (no borders for countries)
           d3.select(svgRef.current)
             .append('path')
             .datum(land)
             .attr('d', path)
-            .attr('fill', '#d3d3d3');    // Fill countries with grey
+            .attr('fill', '#d3d3d3');
         })
         .catch(error => console.error('Error fetching world data:', error));
     }, [renderGlobe]);
@@ -1164,10 +1187,9 @@ const dataset = [
   
     // Function to highlight relevant geography on the globe (initial geography effect)
     const highlightGeography = useCallback(() => {
-      const { projection, path } = renderGlobe;
+      const { path } = renderGlobe;
   
-      // Fetch world data only once, not on every re-render
-      d3.json('/datasets/110m.json') // Load modern country borders
+      d3.json('/datasets/110m.json')
         .then(worldData => {
           console.log("World data loaded for modern countries:", worldData);
   
@@ -1178,76 +1200,63 @@ const dataset = [
   
           // Render the base layer using initialColor for each country in "Initial Geography"
           d3.select(svgRef.current).selectAll('path.land-base')
-          .data(land.features)
-          .enter()
-          .append('path')
-          .attr('d', path)
-          .attr('class', 'land-base')
-          .attr('fill', d => {
-            const countryName = d.properties.name;
-            const initialGeography = selectedAuthor["Initial Geography"]; // Access the Initial Geography array from the selectedAuthor object
+            .data(land.features)
+            .enter()
+            .append('path')
+            .attr('d', path)
+            .attr('class', 'land-base')
+            .attr('fill', d => {
+              const countryName = d.properties.name;
+              const initialGeography = selectedAuthor["Initial Geography"];
   
-            // Check if the country exists in the Initial Geography array
-            if (initialGeography && initialGeography.includes(countryName)) {
-              console.log(`Country ${countryName} is in Initial Geography. Applying initialColor:`, initialColor);
-              return initialColor; // Use the initialColor if the country is in Initial Geography
-            }
+              if (initialGeography && initialGeography.includes(countryName)) {
+                console.log(`Country ${countryName} is in Initial Geography. Applying initialColor:`, initialColor);
+                return initialColor;
+              }
   
-            return '#d3d3d3'; // Default color for countries not in Initial Geography
-          })
-          .attr('opacity', 1); // Ensure the base layer is fully visible
-  
-      })
-      .catch(error => console.error('Error loading world data:', error));
+              return '#d3d3d3';
+            })
+            .attr('opacity', 1);
+        })
+        .catch(error => console.error('Error loading world data:', error));
     }, [renderGlobe, selectedAuthor, initialColor]);
   
-    // Function to highlight relevant geography on the globe (hover effect)
-   // Function to highlight relevant geography on the globe (hover effect)
-const highlightGeographyOnHover = useCallback(() => {
-  const { projection, path } = renderGlobe;
-
-  // Fetch world data only once, not on every re-render
-  d3.json('/datasets/110m.json') // Load modern country borders
-    .then(worldData => {
-      console.log("World data loaded for modern countries:", worldData);
-
-      const land = topojson.feature(worldData, worldData.objects.countries);
-
-      // Clear previous hover layers to ensure new countries are rendered
-      d3.select(svgRef.current).selectAll('path.land-hover').remove();
-
-      // Add a hover layer for the timeline stage countries
-      d3.select(svgRef.current).selectAll('path.land-hover')
-        .data(land.features)
-        .join('path')
-        .attr('d', path)
-        .attr('class', 'land-hover')
-        .attr('fill', d => {
-          const countryName = d.properties.name;
-
-          // If hoveredStageCountries is empty or null, revert to initial color
-          if (!hoveredStageCountries || hoveredStageCountries.length === 0) {
-            // Check if the country exists in the "Initial Geography" array
-            if (selectedAuthor["Initial Geography"] && selectedAuthor["Initial Geography"].includes(countryName)) {
-              return initialColor; // Use the initialColor if the country is in Initial Geography
-            }
-            return '#d3d3d3'; // Default color for countries not in Initial Geography
-          }
-
-          // Otherwise, highlight countries based on the hovered stage
-          if (hoveredStageCountries.includes(countryName)) {
-            console.log(`Country ${countryName} is in the hovered stage. Applying stage color:`, hoveredStageColor);
-            return hoveredStageColor; // Use the color of the hovered stage
-          }
-
-          return 'none'; // Transparent if not in the hovered stage
+    // Function to highlight relevant geography on hover
+    const highlightGeographyOnHover = useCallback(() => {
+      const { path } = renderGlobe;
+  
+      d3.json('/datasets/110m.json')
+        .then(worldData => {
+          const land = topojson.feature(worldData, worldData.objects.countries);
+          d3.select(svgRef.current).selectAll('path.land-hover').remove();
+  
+          d3.select(svgRef.current).selectAll('path.land-hover')
+            .data(land.features)
+            .join('path')
+            .attr('d', path)
+            .attr('class', 'land-hover')
+            .attr('fill', d => {
+              const countryName = d.properties.name;
+  
+              if (!hoveredStageCountries || hoveredStageCountries.length === 0) {
+                if (selectedAuthor["Initial Geography"] && selectedAuthor["Initial Geography"].includes(countryName)) {
+                  return initialColor;
+                }
+                return '#d3d3d3';
+              }
+  
+              if (hoveredStageCountries.includes(countryName)) {
+                return hoveredStageColor;
+              }
+  
+              return 'none';
+            })
+            .attr('opacity', 0.7)
+            .raise();
         })
-        .attr('opacity', 0.7) // Slightly transparent hover layer
-        .raise(); // Bring highlighted countries to the front
-    })
-    .catch(error => console.error('Error loading world data:', error));
-}, [renderGlobe, hoveredStageCountries, hoveredStageColor, selectedAuthor, initialColor]);
-
+        .catch(error => console.error('Error loading world data:', error));
+    }, [renderGlobe, hoveredStageCountries, hoveredStageColor, selectedAuthor, initialColor]);
+  
     // Highlight countries on hover
     useEffect(() => {
       if (hoveredStageColor && hoveredStageCountries.length > 0) {
@@ -1258,7 +1267,7 @@ const highlightGeographyOnHover = useCallback(() => {
     // Update initialColor when selectedAuthor changes
     useEffect(() => {
       if (selectedAuthor["Initial Geography"]) {
-        setInitialColor("#ffcc00"); // Set a specific default color, or choose logic based on the country
+        setInitialColor("#ffcc00");
         console.log("Initial color set:", "#ffcc00");
       }
     }, [selectedAuthor]);
@@ -1267,10 +1276,11 @@ const highlightGeographyOnHover = useCallback(() => {
     useEffect(() => {
       renderStaticElements();
       applyDragAndZoom();
-      highlightGeography(); // Ensure countries from "Initial Geography" are rendered with initialColor
+      highlightGeography();
     }, [renderStaticElements, applyDragAndZoom, highlightGeography]);
   
-    // Function to render the timeline with highlighted period
+    
+  
     const renderTimeline = useCallback(() => {
       const width = 1500;
       const height = 200;
@@ -1279,25 +1289,21 @@ const highlightGeographyOnHover = useCallback(() => {
         .attr("width", width)
         .attr("height", height);
   
-      // Clear previous elements
       svg.selectAll("*").remove();
   
-      // Define the time scale dynamically based on the author's timeline
       const startYear = selectedAuthor.Timeline[0];
       const endYear = selectedAuthor.Timeline[1];
   
       const xScale = d3.scaleLinear()
         .domain([startYear, endYear])
-        .range([50, width - 50]); // Leave padding on both sides
+        .range([50, width - 50]);
   
-      // Create the axis
       const xAxis = d3.axisBottom(xScale)
         .ticks(10)
         .tickFormat(d => (d < 0 ? `${Math.abs(d)} BC` : `${d} CE`));
   
       const g = svg.append("g");
   
-      // Append the axis to the timeline
       const xAxisGroup = g.append("g")
         .attr("class", "x-axis")
         .attr("transform", `translate(0, ${height - 20})`)
@@ -1307,8 +1313,7 @@ const highlightGeographyOnHover = useCallback(() => {
       xAxisGroup.selectAll('text')
         .style('font-family', 'Times New Roman, sans-serif');
   
-      // Append each timeline stage as a rectangle with the corresponding color
-      const timelineRects = g.selectAll("rect")
+        const timelineRects = g.selectAll("rect")
         .data(selectedAuthor["Timeline Stages"])
         .enter()
         .append("rect")
@@ -1388,25 +1393,48 @@ const highlightGeographyOnHover = useCallback(() => {
           setHoveredStageColor(null);
           setHoveredStageCountries([]);
         })
-        
+  
+      const timelineCircles = g.selectAll("circle")
+        .data(dataset)
+        .enter()
+        .append("circle")
+        .attr("cx", d => xScale(d["Date for timeline"]))
+        .attr("cy", height + 30)
+        .attr('r', d => getRadius(1)) // Initial radius based on zoom
+        .style('fill', 'white')
+        .style('stroke', 'black')
+        .style('stroke-opacity', d => getBorderOpacity(1)) // Initial stroke opacity
+        .on("mouseover", function () {
+          d3.select(this)
+            .style("fill", "#ffcc00") // Change color on hover
+            .attr("r", 10); // Increase size on hover
+        })
+        .on("mouseout", function () {
+          d3.select(this)
+            .style("fill", "white") // Revert color
+            .attr("r", d => getRadius(zoomScaleRef.current)); // Revert size using zoom scale factor
+        });
   
       // Define the zoom behavior
       const zoom = d3.zoom()
-        .scaleExtent([1, 5]) // Set the zoom range
-        .translateExtent([[0, 0], [width, height]]) // Restrict panning
+        .scaleExtent([1, 5])
+        .translateExtent([[0, 0], [width, height]])
         .on("zoom", (event) => {
-          const transform = event.transform;
+          const currentZoomState = event.transform;
+          zoomScaleRef.current = currentZoomState.k; // Update the current zoom scale
+          const newXScale = currentZoomState.rescaleX(xScale);
+          const zoomScaleFactor = Math.max(currentZoomState.k, 1); // Ensure zoomScaleFactor is >= 1
+          const newOpacity = getBorderOpacity(zoomScaleFactor);
   
-          // Apply the zoom transformation
-          const newXScale = transform.rescaleX(xScale);
-  
-          // Remove old tick markers
-          xAxisGroup.selectAll(".tick").remove();  // Remove existing ticks before updating
-  
-          // Update rectangles
+          // Update rectangles and circles with the zoom scale
           timelineRects
             .attr("x", d => newXScale(d.Years[0]))
             .attr("width", d => newXScale(d.Years[1]) - newXScale(d.Years[0]));
+  
+          timelineCircles
+            .attr("cx", d => newXScale(d["Date for timeline"]))
+            .attr('r', d => getRadius(zoomScaleFactor)) // Update radius based on zoom
+            .style('stroke-opacity', d => newOpacity); // Update stroke opacity based on zoom
   
           // Update axis with the new scale
           xAxisGroup.call(
@@ -1420,12 +1448,10 @@ const highlightGeographyOnHover = useCallback(() => {
       svg.call(zoom);
     }, [selectedAuthor]);
   
-    // Call renderTimeline only when selectedAuthor changes
     useEffect(() => {
       renderTimeline();
     }, [selectedAuthor, renderTimeline]);
   
-    // Function to handle change in dropdown selection
     const handleAuthorChange = (event) => {
       const selectedIndex = event.target.value;
       setSelectedAuthor(dataset[selectedIndex]);
@@ -1500,7 +1526,7 @@ const highlightGeographyOnHover = useCallback(() => {
           <svg ref={svgRef} className="otahh-globe" width="600" height="600"></svg>
         </div>
   
-        {/* Timeline SVG (moved outside the globe container) */}
+        {/* Timeline SVG */}
         <div style={{ marginTop: '10px' }}>
           <svg ref={timelineRef} className="timeline"></svg>
         </div>

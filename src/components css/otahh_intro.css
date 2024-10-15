@@ -181,7 +181,7 @@ svg {
 /* Styling for the timeline */
 .timeline {
   position: absolute;
-  bottom: 87px; /* Move timeline closer to the bottom */
+  bottom: 130px; /* Move timeline closer to the bottom */
   left: -15px;
   width: 96vw;
   height: 140px; /* Increased height to make the timeline bigger */
