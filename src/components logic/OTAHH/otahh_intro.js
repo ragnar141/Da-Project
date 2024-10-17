@@ -7,22 +7,22 @@ import '../../components css/otahh_intro.css';
 
 
 
-const firstColor = '#ff6c00';
-const secondColor = '#219100';
-const thirdColor = '#ff0000';
-const fourthColor = '#4169E1';
-const fifthColor = '#ecdcad';
-const sixthColor = '#9cef50';
-const seventhColor = '#b90628';
-const eighthColor = '#b8a8ca';
-const ninthColor = '#7e6771';
-const tenthColor = '#d9ef9d';
-const eleventhColor = '#8f4b0d';
-const twelvethColor = '#3e82d9';
-const thirteenthColor = '#cd6886';
-const fourteenthColor = '#6c9cea';
-const fifteenthColor = '#b2efdd';
-const sixteenthColor = '#e81590';
+const firstColor = 'black';    // Orange Red
+const secondColor = '#32CD32';   // Lime Green
+const thirdColor = '#FF0000';    // Bright Red
+const fourthColor = '#1E90FF';   // Dodger Blue
+const fifthColor = '#8A2BE2';
+const sixthColor = '#FF4500';    // Spring Green
+const seventhColor = '#B22222';  // Firebrick
+const eighthColor = '#9370DB';   // Medium Purple
+const ninthColor = '#00008B';    // Dark Blue
+const tenthColor = '#ADFF2F';    // Green Yellow
+const eleventhColor = '#8B4513'; // Saddle Brown
+const twelvethColor = '#00CED1'; // Dark Turquoise
+const thirteenthColor = '#FF69B4'; // Hot Pink
+const fourteenthColor = '#4682B4'; // Steel Blue
+const fifteenthColor = '#00FA9A';  // Medium Spring Green
+const sixteenthColor = '#FF1493';  // Deep Pink
 
 
 // Sample JSON dataset
@@ -45,7 +45,8 @@ const dataset = [
         "Level" : 0, 
         "Color" : firstColor,
         "Geography": ["Egypt", "Iraq", "Iran", "Turkey", "Lebanon", "Syria", "Israel", 
-          "Palestine", "Ukraine", "Kazakhstan", "Libya", "India", "Pakistan", "Greece", "Bulgaria", "Armenia"]
+          "Palestine", "Ukraine", "Kazakhstan", "Libya", "India", "Pakistan", "Greece", "Bulgaria", "Armenia"],
+        "Territory": ["Egypt", "Persia", "Lydia", "Babylon", "Media", "Scythia", "Libya", "Thrace", "Macedonia", "Ionia", "Phoenicia", "Ethiopia", "Arabia"]
       },
       {
         "Stage": "The Rise of the Persian Empire",
@@ -54,7 +55,9 @@ const dataset = [
         "Level" : 0,
         "Color" : secondColor,
         "Geography" : ["Iran", "Iraq", "Turkey", "Afghanistan", "Pakistan", "Syria", "Lebanon", "Israel", "Palestine", "Jordan",
-           "Egypt", "Greece", "Bulgaria", "Macedonia", "Libya", "Turkmenistan", "Uzbekistan", "Armenia", "Azerbaijan", "Georgia"]
+           "Egypt", "Greece", "Bulgaria", "Macedonia", "Libya", "Turkmenistan", "Uzbekistan", "Armenia", "Azerbaijan", "Georgia"],
+           "Territory": ["Persis", "Media", "Babylonia", "Elam", "Assyria", "Syria", "Phoenicia", "Lydia", "Caria",
+             "Phrygia", "Ionian Greek city-states", "Bactria", "Sogdia", "Parthia", "India", "Egypt", "Libya", "Thrace", "Macedon"]
 
       },
       {
@@ -63,7 +66,8 @@ const dataset = [
         "Labels": ["499 BCE", "479 BCE"],
         "Level" : 1,
         "Color" : thirdColor,
-        "Geography": ["Greece", "Turkey", "Cyprus", "Bulgaria", "Macedonia", "Egypt", "Iran", "Iraq", "Syria"]
+        "Geography": ["Greece", "Turkey", "Cyprus", "Bulgaria", "Macedonia", "Egypt", "Iran", "Iraq", "Syria"],
+        "Territory": []
 
       },
       {
@@ -72,7 +76,8 @@ const dataset = [
         "Labels": ["479 BCE", "425 BCE"],
         "Level" : 0,
         "Color" : fourthColor,
-        "Geography": ["Greece", "Turkey", "Cyprus", "Egypt", "Libya", "Syria", "Lebanon", "Israel", "Palestine", "Macedonia", "Italy", "Albania", "Bulgaria"]
+        "Geography": ["Greece", "Turkey", "Cyprus", "Egypt", "Libya", "Syria", "Lebanon", "Israel", "Palestine", "Macedonia", "Italy", "Albania", "Bulgaria"],
+        "Territory": []
       }
     ],
 
@@ -81,8 +86,9 @@ const dataset = [
       "Syria", "Ethiopia", "Arabia", "Bactria"],
 
     "Initial Geography": ["Greece", "Turkey", "Iran", "Iraq", "Lebanon", "Syria", "Israel", "Palestine", "Jordan", 
-      "Egypt", "Libya", "Ukraine", "Kazakhstan", "Bulgaria", "India", "Saudi Arabia", "Georgia", "Armenia", "Azerbaijan", "Ethiopia", 
-      "Uzbekistan", "Tajikistan", "Afghanistan", "Sudan", "Pakistan", "Turkmenistan", "Tunisia", "Cyprus", "Macedonia", "Italy"]   
+      "Egypt", "Libya", "Ukraine", "Kazakhstan", "Bulgaria", "India", "Saudi Arabia", "Georgia", "Armenia",  "Albania", "Azerbaijan", "Ethiopia", 
+      "Uzbekistan", "Tajikistan", "Afghanistan", "Sudan", "Pakistan", "Turkmenistan", "Tunisia", "Cyprus", "Macedonia", "Italy"]   ,
+      "Territory": []
   },
 
   {
@@ -930,7 +936,7 @@ const dataset = [
                   "Stage": "Byzantine Civilization",
                   "Years": [330, 1453],
                   "Labels": ["330 CE", "1453 CE"],
-                  "Level" : 5,
+                  "Level" : 7,
                   "Color": eleventhColor,
                   "Geography": ["Turkey", "Greece", "Bulgaria", "Serbia", "Macedonia", "Albania", "Cyprus", "Syria", "Israel", "Palestine", "Lebanon", "Jordan", "Egypt", 
                     "Libya", "Tunisia", "Italy", "Montenegro", "Bosnia and Herzegovina", "Romania", "Georgia", "Armenia", "Iraq", "Algeria"]
@@ -1100,19 +1106,17 @@ const dataset = [
     const [selectedAuthor, setSelectedAuthor] = useState(dataset[0]); // Set the initial author/text
     const [hoveredStageColor, setHoveredStageColor] = useState(null); // Store the hovered stage color
     const [hoveredStageCountries, setHoveredStageCountries] = useState([]); // Store the hovered stage countries
+    
     const [initialColor, setInitialColor] = useState(null); // Store the initial base color
+    const [selectedCircleIndex, setSelectedCircleIndex] = useState(null); // Track the selected circle index
     const svgRef = useRef();
     const zoomScaleRef = useRef(1); // Initialize zoom scale at 1
     const timelineRef = useRef(); // Reference for the timeline SVG
 
-     const getRadius = (zoomScaleFactor) => {
-    return Math.min(5, 2 * zoomScaleFactor);
-  };
+     
 
   // Function to calculate stroke opacity based on zoom scale factor
-  const getBorderOpacity = (zoomScaleFactor) => {
-    return Math.min(1, 0.6 * zoomScaleFactor);
-  };
+  
   
     // Memoized function to set up the projection and path generator
     const renderGlobe = useMemo(() => {
@@ -1239,26 +1243,25 @@ const dataset = [
             .attr('fill', d => {
               const countryName = d.properties.name;
     
-              // If no countries are being hovered, render the initial geography
-              if (!hoveredStageCountries || hoveredStageCountries.length === 0) {
-                if (selectedAuthor["Initial Geography"] && selectedAuthor["Initial Geography"].includes(countryName)) {
-                  return initialColor;
-                }
-                return '#d3d3d3'; // Default color
-              }
-    
               // If countries are hovered, use the stage color for the hovered countries
               if (hoveredStageCountries.includes(countryName)) {
                 return hoveredStageColor;
               }
     
-              return '#d3d3d3'; // Default color for non-hovered countries
+              // If the country is part of "Initial Geography" but not part of the hovered stage, use initialColor
+              if (selectedAuthor["Initial Geography"] && selectedAuthor["Initial Geography"].includes(countryName)) {
+                return initialColor;
+              }
+    
+              // Default color for countries not part of the hovered stage or "Initial Geography"
+              return '#d3d3d3';
             })
-            .attr('opacity', 0.7)
+            .attr('opacity', 1)
             .raise();
         })
         .catch(error => console.error('Error loading world data:', error));
     }, [renderGlobe, hoveredStageCountries, hoveredStageColor, selectedAuthor, initialColor]);
+    
     
   
     // Highlight countries on hover
@@ -1288,13 +1291,10 @@ const dataset = [
     const renderTimeline = useCallback(() => {
       const width = 1500;
       const height = 200;
-      const rectHeight = 30; // Height of each timeline rect element
+     
 
     // Calculate numSegments as the maximum "Level" value from "Timeline Stages" + 1
-    const numSegments = Math.max(...selectedAuthor["Timeline Stages"].map(stage => stage.Level)) + 1;
-
-    const zoomAreaHeight = (numSegments * rectHeight) + (2 * rectHeight); // Stretch upward and downward
-
+   
   
       const svg = d3.select(timelineRef.current)
         .attr("width", width)
@@ -1329,9 +1329,9 @@ const dataset = [
         .enter()
         .append("rect")
         .attr("x", d => xScale(d.Years[0]))
-        .attr("y", d => 150 - d.Level * 30) // Position based on the level
+        .attr("y", d => 160 - d.Level * 20) // Position based on the level
         .attr("width", d => xScale(d.Years[1]) - xScale(d.Years[0]))
-        .attr("height", 30)
+        .attr("height", 20)
         .attr("fill", d => d.Color) // Use the corresponding color from the dataset
         .attr("opacity", 0.5)
         .on("mouseover", function (event, d) {
@@ -1340,6 +1340,7 @@ const dataset = [
           // Set the hovered stage color and countries for highlighting the corresponding countries
           setHoveredStageColor(d.Color);
           setHoveredStageCountries(d.Geography);
+       
   
           // Increase border opacity and show segment-card
           d3.select(this)
@@ -1356,13 +1357,18 @@ const dataset = [
   
           // Show the segment-card with details and position it centered above the rect
           segmentCard
-            .interrupt()
-            .style("display", "block")
-            .style("border-color", d.Color)
-            .style("opacity", 0.9)
-            .html(`<strong>${d.Stage}</strong><br>${d.Labels[0] || 'N/A'} - ${d.Labels[1] || 'N/A'}`)
-            .style("left", `${rectBounds.left + window.scrollX + rectBounds.width / 2 - segmentCard.node().offsetWidth / 2}px`)
-            .style("top", `${rectBounds.top - segmentCard.node().offsetHeight - 10 + window.scrollY}px`);
+          .interrupt()
+          .style("display", "block")
+          .style("border-color", d.Color)
+          .style("opacity", 0.9)
+          .html(`
+            <strong>${d.Stage}</strong><br>
+            ${d.Labels[0] || 'N/A'} - ${d.Labels[1] || 'N/A'}<br>
+            ${d.Territory ? `<div style="margin-top: 10px;"><label>Stage Territory: </label><p>${d.Territory.join(", ")}</p></div>` : ''}
+          `)
+          .style("left", `${rectBounds.left + window.scrollX + rectBounds.width / 2 - segmentCard.node().offsetWidth / 2}px`)
+          .style("top", `${rectBounds.top - segmentCard.node().offsetHeight - 10 + window.scrollY}px`);
+        
   
           // Check for overlap with the author card
           const segmentCardBounds = segmentCard.node().getBoundingClientRect();
@@ -1403,75 +1409,61 @@ const dataset = [
           // Reset the hovered stage color and countries when mouse is out
           setHoveredStageColor(null);
           setHoveredStageCountries([]);
+          
           highlightGeography(); // This will repaint the map with the initialColor
         })
   
-      const timelineCircles = g.selectAll("circle")
-        .data(dataset)
-        .enter()
-        .append("circle")
-        .attr("cx", d => xScale(d["Date for timeline"]))
-        .attr("cy", height + 30)
-        .attr('r', d => getRadius(1)) // Initial radius based on zoom
-        .style('fill', 'white')
-        .style('stroke', 'black')
-        .style('stroke-opacity', d => getBorderOpacity(1)) // Initial stroke opacity
-        .on("mouseover", function () {
-          d3.select(this)
-            .style("fill", "#ffcc00") // Change color on hover
-            .attr("r", 10); // Increase size on hover
-        })
-        .on("mouseout", function () {
-          d3.select(this)
-            .style("fill", "white") // Revert color
-            .attr("r", d => getRadius(zoomScaleRef.current)); // Revert size using zoom scale factor
-        });
+      
+  
 
-        const verticalLines = g.selectAll("line")
-    .data(dataset)
-    .enter()
-    .append("line")
-    .attr("x1", d => xScale(d["Date for timeline"])) // X position is the same as the circles
-    .attr("x2", d => xScale(d["Date for timeline"])) // Same X for both ends of the line
-    .attr("y1", height - 20) // Start from the timeline axis
-    .attr("y2", height + 30) // End at the bottom of the circle
-    .attr("stroke", "black")
-    .attr("stroke-width", 1)
-    .attr("stroke-dasharray", "4 2") // Dotted line
-    .attr("opacity", 0.7);
+          if (selectedCircleIndex !== null) {
+           
+          
+            // Add the vertical dotted line
+            g.append("line")
+              .attr("x1", xScale(dataset[selectedCircleIndex]["Date for timeline"]))
+              .attr("x2", xScale(dataset[selectedCircleIndex]["Date for timeline"]))
+              .attr("y1", height - 200) // Start from the timeline axis
+              .attr("y2", height + 30) // End at the bottom of the circle
+              .attr("stroke", "red")
+              .attr("stroke-width", 1.5)
+              .attr("stroke-dasharray", "6 6") // Dotted line
+              .attr("opacity", 1)
+              .attr("class", "dotted-line"); // Add class for easy selection during zoom
+          }
+        
+        
   
       // Define the zoom behavior
-      const zoom = d3.zoom()
-      .scaleExtent([1, 5]) // Set the zoom range
-      .translateExtent([[0, 0], [width, height]]) // Restrict panning to the SVG area
-      .on("zoom", (event) => {
-        const currentZoomState = event.transform;
-        zoomScaleRef.current = currentZoomState.k; // Update the current zoom scale
-        const newXScale = currentZoomState.rescaleX(xScale);
-        const zoomScaleFactor = Math.max(currentZoomState.k, 1); // Ensure zoomScaleFactor is >= 1
-        const newOpacity = getBorderOpacity(zoomScaleFactor);
+     // Define the zoom behavior
+const zoom = d3.zoom()
+.scaleExtent([1, 5]) // Set the zoom range
+.translateExtent([[0, 0], [width, height]]) // Restrict panning to the SVG area
+.on("zoom", (event) => {
+  const currentZoomState = event.transform;
+  zoomScaleRef.current = currentZoomState.k; // Update the current zoom scale
+  const newXScale = currentZoomState.rescaleX(xScale);
 
-        // Update rectangles and circles with the zoom scale
-        timelineRects
-          .attr("x", d => newXScale(d.Years[0]))
-          .attr("width", d => newXScale(d.Years[1]) - newXScale(d.Years[0]));
+  // Update rectangles and circles with the zoom scale
+  timelineRects
+    .attr("x", d => newXScale(d.Years[0]))
+    .attr("width", d => newXScale(d.Years[1]) - newXScale(d.Years[0]));
 
-        timelineCircles
-          .attr("cx", d => newXScale(d["Date for timeline"]))
-          .attr('r', d => getRadius(zoomScaleFactor)) // Update radius based on zoom
-          .style('stroke-opacity', d => newOpacity); // Update stroke opacity based on zoom
+  // If a circle is selected, update the red dotted line's position
+  if (selectedCircleIndex !== null) {
+    g.selectAll("line.dotted-line") // Ensure we only select the dotted line
+      .attr("x1", newXScale(dataset[selectedCircleIndex]["Date for timeline"]))
+      .attr("x2", newXScale(dataset[selectedCircleIndex]["Date for timeline"]));
+  }
 
-          verticalLines
-          .attr("x1", d => newXScale(d["Date for timeline"]))
-          .attr("x2", d => newXScale(d["Date for timeline"]));
-          
-        // Update axis with the new scale
-        xAxisGroup.call(
-          d3.axisBottom(newXScale)
-            .ticks(10)
-            .tickFormat(d => (d < 0 ? `${Math.abs(d)} BC` : `${d} CE`))
-        );
-      });
+  // Update axis with the new scale
+  xAxisGroup.call(
+    d3.axisBottom(newXScale)
+      .ticks(10)
+      .tickFormat(d => (d < 0 ? `${Math.abs(d)} BC` : `${d} CE`))
+  );
+});
+
 
     
     // Apply the zoom behavior to the group (g) element
@@ -1487,8 +1479,12 @@ const dataset = [
       .on("mouseleave", () => {
         svg.on(".zoom", null); // Remove zoom behavior when the mouse leaves the invisible zoom area
       });
-  }, [selectedAuthor, dataset]);
+  }, [selectedAuthor, selectedCircleIndex, highlightGeography]);
     
+  useEffect(() => {
+    setSelectedCircleIndex(0); // Set index to the first entry initially
+    setSelectedAuthor(dataset[0]); // Ensure selected author matches
+  }, []);
   
     useEffect(() => {
       renderTimeline();
@@ -1497,13 +1493,14 @@ const dataset = [
     const handleAuthorChange = (event) => {
       const selectedIndex = event.target.value;
       setSelectedAuthor(dataset[selectedIndex]);
+      setSelectedCircleIndex(selectedIndex); // Sync the circle selection with dropdown
     };
   
     return (
       <div>
         <div className="dropdown-container">
           <label htmlFor="author-select">History according to: </label>
-          <select id="author-select" onChange={handleAuthorChange}>
+          <select id="author-select" onChange={handleAuthorChange} value={selectedCircleIndex}>
             {dataset.map((author, index) => (
               <option key={index} value={index}>
                 {author["Author/Text Title"]}
@@ -1511,40 +1508,22 @@ const dataset = [
             ))}
           </select>
         </div>
-  
+    
         <div className="author-card-container">
           <div className="fundamental-works-container">
             <div className="author-card-label">
               {selectedAuthor["Fundamental Works"].Title} - {selectedAuthor["Fundamental Works"]["Date of Issue"]}
             </div>
           </div>
-  
-          <div className="framework-container">
-            <label>Framework: </label>
-            <p>{selectedAuthor["Author's framework"]}</p>
-          </div>
-  
-          <div className="territory-container">
-            <label>Territory: </label>
-            <p>{selectedAuthor["Ancient regions"] ? selectedAuthor["Ancient regions"].join(", ") : "N/A"}</p>
-          </div>
-  
+    
           <div className="lower-author-card-container">
-            <div className="timeline-stages-column">
-              {Array.isArray(selectedAuthor["Timeline Stages"]) && selectedAuthor["Timeline Stages"].map((stage, index) => (
-                <div key={index} className="timeline-stage">
-                  <p style={{ marginBottom: '10px', display: 'inline' }}><strong>{stage.Stage}</strong></p>{" "}
-                  <p style={{ marginBottom: '10px', display: 'inline' }}>{stage.Labels ? stage.Labels.join(" - ") : "N/A"}</p>
-                </div>
-              ))}
-            </div>
-  
-            <div className="right-column">
+            {/* Left Column */}
+            <div className="left-column">
               <div className="origin-of-history-container">
                 <label>Origin of History: </label>
                 <p>{selectedAuthor["Origin of history"]}</p>
               </div>
-  
+    
               <div className="stages-container">
                 <div className="stages-label-container">
                   <label>States of History:</label>
@@ -1560,23 +1539,38 @@ const dataset = [
                 </div>
               </div>
             </div>
+    
+            {/* Right Column */}
+            <div className="right-column">
+              <div className="framework-container">
+                <label>Framework: </label>
+                <p>{selectedAuthor["Author's framework"]}</p>
+              </div>
+    
+              <div className="territory-container">
+                <label>Territory: </label>
+                <p>{selectedAuthor["Ancient regions"] ? selectedAuthor["Ancient regions"].join(", ") : "N/A"}</p>
+              </div>
+            </div>
           </div>
         </div>
-  
+    
         <div className="globe-container" style={{ position: 'relative' }}>
           {/* Globe SVG */}
           <svg ref={svgRef} className="otahh-globe" width="600" height="600"></svg>
         </div>
-  
+    
         {/* Timeline SVG */}
         <div style={{ marginTop: '10px' }}>
           <svg ref={timelineRef} className="timeline"></svg>
         </div>
-  
+    
         {/* Segment card element for hover effect */}
         <div className="segment-card"></div>
       </div>
     );
+    
+    
   }
   
   export default OtahhIntro;

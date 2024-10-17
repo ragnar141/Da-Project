@@ -4,10 +4,11 @@
   display: none; /* Hidden by default, shown on hover */
   background-color: #f9f9f9;
   padding: 10px;
+  text-align: center;
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   font-family: "Times New Roman", serif;
-  font-size: 14px;
+  font-size: 16px;
   border: 2px solid transparent; /* Border color will change on hover */
   z-index: 2000; /* Higher than author card to ensure it appears on top */
   opacity: 0.9; /* Slight transparency */
@@ -59,9 +60,9 @@
   top: 120px; /* Positioned below the dropdown container */
   left: 60px;
   z-index: 999; /* Ensure author card is lower than segment card */
-  background-color: #f9f9f9;
+  
   border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
   width: 1000px;
   padding: 12px;
   display: flex;
@@ -108,11 +109,30 @@
 }
 
 /* Layout for the lower author card container */
+/* Layout for the lower author card container */
 .lower-author-card-container {
   display: flex;
   justify-content: space-between; /* Space between the left and right columns */
   margin-top: 20px;
-  gap: 60px;
+  gap: 60px; /* Adjust spacing between columns */
+}
+
+/* Left Column */
+.left-column {
+  flex: 1; /* Take up available space on the left */
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between the containers */
+  padding-right: 20px; /* Add some space between the left and right columns */
+}
+
+/* Right Column */
+.right-column {
+  flex: 1; /* Take up available space on the right */
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between the containers */
+  padding-left: 20px; /* Add some space between the right and left columns */
 }
 
 .timeline-stages-column {
