@@ -1,5 +1,3 @@
-/* Courses.css */
-
 /* Container styling */
 .courses-section {
   display: flex;
@@ -8,139 +6,92 @@
   align-items: left;
   min-height: 100vh;
   background-color: #f9f9f9;
-  padding-left: 30px;
-  padding-top: 20px;
+  padding-left: 50px;
+  padding-top: 95px; /* Added extra padding to move the first course lower */
 }
 
-/* Heading styling */
-.courses-section h1 {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-/* Paragraph styling */
-.courses-section p {
-  font-size: 1.2rem;
-  color: #666;
-  text-align: center;
-  max-width: 600px;
-  line-height: 1.6;
-}
-
-/* Updated Course item styling */
+/* Course list container */
 .course-list {
   width: 100%; /* Stretch the course list to full width */
   max-width: 1350px; /* Limit the maximum width of the course list */
 }
 
-.course-item {
-  height: 120px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 30px;
-  margin-bottom: 30px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: space-between; /* Ensure columns are spaced appropriately */
-  width: 100%; /* Stretch to full width */
+/* Entire course item is now clickable */
+.course-item-link {
+  text-decoration: none; /* Ensure no underline */
+  color: inherit; /* Inherit text color */
+  display: block; /* Ensure the whole block is clickable */
 }
 
-/* Column styling */
-.column {
+/* Course item box styling */
+.course-item {
+  background-color: #ffffff;
+  border: 3px solid #000000; /* Thicker border */
+  border-radius: 5px;
+  padding: 30px; /* Increased padding */
+  margin-bottom: 40px; /* Increased margin for more space between boxes */
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  transition: all 0.3s ease; /* Add transition for hover effect */
+}
+
+/* Change background color on hover */
+.course-item:hover {
+  background-color: #f8ecbc; /* Yellow background on hover */
+  
+}
+
+/* Adjust the layout for a single text column and button on the right */
+.course-item .text-container {
+  flex: 3; /* Take up most of the space on the left */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+  padding-right: 20px; /* Space between text and button */
 }
 
-/* First column: Title and Description */
-.column-title {
-  flex: 3; /* Make this column the widest */
-  padding-right: 20px;
-}
-
+/* Title and description column styling */
 .column-title h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 26px;
   color: #000000;
 }
 
-/* Remove the default link style and apply black color */
+.column-title p {
+  font-size: 17px;
+}
+
 .column-title h2 a {
   text-decoration: none; /* Remove underline */
   color: #000000; /* Set link color to black */
 }
 
 .column-title h2 a:hover {
-  color: #ffcc00; /* Set link color to #ffcc00 on hover */
+  color: #ffcc00; /* Optional: Add hover effect */
 }
 
-.column-title p {
-  font-size: 16px;
-  color: #000000;
-  margin-bottom: 10px;
-  text-align: left;
-}
-
-/* Second column: Author */
+/* Author information */
 .column-author {
-  flex: 1; /* Adjust this to your liking */
-  padding-right: 20px;
-  display: flex;
-  align-items: center;
+  display: flex; /* Flexbox to position both elements on the same line */
+  align-items: center; /* Vertically align the elements */
 }
 
 .column-author p:first-child {
   font-weight: bold; /* Make the first <p> element bold */
+  margin-right: 10px; /* Add some space between the two paragraphs */
 }
 
 .column-author p {
-  font-family: "Helvetica", "Arial", sans-serif; /* Set font to Helvetica */
-  font-size: 13px;
-  
-  color: #222;
+  font-size: 15px;
+  color: #333;
   margin: 0;
-  
 }
 
-/* Third column: Info and Go to Course button */
-.column-info {
-  flex: 1;
-  text-align: right;
-  display: flex-end;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.column-info .info {
-  font-size: 14px;
+/* Lecture and duration info */
+.column-info-text {
+  font-size: 15px;
   color: #777;
-  margin-bottom: 10px;
-  margin-right: 8px;
-  text-align: right;
-}
-
-.column-info .course-button {
-  align-self: flex-end;
-  text-decoration: none;
-  color: white;
-  background-color: #000dc6;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 13.5px;
-  font-family: "Helvetica", "Arial", sans-serif; /* Set font to Helvetica */
-}
-
-.column-info .course-button:hover {
-  background-color: #0056b3;
-}
-
-.column-info .course-button:active {
-  background-color: #003f7f;
+  margin-bottom: 0;
 }
 
 /* Media queries for responsiveness */
@@ -149,16 +100,7 @@
     flex-direction: column;
   }
 
-  .column {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-
   .column-info {
-    align-items: flex-end;
-  }
-
-  .column-info .course-button {
-    align-self: center; /* Center button on smaller screens */
+    align-self: center;
   }
 }

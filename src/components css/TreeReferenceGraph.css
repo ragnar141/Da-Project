@@ -130,7 +130,7 @@
 /* SVG styling */
 svg {
   background-color: white;
-  margin-top: 80px; /* Adjust this value as needed to move the graph lower */
+  margin-top: 85px; /* Adjust this value as needed to move the graph lower */
   margin-left: 30px;
   transition: transform 0.3s ease; /* Add transition for transform property */
   overflow: visible;
@@ -325,7 +325,7 @@ svg {
 
 .legend-container {
   position: absolute;
-  top: 53px;
+  top: 58px;
   right: 210px; /* Adjusted for better visibility */
   display: flex;
   align-items: center;
@@ -353,8 +353,8 @@ svg {
   position: absolute;
   top: 43px;
   right: -40px; /* Position the container all the way to the right */
-  width: 183px; /* Adjust width to fit the right segment */
-  height: 94%; /* Make the container the full height */
+  width: 187px; /* Adjust width to fit the right segment */
+  height: 93%; /* Make the container the full height */
   background-color: white;
   border: 1px solid black;
   border-radius: 4px;

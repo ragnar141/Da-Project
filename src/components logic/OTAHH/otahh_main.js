@@ -6,22 +6,44 @@ import '../../components css/otahh_main.css';
 const OnThinkingAndHumanHistory = () => {
     return (
       <div className="otahh-container">
-        <h1>On thinking and human history</h1>
-        <ul>
-          <li><Link to="/introduction">Introduction</Link></li>
-          <li><Link to="/lecture1">Lecture 1</Link></li>
-          <li><Link to="/lecture2">Lecture 2</Link></li>
-          <li><Link to="/lecture3">Lecture 3</Link></li>
-          <li><Link to="/lecture4">Lecture 4</Link></li>
-          <li><Link to="/lecture5">Lecture 5</Link></li>
-          <li><Link to="/lecture6">Lecture 6</Link></li>
-          <li><Link to="/lecture7">Lecture 7</Link></li>
-          <li><Link to="/lecture8">Lecture 8</Link></li>
-          <li><Link to="/lecture9">Lecture 9</Link></li>
-          <li><Link to="/lecture10">Lecture 10</Link></li>
-        </ul>
+        {/* Title element wrapping the h1 */}
+        <div className="course-title">
+          <h1>On Thinking and Human History</h1>
+        </div>
+
+        <div className="course-author">
+          <p>Dr. Amir Yakhin</p>
+        </div>
+
+        {/* Description element */}
+        <div className="course-description">
+          Interdisciplinary course designed as an introduction to the rest of the courses at UNI, 
+          mapping out the relationships between different branches of knowledge. It attempts to view History 
+          as a mother of humanities and provide a foundational narrative of human 
+          experience that serves as a critical framework for understanding disciplines like theology, philosophy, 
+          psychology, literature, and the arts. Gaining a deeper understanding of History 
+          certainly helps to ground ourselves in the present, and plan the future.
+        </div>
+
+        {/* Episode Title */}
+        <div className="episode-title">
+          <h2>Episode 1: Introduction</h2>
+        </div>
+
+        {/* Episode 1 container with video and links */}
+        <div className="episode1">
+          <div className="video-placeholder">
+            video
+          </div>
+          <div className="episode1-links">
+            <ul>
+              <li><Link to="/introduction">Sources</Link></li>
+              <li><Link to="/lecture1">Lecture 1</Link></li>
+            </ul>
+          </div>
+        </div>
       </div>
     );
-  };
-  
-  export default OnThinkingAndHumanHistory;
+};
+
+export default OnThinkingAndHumanHistory;

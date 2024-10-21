@@ -46,9 +46,14 @@ const dataset = [
         "Color" : firstColor,
         "Geography": ["Egypt", "Iraq", "Iran", "Turkey", "Lebanon", "Syria", "Israel", 
           "Palestine", "Ukraine", "Kazakhstan", "Libya", "India", "Pakistan", "Greece", "Bulgaria", "Armenia"],
-        "Territory": ["Egypt", "Persia", "Lydia", "Babylon", "Media", "Scythia", "Libya", "Thrace", "Macedonia", "Ionia", "Phoenicia", "Ethiopia", "Arabia"]
-      },
-      {
+        "Centralized Goverments": ["Egypt", "Persia", "Lydia", "Babylon", "Media", "Macedonia", "Ethiopia (Kush)"],
+        "Networks of Tribes": ["Scythia", "Libya", "Thrace", "Ionia", "Phoenicia", "Arabia"],
+
+
+      
+      
+        },
+        {
         "Stage": "The Rise of the Persian Empire",
         "Years": [-600, -490],
         "Labels": ["600 BCE", "490 BCE"],

@@ -1,81 +1,60 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link to handle routing
+import { Link } from 'react-router-dom';
 import '../components css/Courses.css';
+
+const courses = [
+  {
+    title: 'On Thinking and Human History',
+    description: 'Introduction to humanitarian arts and sciences by exploring human history through different optics.',
+    author: 'Amir Yakhin',
+    lectures: 7,
+    hours: 14,
+    route: '/courses/on-thinking-and-human-history',
+  },
+  {
+    title: 'Public Relations',
+    description: 'Politics, propaganda, war, strategic communication, marketing, and memes.',
+    author: 'Bekzod Maksudhanov',
+    lectures: 6,
+    hours: 10,
+    route: '/courses/public-relations',
+  },
+  {
+    title: 'Modern German Thought: Conclusion of Philosophy',
+    description: 'Tracing the origins of German Idealism, we will examine the history of philosophy and its limits.',
+    author: 'Jay Ryoo',
+    lectures: 9,
+    hours: 18,
+    route: '/courses/modern-german-thought',
+  },
+];
 
 function Courses() {
   return (
     <div className="courses-section">
       <div className="course-list">
-        {/* Course 1: On Thinking and Human History */}
-        <div className="course-item">
-          {/* First Column: Title and Description */}
-          <div className="column column-title">
-            <h2>
-              <Link to="/courses/on-thinking-and-human-history">On Thinking and Human History</Link>
-            </h2>
-            <p>Explore the role of thinking in shaping human history through mythical, theological, philosophical, and sociological lenses.</p>
-          </div>
+        {courses.map((course, index) => (
+          <Link to={course.route} key={index} className="course-item-link">
+            <div className="course-item">
+              <div className="text-container">
+                {/* Title and Description */}
+                <div className="column-title">
+                  <h2>{course.title}</h2>
+                  <p>{course.description}</p>
+                </div>
 
-          {/* Second Column: Author */}
-          <div className="column column-author">
-            <p>author and lecturer:</p> 
-            <p>Amir Yakhin</p>
-          </div>
+                {/* Author */}
+                <div className="column-author">
+                  <p>Author and lecturer:</p>
+                  <p>{course.author}</p>
+                </div>
 
-          {/* Third Column: Info and Button */}
-          <div className="column column-info">
-            <p className="info">7 lectures • 14 hours</p>
-            <Link to="/courses/on-thinking-and-human-history" className="course-button">go to course >></Link>
-          </div>
-        </div>
-
-        {/* Course 2: Public Relations */}
-        <div className="course-item">
-          {/* First Column: Title and Description */}
-          <div className="column column-title">
-            <h2>
-              <Link to="/courses/public-relations">Public Relations</Link>
-            </h2>
-            <p>Politics, propaganda, war, strategic communication, marketing, and memes.</p>
-          </div>
-
-          {/* Second Column: Author */}
-          <div className="column column-author">
-            <p>author and lecturer:</p> 
-            <p>Bekzod Maksudhanov</p>
-          </div>
-
-          {/* Third Column: Info and Button */}
-          <div className="column column-info">
-            <p className="info">6 lectures • 10 hours</p>
-            <Link to="/courses/public-relations" className="course-button">go to course >></Link>
-          </div>
-        </div>
-
-        {/* Course 3: Modern German Thought */}
-        <div className="course-item">
-          {/* First Column: Title and Description */}
-          <div className="column column-title">
-            <h2>
-              <Link to="/courses/modern-german-thought">Modern German Thought: Conclusion of Philosophy</Link>
-            </h2>
-            <p>Tracing the origins of German Idealism, we will examine the history of philosophy and its limits.</p>
-          </div>
-
-          {/* Second Column: Author */}
-          <div className="column column-author">
-            <p>author and lecturer:</p> 
-            <p>Jay Ryoo</p>
-          </div>
-
-          {/* Third Column: Info and Button */}
-          <div className="column column-info">
-            <p className="info">9 lectures • 18 hours</p>
-            <Link to="/courses/modern-german-thought" className="course-button">go to course >></Link>
-          </div>
-        </div>
-
-        {/* More courses can be added here in the future */}
+                {/* Info Text */}
+                <p className="column-info-text">{course.lectures} lectures • {course.hours} hours</p>
+              </div>
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   );

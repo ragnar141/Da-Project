@@ -1,6 +1,6 @@
 .search-bar-container {
   position: absolute;
-  top: 41px;
+  top:48px;
   left: 130px;
   width: 300px;
   z-index: 20; /* Ensure the search bar is on top of other elements */
@@ -10,7 +10,7 @@
 .search-bar-input {
   width: 100%;
   padding: 8px; /* Increase padding for more height */
-  height: 37px; /* Set a bigger height */
+  height: 35px; /* Set a bigger height */
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px; /* Slightly increase the font size for better appearance */

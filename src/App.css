@@ -1,4 +1,13 @@
 /* Navbar Styling */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden; /* Disable horizontal scrolling */
+}
+
+
 .navbar {
   position: fixed;
   top: 0;
@@ -69,11 +78,13 @@
   background-color: #f2f2f2;
   padding: 40px 20px;
   text-align: center;
-  margin-top: 900px; /* Space between content and mailing list */
+  margin-top: 800px; /* Space between content and mailing list */
   width: 100vw; /* Span the whole width of the viewport */
-  left: 0;
+  height: 100vh; /* Ensure it takes the full height of the viewport */
   position: relative;
   box-sizing: border-box; /* Ensure padding doesn't affect width */
+  left: 0;
+  top: 0;
 }
 
 .mailing-list-section h2 {
@@ -104,13 +115,13 @@
   font-size: 1rem;
   color: white;
   background-color: #000000;
-  border: none;
+  border: 2px;
   border-radius: 4px;
   cursor: pointer;
 }
 
 .mailing-list-form button:hover {
-  background-color: #ffcc00;
+  border-color: #ffcc00;
 }
 
 .submitted-message {
@@ -120,13 +131,15 @@
 
 /* Home Section Styling */
 .home-container {
-  padding-top: 50px;
+  
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  overflow-x: hidden;
+  
   background-color: #ffffff;
+  overflow-y: hidden;
 }
 .welcome_statement {
   position: absolute;
@@ -154,6 +167,7 @@
 .description {
   position: absolute;
   top: 500px;
+  right: 350px;
   text-align: center;
   font-size: 1.2rem;
   max-width: 800px;

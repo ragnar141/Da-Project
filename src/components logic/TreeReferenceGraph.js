@@ -109,7 +109,7 @@ const TreeReferenceGraph = () => {
 
   const margin = useMemo(() => ({ top: 0, right: 185, bottom: 20, left: 100 }), []); // Margin for the SVG
   const width = 1440 - margin.left - margin.right; // Calculate width
-  const height = 620 - margin.top - margin.bottom; // Calculate height
+  const height = 610 - margin.top - margin.bottom; // Calculate height
   const [zoomTarget] = useState(null);
 
   useEffect(() => {
