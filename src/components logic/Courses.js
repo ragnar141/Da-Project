@@ -4,7 +4,7 @@ import '../components css/Courses.css';
 
 const courses = [
   {
-    title: 'On Thinking and Human History',
+    title: 'On History',
     description: 'Introduction to humanitarian arts and sciences by exploring human history through different optics.',
     author: 'Amir Yakhin',
     lectures: 7,

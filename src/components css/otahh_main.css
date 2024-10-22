@@ -21,9 +21,6 @@ html, body {
   text-align: center; /* Center the title */
   
   padding-top: 200px;
-  padding-left: 70px;
-  padding-right: 70px;
-  padding-left: 0; /* Remove extra padding to center the title properly */
   position: relative;
 }
 
@@ -49,6 +46,7 @@ html, body {
   font-size: 1.2em;
   color: #333;
   text-align: center; /* Center the author text */
+  padding-left: 585px;
 }
 
 /* Description styling */

@@ -8,11 +8,11 @@ const OnThinkingAndHumanHistory = () => {
       <div className="otahh-container">
         {/* Title element wrapping the h1 */}
         <div className="course-title">
-          <h1>On Thinking and Human History</h1>
+          <h1>On History</h1>
         </div>
 
         <div className="course-author">
-          <p>Dr. Amir Yakhin</p>
+          <p>by Amir Yakhin</p>
         </div>
 
         {/* Description element */}
