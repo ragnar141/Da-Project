@@ -1,0 +1,14 @@
+svg {
+    font-family: 'Helvetica', sans-serif;
+    padding-left: 50px;
+  }
+  
+  .event-label {
+    fill: black;
+  }
+  
+  circle {
+    stroke: black;
+    stroke-width: 1px;
+  }
+  

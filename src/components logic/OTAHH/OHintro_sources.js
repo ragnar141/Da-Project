@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useMemo, useCallback, useState } from 'react'
 import * as d3 from 'd3';
 import { geoOrthographic, geoPath } from 'd3-geo';
 import * as topojson from 'topojson-client';
-import '../../components css/otahh_intro.css';
+import '../../components css/intro_sources.css';
 
 
 
@@ -1294,7 +1294,7 @@ const dataset = [
     
   
     const renderTimeline = useCallback(() => {
-      const width = 1500;
+      const width = 1400;
       const height = 200;
      
 
@@ -1312,7 +1312,7 @@ const dataset = [
   
       const xScale = d3.scaleLinear()
         .domain([startYear, endYear])
-        .range([50, width - 50]);
+        .range([0, width]);
   
       const xAxis = d3.axisBottom(xScale)
         .ticks(10)

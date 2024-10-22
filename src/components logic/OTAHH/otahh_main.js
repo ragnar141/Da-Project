@@ -37,8 +37,9 @@ const OnThinkingAndHumanHistory = () => {
           </div>
           <div className="episode1-links">
             <ul>
+              <li><Link to="/bigtimeline">Big Timeline</Link></li>
               <li><Link to="/introduction">Sources</Link></li>
-              <li><Link to="/lecture1">Lecture 1</Link></li>
+              
             </ul>
           </div>
         </div>

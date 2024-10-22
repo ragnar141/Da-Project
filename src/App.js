@@ -6,7 +6,8 @@ import Contact from './components logic/Contact.js';
 import OtahhL1 from './components logic/OTAHH/otahh_main.js'; // Import the respective course component
 import GFL1 from './components logic/GF/GF_l1.js'; // Rename to PascalCase
 import PRL1 from './components logic/PR/PR_l1.js'; // Rename to PascalCase
-import OtahhIntro from './components logic/OTAHH/otahh_intro'; // Import the Introduction component
+import OtahhIntro from './components logic/OTAHH/OHintro_sources.js'; // Import the Introduction component
+import OhIntroTimeline from './components logic/OTAHH/OHintro_bigtimeline.js';
 import './App.css';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Route path="/courses/public-relations" element={<PRL1 />} />
             <Route path="/courses/modern-german-thought" element={<GFL1 />} /> {/* Updated to match the course link */}
             <Route path="/introduction" element={<OtahhIntro />} />
+            <Route path="/bigtimeline" element={<OhIntroTimeline />} />
           </Routes>
       </div>
     </Router>
