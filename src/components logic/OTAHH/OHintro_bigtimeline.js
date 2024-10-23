@@ -28,8 +28,8 @@ const OhIntroTimeline = () => {
       .domain([-13.8e9, 2025]) // Domain spans from the Big Bang (-13.8 billion years) to 2025
       .range([0, width]); // Full width of the timeline
 
-    // Add a bottom axis with 3 ticks (using .ticks(3))
-    const xAxis = d3.axisBottom(xScale).ticks(0); // Ensure 3 ticks are rendered
+    // Add a bottom axis with 3 ticks (using .ticks(0))
+    const xAxis = d3.axisBottom(xScale).ticks(0); // No ticks needed here
 
     // 1. Render the x-axis (timeline) first
     svg
@@ -40,6 +40,179 @@ const OhIntroTimeline = () => {
 
     // 2. Create a group to contain the circles, lines, and labels
     const chartGroup = svg.append('g');
+
+    // Define categories and their colors
+    const categories = [
+      {
+        name: 'Very Early Universe',
+        startYear: -13.8e9,
+        endYear: -13.79962e9,  // 380,000 years after the Big Bang
+        color: '#e74c3c', // Red
+      },
+      {
+        name: 'Dark Ages',
+        startYear: -13.79962e9,
+        endYear: -13.65e9,  // 150 million years after the Big Bang
+        color: '#2ecc71', // Green
+      },
+      {
+        name: 'Cosmic Dawn',
+        startYear: -13.65e9,  // 150 million years after the Big Bang
+        endYear: -12.8e9,     // 1 billion years after the Big Bang
+        color: '#3498db', // Blue
+      },
+      {
+        name: 'Galaxy Formation Era',
+        startYear: -12.8e9,   // 1 billion years after the Big Bang
+        endYear: -8.8e9,      // 5 billion years after the Big Bang
+        color: '#f39c12', // Orange
+      },
+      {
+        name: 'Solar System Formation',
+        startYear: -9.2e9,   // 9.2 billion years after the Big Bang
+        endYear: -4.5e9,     // Formation of Solar System
+        color: '#9b59b6', // Purple
+      },
+      {
+        name: 'Hadean',
+        startYear: -4.5e9,  // 4.6 billion years ago
+        endYear: -4.0e9,    // 4.0 billion years ago
+        color: '#e74c3c', // Red
+      },
+      {
+        name: 'Archean',
+        startYear: -4.0e9,  // 4.0 billion years ago
+        endYear: -2.5e9,    // 2.5 billion years ago
+        color: '#2ecc71', // Green
+      },
+      {
+        name: 'Proterozoic',
+        startYear: -2.5e9,  // 2.5 billion years ago
+        endYear: -541e6,    // 541 million years ago
+        color: '#3498db', // Blue
+      },
+      {
+        name: 'Phanerozoic',
+        startYear: -541e6,  // 541 million years ago
+        endYear: -300000,      // Present (or near future)
+        color: '#f39c12', // Orange
+      },
+      {
+        name: 'Phanerozoic',
+        startYear: -300000,  // 541 million years ago
+        endYear: 2025,      // Present (or near future)
+        color: '#f39c12', // Orange
+      },
+      {
+        name: 'Paleolithic',
+        startYear: -3.4e6,   // 3.4 million years ago
+        endYear: -300000,     // 11,700 years ago
+        color: '#e74c3c', // Red
+      },
+      {
+        name: 'Paleolithic',
+        startYear: -300000,   // 3.4 million years ago
+        endYear: -11700,     // 11,700 years ago
+        color: '#e74c5c', // Red
+      },
+
+      {
+        name: 'Mesolithic',
+        startYear: -11700,   // 11,700 years ago
+        endYear: -8000,      // 8,000 years ago
+        color: '#2ecc71', // Green
+      },
+      {
+        name: 'Neolithic',
+        startYear: -8000,    // 8,000 BCE
+        endYear: -3300,      // 3,300 BCE
+        color: '#3498db', // Blue
+      },
+      {
+        name: 'Bronze Age',
+        startYear: -3300,    // 3,300 BCE
+        endYear: -1200,      // 1,200 BCE
+        color: '#f39c12', // Orange
+      },
+      {
+        name: 'Iron Age',
+        startYear: -1200,    // 1,200 BCE
+        endYear: 500,        // 500 CE
+        color: '#9b59b6', // Purple
+      },
+      {
+        name: 'Middle Ages',
+        startYear: 500,      // 500 CE
+        endYear: 1500,       // 1500 CE
+        color: '#e67e22', // Dark Orange
+      },
+      {
+        name: 'Early Modern Period',
+        startYear: 1500,     // 1500 CE
+        endYear: 1800,       // 1800 CE
+        color: '#1abc9c', // Teal
+      },
+      {
+        name: 'Modern Era',
+        startYear: 1800,     // 1800 CE
+        endYear: 2025,       // Present
+        color: '#34495e', // Dark Blue
+      },
+      {
+        name: 'Industrial Age',
+        startYear: 1760,     // 1760 CE
+        endYear: 1970,       // 1970 CE
+        color: '#f1c40f', // Yellow
+      },
+      {
+        name: 'Information Age',
+        startYear: 1970,     // 1970 CE
+        endYear: 2025,       // Present
+        color: '#95a5a6', // Gray
+      }
+    ];
+    
+
+    // Add rectangles for each category
+    const renderCategories = (scale) => {
+      // Clear previous categories
+      chartGroup.selectAll('rect').remove();
+    
+      // Define the clipping boundaries based on the width of the timeline
+      const timelineStart = 0;  // Left boundary of the timeline (x = 0)
+      const timelineEnd = width;  // Right boundary of the timeline
+    
+      // Render each category as a rectangle
+      chartGroup
+        .selectAll('rect')
+        .data(categories)
+        .enter()
+        .append('rect')
+        .attr('x', (d) => {
+          // Calculate the start and end of the category in x-coordinates
+          const startX = scale(d.startYear);
+          
+    
+          // Clip the start if it's before the timeline's start
+          return Math.max(startX, timelineStart);
+        })
+        .attr('width', (d) => {
+          const startX = scale(d.startYear);
+          const endX = scale(d.endYear);
+    
+          // Adjust width to clip the end if it exceeds the timeline's end
+          const clippedEnd = Math.min(endX, timelineEnd);
+          const clippedStart = Math.max(startX, timelineStart);
+          
+          return Math.max(clippedEnd - clippedStart, 0);  // Ensure no negative widths
+        })
+        .attr('y', (d) => d.startYear < -300000 ? height / 2 : height / 2 - 205) // Below or above the x-axis
+        .attr('height', (d) => d.startYear < -300000 ? 400 : 205)
+        .attr('fill', (d) => d.color) // Color for each segment
+        .attr('opacity', 0.3); // Slightly transparent
+    };
+    
+    
 
     const events = [
         {
@@ -165,52 +338,53 @@ const OhIntroTimeline = () => {
       chartGroup.selectAll('circle').remove();
       chartGroup.selectAll('text').remove();
 
-      // Check if the x position of the line is within the timeline
-      const isWithinTimeline = (xPos) => xPos >= 0 && xPos <= width;
+     // Helper function to check if the circle's position is within the timeline
+const isWithinTimeline = (xPos) => xPos >= 0 && xPos <= width;
 
-      // Render each event as a circle on the timeline (render based on line position)
-      chartGroup
-        .selectAll('circle')
-        .data(events)
-        .enter()
-        .append('circle')
-        .attr('cx', (d) => scale(d.year))
-        .attr('cy', (d) => height / 2 + d.yPosition)
-        .attr('r', (d) => isWithinTimeline(scale(d.year)) ? 5 : 0)  // If outside, set radius to 0
-        .style('opacity', (d) => isWithinTimeline(scale(d.year)) ? 1 : 0)  // Make it fully invisible when outside
-        .attr('fill', 'white')  // Keep fill color as 'steelblue' for visible circles
-        .attr('class', 'bigtimelinecircle');  // Apply the new CSS class to the circles
+// Render each event as a circle on the timeline with clipping logic
+chartGroup
+  .selectAll('circle')
+  .data(events)
+  .enter()
+  .append('circle')
+  .attr('cx', (d) => scale(d.year))
+  .attr('cy', (d) => height / 2 + d.yPosition)
+  .attr('r', (d) => isWithinTimeline(scale(d.year)) ? 5 : 0) // Clip circle if outside the timeline
+  .attr('fill', 'white')
+  .attr('class', 'bigtimelinecircle');
 
-      // Render event names to the left of each circle
-      chartGroup
-        .selectAll('text.name-label')
-        .data(events)
-        .enter()
-        .append('text')
-        .attr('class', 'name-label')
-        .attr('x', (d) => scale(d.year) - 10) // Render name to the left of the circle
-        .attr('y', (d) => height / 2 + d.yPosition - 5)
-        .attr('text-anchor', 'end') // Anchor text to the end (left-aligned)
-        .text((d) => isWithinTimeline(scale(d.year)) ? d.name : '') // Clip name if outside timeline
-        .style('font-size', '13.5px')
-        .style('fill', 'black');
+// Render event names to the left of each circle, clipped at the edges
+chartGroup
+  .selectAll('text.name-label')
+  .data(events)
+  .enter()
+  .append('text')
+  .attr('class', 'name-label')
+  .attr('x', (d) => scale(d.year) - 10)
+  .attr('y', (d) => height / 2 + d.yPosition - 5)
+  .attr('text-anchor', 'end')
+  .text((d) => isWithinTimeline(scale(d.year)) ? d.name : '') // Clip text if outside the timeline
+  .style('font-size', '13.5px')
+  .style('fill', 'black');
 
-      // Render event labels below the name to the left of the circle
-      chartGroup
-        .selectAll('text.event-label')
-        .data(events)
-        .enter()
-        .append('text')
-        .attr('class', 'event-label')
-        .attr('x', (d) => scale(d.year) - 10) // Render label to the left of the circle
-        .attr('y', (d) => height / 2 + d.yPosition + 10)
-        .attr('text-anchor', 'end') // Anchor text to the end (left-aligned)
-        .text((d) => isWithinTimeline(scale(d.year)) ? d.label : '') // Clip label if outside timeline
-        .style('font-size', '10px')
-        .style('fill', 'gray');
+// Render event labels below the name to the left of the circle, clipped at the edges
+chartGroup
+  .selectAll('text.event-label')
+  .data(events)
+  .enter()
+  .append('text')
+  .attr('class', 'event-label')
+  .attr('x', (d) => scale(d.year) - 10)
+  .attr('y', (d) => height / 2 + d.yPosition + 10)
+  .attr('text-anchor', 'end')
+  .text((d) => isWithinTimeline(scale(d.year)) ? d.label : '') // Clip text if outside the timeline
+  .style('font-size', '10px')
+  .style('fill', 'gray');
+
     };
 
-    // Initial render with original xScale
+    // Initial render with categories and events
+    renderCategories(xScale);
     renderTimeline(xScale);
 
     // Zoom behavior
@@ -219,12 +393,10 @@ const OhIntroTimeline = () => {
       .translateExtent([[0, height], [width, 0]]) // Restrict vertical panning
       .on('zoom', (event) => {
         const transform = event.transform;
-        console.log('Zooming: ', transform);
-
-        // Update xScale based on zoom transform
         const newXScale = transform.rescaleX(xScale);
 
-        // Re-render the timeline with the updated scale
+        // Re-render the timeline and categories with the updated scale
+        renderCategories(newXScale);
         renderTimeline(newXScale);
       });
 
