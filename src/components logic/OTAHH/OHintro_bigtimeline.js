@@ -22,7 +22,28 @@ const OhIntroTimeline = () => {
       .attr('height', height)
       .attr('class', 'svgtimeline');
 
-    // Define a linear scale for the timeline (to represent large timespans)
+      svg.append('text')
+      .attr('x', -height / 5) // Position it horizontally
+      .attr('y', -50) // Position it vertically near the top
+      .attr('transform', 'rotate(-90)') // Rotate it vertically
+      .attr('text-anchor', 'middle') // Center the text
+      .style('font-size', '20px') // Adjust the font size
+      .style('fill', 'black') // Text color
+      .text('HISTORY'); // The label text
+
+    // Add the vertical "PREHISTORY" label below the timeline
+    svg.append('text')
+      .attr('x', -height ) // Position it horizontally, further down
+      .attr('y', -50) // Position it vertically near the bottom
+      .attr('transform', 'rotate(-90)') // Rotate it vertically
+      .attr('text-anchor', 'middle') // Center the text
+      .style('font-size', '20px') // Adjust the font size
+      .style('fill', 'black') // Text color
+      .text('PREHISTORY'); // The label text
+
+ 
+   
+      // Define a linear scale for the timeline (to represent large timespans)
     const xScale = d3
       .scaleLinear()
       .domain([-13.8e9, 2025]) // Domain spans from the Big Bang (-13.8 billion years) to 2025
@@ -36,7 +57,9 @@ const OhIntroTimeline = () => {
       .append('g')
       .attr('class', 'x-axis')
       .attr('transform', `translate(0, ${height / 2})`) // Center the timeline
-      .call(xAxis);
+      .call(xAxis)
+      .selectAll('path')  // Select the line (path) of the axis
+      .attr('stroke-width', 1.5); // Adjust the stroke width here
 
     // 2. Create a group to contain the circles, lines, and labels
     const chartGroup = svg.append('g');
@@ -45,9 +68,11 @@ const OhIntroTimeline = () => {
     const categories = [
       {
         name: 'Very Early Universe',
+        yearsLabel: ["13.8 Billion BCE", "13.65 Billion BCE"],
         startYear: -13.8e9,
         endYear: -13.79962e9,  // 380,000 years after the Big Bang
         color: '#e74c3c', // Red
+        customInfo: "Planck Epoch (0 to 10^-43 seconds)"
       },
       {
         name: 'Dark Ages',
@@ -174,43 +199,95 @@ const OhIntroTimeline = () => {
     
 
     // Add rectangles for each category
-    const renderCategories = (scale) => {
+    const renderCategories = (scale, currentZoomTransform = { k: 1, x: 0, y: 0 }) => {
       // Clear previous categories
       chartGroup.selectAll('rect').remove();
-    
+      
       // Define the clipping boundaries based on the width of the timeline
       const timelineStart = 0;  // Left boundary of the timeline (x = 0)
       const timelineEnd = width;  // Right boundary of the timeline
-    
+  
       // Render each category as a rectangle
       chartGroup
-        .selectAll('rect')
-        .data(categories)
-        .enter()
-        .append('rect')
-        .attr('x', (d) => {
-          // Calculate the start and end of the category in x-coordinates
-          const startX = scale(d.startYear);
-          
-    
-          // Clip the start if it's before the timeline's start
-          return Math.max(startX, timelineStart);
+          .selectAll('rect')
+          .data(categories)
+          .enter()
+          .append('rect')
+          .attr('x', (d) => {
+            // Calculate the start and end of the category in x-coordinates
+            const startX = scale(d.startYear);
+            return Math.max(startX, timelineStart);
+          })
+          .attr('width', (d) => {
+            const startX = scale(d.startYear);
+            const endX = scale(d.endYear);
+            const clippedEnd = Math.min(endX, timelineEnd);
+            const clippedStart = Math.max(startX, timelineStart);
+            return Math.max(clippedEnd - clippedStart, 0);  // Ensure no negative widths
+          })
+          .attr('y', (d) => d.startYear < -300000 ? height / 2 : height / 2 - 205) // Below or above the x-axis
+          .attr('height', (d) => d.startYear < -300000 ? 400 : 205)
+          .attr('fill', (d) => d.color) // Color for each segment
+          .attr('opacity', 0.3) // Slightly transparent
+          .on('mouseover', (event, d) => {
+            const card = d3.select('#bigTimelineCard');
+            
+            // Temporarily display the card to measure its height
+            card.style('display', 'block');
+            
+            // Get the bounding box of the hovered rectangle
+            const rectBounds = event.target.getBoundingClientRect();
+            console.log('Bounding box of the rectangle:', rectBounds);
+            
+            // Apply zoom transformation to calculate the correct positions
+            const adjustedX = currentZoomTransform.k * rectBounds.left + currentZoomTransform.x;
+            const adjustedY = currentZoomTransform.k * rectBounds.top + currentZoomTransform.y;
+            
+            // Log the adjusted positions based on zoom
+            console.log('Adjusted X:', adjustedX, 'Adjusted Y:', adjustedY);
+        
+            // Check the calculated height after displaying the card
+            const cardHeight = card.node().offsetHeight;
+            console.log('Card height:', cardHeight);
+            
+            // Determine whether the category is below or above the timeline
+            const isBelowTimeline = d.startYear < -300000;
+            console.log('Is category below the timeline?', isBelowTimeline);
+        
+            // Adjust the position of the card based on whether it's below or above the timeline
+            const cardY = isBelowTimeline
+                ? adjustedY - cardHeight - 10 + window.scrollY // If below, render above
+                : adjustedY + rectBounds.height + 10 + window.scrollY; // If above, render below
+        
+            console.log('Calculated card Y position:', cardY);
+        
+            // Set the position of the bigTimelineCard relative to the category
+            card
+                .html(d.customInfo) // Set the content to customInfo
+                .style('left', `${adjustedX + window.scrollX + rectBounds.width / 2 - card.node().offsetWidth / 2}px`)
+                .style('top', `${cardY}px`) // Adjust the top to the calculated position
+                .style('display', 'block'); // Ensure the card is displayed
+            
+            // Log the final card position for verification
+            console.log('Final card position - Left:', adjustedX + window.scrollX, 'Top:', cardY);
         })
-        .attr('width', (d) => {
-          const startX = scale(d.startYear);
-          const endX = scale(d.endYear);
-    
-          // Adjust width to clip the end if it exceeds the timeline's end
-          const clippedEnd = Math.min(endX, timelineEnd);
-          const clippedStart = Math.max(startX, timelineStart);
-          
-          return Math.max(clippedEnd - clippedStart, 0);  // Ensure no negative widths
+        .on('mouseout', () => {
+            // Hide the card when the mouse leaves the category
+            d3.select('#bigTimelineCard').style('display', 'none');
         })
-        .attr('y', (d) => d.startYear < -300000 ? height / 2 : height / 2 - 205) // Below or above the x-axis
-        .attr('height', (d) => d.startYear < -300000 ? 400 : 205)
-        .attr('fill', (d) => d.color) // Color for each segment
-        .attr('opacity', 0.3); // Slightly transparent
-    };
+        
+        
+          .on('mousemove', () => {
+              // Keep the card in the same position relative to the rectangle
+          })
+          .on('mouseout', () => {
+              // Hide the card when the mouse leaves the category
+              d3.select('#bigTimelineCard').style('display', 'none');
+          });
+  };
+  
+  
+    
     
     
 
@@ -225,13 +302,13 @@ const OhIntroTimeline = () => {
           name: 'Formation of the Earth',
           year: -4.5e9,
           label: '4,500,000,000 BCE',
-          yPosition: 180,
+          yPosition: 320,
         },
         {
           name: 'First life (bacteria)',
           year: -3.8e9,
           label: '3,800,000,000 BCE',
-          yPosition: 320,
+          yPosition: 360,
         },
         {
           name: 'Great Oxidation Event',
@@ -337,52 +414,79 @@ const OhIntroTimeline = () => {
       chartGroup.selectAll('line').remove();
       chartGroup.selectAll('circle').remove();
       chartGroup.selectAll('text').remove();
-
-     // Helper function to check if the circle's position is within the timeline
-const isWithinTimeline = (xPos) => xPos >= 0 && xPos <= width;
-
-// Render each event as a circle on the timeline with clipping logic
-chartGroup
-  .selectAll('circle')
+    
+      // Helper function to check if the circle's position is within the timeline
+      const isWithinTimeline = (xPos) => xPos >= 0 && xPos <= width;
+    
+      // Render vertical lines connecting the timeline to the circles
+      chartGroup
+  .selectAll('line')
   .data(events)
   .enter()
-  .append('circle')
-  .attr('cx', (d) => scale(d.year))
-  .attr('cy', (d) => height / 2 + d.yPosition)
-  .attr('r', (d) => isWithinTimeline(scale(d.year)) ? 5 : 0) // Clip circle if outside the timeline
-  .attr('fill', 'white')
-  .attr('class', 'bigtimelinecircle');
+  .append('line')
+  .attr('x1', (d) => scale(d.year)) // Start the line at the x position of the event
+  .attr('x2', (d) => scale(d.year)) // End the line at the same x position (vertical line)
+  .attr('y1', (d) => {
+    // Adjust the y2 value so the line stops just before the timeline (on both sides)
+    if (d.yPosition > 0) {
+      return height / 2 + d.yPosition ; // Lines going downward stop 1px before the circle
+    } else {
+      return height / 2 + d.yPosition ; // Lines going upward stop 1px before the circle
+    }
+  })
+  .attr('y2', (d) => {
+    // Adjust the y2 value so the line stops just before the timeline (on both sides)
+    if (d.yPosition > 0) {
+      return height / 2 + 1 ; // Lines going downward stop 1px before the circle
+    } else {
+      return height / 2 - 1 ; // Lines going upward stop 1px before the circle
+    }
+  })
+  .attr('stroke', (d) => (isWithinTimeline(scale(d.year)) ? 'white' : 'none')) // Clip lines if outside the timeline
+  .attr('stroke-width', 2);
 
-// Render event names to the left of each circle, clipped at the edges
-chartGroup
-  .selectAll('text.name-label')
-  .data(events)
-  .enter()
-  .append('text')
-  .attr('class', 'name-label')
-  .attr('x', (d) => scale(d.year) - 10)
-  .attr('y', (d) => height / 2 + d.yPosition - 5)
-  .attr('text-anchor', 'end')
-  .text((d) => isWithinTimeline(scale(d.year)) ? d.name : '') // Clip text if outside the timeline
-  .style('font-size', '13.5px')
-  .style('fill', 'black');
-
-// Render event labels below the name to the left of the circle, clipped at the edges
-chartGroup
-  .selectAll('text.event-label')
-  .data(events)
-  .enter()
-  .append('text')
-  .attr('class', 'event-label')
-  .attr('x', (d) => scale(d.year) - 10)
-  .attr('y', (d) => height / 2 + d.yPosition + 10)
-  .attr('text-anchor', 'end')
-  .text((d) => isWithinTimeline(scale(d.year)) ? d.label : '') // Clip text if outside the timeline
-  .style('font-size', '10px')
-  .style('fill', 'gray');
-
+    
+      // Render each event as a circle on the timeline with clipping logic
+      chartGroup
+        .selectAll('circle')
+        .data(events)
+        .enter()
+        .append('circle')
+        .attr('cx', (d) => scale(d.year))
+        .attr('cy', (d) => height / 2 + d.yPosition)
+        .attr('r', (d) => isWithinTimeline(scale(d.year)) ? 5 : 0) // Clip circle if outside the timeline
+        .attr('fill', 'white')
+        .attr('class', 'bigtimelinecircle');
+    
+      // Render event names to the left of each circle, clipped at the edges
+      chartGroup
+        .selectAll('text.name-label')
+        .data(events)
+        .enter()
+        .append('text')
+        .attr('class', 'name-label')
+        .attr('x', (d) => scale(d.year) - 10)
+        .attr('y', (d) => height / 2 + d.yPosition - 5)
+        .attr('text-anchor', 'end')
+        .text((d) => isWithinTimeline(scale(d.year)) ? d.name : '') // Clip text if outside the timeline
+        .style('font-size', '13.5px')
+        .style('fill', 'black');
+    
+      // Render event labels below the name to the left of the circle, clipped at the edges
+      chartGroup
+        .selectAll('text.event-label')
+        .data(events)
+        .enter()
+        .append('text')
+        .attr('class', 'event-label')
+        .attr('x', (d) => scale(d.year) - 10)
+        .attr('y', (d) => height / 2 + d.yPosition + 10)
+        .attr('text-anchor', 'end')
+        .text((d) => isWithinTimeline(scale(d.year)) ? d.label : '') // Clip text if outside the timeline
+        .style('font-size', '10px')
+        .style('fill', 'gray');
     };
-
+    
     // Initial render with categories and events
     renderCategories(xScale);
     renderTimeline(xScale);
@@ -405,7 +509,12 @@ chartGroup
 
   }, []);
 
-  return <div ref={timelineRef}></div>;
+  return (
+    <div ref={timelineRef}>
+      <div id="bigTimelineCard"></div>
+    </div>
+  );
+  
 };
 
 export default OhIntroTimeline;
