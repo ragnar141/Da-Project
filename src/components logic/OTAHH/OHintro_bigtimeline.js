@@ -12,20 +12,15 @@ const OhIntroTimeline = () => {
     // Set up the SVG canvas dimensions
     const width = 1350;
     const height = 400; // Increased height to accommodate labels above and below
-    const margin = { top: 20, right: 30, bottom: 20, left: 50 };
+    
 
     // Create an SVG element
     const svg = d3
       .select(timelineRef.current)
       .append('svg')
       .attr('width', width)
-      .attr('height', height);
-
-    // Define the clipPath, but it will only be used conditionally
-
-    // Create a group to contain the timeline elements
-    const chartGroup = svg.append('g')
-      .attr('clip-path', 'url(#clip)');
+      .attr('height', height)
+      .attr('class', 'svgtimeline');
 
     // Define a linear scale for the timeline (to represent large timespans)
     const xScale = d3
@@ -33,66 +28,135 @@ const OhIntroTimeline = () => {
       .domain([-13.8e9, 2025]) // Domain spans from the Big Bang (-13.8 billion years) to 2025
       .range([0, width]); // Full width of the timeline
 
-    // Add a bottom axis with no ticks (removed using .ticks(0))
-    const xAxis = d3.axisBottom(xScale).ticks(0); // No ticks
+    // Add a bottom axis with 3 ticks (using .ticks(3))
+    const xAxis = d3.axisBottom(xScale).ticks(0); // Ensure 3 ticks are rendered
 
-    const xAxisGroup = svg
+    // 1. Render the x-axis (timeline) first
+    svg
       .append('g')
       .attr('class', 'x-axis')
       .attr('transform', `translate(0, ${height / 2})`) // Center the timeline
       .call(xAxis);
 
-    // Mock dataset with yPosition for each event
+    // 2. Create a group to contain the circles, lines, and labels
+    const chartGroup = svg.append('g');
+
     const events = [
-      {
-        name: 'Big Bang',
-        year: -13.8e9,
-        label: '13,800,000,000 BCE',
-        yPosition: 100, // Lower means farther down on the screen
-      },
-      {
-        name: 'Formation of the Earth',
-        year: -4.5e9,
-        label: '4,500,000,000 BCE',
-        yPosition: 90,
-      },
-      {
-        name: 'First life on Earth',
-        year: -3.8e9,
-        label: '3,800,000,000 BCE',
-        yPosition: 80,
-      },
-      {
-        name: 'Cambrian Explosion',
-        year: -541e6,
-        label: '541,000,000 BCE',
-        yPosition: 70,
-      },
-      {
-        name: 'First humans (Homo sapiens)',
-        year: -300e3,
-        label: '300,000 BCE',
-        yPosition: 0, // Aligns with the x-axis
-      },
-      {
-        name: 'Agricultural revolution',
-        year: -8000,
-        label: '8000 BCE',
-        yPosition: -40, // Above the x-axis
-      },
-      {
-        name: 'Industrial revolution',
-        year: 1760,
-        label: '1760 CE',
-        yPosition: -60,
-      },
-      {
-        name: 'Modern era',
-        year: 2025,
-        label: '2025 CE',
-        yPosition: -80, // Higher up on the screen
-      },
-    ];
+        {
+          name: 'Big Bang',
+          year: -13.8e9,
+          label: '13,800,000,000 BCE',
+          yPosition: 0, // Lower means farther down on the screen
+        },
+        {
+          name: 'Formation of the Earth',
+          year: -4.5e9,
+          label: '4,500,000,000 BCE',
+          yPosition: 180,
+        },
+        {
+          name: 'First life (bacteria)',
+          year: -3.8e9,
+          label: '3,800,000,000 BCE',
+          yPosition: 320,
+        },
+        {
+          name: 'Great Oxidation Event',
+          year: -2.4e9,
+          label: '2,400,000,000 BCE',
+          yPosition: 400,
+        },
+        {
+          name: 'Multicellular organisms',
+          year: -1.5e9,
+          label: '1,500,000,000 BCE',
+          yPosition: 367,
+        },
+        {
+          name: 'Cambrian Explosion',
+          year: -541e6,
+          label: '541,000,000 BCE',
+          yPosition: 335,
+        },
+        {
+          name: 'Colonization of land by plants',
+          year: -470e6,
+          label: '470,000,000 BCE',
+          yPosition: 292,
+        },
+        {
+          name: 'First land animals',
+          year: -430e6,
+          label: '430,000,000 BCE',
+          yPosition: 247,
+        },
+        {
+          name: 'Permian-Triassic Extinction',
+          year: -252e6,
+          label: '252,000,000 BCE',
+          yPosition: 200,
+        },
+        {
+          name: 'Dinosaurs',
+          year: -230e6,
+          label: '230,000,000 BCE',
+          yPosition: 160,
+        },
+        {
+          name: 'Primates',
+          year: -55e6,
+          label: '55,000,000 BCE',
+          yPosition: 120,
+        },
+        {
+          name: 'Walking on two legs',
+          year: -7e6,
+          label: '7,000,000 BCE',
+          yPosition: 80, // Same as above, as it represents the same event
+        },
+        {
+          name: 'Learning to cook',
+          year: -500e3,
+          label: '500,000 BCE',
+          yPosition: 40,
+        },
+        {
+          name: 'First humans (Homo sapiens)',
+          year: -300e3,
+          label: '300,000 BCE',
+          yPosition: 0, // Aligns with the x-axis
+        },
+        {
+          name: 'First symbolic behavior',
+          year: -100e3,
+          label: '100,000 BCE',
+          yPosition: -40,
+        },
+        {
+          name: 'First art',
+          year: -75e3,
+          label: '75,000 BCE',
+          yPosition: -80,
+        },
+        {
+          name: 'Agricultural revolution and First Cities',
+          year: -8000,
+          label: '8000 BCE',
+          yPosition: -120,
+        },
+        {
+          name: 'Industrial revolution',
+          year: 1760,
+          label: '1760 CE - 1840 CE',
+          yPosition: -165,
+        },
+        {
+          name: 'Today',
+          year: 2025,
+          label: '2025 CE',
+          yPosition: -205, // Higher up on the screen
+        },
+      ];
 
     // Render the timeline elements (circles, lines, and labels)
     const renderTimeline = (scale) => {
@@ -104,44 +168,46 @@ const OhIntroTimeline = () => {
       // Check if the x position of the line is within the timeline
       const isWithinTimeline = (xPos) => xPos >= 0 && xPos <= width;
 
-      // Render vertical lines connecting the x-axis to the circles
-      chartGroup
-        .selectAll('line')
-        .data(events)
-        .enter()
-        .append('line')
-        .attr('x1', (d) => scale(d.year))
-        .attr('x2', (d) => scale(d.year))
-        .attr('y1', height / 2)
-        .attr('y2', (d) => height / 2 + d.yPosition)
-        .attr('stroke', (d) => isWithinTimeline(scale(d.year)) ? 'gray' : 'none') // Clip line if outside
-        .attr('stroke-width', 1);
-
       // Render each event as a circle on the timeline (render based on line position)
       chartGroup
-  .selectAll('circle')
-  .data(events)
-  .enter()
-  .append('circle')
-  .attr('cx', (d) => scale(d.year))
-  .attr('cy', (d) => height / 2 + d.yPosition)
-  .attr('r', (d) => isWithinTimeline(scale(d.year)) ? 5 : 0)  // If outside, set radius to 0
-  .style('opacity', (d) => isWithinTimeline(scale(d.year)) ? 1 : 0)  // Make it fully invisible when outside
-  .attr('fill', 'steelblue');  // Keep fill color as 'steelblue' for visible circles
+        .selectAll('circle')
+        .data(events)
+        .enter()
+        .append('circle')
+        .attr('cx', (d) => scale(d.year))
+        .attr('cy', (d) => height / 2 + d.yPosition)
+        .attr('r', (d) => isWithinTimeline(scale(d.year)) ? 5 : 0)  // If outside, set radius to 0
+        .style('opacity', (d) => isWithinTimeline(scale(d.year)) ? 1 : 0)  // Make it fully invisible when outside
+        .attr('fill', 'white')  // Keep fill color as 'steelblue' for visible circles
+        .attr('class', 'bigtimelinecircle');  // Apply the new CSS class to the circles
 
-
-      // Render event labels and names (render based on line position)
+      // Render event names to the left of each circle
       chartGroup
-        .selectAll('text')
+        .selectAll('text.name-label')
         .data(events)
         .enter()
         .append('text')
-        .attr('x', (d) => scale(d.year))
-        .attr('y', (d) => height / 2 + d.yPosition - 10)
-        .attr('text-anchor', 'middle')
-        .text((d) => isWithinTimeline(scale(d.year)) ? `${d.name}: ${d.label}` : '') // Clip label if line is outside
-        .style('font-size', '12px')
+        .attr('class', 'name-label')
+        .attr('x', (d) => scale(d.year) - 10) // Render name to the left of the circle
+        .attr('y', (d) => height / 2 + d.yPosition - 5)
+        .attr('text-anchor', 'end') // Anchor text to the end (left-aligned)
+        .text((d) => isWithinTimeline(scale(d.year)) ? d.name : '') // Clip name if outside timeline
+        .style('font-size', '13.5px')
         .style('fill', 'black');
+
+      // Render event labels below the name to the left of the circle
+      chartGroup
+        .selectAll('text.event-label')
+        .data(events)
+        .enter()
+        .append('text')
+        .attr('class', 'event-label')
+        .attr('x', (d) => scale(d.year) - 10) // Render label to the left of the circle
+        .attr('y', (d) => height / 2 + d.yPosition + 10)
+        .attr('text-anchor', 'end') // Anchor text to the end (left-aligned)
+        .text((d) => isWithinTimeline(scale(d.year)) ? d.label : '') // Clip label if outside timeline
+        .style('font-size', '10px')
+        .style('fill', 'gray');
     };
 
     // Initial render with original xScale
@@ -157,9 +223,6 @@ const OhIntroTimeline = () => {
 
         // Update xScale based on zoom transform
         const newXScale = transform.rescaleX(xScale);
-
-        // Update x-axis
-        xAxisGroup.call(d3.axisBottom(newXScale).ticks(0)); // Keep no ticks
 
         // Re-render the timeline with the updated scale
         renderTimeline(newXScale);

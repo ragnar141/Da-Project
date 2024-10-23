@@ -1,13 +1,14 @@
-svg {
+.svgtimeline {
     font-family: 'Helvetica', sans-serif;
-    padding-left: 50px;
+    padding-left: 100px;
+    padding-top: 5px;
   }
   
   .event-label {
     fill: black;
   }
   
-  circle {
+  .bigtimelinecircle {
     stroke: black;
     stroke-width: 1px;
   }
