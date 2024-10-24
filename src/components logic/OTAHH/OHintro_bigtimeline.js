@@ -72,7 +72,16 @@ const OhIntroTimeline = () => {
         startYear: -13.8e9,
         endYear: -13.79962e9,  // 380,000 years after the Big Bang
         color: '#e74c3c', // Red
-        customInfo: "Planck Epoch (0 to 10^-43 seconds)"
+        customInfo: `
+          Planck Epoch (0 to 10<sup>-43</sup> seconds) - The universe was so small and hot that space and time were essentially indistinguishable.<br><br>
+          Grand Unification Epoch (10<sup>-43</sup> to 10<sup>-36</sup> seconds) - Gravity separated from the other forces, leaving the strong nuclear force, weak nuclear force, and electromagnetism still unified. The universe was still expanding and cooling rapidly.<br><br>
+          Inflationary Epoch (10<sup>-36</sup> to 10<sup>-32</sup> seconds) - Rapid expansion of the universe, growing faster than the speed of light, leading to the homogeneity we observe in the universe today.<br><br>
+          Quark Epoch (10<sup>-12</sup> to 10<sup>-6</sup> seconds) - The universe continued to cool, allowing quarks (the building blocks of protons and neutrons) to form.<br><br>
+          Hadron Epoch (10<sup>-6</sup> to 1 second) - Protons and neutrons (collectively called hadrons) were bound by the strong nuclear force, leading to early stages of matter formation.<br><br>
+          Lepton Epoch (1 second to 10 seconds) - Domination of leptons (electrons and neutrinos); heavier particles (protons and neutrons) became stable.<br><br>
+          Photon Epoch (10 seconds to 380,000 years) - The universe became dominated by photons (radiation), as free electrons and protons still interacted frequently, preventing light from traveling freely. Nucleosynthesis creates the first elements.<br><br>
+          Recombination (~380,000 years) - Neutral hydrogen atoms allow light to travel freely for the first time. Cosmic Microwave Background (CMB) radiation was released, providing a “fossil” of the early universe.<br><br>
+        `
       },
       {
         name: 'Dark Ages',
@@ -198,93 +207,97 @@ const OhIntroTimeline = () => {
     ];
     
 
-    // Add rectangles for each category
-    const renderCategories = (scale, currentZoomTransform = { k: 1, x: 0, y: 0 }) => {
-      // Clear previous categories
-      chartGroup.selectAll('rect').remove();
-      
-      // Define the clipping boundaries based on the width of the timeline
-      const timelineStart = 0;  // Left boundary of the timeline (x = 0)
-      const timelineEnd = width;  // Right boundary of the timeline
+
   
       // Render each category as a rectangle
-      chartGroup
-          .selectAll('rect')
-          .data(categories)
-          .enter()
-          .append('rect')
-          .attr('x', (d) => {
-            // Calculate the start and end of the category in x-coordinates
-            const startX = scale(d.startYear);
-            return Math.max(startX, timelineStart);
-          })
-          .attr('width', (d) => {
-            const startX = scale(d.startYear);
-            const endX = scale(d.endYear);
-            const clippedEnd = Math.min(endX, timelineEnd);
-            const clippedStart = Math.max(startX, timelineStart);
-            return Math.max(clippedEnd - clippedStart, 0);  // Ensure no negative widths
-          })
-          .attr('y', (d) => d.startYear < -300000 ? height / 2 : height / 2 - 205) // Below or above the x-axis
-          .attr('height', (d) => d.startYear < -300000 ? 400 : 205)
-          .attr('fill', (d) => d.color) // Color for each segment
-          .attr('opacity', 0.3) // Slightly transparent
-          .on('mouseover', (event, d) => {
-            const card = d3.select('#bigTimelineCard');
-            
-            // Temporarily display the card to measure its height
-            card.style('display', 'block');
-            
-            // Get the bounding box of the hovered rectangle
-            const rectBounds = event.target.getBoundingClientRect();
-            console.log('Bounding box of the rectangle:', rectBounds);
-            
-            // Apply zoom transformation to calculate the correct positions
-            const adjustedX = currentZoomTransform.k * rectBounds.left + currentZoomTransform.x;
-            const adjustedY = currentZoomTransform.k * rectBounds.top + currentZoomTransform.y;
-            
-            // Log the adjusted positions based on zoom
-            console.log('Adjusted X:', adjustedX, 'Adjusted Y:', adjustedY);
+      const renderCategories = (scale, currentZoomTransform = { k: 1, x: 0, y: 0 }) => {
+        // Clear previous categories
+        chartGroup.selectAll('rect').remove();
         
-            // Check the calculated height after displaying the card
-            const cardHeight = card.node().offsetHeight;
-            console.log('Card height:', cardHeight);
+        // Define the clipping boundaries based on the width of the timeline
+        const timelineStart = 0;  // Left boundary of the timeline (x = 0)
+        const timelineEnd = width;  // Right boundary of the timeline
+    
+        // Render each category as a rectangle
+        chartGroup
+            .selectAll('rect')
+            .data(categories)
+            .enter()
+            .append('rect')
+            .attr('x', (d) => {
+                // Calculate the start and end of the category in x-coordinates
+                const startX = scale(d.startYear);
+                return Math.max(startX, timelineStart);
+            })
+            .attr('width', (d) => {
+                const startX = scale(d.startYear);
+                const endX = scale(d.endYear);
+                const clippedEnd = Math.min(endX, timelineEnd);
+                const clippedStart = Math.max(startX, timelineStart);
+                return Math.max(clippedEnd - clippedStart, 0);  // Ensure no negative widths
+            })
+            .attr('y', (d) => d.startYear < -300000 ? height / 2 : height / 2 - 205) // Below or above the x-axis
+            .attr('height', (d) => d.startYear < -300000 ? 400 : 205)
+            .attr('fill', (d) => d.color) // Color for each segment
+            .attr('opacity', 0.3) // Slightly transparent by default
+            .on('mouseover', (event, d) => {
+                const card = d3.select('#bigTimelineCard');
+                
+                // Interrupt any previous transitions and immediately reset styles
+                card.interrupt().style('opacity', 0).style('display', 'none');
             
-            // Determine whether the category is below or above the timeline
-            const isBelowTimeline = d.startYear < -300000;
-            console.log('Is category below the timeline?', isBelowTimeline);
-        
-            // Adjust the position of the card based on whether it's below or above the timeline
-            const cardY = isBelowTimeline
-                ? adjustedY - cardHeight - 10 + window.scrollY // If below, render above
-                : adjustedY + rectBounds.height + 10 + window.scrollY; // If above, render below
-        
-            console.log('Calculated card Y position:', cardY);
-        
-            // Set the position of the bigTimelineCard relative to the category
-            card
-                .html(d.customInfo) // Set the content to customInfo
-                .style('left', `${adjustedX + window.scrollX + rectBounds.width / 2 - card.node().offsetWidth / 2}px`)
-                .style('top', `${cardY}px`) // Adjust the top to the calculated position
-                .style('display', 'block'); // Ensure the card is displayed
+                // Display the card with the category’s name and years label
+                const infoContent = `<strong>${d.name}</strong><br>${d.yearsLabel ? d.yearsLabel.join(' - ') : ''}`;
             
-            // Log the final card position for verification
-            console.log('Final card position - Left:', adjustedX + window.scrollX, 'Top:', cardY);
-        })
-        .on('mouseout', () => {
-            // Hide the card when the mouse leaves the category
-            d3.select('#bigTimelineCard').style('display', 'none');
-        })
-        
-        
-          .on('mousemove', () => {
-              // Keep the card in the same position relative to the rectangle
-          })
-          .on('mouseout', () => {
-              // Hide the card when the mouse leaves the category
-              d3.select('#bigTimelineCard').style('display', 'none');
-          });
-  };
+                // Temporarily display the card to measure its height
+                card.style('display', 'block').html(infoContent) // Insert name and yearsLabel
+                    .style('border-color', d.color); // Set the border color to match the category
+                
+                // Get the bounding box of the hovered rectangle
+                const rectBounds = event.target.getBoundingClientRect();
+                
+                // Apply zoom transformation to calculate the correct positions
+                
+                const adjustedY = currentZoomTransform.k * rectBounds.top + currentZoomTransform.y;
+            
+                // Get card height after it's displayed
+                const cardHeight = card.node().offsetHeight;
+                
+                // Determine if the category is below or above the timeline
+                const isBelowTimeline = d.startYear < -300000;
+            
+                // Adjust the card position based on timeline location
+                const cardY = isBelowTimeline
+                    ? adjustedY - cardHeight - 10 + window.scrollY // If below, render above
+                    : adjustedY + rectBounds.height + 10 + window.scrollY; // If above, render below
+            
+                // Set the position of the bigTimelineCard relative to the category
+                card
+                    .style('left', `${rectBounds.left + window.scrollX + rectBounds.width / 2 - card.node().offsetWidth / 2}px`)
+                    .style('top', `${cardY}px`) // Adjust the top to the calculated position
+                    .transition()
+                    .duration(200)
+                    .style('opacity', 1); // Ensure the card smoothly appears
+            
+                // Set the opacity of the hovered category to 1
+                d3.select(event.target).attr('opacity', 1);
+            })
+            .on('mouseout', (event) => {
+                // Hide the card when the mouse leaves the category
+                d3.select('#bigTimelineCard')
+                    .interrupt()
+                    .transition()
+                    .duration(200)
+                    .style('opacity', 0)
+                    .on('end', function () {
+                        d3.select(this).style('display', 'none');
+                    });
+            
+                // Reset the opacity of the category when the mouse leaves
+                d3.select(event.target).attr('opacity', 0.3); // Reset to original opacity
+            });
+    };
+    
   
   
     
