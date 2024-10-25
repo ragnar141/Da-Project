@@ -6,21 +6,58 @@
   text-align: center;
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: "Times New Roman", serif;
-  font-size: 16px;
+  font-family: "Helvetica", "Arial", sans-serif;
+  font-size: 14px;
   border: 2px solid transparent; /* Border color will change on hover */
   z-index: 2000; /* Higher than author card to ensure it appears on top */
   opacity: 0.9; /* Slight transparency */
   pointer-events: none; /* Ensure it doesn’t interfere with mouse events */
   white-space: normal; /* Allow text wrapping inside the card */
-  max-width: 250px; /* Set maximum width for the card */
+  max-width: 800px; /* Set maximum width for the card */
   overflow-wrap: break-word; /* Ensure long words wrap */
+}
+
+#bigTimelineCard ul {
+  text-align: left; /* Align the bullet points to the left */
+  padding-left: 25px; /* Adjust bullet point padding for readability */
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+#bigTimelineCard ul li {
+  margin-bottom: 5px; /* Space between bullet points */
+}
+
+.custom-info-left {
+  text-align: left;
+  margin-bottom: 5px; /* Adjust spacing between entries */
+  padding-left: 20px; /* Add padding to the left side */
+}
+
+/* Flexbox for horizontal layout of section title and items */
+.horizontal-section {
+  display: flex;
+  align-items: center; /* Align section title and items vertically in the center */
+  margin-top: 0px;
+  text-align: left;
+}
+
+.section-title {
+  font-weight: bold;
+  margin-right: 10px; /* Space between title and items */
+}
+
+.section-items {
+  display: inline-block;
+  list-style-type: disc; /* Use bullet points */
+  padding-left: 10px; /* Add padding to the left */
+ 
 }
 
 .svgtimeline {
   font-family: 'Helvetica', sans-serif;
   padding-left: 100px;
-  padding-top: 5px;
+  padding-top: 50px;
 }
 
 .event-label {

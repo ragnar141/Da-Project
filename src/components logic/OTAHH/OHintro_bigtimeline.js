@@ -68,138 +68,265 @@ const OhIntroTimeline = () => {
     const categories = [
       {
         name: 'Very Early Universe',
-        yearsLabel: ["13.8 Billion BCE", "13.65 Billion BCE"],
+        yearsLabel: ["13.8 Billion BCE", "13.8 Billion BCE"],
         startYear: -13.8e9,
         endYear: -13.79962e9,  // 380,000 years after the Big Bang
         color: '#e74c3c', // Red
-        customInfo: `
-          Planck Epoch (0 to 10<sup>-43</sup> seconds) - The universe was so small and hot that space and time were essentially indistinguishable.<br><br>
-          Grand Unification Epoch (10<sup>-43</sup> to 10<sup>-36</sup> seconds) - Gravity separated from the other forces, leaving the strong nuclear force, weak nuclear force, and electromagnetism still unified. The universe was still expanding and cooling rapidly.<br><br>
-          Inflationary Epoch (10<sup>-36</sup> to 10<sup>-32</sup> seconds) - Rapid expansion of the universe, growing faster than the speed of light, leading to the homogeneity we observe in the universe today.<br><br>
-          Quark Epoch (10<sup>-12</sup> to 10<sup>-6</sup> seconds) - The universe continued to cool, allowing quarks (the building blocks of protons and neutrons) to form.<br><br>
-          Hadron Epoch (10<sup>-6</sup> to 1 second) - Protons and neutrons (collectively called hadrons) were bound by the strong nuclear force, leading to early stages of matter formation.<br><br>
-          Lepton Epoch (1 second to 10 seconds) - Domination of leptons (electrons and neutrinos); heavier particles (protons and neutrons) became stable.<br><br>
-          Photon Epoch (10 seconds to 380,000 years) - The universe became dominated by photons (radiation), as free electrons and protons still interacted frequently, preventing light from traveling freely. Nucleosynthesis creates the first elements.<br><br>
-          Recombination (~380,000 years) - Neutral hydrogen atoms allow light to travel freely for the first time. Cosmic Microwave Background (CMB) radiation was released, providing a “fossil” of the early universe.<br><br>
-        `
+        customInfo: [
+          {"epochName": "Planck Epoch", "duration": "(0 to 10<sup>-43</sup> seconds)"},
+          {"epochName": "Grand Unification Epoch", "duration": "10<sup>-43</sup> to 10<sup>-36</sup> seconds"},        
+          {"epochName": "Inflationary Epoch", "duration": "10<sup>-36</sup> to 10<sup>-32</sup> seconds"},
+          {"epochName": "Quark Epoch", "duration": "10<sup>-12</sup> to 10<sup>-6</sup> seconds"},
+          {"epochName": "Hadron Epoch", "duration": "10<sup>-6</sup> to 1 second"},
+          {"epochName": "Lepton Epoch", "duration": "1 second to 10 seconds"},
+          {"epochName": "Photon Epoch", "duration": "10 seconds to 380,000 years"},
+          {"epochName": "Recombination", "duration": "~380,000 years"}
+        ]
+        
       },
       {
         name: 'Dark Ages',
+        yearsLabel: ["13.8 Billion BCE", "13.65 Billion BCE"],
         startYear: -13.79962e9,
         endYear: -13.65e9,  // 150 million years after the Big Bang
         color: '#2ecc71', // Green
+        customInfo: [
+          {"epochName": "Early Dark Ages", "duration": "370,000 years to ~100 million years"},
+          {"epochName": "Structure Formation", "duration": "~100 million years to ~500 million years"},
+          {"epochName": "Reionization", "duration": "~500 million years to 1 billion years"}
+       ]
+          
       },
       {
         name: 'Cosmic Dawn',
+        yearsLabel: ["13.65 Billion BCE", "12.8 Billion BCE" ],
         startYear: -13.65e9,  // 150 million years after the Big Bang
         endYear: -12.8e9,     // 1 billion years after the Big Bang
         color: '#3498db', // Blue
+        customInfo: [
+          {"epochName": "First Light Sources", "duration": "~100-250 million years"},
+          {"epochName": "Lyman-Alpha Coupling", "duration": "~250-400 million years"},
+          {"epochName": "Heating of the Intergalactic Medium", "duration": "~400-700 million years"},
+          {"epochName": "Transition to Emission", "duration": "~700 million to 1 billion years"}
+          ]
       },
       {
-        name: 'Galaxy Formation Era',
-        startYear: -12.8e9,   // 1 billion years after the Big Bang
-        endYear: -8.8e9,      // 5 billion years after the Big Bang
+        name: 'Formation of Galaxy and new chemical elements',
+        yearsLabel: ["13.2 Billion BCE", "4.6 billion BCE" ],
+        startYear: -13.2e9,   // 1 billion years after the Big Bang
+        endYear: -4.6e9,      // 5 billion years after the Big Bang
         color: '#f39c12', // Orange
+        customInfo: [
+          {"epochName": "Early Galaxy Formation", "duration": "~400 million years"},
+          {"epochName": "Peak Galaxy Formation", "duration": "~2.8 billion years"},
+          {"epochName": "Chemical Enrichment", "duration": "~3 billion years"},
+          {"epochName": "Galaxy Maturation", "duration": "~2 billion years"},
+          {"epochName": "Pre-Solar System Era", "duration": "~400 million years"}
+        ]
       },
       {
         name: 'Solar System Formation',
-        startYear: -9.2e9,   // 9.2 billion years after the Big Bang
+        yearsLabel: ["4.6 billion BCE", "4.5 billion BCE"],
+        startYear: -4.6e9,   // 9.2 billion years after the Big Bang
         endYear: -4.5e9,     // Formation of Solar System
         color: '#9b59b6', // Purple
+        customInfo: [
+          {"epochName": "Pre-solar Nebula Collapse", "duration": "~1 million years"},
+          {"epochName": "Protostar Formation", "duration": "~10 million years"},
+          {"epochName": "Protoplanetary Disk Formation", "duration": "~20 million years"},
+          {"epochName": "Planetesimal Formation", "duration": "~20 million years"},
+          {"epochName": "Planetary Embryo Formation", "duration": "~30 million years"},
+          {"epochName": "Gas Giant Formation", "duration": "~20 million years"},
+          {"epochName": "Terrestrial Planet Formation", "duration": "~50+ million years"}
+        ]
       },
       {
         name: 'Hadean',
+        yearsLabel: ["4.5 billion BCE", "4.0 billion BCE"],
         startYear: -4.5e9,  // 4.6 billion years ago
         endYear: -4.0e9,    // 4.0 billion years ago
         color: '#e74c3c', // Red
+        customInfo: [
+          {"epochName": "Early Hadean", "duration": "~100 million years"},
+          {"epochName": "Moon Formation", "duration": "~50 million years"},
+          {"epochName": "Late Heavy Bombardment", "duration": "~200 million years"},
+          {"epochName": "Cooling and Crust Formation", "duration": "~100 million years"},
+          {"epochName": "Early Atmosphere Development", "duration": "~50 million years"}
+        ]
       },
       {
         name: 'Archean',
+        yearsLabel: ["4.0 billion BCE", "2.5 billion BCE" ],
         startYear: -4.0e9,  // 4.0 billion years ago
         endYear: -2.5e9,    // 2.5 billion years ago
         color: '#2ecc71', // Green
+        customInfo: [
+          {"epochName": "Eoarchean", "duration": "~400 million years"},
+          {"epochName": "Paleoarchean", "duration": "~400 million years"},
+          {"epochName": "Mesoarchean", "duration": "~400 million years"},
+          {"epochName": "Neoarchean", "duration": "~300 million years"},
+       ]
       },
       {
         name: 'Proterozoic',
+        yearsLabel: ["2.5 billion BCE", "541 million BCE" ],
         startYear: -2.5e9,  // 2.5 billion years ago
         endYear: -541e6,    // 541 million years ago
         color: '#3498db', // Blue
+        customInfo: [
+          {"epochName": "Paleoproterozoic Era", "duration": "~900 million years"},
+          {"epochName": "Mesoproterozoic Era", "duration": "~600 million years"},
+          {"epochName": "Neoproterozoic Era", "duration": "~459 million years"}
+        ]
       },
       {
         name: 'Phanerozoic',
+        yearsLabel: ["541 million BCE", "2025" ],
         startYear: -541e6,  // 541 million years ago
         endYear: -300000,      // Present (or near future)
         color: '#f39c12', // Orange
+        customInfo: [
+          {"epochName": "Paleozoic Era", "duration": "~289 million years"},
+          {"epochName": "Mesozoic Era", "duration": "~186 million years"},
+          {"epochName": "Cenozoic Era", "duration": "~66 million years"}
+        ]
       },
       {
         name: 'Phanerozoic',
+        yearsLabel: ["541 million BCE", "2025" ],
         startYear: -300000,  // 541 million years ago
         endYear: 2025,      // Present (or near future)
         color: '#f39c12', // Orange
+        customInfo: [
+          {"epochName": "Paleozoic Era", "duration": "~289 million years"},
+          {"epochName": "Mesozoic Era", "duration": "~186 million years"},
+          {"epochName": "Cenozoic Era", "duration": "~66 million years"}
+        ]
       },
       {
         name: 'Paleolithic',
+        yearsLabel: ["3.3 million BCE", "10000 BCE" ],
         startYear: -3.4e6,   // 3.4 million years ago
         endYear: -300000,     // 11,700 years ago
         color: '#e74c3c', // Red
+        customInfo: [
+          {"epochName": "Lower Paleolithic", "duration": "~3 million years"},
+          {"epochName": "Middle Paleolithic", "duration": "~270 thousand years"},
+          {"epochName": "Upper Paleolithic", "duration": "~50 thousand years"}
+        ]
       },
       {
         name: 'Paleolithic',
+        yearsLabel: ["3.3 million BCE", "10000 BCE" ],
         startYear: -300000,   // 3.4 million years ago
         endYear: -11700,     // 11,700 years ago
         color: '#e74c5c', // Red
+        customInfo: [
+          {"epochName": "Lower Paleolithic", "duration": "~3 million years"},
+          {"epochName": "Middle Paleolithic", "duration": "~270 thousand years"},
+          {"epochName": "Upper Paleolithic", "duration": "~50 thousand years"}
+        ]
       },
 
       {
         name: 'Mesolithic',
+        yearsLabel: ["10000 BCE", "8000 BCE" ],
         startYear: -11700,   // 11,700 years ago
         endYear: -8000,      // 8,000 years ago
         color: '#2ecc71', // Green
-      },
-      {
-        name: 'Neolithic',
-        startYear: -8000,    // 8,000 BCE
-        endYear: -3300,      // 3,300 BCE
-        color: '#3498db', // Blue
-      },
+        summary: ["Splitting into Settlers and Hunter-Gatherers",
+                  "Developing microliths (small stone tools, that can be used as components of composite tools)",
+                  "Period varies significantly by region, based on local resources and climatic conditions"
+                ]
+            },
+            {
+              name: 'Neolithic',
+              yearsLabel: ["8000 BCE", "3300 BCE"],
+              startYear: -8000,    // 8,000 BCE
+              endYear: -3300,      // 3,300 BCE
+              color: '#3498db', // Blue
+              details: [
+                  {
+                      sectionTitle: "Technological Advancements",
+                      items: [
+                          "Polished stone tools",
+                          "Pottery production",
+                          "Weaving and textile production"
+                      ]
+                  },
+                  {
+                      sectionTitle: "Social/Cultural Changes",
+                      items: [
+                          "Emergence of more complex social structures",
+                          "Population growth (Neolithic demographic transition)",
+                          "Development of trade networks",
+                          "New forms of art and architecture (e.g., megaliths)",
+                          "Religious and ritual practices (e.g., burial customs)"
+                      ]
+                  },
+                  {
+                      sectionTitle: "Regional Variations",
+                      items: [
+                          "Began earlier in the Fertile Crescent (around 10,000 BCE)",
+                          "Spread to other parts of Eurasia, Africa, and beyond over several millennia"
+                      ]
+                  },
+                  {
+                      sectionTitle: "Key Sites",
+                      items: [
+                          "Jericho (one of the earliest known towns)",
+                          "Çatalhöyük (large Neolithic settlement in Turkey)",
+                          "Göbekli Tepe (early temple complex)"
+                      ]
+                  }
+              ]
+          }
+          ,
       {
         name: 'Bronze Age',
+        yearsLabel: ["3300 BCE", "1200 BCE" ],
         startYear: -3300,    // 3,300 BCE
         endYear: -1200,      // 1,200 BCE
         color: '#f39c12', // Orange
       },
       {
         name: 'Iron Age',
+        yearsLabel: ["1200 BCE", "500 BCE" ],
         startYear: -1200,    // 1,200 BCE
         endYear: 500,        // 500 CE
         color: '#9b59b6', // Purple
       },
       {
         name: 'Middle Ages',
+        yearsLabel: ["500 CE", "1500 CE" ],
         startYear: 500,      // 500 CE
         endYear: 1500,       // 1500 CE
         color: '#e67e22', // Dark Orange
       },
       {
         name: 'Early Modern Period',
+        yearsLabel: ["1500 CE", "1800 CE" ],
         startYear: 1500,     // 1500 CE
         endYear: 1800,       // 1800 CE
         color: '#1abc9c', // Teal
       },
       {
         name: 'Modern Era',
+        yearsLabel: ["1800 CE", "2025 CE" ],
         startYear: 1800,     // 1800 CE
         endYear: 2025,       // Present
         color: '#34495e', // Dark Blue
       },
       {
         name: 'Industrial Age',
+        yearsLabel: ["1760 CE", "1970 CE" ],
         startYear: 1760,     // 1760 CE
         endYear: 1970,       // 1970 CE
         color: '#f1c40f', // Yellow
       },
       {
         name: 'Information Age',
+        yearsLabel: ["1970 CE", "2025 CE" ],
         startYear: 1970,     // 1970 CE
         endYear: 2025,       // Present
         color: '#95a5a6', // Gray
@@ -211,93 +338,144 @@ const OhIntroTimeline = () => {
   
       // Render each category as a rectangle
       const renderCategories = (scale, currentZoomTransform = { k: 1, x: 0, y: 0 }) => {
-        // Clear previous categories
         chartGroup.selectAll('rect').remove();
-        
-        // Define the clipping boundaries based on the width of the timeline
-        const timelineStart = 0;  // Left boundary of the timeline (x = 0)
-        const timelineEnd = width;  // Right boundary of the timeline
-    
-        // Render each category as a rectangle
+  
+        const timelineStart = 0;
+        const timelineEnd = width;
+  
         chartGroup
-            .selectAll('rect')
-            .data(categories)
-            .enter()
-            .append('rect')
-            .attr('x', (d) => {
-                // Calculate the start and end of the category in x-coordinates
-                const startX = scale(d.startYear);
-                return Math.max(startX, timelineStart);
-            })
-            .attr('width', (d) => {
-                const startX = scale(d.startYear);
-                const endX = scale(d.endYear);
-                const clippedEnd = Math.min(endX, timelineEnd);
-                const clippedStart = Math.max(startX, timelineStart);
-                return Math.max(clippedEnd - clippedStart, 0);  // Ensure no negative widths
-            })
-            .attr('y', (d) => d.startYear < -300000 ? height / 2 : height / 2 - 205) // Below or above the x-axis
-            .attr('height', (d) => d.startYear < -300000 ? 400 : 205)
-            .attr('fill', (d) => d.color) // Color for each segment
-            .attr('opacity', 0.3) // Slightly transparent by default
-            .on('mouseover', (event, d) => {
-                const card = d3.select('#bigTimelineCard');
-                
-                // Interrupt any previous transitions and immediately reset styles
-                card.interrupt().style('opacity', 0).style('display', 'none');
-            
-                // Display the card with the category’s name and years label
-                const infoContent = `<strong>${d.name}</strong><br>${d.yearsLabel ? d.yearsLabel.join(' - ') : ''}`;
-            
-                // Temporarily display the card to measure its height
-                card.style('display', 'block').html(infoContent) // Insert name and yearsLabel
-                    .style('border-color', d.color); // Set the border color to match the category
-                
-                // Get the bounding box of the hovered rectangle
-                const rectBounds = event.target.getBoundingClientRect();
-                
-                // Apply zoom transformation to calculate the correct positions
-                
-                const adjustedY = currentZoomTransform.k * rectBounds.top + currentZoomTransform.y;
-            
-                // Get card height after it's displayed
-                const cardHeight = card.node().offsetHeight;
-                
-                // Determine if the category is below or above the timeline
-                const isBelowTimeline = d.startYear < -300000;
-            
-                // Adjust the card position based on timeline location
-                const cardY = isBelowTimeline
-                    ? adjustedY - cardHeight - 10 + window.scrollY // If below, render above
-                    : adjustedY + rectBounds.height + 10 + window.scrollY; // If above, render below
-            
-                // Set the position of the bigTimelineCard relative to the category
-                card
-                    .style('left', `${rectBounds.left + window.scrollX + rectBounds.width / 2 - card.node().offsetWidth / 2}px`)
-                    .style('top', `${cardY}px`) // Adjust the top to the calculated position
-                    .transition()
-                    .duration(200)
-                    .style('opacity', 1); // Ensure the card smoothly appears
-            
-                // Set the opacity of the hovered category to 1
-                d3.select(event.target).attr('opacity', 1);
-            })
-            .on('mouseout', (event) => {
-                // Hide the card when the mouse leaves the category
-                d3.select('#bigTimelineCard')
-                    .interrupt()
-                    .transition()
-                    .duration(200)
-                    .style('opacity', 0)
-                    .on('end', function () {
-                        d3.select(this).style('display', 'none');
+          .selectAll('rect')
+          .data(categories)
+          .enter()
+          .append('rect')
+          .attr('x', (d) => Math.max(scale(d.startYear), timelineStart))
+          .attr('width', (d) => {
+            const startX = scale(d.startYear);
+            const endX = scale(d.endYear);
+            return Math.max(Math.min(endX, timelineEnd) - Math.max(startX, timelineStart), 0);
+          })
+          .attr('y', (d) => d.startYear < -300000 ? height / 2 : height / 2 - 205)
+          .attr('height', (d) => d.startYear < -300000 ? 365 : 205)
+          .attr('fill', (d) => d.color)
+          .attr('opacity', 0.3)
+          .on('mouseover', (event, d) => {
+            const card = d3.select('#bigTimelineCard');
+        
+            // Interrupt any ongoing transitions and reset styles
+            card.interrupt().style('opacity', 0).style('display', 'none');
+        
+            // Construct the basic info content with the name and yearsLabel
+            let infoContent = `<strong>${d.name}</strong><br>${d.yearsLabel ? d.yearsLabel.join(' - ') : ''}`;
+        
+            // If customInfo exists, iterate through it and append each epoch and duration
+            if (d.customInfo && Array.isArray(d.customInfo)) {
+                infoContent += '<br><br>';
+                d.customInfo.forEach(epoch => {
+                    infoContent += `<div class="custom-info-left"><strong>${epoch.epochName}:</strong> ${epoch.duration}</div>`;
+                });
+            }
+        
+            // If summary exists, add the bullet points
+            if (d.summary && Array.isArray(d.summary)) {
+                infoContent += '<br><ul>';
+                d.summary.forEach(point => {
+                    infoContent += `<li>${point}</li>`;
+                });
+                infoContent += '</ul>';
+            }
+        
+            // If details exist, render section titles and their items with bullet points
+            if (d.details && Array.isArray(d.details)) {
+                infoContent += '<br>';
+                d.details.forEach(section => {
+                    infoContent += `<div class="horizontal-section">
+                        <strong class="section-title">${section.sectionTitle}:</strong>
+                        <ul class="section-items">`;
+                    section.items.forEach(item => {
+                        infoContent += `<li>${item}</li>`;
                     });
-            
-                // Reset the opacity of the category when the mouse leaves
-                d3.select(event.target).attr('opacity', 0.3); // Reset to original opacity
-            });
-    };
+                    infoContent += `</ul></div>`;
+                });
+            }
+        
+            // Display the card with the constructed content
+            card.style('display', 'block')
+                .html(infoContent)
+                .style('border-color', d.color);
+        
+            // Ensure the timeline container exists
+            const timelineBoundsElement = document.querySelector('#timeline-container');
+            console.log('Timeline container:', timelineBoundsElement);
+        
+            if (!timelineBoundsElement) {
+                console.error("Timeline container not found");
+                return;
+            }
+        
+            // Positioning logic for the card
+            const rectBounds = event.target.getBoundingClientRect();
+            console.log('Bounding rect of the target element:', rectBounds);
+        
+            const adjustedY = currentZoomTransform.k * rectBounds.top + currentZoomTransform.y;
+            console.log('Adjusted Y position:', adjustedY);
+        
+            const cardHeight = card.node().offsetHeight;
+            const cardWidth = card.node().offsetWidth;
+            console.log('Card dimensions:', { cardHeight, cardWidth });
+        
+            const timelineBounds = timelineBoundsElement.getBoundingClientRect(); // Boundary checks
+            console.log('Timeline bounds:', timelineBounds);
+        
+            const isBelowTimeline = d.startYear < -300000;
+            const cardY = isBelowTimeline
+                ? adjustedY - cardHeight - 10 + window.scrollY
+                : adjustedY + rectBounds.height + 10 + window.scrollY;
+        
+            console.log('Final card Y position:', cardY);
+        
+            // Calculate initial 'left' position
+            let cardLeft = rectBounds.left + window.scrollX + rectBounds.width / 2 - cardWidth / 2;
+            console.log('Initial card left position:', cardLeft);
+        
+            // Check if the card overflows the timeline's left or right borders
+            if (cardLeft < timelineBounds.left + window.scrollX) {
+                console.log('Card overflows to the left, adjusting position');
+                cardLeft = timelineBounds.left + window.scrollX + 10; // Adjust further to ensure padding
+            } else if (cardLeft + cardWidth > timelineBounds.right + window.scrollX) {
+                console.log('Card overflows to the right, adjusting position');
+                cardLeft = timelineBounds.right + window.scrollX - cardWidth - 10; // Adjust for padding on the right
+            }
+        
+            console.log('Final card left position:', cardLeft);
+        
+            // Set the position and show the card with a transition
+            card.style('left', `${cardLeft}px`)
+                .style('top', `${cardY}px`)
+                .transition()
+                .duration(200)
+                .style('opacity', 1);
+        
+            // Adjust the opacity of the hovered element
+            d3.select(event.target).attr('opacity', 1);
+        })
+        
+        
+        
+          .on('mouseout', (event) => {
+            d3.select('#bigTimelineCard')
+              .interrupt()
+              .transition()
+              .duration(200)
+              .style('opacity', 0)
+              .on('end', function () {
+                d3.select(this).style('display', 'none');
+              });
+  
+            d3.select(event.target).attr('opacity', 0.3);
+          });
+      };
     
+  
   
   
     
@@ -315,73 +493,73 @@ const OhIntroTimeline = () => {
           name: 'Formation of the Earth',
           year: -4.5e9,
           label: '4,500,000,000 BCE',
-          yPosition: 320,
+          yPosition: 280,
         },
         {
           name: 'First life (bacteria)',
           year: -3.8e9,
           label: '3,800,000,000 BCE',
-          yPosition: 360,
+          yPosition: 315,
         },
         {
           name: 'Great Oxidation Event',
           year: -2.4e9,
           label: '2,400,000,000 BCE',
-          yPosition: 400,
+          yPosition: 350,
         },
         {
           name: 'Multicellular organisms',
           year: -1.5e9,
           label: '1,500,000,000 BCE',
-          yPosition: 367,
+          yPosition: 315,
         },
         {
           name: 'Cambrian Explosion',
           year: -541e6,
           label: '541,000,000 BCE',
-          yPosition: 335,
+          yPosition: 280,
         },
         {
           name: 'Colonization of land by plants',
           year: -470e6,
           label: '470,000,000 BCE',
-          yPosition: 292,
+          yPosition: 245,
         },
         {
           name: 'First land animals',
           year: -430e6,
           label: '430,000,000 BCE',
-          yPosition: 247,
+          yPosition: 210,
         },
         {
           name: 'Permian-Triassic Extinction',
           year: -252e6,
           label: '252,000,000 BCE',
-          yPosition: 200,
+          yPosition: 175,
         },
         {
           name: 'Dinosaurs',
           year: -230e6,
           label: '230,000,000 BCE',
-          yPosition: 160,
+          yPosition: 140,
         },
         {
           name: 'Primates',
           year: -55e6,
           label: '55,000,000 BCE',
-          yPosition: 120,
+          yPosition: 105,
         },
         {
           name: 'Walking on two legs',
           year: -7e6,
           label: '7,000,000 BCE',
-          yPosition: 80, // Same as above, as it represents the same event
+          yPosition: 70, // Same as above, as it represents the same event
         },
         {
           name: 'Learning to cook',
           year: -500e3,
           label: '500,000 BCE',
-          yPosition: 40,
+          yPosition: 35,
         },
         {
           name: 'First humans (Homo sapiens)',
@@ -393,31 +571,31 @@ const OhIntroTimeline = () => {
           name: 'First symbolic behavior',
           year: -100e3,
           label: '100,000 BCE',
-          yPosition: -40,
+          yPosition: -35,
         },
         {
           name: 'First art',
           year: -75e3,
           label: '75,000 BCE',
-          yPosition: -80,
+          yPosition: -70,
         },
         {
           name: 'Agricultural revolution and First Cities',
           year: -8000,
           label: '8000 BCE',
-          yPosition: -120,
+          yPosition: -105,
         },
         {
           name: 'Industrial revolution',
           year: 1760,
           label: '1760 CE - 1840 CE',
-          yPosition: -165,
+          yPosition: -140,
         },
         {
           name: 'Today',
           year: 2025,
           label: '2025 CE',
-          yPosition: -205, // Higher up on the screen
+          yPosition: -175, // Higher up on the screen
         },
       ];
 
@@ -523,10 +701,11 @@ const OhIntroTimeline = () => {
   }, []);
 
   return (
-    <div ref={timelineRef}>
-      <div id="bigTimelineCard"></div>
+    <div id="timeline-container" ref={timelineRef}>
+        <div id="bigTimelineCard" className="big-timeline-card"></div>
     </div>
-  );
+);
+  
   
 };
 
