@@ -57,7 +57,9 @@
 .svgtimeline {
   font-family: 'Helvetica', sans-serif;
   padding-left: 100px;
-  padding-top: 50px;
+  padding-top: 0px; /* Reduce or remove the top padding */
+  margin-top: 50px; /* Move the timeline up by 20px (adjust as needed) */
+
 }
 
 .event-label {

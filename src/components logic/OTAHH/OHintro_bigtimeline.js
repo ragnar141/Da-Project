@@ -11,7 +11,7 @@ const OhIntroTimeline = () => {
 
     // Set up the SVG canvas dimensions
     const width = 1350;
-    const height = 400; // Increased height to accommodate labels above and below
+    const height = 530; // Increased height to accommodate labels above and below
     
 
     // Create an SVG element
@@ -217,21 +217,32 @@ const OhIntroTimeline = () => {
       },
       {
         name: 'Paleolithic',
-        yearsLabel: ["3.3 million BCE", "10000 BCE" ],
+        yearsLabel: ["3.3 million BCE", "10 thousand BCE" ],
         startYear: -300000,   // 3.4 million years ago
-        endYear: -11700,     // 11,700 years ago
+        endYear: -10000,     // 11,700 years ago
         color: '#e74c5c', // Red
         customInfo: [
           {"epochName": "Lower Paleolithic", "duration": "~3 million years"},
           {"epochName": "Middle Paleolithic", "duration": "~270 thousand years"},
           {"epochName": "Upper Paleolithic", "duration": "~50 thousand years"}
-        ]
+        ],
+        onhover: [
+          {"timelineDate": "-200000", "data": "<strong>Expansion in Africa</strong>: Homo sapiens began expanding across Africa, adapting to various environments, gradually forming small hunter-gatherer communities.", "year": "200,000 BCE"},
+          {"timelineDate": "-100000", "data": "<strong>Early Migrations Out of Africa</strong>: Some groups of Homo sapiens began migrating out of Africa, moving into the <strong>Middle East</strong> and beyond, leading to interactions with <strong>Neanderthals</strong> in Europe and <strong>Denisovans</strong> in Asia.", "year": "100,000 - 70,000 BCE"},
+          {"timelineDate": "-60000", "data": "Beginning of a second Major Migration Out of Africa, also known as <strong>'Out of Africa II'</strong>, eventually led to populating Europe, Asia, and Australia.", "year": "60,000 - 50,000 BCE"},
+          {"timelineDate": "-40000", "data": "Arrival in Europe: Homo sapiens settling in Europe, eventually replacing Neanderthals. This period saw an explosion of creativity, often referred to as the Upper Paleolithic Revolution.", "year": "40,000 BCE"},
+          {"timelineDate": "-35000", "data": "Explosion of creativity, often referred to as the <strong>Upper Paleolithic Revolution</strong>", "year": "35,000 - 30,000 BCE"},
+          {"timelineDate": "-20000", "data": "<strong>Last Glacial Maximum</strong>: Ice sheets covered much of Europe and North America. Homo sapiens adapted to extreme cold, relying on innovations in clothing, hunting, and shelter.", "year": "20,000 BCE"},
+          {"timelineDate": "-16000", "data": "<strong>Colonization of the Americas</strong>: Homo sapiens reached the <strong>Americas</strong>, likely via a land bridge called <strong>Beringia</strong> that connected Siberia and Alaska during periods of lower sea levels.", "year": "16,000 - 15,000 BCE"},
+          {"timelineDate": "-11000", "data": "<strong>Natufian culture</strong> in the <strong>Levant</strong>: A semi-sedentary lifestyle emerged, with early agriculture, first permanent settlements and construction, marking the split of humanity into <strong>Settlers</strong> and <strong>Hunter-gatherers</strong>", "year": "11,000 BCE"},
+          {"timelineDate": "-10000", "data": "<strong>End of the Last Ice Age</strong>: As the <strong>Pleistocene epoch</strong> ended, temperatures warmed, and ice sheets receded. This climatic shift led to significant changes in flora, fauna, and human activities.", "year": "10,000 BCE"}
+        ],
       },
 
       {
         name: 'Mesolithic',
-        yearsLabel: ["10000 BCE", "8000 BCE" ],
-        startYear: -11700,   // 11,700 years ago
+        yearsLabel: ["10 thousand BCE", "8000 BCE" ],
+        startYear: -10000,   // 11,700 years ago
         endYear: -8000,      // 8,000 years ago
         color: '#2ecc71', // Green
         summary: ["Splitting into Settlers and Hunter-Gatherers",
@@ -354,8 +365,8 @@ const OhIntroTimeline = () => {
             const endX = scale(d.endYear);
             return Math.max(Math.min(endX, timelineEnd) - Math.max(startX, timelineStart), 0);
           })
-          .attr('y', (d) => d.startYear < -300000 ? height / 2 : height / 2 - 205)
-          .attr('height', (d) => d.startYear < -300000 ? 365 : 205)
+          .attr('y', (d) => d.startYear < -300000 ? height / 2 : height / 2 - 260)
+          .attr('height', (d) => d.startYear < -300000 ? 400 : 260)
           .attr('fill', (d) => d.color)
           .attr('opacity', 0.3)
           .on('mouseover', (event, d) => {
@@ -499,61 +510,73 @@ const OhIntroTimeline = () => {
           name: 'First life (bacteria)',
           year: -3.8e9,
           label: '3,800,000,000 BCE',
-          yPosition: 315,
+          yPosition: 350,
         },
         {
           name: 'Great Oxidation Event',
           year: -2.4e9,
           label: '2,400,000,000 BCE',
-          yPosition: 350,
+          yPosition: 382,
         },
         {
           name: 'Multicellular organisms',
           year: -1.5e9,
           label: '1,500,000,000 BCE',
-          yPosition: 315,
+          yPosition: 352,
         },
         {
           name: 'Cambrian Explosion',
           year: -541e6,
           label: '541,000,000 BCE',
-          yPosition: 280,
+          yPosition: 327,
         },
         {
           name: 'Colonization of land by plants',
           year: -470e6,
           label: '470,000,000 BCE',
-          yPosition: 245,
+          yPosition: 295,
         },
         {
           name: 'First land animals',
           year: -430e6,
           label: '430,000,000 BCE',
-          yPosition: 210,
+          yPosition: 262,
         },
         {
           name: 'Permian-Triassic Extinction',
           year: -252e6,
           label: '252,000,000 BCE',
-          yPosition: 175,
+          yPosition: 230,
         },
         {
           name: 'Dinosaurs',
           year: -230e6,
           label: '230,000,000 BCE',
-          yPosition: 140,
+          yPosition: 197,
         },
         {
           name: 'Primates',
           year: -55e6,
           label: '55,000,000 BCE',
-          yPosition: 105,
+          yPosition: 165,
+        },
+        {
+          name: 'First tools (The Oldowan)',
+          year: -33e6,
+          label: '3,300,000 BCE',
+          yPosition: 132, // Same as above, as it represents the same event
         },
         {
           name: 'Walking on two legs',
           year: -7e6,
           label: '7,000,000 BCE',
-          yPosition: 70, // Same as above, as it represents the same event
+          yPosition: 99, // Same as above, as it represents the same event
+        },
+        {
+          name: 'First controlled use of fire',
+          year: -2e6,
+          label: '2,000,000 BCE',
+          yPosition: 67, // Same as above, as it represents the same event
         },
         {
           name: 'Learning to cook',
@@ -571,32 +594,45 @@ const OhIntroTimeline = () => {
           name: 'First symbolic behavior',
           year: -100e3,
           label: '100,000 BCE',
-          yPosition: -35,
+          yPosition: -33,
         },
         {
           name: 'First art',
           year: -75e3,
           label: '75,000 BCE',
-          yPosition: -70,
+          yPosition: -67,
+        },
+        {
+          name: 'Sophisticated tools',
+          year: -30e3,
+          label: '30,000 BCE',
+          yPosition: -102,
+        },
+        {
+          name: 'First rituals, ceremonies and microlothic tools',
+          year: -13e3,
+          label: '13,000 BCE',
+          yPosition: -135,
         },
         {
           name: 'Agricultural revolution and First Cities',
           year: -8000,
           label: '8000 BCE',
-          yPosition: -105,
+          yPosition: -170,
         },
         {
           name: 'Industrial revolution',
           year: 1760,
           label: '1760 CE - 1840 CE',
-          yPosition: -140,
+          yPosition: -205,
         },
         {
           name: 'Today',
           year: 2025,
           label: '2025 CE',
-          yPosition: -175, // Higher up on the screen
-        },
+          yPosition: -240, // Higher up on the screen
+        }
+        
       ];
 
     // Render the timeline elements (circles, lines, and labels)
@@ -684,7 +720,7 @@ const OhIntroTimeline = () => {
 
     // Zoom behavior
     const zoom = d3.zoom()
-      .scaleExtent([1, 500000]) // Set the zoom limits
+      .scaleExtent([1, 1000000]) // Set the zoom limits
       .translateExtent([[0, height], [width, 0]]) // Restrict vertical panning
       .on('zoom', (event) => {
         const transform = event.transform;
