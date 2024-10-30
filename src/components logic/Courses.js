@@ -11,22 +11,22 @@ const courses = [
     hours: 14,
     route: '/courses/on-thinking-and-human-history',
   },
-  {
-    title: 'Public Relations',
-    description: 'Politics, propaganda, war, strategic communication, marketing, and memes.',
-    author: 'Bekzod Maksudhanov',
-    lectures: 6,
-    hours: 10,
-    route: '/courses/public-relations',
-  },
-  {
-    title: 'Modern German Thought: Conclusion of Philosophy',
-    description: 'Tracing the origins of German Idealism, we will examine the history of philosophy and its limits.',
-    author: 'Jay Ryoo',
-    lectures: 9,
-    hours: 18,
-    route: '/courses/modern-german-thought',
-  },
+  // {
+  //   title: 'Public Relations',
+  //   description: 'Politics, propaganda, war, strategic communication, marketing, and memes.',
+  //   author: 'Bekzod Maksudhanov',
+  //   lectures: 6,
+  //   hours: 10,
+  //   route: '/courses/public-relations',
+  // },
+  // {
+  //   title: 'Modern German Thought: Conclusion of Philosophy',
+  //   description: 'Tracing the origins of German Idealism, we will examine the history of philosophy and its limits.',
+  //   author: 'Jay Ryoo',
+  //   lectures: 9,
+  //   hours: 18,
+  //   route: '/courses/modern-german-thought',
+  // },
 ];
 
 function Courses() {

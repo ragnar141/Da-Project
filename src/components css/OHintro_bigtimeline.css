@@ -13,7 +13,7 @@
   opacity: 0.9; /* Slight transparency */
   pointer-events: none; /* Ensure it doesn’t interfere with mouse events */
   white-space: normal; /* Allow text wrapping inside the card */
-  max-width: 800px; /* Set maximum width for the card */
+  max-width: 1000px; /* Set maximum width for the card */
   overflow-wrap: break-word; /* Ensure long words wrap */
 }
 

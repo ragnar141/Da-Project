@@ -11,7 +11,7 @@ const OhIntroTimeline = () => {
 
     // Set up the SVG canvas dimensions
     const width = 1350;
-    const height = 530; // Increased height to accommodate labels above and below
+    const height = 594; // Increased height to accommodate labels above and below
     
 
     // Create an SVG element
@@ -22,27 +22,7 @@ const OhIntroTimeline = () => {
       .attr('height', height)
       .attr('class', 'svgtimeline');
 
-      svg.append('text')
-      .attr('x', -height / 5) // Position it horizontally
-      .attr('y', -50) // Position it vertically near the top
-      .attr('transform', 'rotate(-90)') // Rotate it vertically
-      .attr('text-anchor', 'middle') // Center the text
-      .style('font-size', '20px') // Adjust the font size
-      .style('fill', 'black') // Text color
-      .text('HISTORY'); // The label text
-
-    // Add the vertical "PREHISTORY" label below the timeline
-    svg.append('text')
-      .attr('x', -height ) // Position it horizontally, further down
-      .attr('y', -50) // Position it vertically near the bottom
-      .attr('transform', 'rotate(-90)') // Rotate it vertically
-      .attr('text-anchor', 'middle') // Center the text
-      .style('font-size', '20px') // Adjust the font size
-      .style('fill', 'black') // Text color
-      .text('PREHISTORY'); // The label text
-
- 
-   
+         
       // Define a linear scale for the timeline (to represent large timespans)
     const xScale = d3
       .scaleLinear()
@@ -204,7 +184,7 @@ const OhIntroTimeline = () => {
         ]
       },
       {
-        name: 'Paleolithic',
+        name: 'Paleolithic (Old Stone Age)',
         yearsLabel: ["3.3 million BCE", "10000 BCE" ],
         startYear: -3.4e6,   // 3.4 million years ago
         endYear: -300000,     // 11,700 years ago
@@ -216,16 +196,12 @@ const OhIntroTimeline = () => {
         ]
       },
       {
-        name: 'Paleolithic',
+        name: 'Paleolithic (Old Stone Age)',
         yearsLabel: ["3.3 million BCE", "10 thousand BCE" ],
         startYear: -300000,   // 3.4 million years ago
         endYear: -10000,     // 11,700 years ago
-        color: '#e74c5c', // Red
-        customInfo: [
-          {"epochName": "Lower Paleolithic", "duration": "~3 million years"},
-          {"epochName": "Middle Paleolithic", "duration": "~270 thousand years"},
-          {"epochName": "Upper Paleolithic", "duration": "~50 thousand years"}
-        ],
+        color: '#e74c3c', // Red
+        onhovertitle: "Notable Events",        
         onhover: [
           {"timelineDate": "-200000", "data": "<strong>Expansion in Africa</strong>: Homo sapiens began expanding across Africa, adapting to various environments, gradually forming small hunter-gatherer communities.", "year": "200,000 BCE"},
           {"timelineDate": "-100000", "data": "<strong>Early Migrations Out of Africa</strong>: Some groups of Homo sapiens began migrating out of Africa, moving into the <strong>Middle East</strong> and beyond, leading to interactions with <strong>Neanderthals</strong> in Europe and <strong>Denisovans</strong> in Asia.", "year": "100,000 - 70,000 BCE"},
@@ -240,65 +216,43 @@ const OhIntroTimeline = () => {
       },
 
       {
-        name: 'Mesolithic',
+        name: 'Mesolithic (Middle Stone Age)',
         yearsLabel: ["10 thousand BCE", "8000 BCE" ],
         startYear: -10000,   // 11,700 years ago
         endYear: -8000,      // 8,000 years ago
         color: '#2ecc71', // Green
-        summary: ["Splitting into Settlers and Hunter-Gatherers",
-                  "Developing microliths (small stone tools, that can be used as components of composite tools)",
-                  "Period varies significantly by region, based on local resources and climatic conditions"
-                ]
-            },
-            {
-              name: 'Neolithic',
-              yearsLabel: ["8000 BCE", "3300 BCE"],
-              startYear: -8000,    // 8,000 BCE
-              endYear: -3300,      // 3,300 BCE
-              color: '#3498db', // Blue
-              details: [
-                  {
-                      sectionTitle: "Technological Advancements",
-                      items: [
-                          "Polished stone tools",
-                          "Pottery production",
-                          "Weaving and textile production"
-                      ]
-                  },
-                  {
-                      sectionTitle: "Social/Cultural Changes",
-                      items: [
-                          "Emergence of more complex social structures",
-                          "Population growth (Neolithic demographic transition)",
-                          "Development of trade networks",
-                          "New forms of art and architecture (e.g., megaliths)",
-                          "Religious and ritual practices (e.g., burial customs)"
-                      ]
-                  },
-                  {
-                      sectionTitle: "Regional Variations",
-                      items: [
-                          "Began earlier in the Fertile Crescent (around 10,000 BCE)",
-                          "Spread to other parts of Eurasia, Africa, and beyond over several millennia"
-                      ]
-                  },
-                  {
-                      sectionTitle: "Key Sites",
-                      items: [
-                          "Jericho (one of the earliest known towns)",
-                          "Çatalhöyük (large Neolithic settlement in Turkey)",
-                          "Göbekli Tepe (early temple complex)"
-                      ]
-                  }
-              ]
-          }
-          ,
+        onhovertitle: "First City",
+        onhover: [
+          {"timelineDate": "-9000", "data": "<strong>Jericho</strong> (Levant, modern-day Palestine) One of the oldest continuously inhabited settlements, known for its early urban planning: massive stone walls, tower, suggesting a complex society.", "year": "9000 BCE"},
+        ],
+      },
+      {
+        name: 'Neolithic (New Stone Age)',
+        yearsLabel: ["8000 BCE", "3300 BCE"],
+        startYear: -8000,    // 8,000 BCE
+        endYear: -3300,      // 3,300 BCE
+        color: '#3498db', // Blue
+        onhovertitle: "First Cities",
+        onhover: [
+          {"timelineDate": "-7500", "data": "<strong>Çatalhöyük</strong> (Anatolia, modern-day Turkey) Dense, honeycomb-like homes with roof access, decorated interiors with murals, and evidence of early religious and burial practices.", "year": "7500 BCE"},
+          {"timelineDate": "-5000", "data": "<strong>Byblos</strong> (Levant, modern-day Lebanon) An important trading hub with stone walls, temples, residential buildings and harbor facilities", "year": "5000 BCE"},
+          {"timelineDate": "-4000", "data": "<strong>Uruk</strong> (Mesopotamia, modern-day Iraq) A city with monumental architechture, city walls, administrative buildings, and residential areas. The birthplace of writing (cuneiform)", "year": "4000 BCE"},
+          {"timelineDate": "-3300", "data": "<strong>Harappa</strong> (Indus Valley, modern-day Pakistan) A major city og the Indus Valley Civilization: Grid-pattern streets, brick houses, advanced drainage systems, granaries, and evidence of trade and standardized weights.", "year": "3300 BCE"},
+        ]
+      },
       {
         name: 'Bronze Age',
         yearsLabel: ["3300 BCE", "1200 BCE" ],
         startYear: -3300,    // 3,300 BCE
         endYear: -1200,      // 1,200 BCE
         color: '#f39c12', // Orange
+        onhovertitle: "First forms of Writing",
+        onhover: [
+          {"timelineDate": "-3200", "data": "<strong>Cuneiform</strong> (Mesopotamia)  It began as a system of pictographs, used by the Sumerians to record economic transactions such as grain and livestock counts.", "year": "3200 BCE"},
+          {"timelineDate": "-3100", "data": "<strong>Hieroglyphics</strong> (Egypt)  Hieroglyphics were developed independently around the time of the unification of Upper and Lower Egypt. They were used initially for religious and monumental inscriptions, as seen on temple walls, tombs, and the <strong>Narmer Palette</strong>", "year": "3100 BCE"},
+          {"timelineDate": "-2600", "data": "<strong>Indus Script</strong> (Indus Valley Civilization) The Indus script remains largely undeciphered but is found on seal stones, pottery, and other artifacts from cities like <strong>Harappa</strong> and <strong>Mohenjo-daro</strong>. The script consists of short inscriptions that may represent a form of early writing.", "year": "2,600 – 1,900 BCE"},
+          {"timelineDate": "-1450", "data": "<strong>Linear B</strong> (Greece) Linear B is an early form of Greek writing used primarily for keeping palace records during the Mycenaean period. It was an adaptation of an earlier script known as Linear A (which was used by the Minoan civilization and remains undeciphered). Linear B was used to record inventories, transactions, and administrative data.", "year": "3300 BCE"},
+        ]
       },
       {
         name: 'Iron Age',
@@ -306,6 +260,11 @@ const OhIntroTimeline = () => {
         startYear: -1200,    // 1,200 BCE
         endYear: 500,        // 500 CE
         color: '#9b59b6', // Purple
+        onhovertitle: "First forms of Writing",
+        onhover: [
+          {"timelineDate": "-1200", "data": "<strong>Oracle Bone Script</strong> (China) The earliest known form of Chinese writing was used during the Shang Dynasty (1,600–1,046 BC) for divination and recording royal events. The script was carved into turtle shells or ox bones (oracle bones) as part of rituals where diviners would interpret the cracks formed by heating the bones.", "year": "1200 BCE"},
+          {"timelineDate": "-1050", "data": "<strong>Phoenician Alphabet</strong> (Levant)  Hieroglyphics were developed independently around the time of the unification of Upper and Lower Egypt. They were used initially for religious and monumental inscriptions, as seen on temple walls, tombs, and the <strong>Narmer Palette</strong>", "year": "3100 BCE"},
+        ]
       },
       {
         name: 'Middle Ages',
@@ -365,8 +324,8 @@ const OhIntroTimeline = () => {
             const endX = scale(d.endYear);
             return Math.max(Math.min(endX, timelineEnd) - Math.max(startX, timelineStart), 0);
           })
-          .attr('y', (d) => d.startYear < -300000 ? height / 2 : height / 2 - 260)
-          .attr('height', (d) => d.startYear < -300000 ? 400 : 260)
+          .attr('y', (d) => d.startYear < -300000 ? height / 2 : height / 2 - 30)
+          .attr('height', (d) => d.startYear < -300000 ? 30 : 30)
           .attr('fill', (d) => d.color)
           .attr('opacity', 0.3)
           .on('mouseover', (event, d) => {
@@ -494,41 +453,36 @@ const OhIntroTimeline = () => {
     
 
     const events = [
-        {
-          name: 'Big Bang',
-          year: -13.8e9,
-          label: '13,800,000,000 BCE',
-          yPosition: 0, // Lower means farther down on the screen
-        },
+      {
+        name: 'Big Bang',
+        year: -13.8e9,
+        label: '13,800,000,000 BCE',
+        yPosition: 0, // Lower means farther down on the screen
+        image: '/assets/bigTimeline/bigBang.jpg' // Updated relative path
+    },
         {
           name: 'Formation of the Earth',
           year: -4.5e9,
           label: '4,500,000,000 BCE',
-          yPosition: 280,
+          yPosition: 290,
         },
         {
           name: 'First life (bacteria)',
           year: -3.8e9,
           label: '3,800,000,000 BCE',
-          yPosition: 350,
+          yPosition: 325,
         },
         {
           name: 'Great Oxidation Event',
           year: -2.4e9,
           label: '2,400,000,000 BCE',
-          yPosition: 382,
+          yPosition: 357,
         },
         {
           name: 'Multicellular organisms',
           year: -1.5e9,
           label: '1,500,000,000 BCE',
-          yPosition: 352,
-        },
-        {
-          name: 'Cambrian Explosion',
-          year: -541e6,
-          label: '541,000,000 BCE',
-          yPosition: 327,
+          yPosition: 325,
         },
         {
           name: 'Colonization of land by plants',
@@ -615,6 +569,12 @@ const OhIntroTimeline = () => {
           yPosition: -135,
         },
         {
+          name: 'First writing (Cuneiform)',
+          year: -3100,
+          label: '3100 BCE',
+          yPosition: -205,
+        },
+        {
           name: 'Agricultural revolution and First Cities',
           year: -8000,
           label: '8000 BCE',
@@ -624,13 +584,13 @@ const OhIntroTimeline = () => {
           name: 'Industrial revolution',
           year: 1760,
           label: '1760 CE - 1840 CE',
-          yPosition: -205,
+          yPosition: -240,
         },
         {
           name: 'Today',
           year: 2025,
           label: '2025 CE',
-          yPosition: -240, // Higher up on the screen
+          yPosition: -273, // Higher up on the screen
         }
         
       ];
@@ -669,21 +629,75 @@ const OhIntroTimeline = () => {
       return height / 2 - 1 ; // Lines going upward stop 1px before the circle
     }
   })
-  .attr('stroke', (d) => (isWithinTimeline(scale(d.year)) ? 'white' : 'none')) // Clip lines if outside the timeline
-  .attr('stroke-width', 2);
+  .attr('stroke', (d) => (isWithinTimeline(scale(d.year)) ? 'black' : 'none')) // Clip lines if outside the timeline
+  .attr('stroke-width', 1)
+  .attr('opacity', 0.15);
 
     
-      // Render each event as a circle on the timeline with clipping logic
-      chartGroup
-        .selectAll('circle')
-        .data(events)
-        .enter()
-        .append('circle')
-        .attr('cx', (d) => scale(d.year))
-        .attr('cy', (d) => height / 2 + d.yPosition)
-        .attr('r', (d) => isWithinTimeline(scale(d.year)) ? 5 : 0) // Clip circle if outside the timeline
-        .attr('fill', 'white')
-        .attr('class', 'bigtimelinecircle');
+     // Render each event as a circle on the timeline with clipping logic
+// Create an HTML element for the image (you can place this in your HTML file)
+// Create an HTML element for the image (you can place this in your HTML file)
+// Create an HTML element for the image (you can place this in your HTML file)
+const imageContainer = d3.select('body').append('div')
+    .attr('id', 'hoverImage')
+    .style('position', 'fixed') // Set to fixed to remain in the same place
+    .style('display', 'none') // Hidden by default
+    .style('z-index', 10) // Ensure it's on top of other elements
+    .style('left', '50%') // Center horizontally
+    .style('top', '50%') // Center vertically
+    .style('transform', 'translate(-50%, -50%)') // Correct centering
+    .style('width', '400px') // Set width for the image container
+    .style('height', 'auto'); // Auto height to maintain aspect ratio
+
+chartGroup.selectAll('circle')
+    .data(events)
+    .enter()
+    .append('circle')
+    .attr('cx', (d) => scale(d.year))
+    .attr('cy', (d) => height / 2 + d.yPosition)
+    .attr('r', 5) // Default radius
+    .attr('fill', 'white')
+    .attr('class', 'bigtimelinecircle')
+    .on('mouseover', function (event, d) {
+        // Log the data being hovered over
+        console.log("Hovered data:", d);
+
+        // Log if the image path exists
+        if (d.image) {
+            console.log("Image path exists:", d.image);
+        } else {
+            console.log("No image path for this data.");
+        }
+
+        // Change fill and radius on hover
+        d3.select(this)
+            .attr('fill', '#ffcc00') // Change color to #ffcc00
+            .attr('r', 10); // Increase radius to 10
+
+        // Show the image in the middle of the screen
+        if (d.image) {
+            imageContainer
+                .style('display', 'block')
+                .html(`<img src="${d.image}" style="width: 100%; height: auto;">`); // Insert the image
+
+            // Log the HTML content of the image container to see if the image is inserted correctly
+            console.log("Image container HTML:", imageContainer.html());
+        }
+    })
+    .on('mouseout', function (event, d) {
+        // Revert fill and radius on mouseout
+        d3.select(this)
+            .attr('fill', 'white') // Revert color to original white
+            .attr('r', 5); // Revert radius to original 5
+
+        // Hide the image and log that it's being hidden
+        imageContainer.style('display', 'none');
+        console.log("Image hidden.");
+    });
+
+
+
+
     
       // Render event names to the left of each circle, clipped at the edges
       chartGroup
